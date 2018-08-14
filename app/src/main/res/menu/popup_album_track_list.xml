@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/popup_album_track_list_to_playlist"
+        android:orderInCategory="200"
+        app:showAsAction="never"
+        android:title="プレイリストに追加"/>
+    <item
+        android:id="@+id/popup_album_track_list_to_favorite"
+        android:orderInCategory="300"
+        app:showAsAction="never"
+        android:title="お気に入りの曲に追加"/>
+</menu>

@@ -25,12 +25,11 @@ public class MainActivity
         PlayerFragment.OnFragmentInteractionListener {
 
     private final int PERMISSION_CODE = 1;
-    private Bundle mSavedInstanceState = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mSavedInstanceState = savedInstanceState;
+
         setContentView(R.layout.activity_main);
 
         MusicList.setInstance(this);
@@ -38,7 +37,9 @@ public class MainActivity
         setPager();
     }
 
-
+    /**
+     * スワイプで画面を切り替える
+     */
     private void setPager() {
         ViewPager viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));

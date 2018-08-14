@@ -38,7 +38,9 @@ public class ArtistActivity extends AppCompatActivity {
         setView();
 
         //アーティスト名
-        mArtistNameView.setText(artist.getName());
+        String artistName = artist.getName();
+        setTitle(artistName);
+        mArtistNameView.setText(artistName);
 
         //サムネイル
         ThumbnailController thumbnailController = new ThumbnailController(this);
@@ -67,6 +69,9 @@ public class ArtistActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AlbumClickListener());
     }
 
+    /**
+     *
+     */
     private class AlbumClickListener implements AdapterView.OnItemClickListener {
 
         @Override
