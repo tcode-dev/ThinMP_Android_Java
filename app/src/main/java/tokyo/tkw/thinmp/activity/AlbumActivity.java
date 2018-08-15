@@ -4,13 +4,10 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.view.MenuItem;
 
 import java.util.ArrayList;
 
@@ -21,13 +18,12 @@ import tokyo.tkw.thinmp.fragment.PlayerFragment;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.model.Track;
-import tokyo.tkw.thinmp.listener.TrackClickListener;
 
 public class AlbumActivity extends AppCompatActivity implements PlayerFragment.OnFragmentInteractionListener {
     private ImageView mThumbnailView;
     private TextView mAlbumNameView;
     private TextView mArtistNameView;
-    private ListView mListView;
+    private RecyclerView mListView;
 
     private ArrayList<Track> mTrackList;
 
@@ -56,7 +52,6 @@ public class AlbumActivity extends AppCompatActivity implements PlayerFragment.O
         mTrackList = MusicList.getAlbumTrackList(albumId);
 
         setAdapter();
-        setListener();
     }
 
     private void setView() {
@@ -67,12 +62,10 @@ public class AlbumActivity extends AppCompatActivity implements PlayerFragment.O
     }
 
     private void setAdapter() {
-        AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(this, R.layout.album_track_list_item, mTrackList);
+        AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(this, mTrackList);
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
-    }
-
-    private void setListener() {
-        mListView.setOnItemClickListener(new TrackClickListener(this, mTrackList));
     }
 
     @Override

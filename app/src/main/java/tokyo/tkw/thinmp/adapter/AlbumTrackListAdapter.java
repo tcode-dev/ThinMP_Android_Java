@@ -2,12 +2,11 @@ package tokyo.tkw.thinmp.adapter;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +14,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.favorite.FavoriteManager;
+import tokyo.tkw.thinmp.listener.ItemClickListener;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.model.Track;
 
@@ -22,79 +23,33 @@ import tokyo.tkw.thinmp.model.Track;
  * Created by tk on 2018/03/22.
  */
 
-public class AlbumTrackListAdapter extends ArrayAdapter<Track> {
+public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListAdapter.AlbumTrackListViewHolder> {
     private Activity mContext;
-    private int mResource;
-    private LayoutInflater mInflater;
-    private ThumbnailController mThumbnailController;
-
     private ArrayList<Track> mTrackList;
 
-    public AlbumTrackListAdapter(@NonNull Activity context, int resource, @NonNull ArrayList<Track> trackList) {
-        super(context, resource, trackList);
-
+    public AlbumTrackListAdapter(@NonNull Activity context, @NonNull ArrayList<Track> trackList) {
         mContext = context;
-        mResource = resource;
-        mInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        mThumbnailController = new ThumbnailController(context);
         mTrackList = trackList;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //view取得
-        View view = getView(convertView);
-        //曲取得
-        Track track = getTrack(position);
-        //曲名設定
-        setTitle(view, track.getTitle());
-        //ポップアップメニュー設定
-        setPopupMenu(view, track.getId());
+    public AlbumTrackListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_track_list_item, parent, false);
 
-        return view;
+        return new AlbumTrackListViewHolder(view);
     }
 
-    /**
-     * view取得
-     * @param convertView
-     * @return
-     */
-    private View getView(View convertView) {
-        if (convertView != null) {
-            return convertView;
-        } else {
-            return mInflater.inflate(mResource, null);
-        }
+    @Override
+    public void onBindViewHolder(AlbumTrackListViewHolder holder, int position) {
+        Track track = mTrackList.get(position);
+        holder.mTitleView.setText(track.getTitle());
+        holder.itemView.setOnClickListener(new ItemClickListener(mContext, mTrackList, position));
+        holder.mPopupMenu.setOnClickListener(new ViewOnClickListener(track.getId()));
     }
 
-    /**
-     * 曲取得
-     * @param position
-     * @return
-     */
-    private Track getTrack(int position) {
-        return mTrackList.get(position);
-    }
-
-    /**
-     * 曲名設定
-     * @param view
-     * @param title
-     */
-    private void setTitle(View view, String title) {
-        TextView titleView = view.findViewById(R.id.title);
-        titleView.setText(title);
-    }
-
-    /**
-     * ポップアップメニュー設定
-     * @param view
-     * @param trackId
-     */
-    private void setPopupMenu(View view, String trackId) {
-        View popupMenu = view.findViewById(R.id.popup_album_menu);
-        popupMenu.setOnClickListener(new ViewOnClickListener(trackId));
+    @Override
+    public int getItemCount() {
+        return mTrackList.size();
     }
 
     /**
@@ -103,11 +58,21 @@ public class AlbumTrackListAdapter extends ArrayAdapter<Track> {
      * @param trackId
      */
     public void showPopupMenu(View view, String trackId) {
-        PopupMenu popupMenu;
-        popupMenu = new PopupMenu(mContext, view);
+        int hiddenFavorite = FavoriteManager.exists(trackId) ? R.id.add_favorite : R.id.del_favorite;
+        PopupMenu popupMenu = new PopupMenu(mContext, view);
         popupMenu.getMenuInflater().inflate(R.menu.popup_album_track_list, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenuClickListener(trackId));
+        popupMenu.getMenu().findItem(hiddenFavorite).setVisible(false);
         popupMenu.show();
+    }
+
+    public void setFavorite(String trackId) {
+        FavoriteManager.set(trackId);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
     }
 
     /**
@@ -139,18 +104,39 @@ public class AlbumTrackListAdapter extends ArrayAdapter<Track> {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.popup_album_track_list_to_playlist:
-                case R.id.popup_album_track_list_to_favorite:
+                case R.id.playlist:
                     Toast.makeText(
                             mContext,
                             mTrackId + " の選択",
                             Toast.LENGTH_SHORT).show();
                     return true;
-                default:
+                case R.id.add_favorite:
+                    setFavorite(mTrackId);
+
+                    return true;
+                case R.id.del_favorite:
+                    setFavorite(mTrackId);
+
+                    return true;
+                    default:
                     break;
             }
 
             return false;
+        }
+    }
+
+
+    public class AlbumTrackListViewHolder extends RecyclerView.ViewHolder {
+        public TextView mTitleView;
+        public View mPopupMenu;
+
+
+        public AlbumTrackListViewHolder(View view) {
+            super(view);
+
+            mTitleView = view.findViewById(R.id.title);
+            mPopupMenu = view.findViewById(R.id.popup_album_menu);
         }
     }
 }
