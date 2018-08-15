@@ -2,9 +2,6 @@ package tokyo.tkw.thinmp.model;
 
 import android.net.Uri;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 /**
  * Created by tk on 2018/03/22.
  */

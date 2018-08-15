@@ -28,13 +28,13 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
 
     private ArrayList<Track> mTrackList;
 
-    public TrackListAdapter(@NonNull Activity context, int resource, @NonNull ArrayList<Track> tracklist) {
-        super(context, resource, tracklist);
+    public TrackListAdapter(@NonNull Activity context, int resource, @NonNull ArrayList<Track> trackList) {
+        super(context, resource, trackList);
 
         mResource = resource;
         mInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         mThumbnailController = new ThumbnailController(context);
-        mTrackList = tracklist;
+        mTrackList = trackList;
     }
 
     @NonNull
