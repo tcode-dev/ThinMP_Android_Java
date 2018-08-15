@@ -2,12 +2,9 @@ package tokyo.tkw.thinmp.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,8 +15,9 @@ import tokyo.tkw.thinmp.favorite.Favorite;
 import tokyo.tkw.thinmp.model.Track;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.viewHolder.FavoriteViewHolder;
 
-public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, FavoriteListAdapter.FavoriteViewHolder> {
+public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, FavoriteViewHolder> {
     private Activity mContext;
     private ThumbnailController mThumbnailController;
     private ArrayList<Track> mTrackList;
@@ -58,19 +56,4 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Favo
     private Bitmap getThumbnail(String id) {
         return mThumbnailController.getThumbnail(id);
     }
-
-    public class FavoriteViewHolder extends RecyclerView.ViewHolder {
-        public ImageView thumbnail;
-        public TextView track;
-        public TextView artist;
-
-        public FavoriteViewHolder(View itemView) {
-            super(itemView);
-
-            thumbnail = itemView.findViewById(R.id.thumbnail);
-            track = itemView.findViewById(R.id.track);
-            artist = itemView.findViewById(R.id.artist);
-        }
-    }
 }
-

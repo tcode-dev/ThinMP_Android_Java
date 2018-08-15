@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,14 +15,14 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteManager;
 import tokyo.tkw.thinmp.listener.ItemClickListener;
-import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
 
 /**
  * Created by tk on 2018/03/22.
  */
 
-public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListAdapter.AlbumTrackListViewHolder> {
+public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListViewHolder> {
     private Activity mContext;
     private ArrayList<Track> mTrackList;
 
@@ -118,25 +117,11 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListAd
                     setFavorite(mTrackId);
 
                     return true;
-                    default:
+                default:
                     break;
             }
 
             return false;
-        }
-    }
-
-
-    public class AlbumTrackListViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTitleView;
-        public View mPopupMenu;
-
-
-        public AlbumTrackListViewHolder(View view) {
-            super(view);
-
-            mTitleView = view.findViewById(R.id.title);
-            mPopupMenu = view.findViewById(R.id.popup_album_menu);
         }
     }
 }
