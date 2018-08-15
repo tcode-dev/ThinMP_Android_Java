@@ -131,6 +131,15 @@ public class MusicList {
     }
 
     /**
+     * trackを取得
+     *
+     * @return
+     */
+    public static Track getTrack(String id) {
+        return instance.mTrackList.getTrack(id);
+    }
+
+    /**
      * ストレージから曲一覧を取得
      */
     private Cursor getCursor() {

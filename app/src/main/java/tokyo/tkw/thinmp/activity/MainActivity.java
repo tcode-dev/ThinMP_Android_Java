@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import tokyo.tkw.thinmp.favorite.FavoriteManager;
+import tokyo.tkw.thinmp.fragment.FavoriteListFragment;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.ViewPagerAdapter;
@@ -22,7 +24,8 @@ public class MainActivity
         ArtistListFragment.OnFragmentInteractionListener,
         AlbumListFragment.OnFragmentInteractionListener,
         TrackListFragment.OnFragmentInteractionListener,
-        PlayerFragment.OnFragmentInteractionListener {
+        PlayerFragment.OnFragmentInteractionListener,
+        FavoriteListFragment.OnFragmentInteractionListener {
 
     private final int PERMISSION_CODE = 1;
 
@@ -33,6 +36,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
 
         MusicList.setInstance(this);
+        FavoriteManager.setInstance(this);
 
         setPager();
     }
