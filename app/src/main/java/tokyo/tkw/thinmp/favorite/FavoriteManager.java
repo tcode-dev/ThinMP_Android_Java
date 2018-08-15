@@ -19,7 +19,7 @@ public class FavoriteManager {
     public void update(String trackId) {
         Realm.init(mContext);
         Realm realm = Realm.getDefaultInstance();
-        Favorite favorite = realm.where(Favorite.class).equalTo("track_id", trackId).findFirst();
+        Favorite favorite = realm.where(Favorite.class).equalTo("trackId", trackId).findFirst();
 
         realm.beginTransaction();
 
@@ -36,7 +36,7 @@ public class FavoriteManager {
         Realm.init(mContext);
         Realm realm = Realm.getDefaultInstance();
 
-        return realm.where(Favorite.class).equalTo("track_id", trackId).findFirst();
+        return realm.where(Favorite.class).equalTo("trackId", trackId).findFirst();
     }
 
     public static void set(String trackId) {

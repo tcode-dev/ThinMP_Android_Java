@@ -2,7 +2,6 @@ package tokyo.tkw.thinmp.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.Favorite;
-import tokyo.tkw.thinmp.listener.ItemClickListener;
 import tokyo.tkw.thinmp.model.Track;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.util.ThumbnailController;
@@ -44,7 +42,7 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Favo
     @Override
     public void onBindViewHolder(FavoriteViewHolder holder, int position) {
         final Favorite favorite = getItem(position);
-        final Track track = getTrack(favorite.getTrack_id());
+        final Track track = getTrack(favorite.getTrackId());
 
         holder.thumbnail.setImageBitmap(getThumbnail(track.getThumbnailId()));
         holder.track.setText(track.getTitle());

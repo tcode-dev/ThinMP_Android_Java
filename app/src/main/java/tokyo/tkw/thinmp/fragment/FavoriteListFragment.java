@@ -86,7 +86,7 @@ public class FavoriteListFragment extends Fragment {
 
         Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<Favorite> favoriteList = realm.where(Favorite.class).findAll();
+        RealmResults<Favorite> favoriteList = realm.where(Favorite.class).findAll().sort("createdAt");
 
         ArrayList<Track> trackList = getTrackList(favoriteList);
 
@@ -141,7 +141,7 @@ public class FavoriteListFragment extends Fragment {
 
         for (Favorite favorite: favoriteList) {
 
-            Track track = MusicList.getTrack(favorite.getTrack_id());
+            Track track = MusicList.getTrack(favorite.getTrackId());
 
             trackList.add(track);
         }

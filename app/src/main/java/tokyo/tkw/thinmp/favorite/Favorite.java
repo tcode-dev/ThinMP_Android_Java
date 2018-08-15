@@ -1,21 +1,20 @@
 package tokyo.tkw.thinmp.favorite;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Favorite extends RealmObject {
     @PrimaryKey
-    private String track_id;
+    private String trackId;
+    private Date createdAt = new Date();
 
-    public String getTrack_id() {
-        return track_id;
+    public String getTrackId() {
+        return trackId;
     }
 
-    public void setTrack_id(String track_id) {
-        this.track_id = track_id;
-    }
-
-    public void set(String track_id) {
-        setTrack_id(track_id);
+    public void setTrackId(String trackId) {
+        this.trackId = trackId;
     }
 }
