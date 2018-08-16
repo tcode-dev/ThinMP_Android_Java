@@ -1,22 +1,22 @@
 package tokyo.tkw.thinmp.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.model.Track;
-import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.adapter.TrackListAdapter;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +29,7 @@ import tokyo.tkw.thinmp.adapter.TrackListAdapter;
 public class TrackListFragment extends Fragment {
     private View mFragmentView;
     private ArrayList<Track> mTrackList;
-    private ListView mListView;
+    private RecyclerView mListView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,10 +78,11 @@ public class TrackListFragment extends Fragment {
                              Bundle savedInstanceState) {
         /* Inflate the layout for this fragment */
         mFragmentView = inflater.inflate(R.layout.fragment_track_list, container, false);
+
         setView();
         setTrackList();
         setAdapter();
-        setListener();
+
         return mFragmentView;
     }
 
@@ -133,11 +134,10 @@ public class TrackListFragment extends Fragment {
     }
 
     private void setAdapter() {
-        TrackListAdapter adapter = new TrackListAdapter(getActivity(), R.layout.track_list_item, mTrackList);
+        Activity context = getActivity();
+        TrackListAdapter adapter = new TrackListAdapter(context, mTrackList);
+        LinearLayoutManager layout = new LinearLayoutManager(context);
+        mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
-    }
-
-    private void setListener() {
-        mListView.setOnItemClickListener(new TrackClickListener(getActivity(), mTrackList));
     }
 }

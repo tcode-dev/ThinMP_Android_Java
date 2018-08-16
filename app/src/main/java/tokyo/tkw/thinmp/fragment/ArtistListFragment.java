@@ -19,7 +19,6 @@ import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.ArtistActivity;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the

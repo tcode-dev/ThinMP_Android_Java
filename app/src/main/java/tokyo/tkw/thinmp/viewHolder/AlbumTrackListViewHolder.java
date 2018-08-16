@@ -7,14 +7,14 @@ import android.widget.TextView;
 import tokyo.tkw.thinmp.R;
 
 public class AlbumTrackListViewHolder extends RecyclerView.ViewHolder {
-    public TextView mTitleView;
-    public View mPopupMenu;
+    public TextView titleView;
+    public View popupMenu;
 
 
     public AlbumTrackListViewHolder(View view) {
         super(view);
 
-        mTitleView = view.findViewById(R.id.title);
-        mPopupMenu = view.findViewById(R.id.popup_album_menu);
+        titleView = view.findViewById(R.id.title);
+        popupMenu = view.findViewById(R.id.popup_album_menu);
     }
 }

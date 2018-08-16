@@ -7,12 +7,12 @@ import android.widget.TextView;
 
 import tokyo.tkw.thinmp.R;
 
-public class FavoriteViewHolder extends RecyclerView.ViewHolder {
+public class TrackViewHolder extends RecyclerView.ViewHolder {
     public ImageView thumbnail;
     public TextView track;
     public TextView artist;
 
-    public FavoriteViewHolder(View view) {
+    public TrackViewHolder(View view) {
         super(view);
 
         thumbnail = view.findViewById(R.id.thumbnail);

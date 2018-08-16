@@ -15,9 +15,9 @@ import tokyo.tkw.thinmp.favorite.Favorite;
 import tokyo.tkw.thinmp.model.Track;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.util.ThumbnailController;
-import tokyo.tkw.thinmp.viewHolder.FavoriteViewHolder;
+import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
-public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, FavoriteViewHolder> {
+public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, TrackViewHolder> {
     private Activity mContext;
     private ThumbnailController mThumbnailController;
     private ArrayList<Track> mTrackList;
@@ -31,14 +31,14 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Favo
     }
 
     @Override
-    public FavoriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_row, parent, false);
+    public TrackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_row, parent, false);
 
-        return new FavoriteViewHolder(view);
+        return new TrackViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FavoriteViewHolder holder, int position) {
+    public void onBindViewHolder(TrackViewHolder holder, int position) {
         final Favorite favorite = getItem(position);
         final Track track = getTrack(favorite.getTrackId());
 

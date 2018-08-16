@@ -3,64 +3,59 @@ package tokyo.tkw.thinmp.adapter;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.listener.ItemClickListener;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 /**
  * Created by tk on 2018/03/22.
  */
 
-public class TrackListAdapter extends ArrayAdapter<Track> {
-    private int mResource;
-    private LayoutInflater mInflater;
+public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
+    private Activity mContext;
     private ThumbnailController mThumbnailController;
 
     private ArrayList<Track> mTrackList;
 
-    public TrackListAdapter(@NonNull Activity context, int resource, @NonNull ArrayList<Track> trackList) {
-        super(context, resource, trackList);
-
-        mResource = resource;
-        mInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+    public TrackListAdapter(@NonNull Activity context, @NonNull ArrayList<Track> trackList) {
+        mContext = context;
         mThumbnailController = new ThumbnailController(context);
         mTrackList = trackList;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public TrackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_row, parent, false);
 
-        View view;
+        return new TrackViewHolder(view);
+    }
 
-        if (convertView != null) {
-            view = convertView;
-        } else {
-            view = mInflater.inflate(mResource, null);
-        }
+    @Override
+    public void onBindViewHolder(TrackViewHolder holder, int position) {
+        Track track = mTrackList.get(position);
 
-        Track item = mTrackList.get(position);
+        holder.thumbnail.setImageBitmap(getThumbnail(track.getThumbnailId()));
+        holder.track.setText(track.getTitle());
+        holder.artist.setText(track.getArtistName());
+        holder.itemView.setOnClickListener(new ItemClickListener(mContext, mTrackList, position));
+//        holder.mPopupMenu.setOnClickListener(new AlbumTrackListAdapter.ViewOnClickListener(track.getId()));
+    }
 
-        ImageView thumbnailView = view.findViewById(R.id.thumbnail);
-        Bitmap thumbnail = mThumbnailController.getThumbnail(item.getThumbnailId());
-        thumbnailView.setImageBitmap(thumbnail);
+    @Override
+    public int getItemCount() {
+        return mTrackList.size();
+    }
 
-        TextView track = view.findViewById(R.id.track);
-        track.setText(item.getTitle());
-
-        TextView artist = view.findViewById(R.id.artist);
-        artist.setText(item.getArtistName());
-
-        return view;
+    private Bitmap getThumbnail(String id) {
+        return mThumbnailController.getThumbnail(id);
     }
 }
