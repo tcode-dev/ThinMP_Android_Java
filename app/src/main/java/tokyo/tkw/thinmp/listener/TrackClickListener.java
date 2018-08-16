@@ -24,5 +24,4 @@ public class TrackClickListener implements View.OnClickListener {
         MusicController.set(mContext, mTrackList, mPosition);
         MusicController.start();
     }
-
 }

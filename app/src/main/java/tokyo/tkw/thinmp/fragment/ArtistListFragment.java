@@ -1,10 +1,13 @@
 package tokyo.tkw.thinmp.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.model.Artist;
 import tokyo.tkw.thinmp.adapter.ArtistListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
@@ -29,7 +33,7 @@ import tokyo.tkw.thinmp.activity.ArtistActivity;
  */
 public class ArtistListFragment extends Fragment {
     private View mArtistListView;
-    private ListView mListView;
+    private RecyclerView mListView;
 
     private ArrayList<Artist> mArtistList;
 
@@ -83,7 +87,6 @@ public class ArtistListFragment extends Fragment {
         setArtistList();
         setView();
         setAdapter();
-        setListener();
         return mArtistListView;
     }
 
@@ -131,27 +134,14 @@ public class ArtistListFragment extends Fragment {
     }
 
     private void setView() {
-        mListView = mArtistListView.findViewById(R.id.artist_list);
+        mListView = mArtistListView.findViewById(R.id.list);
     }
 
     private void setAdapter() {
-        ArtistListAdapter adapter = new ArtistListAdapter(getActivity(), R.layout.artist_list_item, mArtistList);
+        Activity context = getActivity();
+        LinearLayoutManager layout = new LinearLayoutManager(context);
+        ArtistListAdapter adapter = new ArtistListAdapter(context, mArtistList);
+        mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
-    }
-
-    private void setListener() {
-        mListView.setOnItemClickListener(new ArtistClickListener());
-    }
-
-    private class ArtistClickListener implements AdapterView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Artist artist = mArtistList.get(position);
-
-            Intent intent = new Intent(getActivity(), ArtistActivity.class);
-            intent.putExtra("artist_id", artist.getId());
-            startActivity(intent);
-        }
     }
 }

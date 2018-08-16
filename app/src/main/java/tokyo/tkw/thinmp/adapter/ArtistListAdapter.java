@@ -1,63 +1,53 @@
 package tokyo.tkw.thinmp.adapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.model.Artist;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
 /**
  * Created by tk on 2018/03/22.
  */
 
-public class ArtistListAdapter extends ArrayAdapter<Artist> {
-    private int mResource;
-    private LayoutInflater mInflater;
+public class ArtistListAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
+    private Activity mContext;
     private ThumbnailController mThumbnailController;
 
     private ArrayList<Artist> mArtistList;
 
-    public ArtistListAdapter(@NonNull Activity context, int resource, @NonNull ArrayList<Artist> artistList) {
-        super(context, resource, artistList);
-
-        mResource = resource;
-        mInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+    public ArtistListAdapter(@NonNull Activity context, @NonNull ArrayList<Artist> artistList) {
+        mContext = context;
         mThumbnailController = new ThumbnailController(context);
         mArtistList = artistList;
     }
-
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_row, parent, false);
 
-        View view;
+        return new ArtistViewHolder(view);
+    }
 
-        if (convertView != null) {
-            view = convertView;
-        } else {
-            view = mInflater.inflate(mResource, null);
-        }
-
+    @Override
+    public void onBindViewHolder(ArtistViewHolder holder, int position) {
         Artist artist = mArtistList.get(position);
 
-        ImageView thumbnailView = view.findViewById(R.id.thumbnail);
-        Bitmap thumbnail = mThumbnailController.getThumbnail(artist.getThumbnailId());
-        thumbnailView.setImageBitmap(thumbnail);
+        holder.thumbnail.setImageBitmap(mThumbnailController.getThumbnail(artist.getThumbnailId()));
+        holder.artist.setText(artist.getName());
+        holder.itemView.setOnClickListener(new ArtistClickListener(mContext, artist.getId()));
+    }
 
-        TextView artistNameView = view.findViewById(R.id.artist);
-        artistNameView.setText(artist.getName());
-
-        return view;
+    @Override
+    public int getItemCount() {
+        return mArtistList.size();
     }
 }
