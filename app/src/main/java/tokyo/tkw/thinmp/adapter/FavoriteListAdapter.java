@@ -12,6 +12,7 @@ import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.Favorite;
+import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.model.Track;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.util.ThumbnailController;
@@ -46,7 +47,7 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Trac
         holder.track.setText(track.getTitle());
         holder.artist.setText(track.getArtistName());
 
-        holder.itemView.setOnClickListener(new tokyo.tkw.thinmp.listener.ItemClickListener(mContext, mTrackList, position));
+        holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
     }
 
     private Track getTrack(String id) {

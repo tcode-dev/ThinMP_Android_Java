@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.model.Track;
 import tokyo.tkw.thinmp.player.MusicController;
 
-public class ItemClickListener implements View.OnClickListener {
+public class TrackClickListener implements View.OnClickListener {
     private Activity mContext;
     private ArrayList<Track> mTrackList;
     private int mPosition;
 
-    public ItemClickListener(Activity context, ArrayList<Track> trackList, int position) {
+    public TrackClickListener(Activity context, ArrayList<Track> trackList, int position) {
         mContext = context;
         mTrackList = trackList;
         mPosition = position;
