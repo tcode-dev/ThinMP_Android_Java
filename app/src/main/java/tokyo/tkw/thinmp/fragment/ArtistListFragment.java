@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.model.Artist;
+import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.adapter.ArtistListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;

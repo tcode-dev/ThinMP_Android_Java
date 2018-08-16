@@ -16,7 +16,7 @@ public class ArtistClickListener implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
         Intent intent = new Intent(mContext, ArtistActivity.class);
         intent.putExtra("artist_id", mArtistId);
         mContext.startActivity(intent);

@@ -3,7 +3,7 @@ package tokyo.tkw.thinmp.favorite;
 import java.util.ArrayList;
 
 import io.realm.RealmResults;
-import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.music.MusicList;
 
 public class FavoriteList {

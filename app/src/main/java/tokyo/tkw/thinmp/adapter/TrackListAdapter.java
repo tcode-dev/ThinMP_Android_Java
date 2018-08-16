@@ -14,7 +14,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.OpenTrackMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.util.ThumbnailController;
-import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 /**

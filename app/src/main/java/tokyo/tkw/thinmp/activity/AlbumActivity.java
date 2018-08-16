@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.model.Album;
+import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.adapter.AlbumTrackListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.fragment.PlayerFragment;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ThumbnailController;
-import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.music.Track;
 
 public class AlbumActivity extends AppCompatActivity implements PlayerFragment.OnFragmentInteractionListener {
     private ImageView mThumbnailView;

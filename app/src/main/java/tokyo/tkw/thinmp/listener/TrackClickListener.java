@@ -5,7 +5,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.player.MusicController;
 
 public class TrackClickListener implements View.OnClickListener {

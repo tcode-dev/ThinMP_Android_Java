@@ -13,7 +13,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteRegister;
 import tokyo.tkw.thinmp.listener.OpenTrackMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
-import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
 
 /**

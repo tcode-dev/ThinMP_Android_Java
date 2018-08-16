@@ -6,7 +6,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.music.Track;
 
 /**
  * Created by tk on 2018/03/19.

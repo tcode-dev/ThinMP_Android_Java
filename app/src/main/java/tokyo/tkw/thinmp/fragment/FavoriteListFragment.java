@@ -20,7 +20,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteListAdapter;
 import tokyo.tkw.thinmp.favorite.Favorite;
 import tokyo.tkw.thinmp.favorite.FavoriteList;
-import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.music.Track;
 
 /**
  * A simple {@link Fragment} subclass.

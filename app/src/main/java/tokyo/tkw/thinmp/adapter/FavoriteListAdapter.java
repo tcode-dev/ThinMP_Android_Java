@@ -8,18 +8,13 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import io.realm.OrderedCollectionChangeSet;
 import io.realm.OrderedRealmCollection;
-import io.realm.OrderedRealmCollectionChangeListener;
-import io.realm.Realm;
-import io.realm.RealmChangeListener;
 import io.realm.RealmRecyclerViewAdapter;
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.Favorite;
 import tokyo.tkw.thinmp.listener.OpenTrackMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
-import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;

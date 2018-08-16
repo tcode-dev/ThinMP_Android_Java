@@ -7,9 +7,6 @@ import android.provider.MediaStore;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.model.Album;
-import tokyo.tkw.thinmp.model.Artist;
-import tokyo.tkw.thinmp.model.Track;
 import tokyo.tkw.thinmp.util.StorageController;
 
 import static android.net.Uri.parse;

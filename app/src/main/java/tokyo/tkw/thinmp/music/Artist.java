@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.model;
+package tokyo.tkw.thinmp.music;
 
 import java.util.ArrayList;
 
@@ -6,19 +6,16 @@ import java.util.ArrayList;
  * Created by tk on 2018/03/22.
  */
 
-public class Album {
+public class Artist {
     private String id;
     private String name;
-    private String artistId;
-    private String artistName;
     private String thumbnailId;
+    private ArrayList<String> albumIdList = new ArrayList<String>();
     private ArrayList<String> trackIdList = new ArrayList<String>();
 
-    public Album(String id, String name, String artistId, String artistName, String thumbnailId) {
+    public Artist(String id, String name, String thumbnailId) {
         this.id = id;
         this.name = name;
-        this.artistId = artistId;
-        this.artistName = artistName;
         this.thumbnailId = thumbnailId;
     }
 
@@ -30,12 +27,18 @@ public class Album {
         return name;
     }
 
-    public String getArtistName() {
-        return artistName;
-    }
-
     public String getThumbnailId() {
         return thumbnailId;
+    }
+
+    public ArrayList<String> getAlbumIdList() {
+        return albumIdList;
+    }
+
+    public void addAlbumId(String id) {
+        if (albumIdList.contains(id)) return;
+
+        albumIdList.add(id);
     }
 
     public ArrayList<String> getTrackIdList() {

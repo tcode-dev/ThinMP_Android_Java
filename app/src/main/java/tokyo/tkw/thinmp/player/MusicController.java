@@ -5,7 +5,7 @@ import android.app.Activity;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.fragment.PlayerFragment;
-import tokyo.tkw.thinmp.model.Track;
+import tokyo.tkw.thinmp.music.Track;
 
 public class  MusicController {
     private static MusicPlayer mMusicPlayer;

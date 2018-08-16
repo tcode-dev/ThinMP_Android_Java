@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
-import tokyo.tkw.thinmp.model.Artist;
+import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;

@@ -3,9 +3,6 @@ package tokyo.tkw.thinmp.music;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import tokyo.tkw.thinmp.model.Artist;
-import tokyo.tkw.thinmp.model.Track;
-
 /**
  * Created by tk on 2018/03/23.
  */

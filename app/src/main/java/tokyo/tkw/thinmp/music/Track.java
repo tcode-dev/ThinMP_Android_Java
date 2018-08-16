@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.model;
+package tokyo.tkw.thinmp.music;
 
 import android.net.Uri;
 
