@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,8 +19,8 @@ import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteListAdapter;
 import tokyo.tkw.thinmp.favorite.Favorite;
+import tokyo.tkw.thinmp.favorite.FavoriteList;
 import tokyo.tkw.thinmp.model.Track;
-import tokyo.tkw.thinmp.music.MusicList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,12 +88,14 @@ public class FavoriteListFragment extends Fragment {
         Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Favorite> favoriteList = realm.where(Favorite.class).findAll().sort("createdAt");
-
-        ArrayList<Track> trackList = getTrackList(favoriteList);
-
+        ArrayList<Track> trackList = FavoriteList.getTrackList(favoriteList);
         FavoriteListAdapter adapter = new FavoriteListAdapter(context, favoriteList, trackList);
         favoriteListView.setAdapter(adapter);
 
+        // 区切り線の描画
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                context, new LinearLayoutManager(context).getOrientation());
+        favoriteListView.addItemDecoration(dividerItemDecoration);
         return view;
     }
 
@@ -133,19 +136,5 @@ public class FavoriteListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    private ArrayList<Track> getTrackList(RealmResults<Favorite> favoriteList) {
-
-        ArrayList<Track> trackList = new ArrayList<Track>();
-
-        for (Favorite favorite: favoriteList) {
-
-            Track track = MusicList.getTrack(favorite.getTrackId());
-
-            trackList.add(track);
-        }
-
-        return trackList;
     }
 }

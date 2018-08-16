@@ -43,6 +43,7 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
 
         holder.thumbnail.setImageBitmap(mThumbnailController.getThumbnail(artist.getThumbnailId()));
         holder.artist.setText(artist.getName());
+
         holder.itemView.setOnClickListener(new ArtistClickListener(mContext, artist.getId()));
     }
 

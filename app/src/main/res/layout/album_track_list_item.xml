@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
@@ -28,7 +27,6 @@
             android:id="@+id/popup_album_menu"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_weight="1"
             app:srcCompat="@drawable/open_menu" />
     </LinearLayout>
 

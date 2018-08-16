@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -66,6 +67,11 @@ public class AlbumActivity extends AppCompatActivity implements PlayerFragment.O
         LinearLayoutManager layout = new LinearLayoutManager(this);
         mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
+
+        // 区切り線の描画
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                this, new LinearLayoutManager(this).getOrientation());
+        mListView.addItemDecoration(dividerItemDecoration);
     }
 
     @Override

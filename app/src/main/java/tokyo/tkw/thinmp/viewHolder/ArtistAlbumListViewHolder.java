@@ -17,6 +17,5 @@ public class ArtistAlbumListViewHolder extends RecyclerView.ViewHolder {
 
         thumbnail = view.findViewById(R.id.thumbnail);
         albumName = view.findViewById(R.id.albumName);
-        albumName = view.findViewById(R.id.albumName);
     }
 }

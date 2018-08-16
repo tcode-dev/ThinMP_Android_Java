@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.listener.OpenTrackMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.model.Track;
@@ -46,8 +47,9 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
         holder.thumbnail.setImageBitmap(getThumbnail(track.getThumbnailId()));
         holder.track.setText(track.getTitle());
         holder.artist.setText(track.getArtistName());
+
         holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
-//        holder.mPopupMenu.setOnClickListener(new AlbumTrackListAdapter.ViewOnClickListener(track.getId()));
+        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, track.getId()));
     }
 
     @Override

@@ -2,26 +2,22 @@ package tokyo.tkw.thinmp.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.model.Artist;
 import tokyo.tkw.thinmp.adapter.ArtistListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.activity.ArtistActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -143,5 +139,10 @@ public class ArtistListFragment extends Fragment {
         ArtistListAdapter adapter = new ArtistListAdapter(context, mArtistList);
         mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
+
+        // 区切り線の描画
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                context, new LinearLayoutManager(context).getOrientation());
+        mListView.addItemDecoration(dividerItemDecoration);
     }
 }

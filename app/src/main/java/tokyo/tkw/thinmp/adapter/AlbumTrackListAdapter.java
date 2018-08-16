@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.favorite.FavoriteManager;
+import tokyo.tkw.thinmp.favorite.FavoriteRegister;
+import tokyo.tkw.thinmp.listener.OpenTrackMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.model.Track;
 import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
@@ -41,9 +39,11 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
     @Override
     public void onBindViewHolder(AlbumTrackListViewHolder holder, int position) {
         Track track = mTrackList.get(position);
+
         holder.title.setText(track.getTitle());
+
         holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
-        holder.popupMenu.setOnClickListener(new ViewOnClickListener(track.getId()));
+        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, track.getId()));
     }
 
     @Override
@@ -51,77 +51,12 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
         return mTrackList.size();
     }
 
-    /**
-     * ポップアップメニュー
-     * @param view
-     * @param trackId
-     */
-    public void showPopupMenu(View view, String trackId) {
-        int hiddenFavorite = FavoriteManager.exists(trackId) ? R.id.add_favorite : R.id.del_favorite;
-        PopupMenu popupMenu = new PopupMenu(mContext, view);
-        popupMenu.getMenuInflater().inflate(R.menu.popup_album_track_list, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenuClickListener(trackId));
-        popupMenu.getMenu().findItem(hiddenFavorite).setVisible(false);
-        popupMenu.show();
-    }
-
     public void setFavorite(String trackId) {
-        FavoriteManager.set(trackId);
+        FavoriteRegister.set(trackId);
     }
 
     @Override
     public long getItemId(int position) {
         return super.getItemId(position);
-    }
-
-    /**
-     *
-     */
-    private class ViewOnClickListener implements View.OnClickListener {
-        String mTrackId;
-
-        private ViewOnClickListener(String trackId) {
-            mTrackId = trackId;
-        }
-
-        @Override
-        public void onClick(View view) {
-            showPopupMenu(view, mTrackId);
-        }
-    }
-
-    /**
-     *
-     */
-    private class PopupMenuClickListener implements PopupMenu.OnMenuItemClickListener {
-        String mTrackId;
-
-        private PopupMenuClickListener(String trackId) {
-            mTrackId = trackId;
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.playlist:
-                    Toast.makeText(
-                            mContext,
-                            mTrackId + " の選択",
-                            Toast.LENGTH_SHORT).show();
-                    return true;
-                case R.id.add_favorite:
-                    setFavorite(mTrackId);
-
-                    return true;
-                case R.id.del_favorite:
-                    setFavorite(mTrackId);
-
-                    return true;
-                default:
-                    break;
-            }
-
-            return false;
-        }
     }
 }

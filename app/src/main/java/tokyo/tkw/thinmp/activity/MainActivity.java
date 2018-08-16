@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import tokyo.tkw.thinmp.favorite.FavoriteManager;
+import tokyo.tkw.thinmp.favorite.FavoriteRegister;
 import tokyo.tkw.thinmp.fragment.FavoriteListFragment;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
@@ -36,7 +36,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
 
         MusicList.setInstance(this);
-        FavoriteManager.setInstance(this);
+        FavoriteRegister.setInstance(this);
 
         setPager();
     }

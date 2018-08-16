@@ -43,6 +43,7 @@ public class ArtistAlbumListAdapter extends RecyclerView.Adapter<ArtistAlbumList
 
         holder.thumbnail.setImageBitmap(mThumbnailController.getThumbnail(album.getThumbnailId()));
         holder.albumName.setText(album.getName());
+
         holder.itemView.setOnClickListener(new AlbumClickListener(mContext, album.getId()));
     }
 

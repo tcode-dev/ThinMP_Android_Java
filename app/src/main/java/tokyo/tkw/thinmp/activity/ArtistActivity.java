@@ -3,6 +3,7 @@ package tokyo.tkw.thinmp.activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -62,5 +63,10 @@ public class ArtistActivity extends AppCompatActivity {
         LinearLayoutManager layout = new LinearLayoutManager(this);
         mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
+
+        // 区切り線の描画
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                this, new LinearLayoutManager(this).getOrientation());
+        mListView.addItemDecoration(dividerItemDecoration);
     }
 }

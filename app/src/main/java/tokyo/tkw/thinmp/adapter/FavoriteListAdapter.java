@@ -8,10 +8,16 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import io.realm.OrderedCollectionChangeSet;
 import io.realm.OrderedRealmCollection;
+import io.realm.OrderedRealmCollectionChangeListener;
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
 import io.realm.RealmRecyclerViewAdapter;
+import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.Favorite;
+import tokyo.tkw.thinmp.listener.OpenTrackMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.model.Track;
 import tokyo.tkw.thinmp.music.MusicList;
@@ -48,6 +54,7 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Trac
         holder.artist.setText(track.getArtistName());
 
         holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
+        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, track.getId()));
     }
 
     private Track getTrack(String id) {

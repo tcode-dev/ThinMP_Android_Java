@@ -8,13 +8,13 @@ import tokyo.tkw.thinmp.R;
 
 public class AlbumTrackListViewHolder extends RecyclerView.ViewHolder {
     public TextView title;
-    public View popupMenu;
+    public View menu;
 
 
     public AlbumTrackListViewHolder(View view) {
         super(view);
 
         title = view.findViewById(R.id.title);
-        popupMenu = view.findViewById(R.id.popup_album_menu);
+        menu = view.findViewById(R.id.popup_album_menu);
     }
 }

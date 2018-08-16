@@ -4,16 +4,16 @@ import android.app.Activity;
 
 import io.realm.Realm;
 
-public class FavoriteManager {
+public class FavoriteRegister {
     private Activity mContext;
-    private static FavoriteManager instance = null;
+    private static FavoriteRegister instance = null;
 
-    public FavoriteManager(Activity context) {
+    public FavoriteRegister(Activity context) {
         mContext = context;
     }
 
     public static void setInstance(Activity context) {
-        instance = new FavoriteManager(context);
+        instance = new FavoriteRegister(context);
     }
 
     public void update(String trackId) {
