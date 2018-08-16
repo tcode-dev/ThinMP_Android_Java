@@ -41,7 +41,7 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
     @Override
     public void onBindViewHolder(AlbumTrackListViewHolder holder, int position) {
         Track track = mTrackList.get(position);
-        holder.titleView.setText(track.getTitle());
+        holder.title.setText(track.getTitle());
         holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
         holder.popupMenu.setOnClickListener(new ViewOnClickListener(track.getId()));
     }
