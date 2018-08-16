@@ -1,10 +1,13 @@
 package tokyo.tkw.thinmp.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +33,7 @@ import tokyo.tkw.thinmp.activity.AlbumActivity;
  */
 public class AlbumListFragment extends Fragment {
     private View mFragmentView;
-    private ListView mListView;
+    private RecyclerView mListView;
 
     private ArrayList<Album> mAlbumList;
 
@@ -85,7 +88,6 @@ public class AlbumListFragment extends Fragment {
         setView();
         setAlbumList();
         setAdapter();
-        setListener();
 
         return mFragmentView;
     }
@@ -138,23 +140,10 @@ public class AlbumListFragment extends Fragment {
     }
 
     private void setAdapter() {
-        AlbumListAdapter adapter = new AlbumListAdapter(getActivity(), R.layout.album_list_item, mAlbumList);
+        Activity context = getActivity();
+        AlbumListAdapter adapter = new AlbumListAdapter(context, mAlbumList);
+        LinearLayoutManager layout = new LinearLayoutManager(context);
+        mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
-    }
-
-    private void setListener() {
-        mListView.setOnItemClickListener(new AlbumListFragment.AlbumClickListener());
-    }
-
-    private class AlbumClickListener implements AdapterView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Album album = mAlbumList.get(position);
-
-            Intent intent = new Intent(getActivity(), AlbumActivity.class);
-            intent.putExtra("album_id", album.getId());
-            startActivity(intent);
-        }
     }
 }

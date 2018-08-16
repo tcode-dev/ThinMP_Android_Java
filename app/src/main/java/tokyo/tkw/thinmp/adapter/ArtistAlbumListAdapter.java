@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,12 +13,13 @@ import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.model.Album;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.viewHolder.ArtistAlbumListViewHolder;
 
 /**
  * Created by tk on 2018/03/22.
  */
 
-public class ArtistAlbumListAdapter extends RecyclerView.Adapter<ArtistAlbumListAdapter.ArtistAlbumListViewHolder> {
+public class ArtistAlbumListAdapter extends RecyclerView.Adapter<ArtistAlbumListViewHolder> {
     private Activity mContext;
     private ThumbnailController mThumbnailController;
     private ArrayList<Album> mAlbumList;
@@ -32,14 +31,14 @@ public class ArtistAlbumListAdapter extends RecyclerView.Adapter<ArtistAlbumList
     }
 
     @Override
-    public ArtistAlbumListAdapter.ArtistAlbumListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ArtistAlbumListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_album_list_item, parent, false);
 
-        return new ArtistAlbumListAdapter.ArtistAlbumListViewHolder(view);
+        return new ArtistAlbumListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ArtistAlbumListAdapter.ArtistAlbumListViewHolder holder, int position) {
+    public void onBindViewHolder(ArtistAlbumListViewHolder holder, int position) {
         Album album = mAlbumList.get(position);
 
         holder.thumbnail.setImageBitmap(mThumbnailController.getThumbnail(album.getThumbnailId()));
@@ -50,18 +49,5 @@ public class ArtistAlbumListAdapter extends RecyclerView.Adapter<ArtistAlbumList
     @Override
     public int getItemCount() {
         return mAlbumList.size();
-    }
-
-    public class ArtistAlbumListViewHolder extends RecyclerView.ViewHolder {
-        public ImageView thumbnail;
-        public TextView albumName;
-
-
-        public ArtistAlbumListViewHolder(View view) {
-            super(view);
-
-            thumbnail = itemView.findViewById(R.id.thumbnail);
-            albumName = itemView.findViewById(R.id.albumName);
-        }
     }
 }
