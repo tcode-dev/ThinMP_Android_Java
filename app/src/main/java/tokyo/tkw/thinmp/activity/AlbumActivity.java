@@ -21,6 +21,7 @@ import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.music.Track;
 
 public class AlbumActivity extends AppCompatActivity implements PlayerFragment.OnFragmentInteractionListener {
+    private ImageView mBackgroundView;
     private ImageView mThumbnailView;
     private TextView mAlbumNameView;
     private TextView mArtistNameView;
@@ -49,15 +50,27 @@ public class AlbumActivity extends AppCompatActivity implements PlayerFragment.O
         Bitmap thumbnailBitmap = thumbnailController.getThumbnail(album.getThumbnailId());
         mThumbnailView.setImageBitmap(thumbnailBitmap);
 
+        mBackgroundView.setImageBitmap(thumbnailBitmap);
+        mBackgroundView.setAlpha(0.2f);
         //曲一覧
         mTrackList = MusicList.getAlbumTrackList(albumId);
 
         setAdapter();
     }
-
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+//
+//        final Rect rect = new Rect();
+//        Window window = this.getWindow();
+//        window.getDecorView().getWindowVisibleDisplayFrame(rect);
+//
+//        mThumbnailView.setPadding(0, rect.top, 0, rect.top);
+    }
     private void setView() {
+        mBackgroundView = findViewById(R.id.background);
         mThumbnailView = findViewById(R.id.thumbnail);
-        mAlbumNameView = findViewById(R.id.albumName);
+        mAlbumNameView = findViewById(R.id.primaryText);
         mArtistNameView = findViewById(R.id.artistName);
         mListView = findViewById(R.id.list);
     }

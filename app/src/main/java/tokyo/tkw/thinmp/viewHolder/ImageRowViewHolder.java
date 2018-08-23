@@ -7,14 +7,14 @@ import android.widget.TextView;
 
 import tokyo.tkw.thinmp.R;
 
-public class ArtistViewHolder extends RecyclerView.ViewHolder {
+public class ImageRowViewHolder extends RecyclerView.ViewHolder {
     public ImageView thumbnail;
-    public TextView artist;
+    public TextView primaryText;
 
-    public ArtistViewHolder(View view) {
+    public ImageRowViewHolder(View view) {
         super(view);
 
         thumbnail = view.findViewById(R.id.thumbnail);
-        artist = view.findViewById(R.id.primaryText);
+        primaryText = view.findViewById(R.id.primaryText);
     }
 }

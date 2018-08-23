@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteRegister;
-import tokyo.tkw.thinmp.listener.OpenTrackMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
@@ -39,11 +38,12 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
     @Override
     public void onBindViewHolder(AlbumTrackListViewHolder holder, int position) {
         Track track = mTrackList.get(position);
+        String title = track.getTitle();
 
-        holder.title.setText(track.getTitle());
+        holder.title.setText(title);
 
         holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
-        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, track.getId()));
+//        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, title, track));
     }
 
     @Override

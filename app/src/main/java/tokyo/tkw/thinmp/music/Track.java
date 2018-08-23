@@ -2,11 +2,13 @@ package tokyo.tkw.thinmp.music;
 
 import android.net.Uri;
 
+import java.io.Serializable;
+
 /**
  * Created by tk on 2018/03/22.
  */
 
-public class Track {
+public class Track implements Serializable {
     private String id;
     private String title;
     private Uri uri;
@@ -54,6 +56,4 @@ public class Track {
     public String getThumbnailId() {
         return thumbnailId;
     }
-
-
 }

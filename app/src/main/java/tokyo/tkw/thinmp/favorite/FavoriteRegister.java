@@ -24,7 +24,7 @@ public class FavoriteRegister {
         realm.beginTransaction();
 
         if (favorite == null) {
-            favorite = realm.createObject(Favorite.class, (String) trackId);
+            realm.createObject(Favorite.class, trackId);
         } else {
             favorite.deleteFromRealm();
         }

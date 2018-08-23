@@ -17,8 +17,8 @@ public class TrackViewHolder extends RecyclerView.ViewHolder {
         super(view);
 
         thumbnail = view.findViewById(R.id.thumbnail);
-        track = view.findViewById(R.id.track);
-        artist = view.findViewById(R.id.artist);
+        track = view.findViewById(R.id.primaryText);
+        artist = view.findViewById(R.id.secondaryText);
         menu = view.findViewById(R.id.menu);
     }
 }

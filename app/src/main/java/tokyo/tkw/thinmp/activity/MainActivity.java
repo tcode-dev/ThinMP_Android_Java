@@ -2,14 +2,18 @@ package tokyo.tkw.thinmp.activity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
 
 import tokyo.tkw.thinmp.favorite.FavoriteRegister;
 import tokyo.tkw.thinmp.fragment.FavoriteListFragment;
+import tokyo.tkw.thinmp.fragment.PlaylistFragment;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.ViewPagerAdapter;
@@ -25,6 +29,7 @@ public class MainActivity
         AlbumListFragment.OnFragmentInteractionListener,
         TrackListFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
+        PlaylistFragment.OnFragmentInteractionListener,
         FavoriteListFragment.OnFragmentInteractionListener {
 
     private final int PERMISSION_CODE = 1;
@@ -39,6 +44,22 @@ public class MainActivity
         FavoriteRegister.setInstance(this);
 
         setPager();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        setTitleBarPadding();
+    }
+
+    private void setTitleBarPadding() {
+        final Rect rect = new Rect();
+        Window window = this.getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rect);
+
+        View view = findViewById(R.id.pager);
+        view.setPadding(0, rect.top, 0, 0);
     }
 
     /**

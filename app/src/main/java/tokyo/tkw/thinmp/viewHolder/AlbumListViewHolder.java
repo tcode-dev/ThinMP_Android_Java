@@ -11,13 +11,14 @@ public class AlbumListViewHolder extends RecyclerView.ViewHolder {
     public ImageView thumbnail;
     public TextView albumName;
     public TextView artistName;
-
+    public ImageView menu;
 
     public AlbumListViewHolder(View view) {
         super(view);
 
         thumbnail = view.findViewById(R.id.thumbnail);
-        albumName = view.findViewById(R.id.albumName);
-        artistName = view.findViewById(R.id.artistName);
+        albumName = view.findViewById(R.id.primaryText);
+        artistName = view.findViewById(R.id.secondaryText);
+        menu = view.findViewById(R.id.menu);
     }
 }

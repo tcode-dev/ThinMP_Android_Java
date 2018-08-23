@@ -24,7 +24,7 @@
             android:textStyle="normal" />
 
         <ImageView
-            android:id="@+id/popup_album_menu"
+            android:id="@+id/menu"
             android:layout_width="70dp"
             android:layout_height="70dp"
             app:srcCompat="@drawable/open_menu" />

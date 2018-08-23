@@ -2,35 +2,35 @@ package tokyo.tkw.thinmp.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.Menu.TrackMenu;
+import io.realm.OrderedRealmCollection;
+import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
-import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.playlist.PlaylistTrack;
+import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
-/**
- * Created by tk on 2018/03/22.
- */
-
-public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
+public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrack, TrackViewHolder> {
     private Activity mContext;
     private ThumbnailController mThumbnailController;
-
+    private OrderedRealmCollection<PlaylistTrack> mPlaylistTracks;
     private ArrayList<Track> mTrackList;
 
-    public TrackListAdapter(@NonNull Activity context, @NonNull ArrayList<Track> trackList) {
+    public PlaylistDetailAdapter(Activity context, OrderedRealmCollection<PlaylistTrack> playlistTracks, ArrayList<Track> trackList) {
+        super(playlistTracks, true);
+
         mContext = context;
-        mThumbnailController = new ThumbnailController(context);
+        mPlaylistTracks = playlistTracks;
         mTrackList = trackList;
+        mThumbnailController = new ThumbnailController(context);
     }
 
     @Override
@@ -42,7 +42,10 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
 
     @Override
     public void onBindViewHolder(TrackViewHolder holder, int position) {
-        Track track = mTrackList.get(position);
+        PlaylistTrack playlistTrack = getItem(position);
+        System.out.println(playlistTrack);
+        Track track = getTrack(playlistTrack.getTrackId());
+
         String title = track.getTitle();
 
         holder.thumbnail.setImageBitmap(getThumbnail(track.getThumbnailId()));
@@ -50,17 +53,15 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
         holder.artist.setText(track.getArtistName());
 
         holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
-        TrackMenu trackMenu = new TrackMenu(mContext, holder.menu, title, track);
-
-        holder.menu.setOnClickListener(trackMenu.onOpenMenuButtonClickListener());
+//        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, track.getId(), title));
     }
 
-    @Override
-    public int getItemCount() {
-        return mTrackList.size();
+    private Track getTrack(String id) {
+        return MusicList.getTrack(id);
     }
 
     private Bitmap getThumbnail(String id) {
         return mThumbnailController.getThumbnail(id);
     }
 }
+
