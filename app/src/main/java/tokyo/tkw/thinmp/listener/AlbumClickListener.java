@@ -18,7 +18,7 @@ public class AlbumClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(mContext, AlbumActivity.class);
-        intent.putExtra("album_id", mAlbumId);
+        intent.putExtra("albumId", mAlbumId);
         mContext.startActivity(intent);
     }
 }

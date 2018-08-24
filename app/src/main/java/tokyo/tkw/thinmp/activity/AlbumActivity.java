@@ -1,12 +1,17 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.Allocation;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +22,7 @@ import tokyo.tkw.thinmp.adapter.AlbumTrackListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.fragment.PlayerFragment;
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.util.RSBlurProcessor;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.music.Track;
 
@@ -36,7 +42,7 @@ public class AlbumActivity extends AppCompatActivity implements PlayerFragment.O
 
         setView();
 
-        String albumId = getIntent().getStringExtra("album_id");
+        String albumId = getIntent().getStringExtra("albumId");
         Album album = MusicList.getAlbum(albumId);
 
         //アルバム名
@@ -46,26 +52,31 @@ public class AlbumActivity extends AppCompatActivity implements PlayerFragment.O
         mArtistNameView.setText(album.getArtistName());
 
         //サムネイル
-        ThumbnailController thumbnailController = new ThumbnailController(this);
-        Bitmap thumbnailBitmap = thumbnailController.getThumbnail(album.getThumbnailId());
+        Bitmap thumbnailBitmap = new ThumbnailController(this).getThumbnail(album.getThumbnailId());
         mThumbnailView.setImageBitmap(thumbnailBitmap);
 
-        mBackgroundView.setImageBitmap(thumbnailBitmap);
-        mBackgroundView.setAlpha(0.2f);
+        //背景画像(同じ画像はキャッシュしているので、サムネイルもぼかしが掛からないようにnewして取得)
+        Bitmap backgroundBitmap = new ThumbnailController(this).getThumbnail(album.getThumbnailId());
+        RenderScript rs = RenderScript.create(this);
+        RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
+        Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f,  3);
+        mBackgroundView.setImageBitmap(blurBitMap);
+
         //曲一覧
         mTrackList = MusicList.getAlbumTrackList(albumId);
 
         setAdapter();
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-//
-//        final Rect rect = new Rect();
-//        Window window = this.getWindow();
-//        window.getDecorView().getWindowVisibleDisplayFrame(rect);
-//
-//        mThumbnailView.setPadding(0, rect.top, 0, rect.top);
+
+        final Rect rect = new Rect();
+        Window window = this.getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rect);
+
+        mThumbnailView.setPadding(0, rect.top + 100, 0, 100);
     }
     private void setView() {
         mBackgroundView = findViewById(R.id.background);
