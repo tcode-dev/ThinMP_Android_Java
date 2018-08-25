@@ -4,9 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.renderscript.Allocation;
 import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +20,7 @@ import tokyo.tkw.thinmp.adapter.AlbumTrackListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.fragment.PlayerFragment;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.util.RSBlurProcessor;
+import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.music.Track;
 

@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.util;
+package tokyo.tkw.thinmp.plugin;
 
 import android.graphics.Bitmap;
 import android.os.Build;
