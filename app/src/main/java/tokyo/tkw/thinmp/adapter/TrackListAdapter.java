@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.Menu.TrackMenu;
+import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.util.ThumbnailController;

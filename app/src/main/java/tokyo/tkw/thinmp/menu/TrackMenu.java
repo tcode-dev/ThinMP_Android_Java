@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.Menu;
+package tokyo.tkw.thinmp.menu;
 
 import android.app.Activity;
 import android.os.Bundle;
