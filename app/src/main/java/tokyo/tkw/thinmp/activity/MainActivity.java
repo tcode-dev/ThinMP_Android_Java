@@ -98,20 +98,12 @@ public class MainActivity
             case PERMISSION_CODE: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    rebuild();
+                    recreate();
                 }
 
                 return;
             }
         }
 
-    }
-
-    /**
-     * 画面を再構築する
-     */
-    private void rebuild() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 }
