@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.fragment.PlayerFragment;
 import tokyo.tkw.thinmp.music.Track;
 
-public class  MusicController {
+public class MusicManager {
     private static MusicPlayer mMusicPlayer;
     private static PlayerFragment mPlayerView;
 

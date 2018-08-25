@@ -9,16 +9,43 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.music.Track;
 
 /**
- * Created by tk on 2018/03/19.
+ * MusicPlayer
  */
-
-public class MusicPlayer extends BasePlayer implements OnCompletionListener {
+public class MusicPlayer implements OnCompletionListener {
     private MediaPlayer mMediaPlayer;
     private Activity mContext;
     private ArrayList<Track> mTrackList;
     private int mPosition;
     private int mLastIndex;
 
+    // 音量
+    private final int VOLUME_MIN  = 0;
+    private final int VOLUME_MAX  = 100;
+
+    // ミュート
+    private final boolean MUTE_ON = true;
+    private final boolean MUTE_OFF = false;
+
+    // リピート
+    private final boolean REPEAT_ON = true;
+    private final boolean REPEAT_OFF = false;
+    private final int REPEAT_ONE = 1;
+    private final int REPEAT_ALL = 2;
+
+    // シャッフル
+    private final boolean SHUFFLE_ON  = true;
+    private final boolean SHUFFLE_OFF = false;
+
+    // 音量
+    protected int mVolume = 100;
+    protected boolean isMute;
+
+    // リピート
+    protected boolean isRepeat;
+    protected int repeatMode;
+
+    // シャッフル
+    private boolean isShuffle;
     public MusicPlayer(Activity context, ArrayList<Track> trackList, int position) {
         mContext = context;
         mTrackList = trackList;
@@ -33,6 +60,41 @@ public class MusicPlayer extends BasePlayer implements OnCompletionListener {
         destroy();
 
         mMediaPlayer = MediaPlayer.create(mContext, mTrackList.get(mPosition).getUri());
+    }
+
+//    public BasePlayer(int mVolume, boolean isMute, boolean isRepeat, int repeatMode, boolean isShuffle) {
+//        this.mVolume = mVolume;
+//        this.isMute = isMute;
+//        this.isRepeat = isRepeat;
+//        this.repeatMode = repeatMode;
+//        this.isShuffle = isShuffle;
+//    }
+
+    public void getConfig(){
+
+    }
+
+    /**
+     * 音量変更
+     */
+    public void changeVolume(int volume) {
+        mVolume = volume;
+    }
+
+    /**
+     * 1曲リピートか
+     * @return
+     */
+    public boolean isRepeatOne() {
+        return repeatMode == REPEAT_ONE;
+    }
+
+    /**
+     * 全曲リピートか
+     * @return
+     */
+    public boolean isRepeatAll() {
+        return repeatMode == REPEAT_ALL;
     }
 
     /**

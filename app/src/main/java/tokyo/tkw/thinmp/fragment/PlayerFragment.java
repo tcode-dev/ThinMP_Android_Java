@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import tokyo.tkw.thinmp.player.MusicController;
+import tokyo.tkw.thinmp.player.MusicManager;
 import tokyo.tkw.thinmp.R;
 
 /**
@@ -81,7 +81,7 @@ public class PlayerFragment extends Fragment {
         setView();
         setListener();
 
-        MusicController.setPlayerView(this);
+        MusicManager.setPlayerView(this);
 
         return mFragmentView;
     }
@@ -146,13 +146,13 @@ public class PlayerFragment extends Fragment {
     }
 
     public void updatePlayer() {
-        int visible = MusicController.isActive() ? View.VISIBLE : View.GONE;
+        int visible = MusicManager.isActive() ? View.VISIBLE : View.GONE;
 
         mFooterView.setVisibility(visible);
     }
 
     public void updateButton() {
-        if (MusicController.isPlaying()) {
+        if (MusicManager.isPlaying()) {
             mPlayButton.setVisibility(View.GONE);
             mPauseButton.setVisibility(View.VISIBLE);
         } else {
@@ -162,21 +162,21 @@ public class PlayerFragment extends Fragment {
     }
 
     public void play() {
-        MusicController.play();
+        MusicManager.play();
         updateButton();
     }
 
     public void pause() {
-        MusicController.pause();
+        MusicManager.pause();
         updateButton();
     }
 
     public void prev() {
-        MusicController.prev();
+        MusicManager.prev();
     }
 
     public void next() {
-        MusicController.next();
+        MusicManager.next();
     }
 
     private class playClickListener implements View.OnClickListener {

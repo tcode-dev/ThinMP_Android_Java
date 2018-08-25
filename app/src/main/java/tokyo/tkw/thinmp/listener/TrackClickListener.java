@@ -6,7 +6,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.player.MusicController;
+import tokyo.tkw.thinmp.player.MusicManager;
 
 public class TrackClickListener implements View.OnClickListener {
     private Activity mContext;
@@ -21,7 +21,7 @@ public class TrackClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        MusicController.set(mContext, mTrackList, mPosition);
-        MusicController.start();
+        MusicManager.set(mContext, mTrackList, mPosition);
+        MusicManager.start();
     }
 }
