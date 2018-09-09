@@ -10,23 +10,28 @@ import android.widget.PopupMenu;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteRegister;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
-import tokyo.tkw.thinmp.music.Track;
 
-public class TrackMenu<T> {
+/**
+ * メニュー
+ */
+public class TrackMenu {
     private Activity mContext;
     private View mView;
+    private String mTrackId;
     private String mDefaultPlaylistName;
-    private Track mTrack;
 
-    public TrackMenu(Activity context, View view, String defaultPlaylistName, Track track) {
+    public TrackMenu(Activity context, View view, String trackId, String defaultPlaylistName) {
         mContext = context;
         mView = view;
+        mTrackId = trackId;
         mDefaultPlaylistName = defaultPlaylistName;
-        mTrack = track;
     }
 
-    private void show() {
-        int hiddenFavorite = FavoriteRegister.exists(mTrack.getId()) ? R.id.add_favorite : R.id.del_favorite;
+    /**
+     * メニューを生成して表示する
+     */
+    public void show() {
+        int hiddenFavorite = FavoriteRegister.exists(mTrackId) ? R.id.add_favorite : R.id.del_favorite;
         PopupMenu popupMenu = new PopupMenu(mContext, mView);
         popupMenu.getMenuInflater().inflate(R.menu.track_popup_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(onMenuItemClickListener());
@@ -34,11 +39,14 @@ public class TrackMenu<T> {
         popupMenu.show();
     }
 
+    /**
+     * プレイリスト登録
+     */
     private void playlist() {
         // データの受け渡し
         Bundle bundle = new Bundle();
+        bundle.putString("trackId", mTrackId);
         bundle.putString("defaultPlaylistName", mDefaultPlaylistName);
-        bundle.putSerializable("track", mTrack);
 
         FragmentActivity activity = (FragmentActivity) mContext;
         PlaylistDialogFragment playlistDialogFragment = new PlaylistDialogFragment();
@@ -46,21 +54,11 @@ public class TrackMenu<T> {
         playlistDialogFragment.show(activity.getSupportFragmentManager(), "PlaylistDialogFragment");
     }
 
-    private void favorite() {
-        FavoriteRegister.set(mTrack.getId());
-    }
-
     /**
-     * メニューオープンのイベント
-     * @return
+     * お気に入り登録
      */
-    public View.OnClickListener onOpenMenuButtonClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                show();
-            }
-        };
+    private void favorite() {
+        FavoriteRegister.set(mTrackId);
     }
 
     /**

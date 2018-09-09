@@ -1,7 +1,6 @@
 package tokyo.tkw.thinmp.adapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
@@ -24,13 +22,17 @@ import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
     private Activity mContext;
     private ThumbnailController mThumbnailController;
+    private OnTrackListItemClickListener mListener;
+    private int mItemCount;
 
     private ArrayList<Track> mTrackList;
 
-    public TrackListAdapter(@NonNull Activity context, @NonNull ArrayList<Track> trackList) {
+    public TrackListAdapter(@NonNull Activity context, @NonNull ArrayList<Track> trackList, OnTrackListItemClickListener listener) {
         mContext = context;
         mThumbnailController = new ThumbnailController(context);
         mTrackList = trackList;
+        mListener = listener;
+        mItemCount = mTrackList.size();
     }
 
     @Override
@@ -45,22 +47,51 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
         Track track = mTrackList.get(position);
         String title = track.getTitle();
 
-        holder.thumbnail.setImageBitmap(getThumbnail(track.getThumbnailId()));
+        holder.thumbnail.setImageBitmap(mThumbnailController.getThumbnail(track.getThumbnailId()));
         holder.track.setText(title);
         holder.artist.setText(track.getArtistName());
 
-        holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
-        TrackMenu trackMenu = new TrackMenu(mContext, holder.menu, title, track);
-
-        holder.menu.setOnClickListener(trackMenu.onOpenMenuButtonClickListener());
+        holder.itemView.setOnClickListener(listItemClickListener(position));
+        holder.menu.setOnClickListener(openMenuButtonClickListener(track.getId(), title));
     }
 
     @Override
     public int getItemCount() {
-        return mTrackList.size();
+        return mItemCount;
     }
 
-    private Bitmap getThumbnail(String id) {
-        return mThumbnailController.getThumbnail(id);
+    /**
+     * listitemをクリックしたときのイベント
+     * @param position
+     * @return
+     */
+    private View.OnClickListener listItemClickListener(int position) {
+        return new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mListener.OnClickItem(position);
+            }
+        };
+    }
+
+    /**
+     * メニューオープンのイベント
+     * @return
+     */
+    public View.OnClickListener openMenuButtonClickListener(String trackId, String title) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TrackMenu trackMenu = new TrackMenu(mContext, v, trackId, title);
+                trackMenu.show();
+            }
+        };
+    }
+
+    /**
+     * interface
+     */
+    public interface OnTrackListItemClickListener {
+        void OnClickItem(int position);
     }
 }

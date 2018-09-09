@@ -1,6 +1,6 @@
 package tokyo.tkw.thinmp.util;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,9 +19,9 @@ public class ThumbnailController {
     private final String ALBUM_ART_URL = "content://media/external/audio/albumart/";
 
     private HashMap<String, Bitmap> mMap = new HashMap<String, Bitmap>();
-    private Activity mContext;
+    private Context mContext;
 
-    public ThumbnailController(Activity context) {
+    public ThumbnailController(Context context) {
         mContext = context;
     }
 

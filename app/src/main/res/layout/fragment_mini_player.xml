@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="miniPlayer" type="tokyo.tkw.thinmp.player.MiniPlayer" />
+        <import type="android.view.View"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/miniPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:onClick="@{miniPlayer::onClickPlayer}"
+        android:visibility="@{miniPlayer.isActive ? View.VISIBLE : View.GONE}">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="6dp" />
+
+        <TextView
+            android:id="@+id/trackName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{miniPlayer.trackName}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/playToggle"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/playToggle"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            app:layout_constraintEnd_toStartOf="@+id/next">
+
+            <ImageButton
+                android:id="@+id/play"
+                android:layout_width="50dp"
+                android:layout_height="70dp"
+                android:background="@null"
+                android:onClick="@{miniPlayer::onClickPlay}"
+                android:paddingBottom="30dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:paddingTop="30dp"
+                android:scaleType="centerCrop"
+                android:visibility="@{miniPlayer.isPlaying ? View.GONE : View.VISIBLE}"
+                app:srcCompat="@drawable/play2" />
+
+            <ImageButton
+                android:id="@+id/pause"
+                android:layout_width="50dp"
+                android:layout_height="70dp"
+                android:background="@null"
+                android:onClick="@{miniPlayer::onClickPause}"
+                android:paddingBottom="30dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:paddingTop="30dp"
+                android:scaleType="centerCrop"
+                android:visibility="@{miniPlayer.isPlaying ? View.VISIBLE : View.GONE}"
+                app:srcCompat="@drawable/pause2" />
+
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/next"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:background="@null"
+            android:onClick="@{miniPlayer::onClickNext}"
+            android:paddingBottom="30dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:paddingTop="30dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/next2" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

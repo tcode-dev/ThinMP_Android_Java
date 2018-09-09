@@ -12,16 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.FavoriteListAdapter;
 import tokyo.tkw.thinmp.adapter.PlaylistAdapter;
-import tokyo.tkw.thinmp.favorite.Favorite;
-import tokyo.tkw.thinmp.favorite.FavoriteList;
-import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.playlist.Playlist;
 
 /**

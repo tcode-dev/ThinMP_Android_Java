@@ -28,6 +28,7 @@
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
+
             <FrameLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"

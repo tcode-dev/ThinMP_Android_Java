@@ -60,16 +60,18 @@ public class PlaylistAdapter extends RealmRecyclerViewAdapter<Playlist, ImageRow
         holder.primaryText.setText(name);
 
         if (mTrackId != null) {
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                PlaylistRegister playlistRegister = new PlaylistRegister();
-                Track track = MusicList.getTrack(mTrackId);
-                playlistRegister.add(playlistId, track);
-                mCallback.run();
-            }
-        });
+            // playlist追加画面の場合
+            holder.itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    PlaylistRegister playlistRegister = new PlaylistRegister();
+                    Track track = MusicList.getTrack(mTrackId);
+                    playlistRegister.add(playlistId, track);
+                    mCallback.run();
+                }
+            });
         } else {
+            // プレイリスト一覧画面の場合
             holder.itemView.setOnClickListener(new PlaylistClickListener(mContext, playlistId));
 //        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, track.getId(), title));
         }

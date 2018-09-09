@@ -2,7 +2,6 @@ package tokyo.tkw.thinmp.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
 import android.support.v7.app.AppCompatActivity;
@@ -18,13 +17,12 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.adapter.AlbumTrackListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
-import tokyo.tkw.thinmp.fragment.PlayerFragment;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
 import tokyo.tkw.thinmp.util.ThumbnailController;
 import tokyo.tkw.thinmp.music.Track;
 
-public class AlbumActivity extends AppCompatActivity implements PlayerFragment.OnFragmentInteractionListener {
+public class AlbumActivity extends AppCompatActivity {
     private ImageView mBackgroundView;
     private ImageView mThumbnailView;
     private TextView mAlbumNameView;
@@ -94,10 +92,5 @@ public class AlbumActivity extends AppCompatActivity implements PlayerFragment.O
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 this, new LinearLayoutManager(this).getOrientation());
         mListView.addItemDecoration(dividerItemDecoration);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

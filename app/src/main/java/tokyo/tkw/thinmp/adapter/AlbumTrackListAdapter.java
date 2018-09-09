@@ -42,7 +42,7 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
 
         holder.title.setText(title);
 
-        holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
+//        holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
 //        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, title, track));
     }
 

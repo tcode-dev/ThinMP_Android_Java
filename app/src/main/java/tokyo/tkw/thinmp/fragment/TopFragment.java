@@ -1,37 +1,24 @@
 package tokyo.tkw.thinmp.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.adapter.TrackListAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TrackListFragment.OnFragmentInteractionListener} interface
+ * {@link TopFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TrackListFragment#newInstance} factory method to
+ * Use the {@link TopFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TrackListFragment extends Fragment implements TrackListAdapter.OnTrackListItemClickListener {
-    private View mFragmentView;
-    private ArrayList<Track> mTrackList;
-    private RecyclerView mListView;
-
+public class TopFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,7 +30,7 @@ public class TrackListFragment extends Fragment implements TrackListAdapter.OnTr
 
     private OnFragmentInteractionListener mListener;
 
-    public TrackListFragment() {
+    public TopFragment() {
         // Required empty public constructor
     }
 
@@ -53,11 +40,11 @@ public class TrackListFragment extends Fragment implements TrackListAdapter.OnTr
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TrackListFragment.
+     * @return A new instance of fragment TopFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TrackListFragment newInstance(String param1, String param2) {
-        TrackListFragment fragment = new TrackListFragment();
+    public static TopFragment newInstance(String param1, String param2) {
+        TopFragment fragment = new TopFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,14 +64,10 @@ public class TrackListFragment extends Fragment implements TrackListAdapter.OnTr
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /* Inflate the layout for this fragment */
-        mFragmentView = inflater.inflate(R.layout.fragment_track_list, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_top, container, false);
 
-        setView();
-        setTrackList();
-        setAdapter();
-
-        return mFragmentView;
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -124,34 +107,5 @@ public class TrackListFragment extends Fragment implements TrackListAdapter.OnTr
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-        void onStartClick(ArrayList<Track> trackList, int position);
-    }
-
-    private void setView() {
-        mListView = mFragmentView.findViewById(R.id.list);
-    }
-
-    private void setTrackList() {
-        mTrackList = MusicList.getTrackList();
-    }
-
-    private void setAdapter() {
-        Activity context = getActivity();
-        TrackListAdapter adapter = new TrackListAdapter(context, mTrackList, (TrackListAdapter.OnTrackListItemClickListener) this);
-        LinearLayoutManager layout = new LinearLayoutManager(context);
-        mListView.setLayoutManager(layout);
-        mListView.setAdapter(adapter);
-
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                context, new LinearLayoutManager(context).getOrientation());
-        mListView.addItemDecoration(dividerItemDecoration);
-    }
-
-    @Override
-    public void OnClickItem(int position) {
-        if (mListener != null) {
-            mListener.onStartClick(mTrackList, position);
-        }
     }
 }

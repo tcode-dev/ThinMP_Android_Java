@@ -1,7 +1,6 @@
 package tokyo.tkw.thinmp.playlist;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class PlaylistTrack extends RealmObject {
     private int playlistId;

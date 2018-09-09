@@ -1,34 +1,34 @@
 package tokyo.tkw.thinmp.fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
-import tokyo.tkw.thinmp.player.MusicManager;
+import java.util.ArrayList;
+
 import tokyo.tkw.thinmp.R;
+
+import tokyo.tkw.thinmp.activity.PlayerActivity;
+import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
+import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.player.MiniPlayer;
+import tokyo.tkw.thinmp.player.MusicManager;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PlayerFragment.OnFragmentInteractionListener} interface
+ * {@link MiniPlayerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PlayerFragment#newInstance} factory method to
+ * Use the {@link MiniPlayerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlayerFragment extends Fragment {
-    private View mFragmentView;
-    private LinearLayout mFooterView;
-    private ImageButton mPlayButton;
-    private ImageButton mPauseButton;
-    private ImageButton mPrevButton;
-    private ImageButton mNextButton;
-
+public class MiniPlayerFragment extends Fragment implements MiniPlayer.OnMiniPlayerListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,7 +40,9 @@ public class PlayerFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PlayerFragment() {
+    private MiniPlayer mMiniPlayer;
+
+    public MiniPlayerFragment() {
         // Required empty public constructor
     }
 
@@ -50,11 +52,11 @@ public class PlayerFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PlayerFragment.
+     * @return A new instance of fragment MiniPlayerFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PlayerFragment newInstance(String param1, String param2) {
-        PlayerFragment fragment = new PlayerFragment();
+    public static MiniPlayerFragment newInstance(String param1, String param2) {
+        MiniPlayerFragment fragment = new MiniPlayerFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +67,6 @@ public class PlayerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -76,14 +77,15 @@ public class PlayerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mFragmentView = inflater.inflate(R.layout.fragment_player, container, false);
+        FragmentMiniPlayerBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mini_player, container, false);
+        mMiniPlayer = new MiniPlayer(binding, (MiniPlayer.OnMiniPlayerListener) this);
 
-        setView();
-        setListener();
+        binding.setMiniPlayer(mMiniPlayer);
 
-        MusicManager.setPlayerView(this);
+        Track track = MusicManager.getTrack();
+        mMiniPlayer.update(track);
 
-        return mFragmentView;
+        return binding.getRoot();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -125,89 +127,47 @@ public class PlayerFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void setView() {
-        mFooterView = mFragmentView.findViewById(R.id.footer);
-        mPlayButton = mFragmentView.findViewById(R.id.play);
-        mPauseButton = mFragmentView.findViewById(R.id.pause);
-        mPrevButton = mFragmentView.findViewById(R.id.prev);
-        mNextButton = mFragmentView.findViewById(R.id.next);
+    /**
+     * 再生開始
+     * @param trackList
+     * @param position
+     */
+    public void start(ArrayList<Track> trackList, int position) {
+        MusicManager.set(trackList, position);
+        MusicManager.start();
+        mMiniPlayer.update(MusicManager.getTrack());
     }
 
-    private void setListener() {
-        mPlayButton.setOnClickListener(new playClickListener());
-        mPauseButton.setOnClickListener(new PauseClickListener());
-        mPrevButton.setOnClickListener(new PrevClickListener());
-        mNextButton.setOnClickListener(new nextClickListener());
+    /**
+     * 再生画面へ遷移
+     */
+    @Override
+    public void onClickPlayer() {
+        Intent intent = new Intent(getContext(), PlayerActivity.class);
+        startActivity(intent);
     }
 
-    public void update() {
-        updatePlayer();
-        updateButton();
-    }
-
-    public void updatePlayer() {
-        int visible = MusicManager.isActive() ? View.VISIBLE : View.GONE;
-
-        mFooterView.setVisibility(visible);
-    }
-
-    public void updateButton() {
-        if (MusicManager.isPlaying()) {
-            mPlayButton.setVisibility(View.GONE);
-            mPauseButton.setVisibility(View.VISIBLE);
-        } else {
-            mPlayButton.setVisibility(View.VISIBLE);
-            mPauseButton.setVisibility(View.GONE);
-        }
-    }
-
-    public void play() {
+    /**
+     * 曲の再生
+     */
+    @Override
+    public void onClickPlay() {
         MusicManager.play();
-        updateButton();
     }
 
-    public void pause() {
+    /**
+     * 曲の一時停止
+     */
+    @Override
+    public void onClickPause() {
         MusicManager.pause();
-        updateButton();
     }
 
-    public void prev() {
-        MusicManager.prev();
-    }
-
-    public void next() {
+    /**
+     * 次の曲
+     */
+    @Override
+    public void onClickNext() {
         MusicManager.next();
-    }
-
-    private class playClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            play();
-        }
-    }
-
-    private class PauseClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            pause();
-        }
-    }
-
-    private class PrevClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            prev();
-        }
-    }
-
-    private class nextClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            next();
-        }
     }
 }

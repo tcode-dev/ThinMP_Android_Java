@@ -2,7 +2,6 @@ package tokyo.tkw.thinmp.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -48,36 +47,17 @@ public class PlaylistDialogFragment extends DialogFragment {
         // データ取り出し
         Bundle bundle = getArguments();
         String defaultPlaylistName = bundle.getString("defaultPlaylistName");
-        Track track = (Track) bundle.getSerializable("track");
-        String trackId = track.getId();
+        String trackId = bundle.getString("trackId");
 
         mEditText.setText(defaultPlaylistName);
 
         setViewPlaylist(view, trackId);
 
-        mAddPlaylist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCreatePlaylist();
-            }
-        });
+        mAddPlaylist.setOnClickListener(addPlaylistListener());
 
-        mOkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Track track = MusicList.getTrack(trackId);
-                PlaylistRegister playlistRegister = new PlaylistRegister();
-                playlistRegister.create(mEditText.getText().toString(), track);
-                mDialog.dismiss();
-            }
-        });
+        mOkButton.setOnClickListener(okListener(trackId));
 
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddPlaylist();
-            }
-        });
+        mCancelButton.setOnClickListener(cancelListener());
 
         return mDialog;
     }
@@ -91,10 +71,14 @@ public class PlaylistDialogFragment extends DialogFragment {
         mAddPlaylist.setVisibility(View.GONE);
         mCreatePlaylist.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * プレイリスト一覧を表示
+     * @param view
+     * @param trackId
+     */
     private void setViewPlaylist(View view, String trackId) {
         Activity context = getActivity();
-
-        // TODO あとでどうにかする
         Runnable callback = () -> {mDialog.dismiss();};
 
         RecyclerView playlistView = view.findViewById(R.id.playlist);
@@ -111,5 +95,56 @@ public class PlaylistDialogFragment extends DialogFragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 context, new LinearLayoutManager(context).getOrientation());
         playlistView.addItemDecoration(dividerItemDecoration);
+    }
+
+    /**
+     * プレイリスト登録
+     * @param trackId
+     */
+    private void addPlaylist(String trackId) {
+        Track track = MusicList.getTrack(trackId);
+        PlaylistRegister playlistRegister = new PlaylistRegister();
+        playlistRegister.create(mEditText.getText().toString(), track);
+    }
+
+    /**
+     * プレイリスト追加クリック時のイベント
+     * @return
+     */
+    private View.OnClickListener addPlaylistListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCreatePlaylist();
+            }
+        };
+    }
+
+    /**
+     * OKボタンクリック時のイベント
+     * @param trackId
+     * @return
+     */
+    private View.OnClickListener okListener(String trackId) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPlaylist(trackId);
+                mDialog.dismiss();
+            }
+        };
+    }
+
+    /**
+     * キャンセルボタンクリック時のイベント
+     * @return
+     */
+    private View.OnClickListener cancelListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddPlaylist();
+            }
+        };
     }
 }

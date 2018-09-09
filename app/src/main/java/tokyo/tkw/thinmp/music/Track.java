@@ -4,10 +4,11 @@ import android.net.Uri;
 
 import java.io.Serializable;
 
-/**
- * Created by tk on 2018/03/22.
- */
+import tokyo.tkw.thinmp.util.TimeUtil;
 
+/**
+ * 曲
+ */
 public class Track implements Serializable {
     private String id;
     private String title;
@@ -17,8 +18,9 @@ public class Track implements Serializable {
     private String albumId;
     private String albumName;
     private String thumbnailId;
+    private int duration;
 
-    public Track(String id, String title, Uri uri, String artistId, String artistName, String albumId, String albumName, String thumbnailId) {
+    public Track(String id, String title, Uri uri, String artistId, String artistName, String albumId, String albumName, String thumbnailId, int duration) {
         this.id = id;
         this.title = title;
         this.uri = uri;
@@ -27,6 +29,7 @@ public class Track implements Serializable {
         this.albumId = albumId;
         this.albumName = albumName;
         this.thumbnailId = thumbnailId;
+        this.duration = duration;
     }
 
     public String getId() {
@@ -55,5 +58,13 @@ public class Track implements Serializable {
 
     public String getThumbnailId() {
         return thumbnailId;
+    }
+
+    public int getDurationSecond() {
+        return TimeUtil.millisecondToSecond(duration);
+    }
+
+    public String getDurationTime() {
+        return TimeUtil.secondToTime(getDurationSecond());
     }
 }

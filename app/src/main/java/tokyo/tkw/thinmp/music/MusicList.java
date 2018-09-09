@@ -52,7 +52,6 @@ public class MusicList {
 
     /**
      * 曲一覧を取得
-     *
      * @return
      */
     public static ArrayList<Track> getTrackList() {
@@ -61,7 +60,6 @@ public class MusicList {
 
     /**
      * アーティスト一覧を取得
-     *
      * @return
      */
     public static ArrayList<Artist> getArtistList() {
@@ -70,7 +68,7 @@ public class MusicList {
 
     /**
      * アーティストを取得
-     *
+     * @param id
      * @return
      */
     public static Artist getArtist(String id) {
@@ -79,7 +77,6 @@ public class MusicList {
 
     /**
      * アルバム一覧を取得
-     *
      * @return
      */
     public static ArrayList<Album> getAlbumList() {
@@ -88,7 +85,7 @@ public class MusicList {
 
     /**
      * アルバムを取得
-     *
+     * @param id
      * @return
      */
     public static Album getAlbum(String id) {
@@ -97,6 +94,8 @@ public class MusicList {
 
     /**
      * アーティストのアルバム一覧を取得
+     * @param artistId
+     * @return
      */
     public static ArrayList<Album> getArtistAlbumList(String artistId) {
         Artist artist = getArtist(artistId);
@@ -113,6 +112,8 @@ public class MusicList {
 
     /**
      * アルバムの曲一覧を取得
+     * @param albumId
+     * @return
      */
     public static ArrayList<Track> getAlbumTrackList(String albumId) {
         Album album = getAlbum(albumId);
@@ -129,7 +130,7 @@ public class MusicList {
 
     /**
      * trackを取得
-     *
+     * @param id
      * @return
      */
     public static Track getTrack(String id) {
@@ -171,15 +172,15 @@ public class MusicList {
         String albumId = getAlbumId();
         String albumName = getAlbumName();
         String thumbnailId = albumId;//サムネイルはアルバムアートを使用する
+        int duration = getDuration();
 
-        Track track = new Track(id, title, uri, artistId, artistName, albumId, albumName, thumbnailId);
+        Track track = new Track(id, title, uri, artistId, artistName, albumId, albumName, thumbnailId, duration);
 
         return track;
     }
 
     /**
      * idを取得
-     *
      * @return
      */
     private String getId() {
@@ -188,7 +189,6 @@ public class MusicList {
 
     /**
      * 曲名を取得
-     *
      * @return
      */
     private String getTitle() {
@@ -205,7 +205,6 @@ public class MusicList {
 
     /**
      * アーティスト名を取得
-     *
      * @return
      */
     private String getArtistName() {
@@ -214,7 +213,6 @@ public class MusicList {
 
     /**
      * 曲のuriを取得
-     *
      * @return
      */
     private Uri getUri() {
@@ -226,7 +224,6 @@ public class MusicList {
 
     /**
      * アルバムidを取得
-     *
      * @return
      */
     private String getAlbumId() {
@@ -235,10 +232,17 @@ public class MusicList {
 
     /**
      * アルバム名を取得
-     *
      * @return
      */
     private String getAlbumName() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+    }
+
+    /**
+     * 再生時間を取得
+     * @return
+     */
+    private int getDuration() {
+        return mCursor.getInt(mCursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
     }
 }

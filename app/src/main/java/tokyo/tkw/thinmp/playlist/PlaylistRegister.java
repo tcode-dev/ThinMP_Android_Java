@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
-import tokyo.tkw.thinmp.favorite.Favorite;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
 
