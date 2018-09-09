@@ -1,14 +1,24 @@
 package tokyo.tkw.thinmp.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.adapter.TopAdapter;
+import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.music.MusicList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +29,11 @@ import tokyo.tkw.thinmp.R;
  * create an instance of this fragment.
  */
 public class TopFragment extends Fragment {
+    private View mFragmentView;
+    private RecyclerView mListView;
+
+    private ArrayList<Album> mAlbumList;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,9 +80,13 @@ public class TopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_top, container, false);
+        mFragmentView = inflater.inflate(R.layout.fragment_top, container, false);
 
-        return view;
+        setView();
+        setAlbumList();
+        setAdapter();
+
+        return mFragmentView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,5 +126,21 @@ public class TopFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void setView() {
+        mListView = mFragmentView.findViewById(R.id.list);
+    }
+
+    private void setAlbumList() {
+        mAlbumList = MusicList.getAlbumList();
+    }
+
+    private void setAdapter() {
+        Activity context = getActivity();
+        TopAdapter adapter = new TopAdapter(context, mAlbumList);
+        LinearLayoutManager layout = new GridLayoutManager(context, 2);
+        mListView.setLayoutManager(layout);
+        mListView.setAdapter(adapter);
     }
 }

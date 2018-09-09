@@ -19,12 +19,13 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0: return new ArtistListFragment();
-            case 1: return new AlbumListFragment();
-            case 2: return new TrackListFragment();
-            case 3: return new PlaylistFragment();
-            case 4: return new FavoriteListFragment();
-            case 5: return new TopFragment();
+            case 0: return new TopFragment();
+            case 1: return new ArtistListFragment();
+            case 2: return new AlbumListFragment();
+            case 3: return new TrackListFragment();
+            case 4: return new PlaylistFragment();
+            case 5: return new FavoriteListFragment();
+
             default: return null;
         }
     }
@@ -32,12 +33,13 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
-            case 0: return "アーティスト";
-            case 1: return "アルバム";
-            case 2: return "曲";
-            case 3: return "プレイリスト";
-            case 4: return "お気に入り";
-            case 5: return "Top";
+            case 0: return "Top";
+            case 1: return "アーティスト";
+            case 2: return "アルバム";
+            case 3: return "曲";
+            case 4: return "プレイリスト";
+            case 5: return "お気に入り";
+
             default: return null;
         }
     }

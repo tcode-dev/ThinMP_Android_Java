@@ -31,12 +31,12 @@ import tokyo.tkw.thinmp.util.ActivityUtil;
 public class MainActivity
         extends AppCompatActivity
         implements
+        TopFragment.OnFragmentInteractionListener,
         ArtistListFragment.OnFragmentInteractionListener,
         AlbumListFragment.OnFragmentInteractionListener,
         TrackListFragment.OnFragmentInteractionListener,
         PlaylistFragment.OnFragmentInteractionListener,
         FavoriteListFragment.OnFragmentInteractionListener,
-        TopFragment.OnFragmentInteractionListener,
         MiniPlayerFragment.OnFragmentInteractionListener {
 
     private final int PERMISSION_CODE = 1;
