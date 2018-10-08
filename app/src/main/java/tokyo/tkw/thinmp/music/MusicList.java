@@ -12,7 +12,7 @@ import tokyo.tkw.thinmp.util.StorageController;
 import static android.net.Uri.parse;
 
 /**
- * Created by tk on 2018/03/22.
+ * MusicList
  */
 
 public class MusicList {

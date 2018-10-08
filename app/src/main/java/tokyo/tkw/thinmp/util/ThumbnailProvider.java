@@ -12,17 +12,16 @@ import java.util.HashMap;
 import static android.net.Uri.parse;
 
 /**
- * Created by tk on 2018/03/22.
+ * ThumbnailProvider
  */
-
-public class ThumbnailController {
+public class ThumbnailProvider {
     private final String ALBUM_ART_URL = "content://media/external/audio/albumart/";
 
     private HashMap<String, Bitmap> mMap = new HashMap<String, Bitmap>();
     private Context mContext;
 
-    public ThumbnailController(Context context) {
-        mContext = context;
+    public ThumbnailProvider() {
+        mContext = (Context) ActivityUtil.getContext();
     }
 
     public Bitmap getThumbnail(String id) {

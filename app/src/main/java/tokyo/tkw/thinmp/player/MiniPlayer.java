@@ -10,7 +10,7 @@ import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
 
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.util.ActivityUtil;
-import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.util.ThumbnailProvider;
 
 /**
  * 画面下のミニプレイヤー
@@ -65,7 +65,7 @@ public class MiniPlayer {
      */
     private void changeTrack(Track track) {
         this.trackName.set(track.getTitle());
-        this.mBinding.thumbnail.setImageBitmap(new ThumbnailController((Context) ActivityUtil.getContext()).getThumbnail(track.getThumbnailId()));
+        this.mBinding.thumbnail.setImageBitmap(new ThumbnailProvider().getThumbnail(track.getThumbnailId()));
     }
 
     /**

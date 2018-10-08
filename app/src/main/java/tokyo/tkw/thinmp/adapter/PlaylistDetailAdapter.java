@@ -11,16 +11,15 @@ import java.util.ArrayList;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.playlist.PlaylistTrack;
-import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.util.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrack, TrackViewHolder> {
     private Activity mContext;
-    private ThumbnailController mThumbnailController;
+    private ThumbnailProvider mThumbnailProvider;
     private OrderedRealmCollection<PlaylistTrack> mPlaylistTracks;
     private ArrayList<Track> mTrackList;
 
@@ -30,7 +29,7 @@ public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrac
         mContext = context;
         mPlaylistTracks = playlistTracks;
         mTrackList = trackList;
-        mThumbnailController = new ThumbnailController(context);
+        mThumbnailProvider = new ThumbnailProvider();
     }
 
     @Override
@@ -61,7 +60,7 @@ public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrac
     }
 
     private Bitmap getThumbnail(String id) {
-        return mThumbnailController.getThumbnail(id);
+        return mThumbnailProvider.getThumbnail(id);
     }
 }
 

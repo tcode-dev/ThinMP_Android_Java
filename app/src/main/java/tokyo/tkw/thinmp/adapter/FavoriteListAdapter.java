@@ -12,15 +12,14 @@ import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.Favorite;
-import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.music.MusicList;
-import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.util.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, TrackViewHolder> {
     private Activity mContext;
-    private ThumbnailController mThumbnailController;
+    private ThumbnailProvider mThumbnailProvider;
     private ArrayList<Track> mTrackList;
 
     public FavoriteListAdapter(Activity context, OrderedRealmCollection<Favorite> favoriteList, ArrayList<Track> trackList) {
@@ -28,7 +27,7 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Trac
 
         mContext = context;
         mTrackList = trackList;
-        mThumbnailController = new ThumbnailController(context);
+        mThumbnailProvider = new ThumbnailProvider();
     }
 
     @Override
@@ -57,6 +56,6 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Trac
     }
 
     private Bitmap getThumbnail(String id) {
-        return mThumbnailController.getThumbnail(id);
+        return mThumbnailProvider.getThumbnail(id);
     }
 }

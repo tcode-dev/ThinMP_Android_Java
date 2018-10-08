@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.util.ThumbnailProvider;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
@@ -20,7 +20,7 @@ import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
  */
 public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
     private Activity mContext;
-    private ThumbnailController mThumbnailController;
+    private ThumbnailProvider mThumbnailProvider;
     private OnTrackListItemClickListener mListener;
     private int mItemCount;
 
@@ -28,7 +28,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
 
     public TrackListAdapter(@NonNull Activity context, @NonNull ArrayList<Track> trackList, OnTrackListItemClickListener listener) {
         mContext = context;
-        mThumbnailController = new ThumbnailController(context);
+        mThumbnailProvider = new ThumbnailProvider();
         mTrackList = trackList;
         mListener = listener;
         mItemCount = mTrackList.size();
@@ -46,7 +46,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
         Track track = mTrackList.get(position);
         String title = track.getTitle();
 
-        holder.thumbnail.setImageBitmap(mThumbnailController.getThumbnail(track.getThumbnailId()));
+        holder.thumbnail.setImageBitmap(mThumbnailProvider.getThumbnail(track.getThumbnailId()));
         holder.track.setText(title);
         holder.artist.setText(track.getArtistName());
 

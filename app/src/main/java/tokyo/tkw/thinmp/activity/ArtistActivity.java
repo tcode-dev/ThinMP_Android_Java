@@ -19,7 +19,7 @@ import tokyo.tkw.thinmp.adapter.ArtistAlbumListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
-import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.util.ThumbnailProvider;
 
 public class ArtistActivity extends AppCompatActivity {
     private ImageView mBackgroundView;
@@ -40,11 +40,11 @@ public class ArtistActivity extends AppCompatActivity {
         setView();
 
         //サムネイル
-        Bitmap thumbnail = new ThumbnailController(this).getThumbnail(artist.getThumbnailId());
+        Bitmap thumbnail = new ThumbnailProvider().getThumbnail(artist.getThumbnailId());
         mThumbnailView.setImageBitmap(thumbnail);
 
         //背景画像(同じ画像はキャッシュしているので、サムネイルもぼかしが掛からないようにnewして取得)
-        Bitmap backgroundBitmap = new ThumbnailController(this).getThumbnail(artist.getThumbnailId());
+        Bitmap backgroundBitmap = new ThumbnailProvider().getThumbnail(artist.getThumbnailId());
         RenderScript rs = RenderScript.create(this);
         RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
         Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f,  3);

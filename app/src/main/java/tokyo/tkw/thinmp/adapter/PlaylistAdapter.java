@@ -15,12 +15,12 @@ import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.playlist.PlaylistTrack;
-import tokyo.tkw.thinmp.util.ThumbnailController;
+import tokyo.tkw.thinmp.util.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
 public class PlaylistAdapter extends RealmRecyclerViewAdapter<Playlist, ImageRowViewHolder> {
     private Activity mContext;
-    private ThumbnailController mThumbnailController;
+    private ThumbnailProvider mThumbnailProvider;
     private String mTrackId = null;
     private Runnable mCallback;
 
@@ -28,14 +28,14 @@ public class PlaylistAdapter extends RealmRecyclerViewAdapter<Playlist, ImageRow
         super(Playlists, true);
 
         mContext = context;
-        mThumbnailController = new ThumbnailController(context);
+        mThumbnailProvider = new ThumbnailProvider();
     }
 
     public PlaylistAdapter(Activity context, OrderedRealmCollection<Playlist> Playlists, String trackId, Runnable callback) {
         super(Playlists, true);
 
         mContext = context;
-        mThumbnailController = new ThumbnailController(context);
+        mThumbnailProvider = new ThumbnailProvider();
         mTrackId = trackId;
         mCallback = callback;
     }
@@ -83,6 +83,6 @@ public class PlaylistAdapter extends RealmRecyclerViewAdapter<Playlist, ImageRow
     }
 
     private Bitmap getThumbnail(String id) {
-        return mThumbnailController.getThumbnail(id);
+        return mThumbnailProvider.getThumbnail(id);
     }
 }
