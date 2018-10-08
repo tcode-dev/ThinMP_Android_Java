@@ -20,6 +20,34 @@ public class TrackMenu {
     private String mTrackId;
     private String mDefaultPlaylistName;
 
+    /**
+     * メニューのイベント
+     * @return
+     */
+    private PopupMenu.OnMenuItemClickListener onMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.playlist:
+                    playlist();
+
+                    return true;
+                case R.id.add_favorite:
+                    favorite();
+
+                    return true;
+                case R.id.del_favorite:
+                    favorite();
+
+                    return true;
+                default:
+                    break;
+            }
+
+            return false;
+        }
+    };
+
     public TrackMenu(Activity context, View view, String trackId, String defaultPlaylistName) {
         mContext = context;
         mView = view;
@@ -34,7 +62,7 @@ public class TrackMenu {
         int hiddenFavorite = FavoriteRegister.exists(mTrackId) ? R.id.add_favorite : R.id.del_favorite;
         PopupMenu popupMenu = new PopupMenu(mContext, mView);
         popupMenu.getMenuInflater().inflate(R.menu.track_popup_menu, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(onMenuItemClickListener());
+        popupMenu.setOnMenuItemClickListener(onMenuItemClickListener);
         popupMenu.getMenu().findItem(hiddenFavorite).setVisible(false);
         popupMenu.show();
     }
@@ -59,35 +87,5 @@ public class TrackMenu {
      */
     private void favorite() {
         FavoriteRegister.set(mTrackId);
-    }
-
-    /**
-     * メニューのイベント
-     * @return
-     */
-    private PopupMenu.OnMenuItemClickListener onMenuItemClickListener() {
-        return new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.playlist:
-                        playlist();
-
-                        return true;
-                    case R.id.add_favorite:
-                        favorite();
-
-                        return true;
-                    case R.id.del_favorite:
-                        favorite();
-
-                        return true;
-                    default:
-                        break;
-                }
-
-                return false;
-            }
-        };
     }
 }
