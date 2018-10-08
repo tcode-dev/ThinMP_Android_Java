@@ -16,9 +16,8 @@ import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 /**
- * Created by tk on 2018/03/22.
+ * TrackListAdapter
  */
-
 public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
     private Activity mContext;
     private ThumbnailController mThumbnailController;

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.favorite.FavoriteRegister;
 import tokyo.tkw.thinmp.fragment.FavoriteListFragment;
+import tokyo.tkw.thinmp.fragment.HorizontalFragment;
 import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
 import tokyo.tkw.thinmp.fragment.PlaylistFragment;
 import tokyo.tkw.thinmp.fragment.TopFragment;
@@ -37,7 +38,7 @@ public class MainActivity
         TrackListFragment.OnFragmentInteractionListener,
         PlaylistFragment.OnFragmentInteractionListener,
         FavoriteListFragment.OnFragmentInteractionListener,
-        MiniPlayerFragment.OnFragmentInteractionListener {
+        HorizontalFragment.OnFragmentInteractionListener {
 
     private final int PERMISSION_CODE = 1;
 
@@ -45,6 +46,7 @@ public class MainActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
 
         MusicList.setInstance(this);
@@ -83,20 +85,6 @@ public class MainActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        //        outState.putString("played", String.valueOf(mPlayed));
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        //        String played = savedInstanceState.getString("played");
-    }
-
-    @Override
     public void onFragmentInteraction(Uri uri) {
     }
 
@@ -123,6 +111,5 @@ public class MainActivity
                 return;
             }
         }
-
     }
 }

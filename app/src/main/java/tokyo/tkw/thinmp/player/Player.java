@@ -5,6 +5,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.SeekBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,9 +32,11 @@ public class Player {
     private ActivityPlayerBinding mBinding;
     private Timer mTimer;
     private int mCurrentPositionSecond;
+    private OnPlayerListener mListener;
 
-    public Player(ActivityPlayerBinding binding) {
+    public Player(ActivityPlayerBinding binding, OnPlayerListener listener) {
         mBinding = binding;
+        mListener = listener;
     }
 
     public void update(Track track) {
@@ -53,6 +56,8 @@ public class Player {
         this.isPlaying.set(true);
         // サムネイル
         this.mBinding.thumbnail.setImageBitmap(new ThumbnailController((Context) ActivityUtil.getContext()).getThumbnail(track.getThumbnailId()));
+        // seekbar
+        this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
 
     /**
@@ -60,10 +65,8 @@ public class Player {
      * @param view
      */
     public void onClickPlay(View view) {
-        // 開始・停止ボタンのトグル
+        mListener.onPlay();
         this.isPlaying.set(true);
-        // 曲を再生
-        MusicManager.play();
         this.setDurationTimer();
     }
 
@@ -72,11 +75,8 @@ public class Player {
      * @param view
      */
     public void onClickPause(View view) {
-        // 開始・停止ボタンのトグル
+        mListener.onPause();
         this.isPlaying.set(false);
-        // 曲を一時停止
-        MusicManager.pause();
-        // 再生時間の更新を停止
         this.cancelDurationTimer();
     }
 
@@ -85,9 +85,8 @@ public class Player {
      * @param view
      */
     public void onClickPrev(View view) {
-        // 前の曲を再生
-        MusicManager.prev();
         cancelDurationTimer();
+        mListener.onPrev();
     }
 
     /**
@@ -95,16 +94,15 @@ public class Player {
      * @param view
      */
     public void onClickNext(View view) {
-        // 次の曲を再生
-        MusicManager.next();
         cancelDurationTimer();
+        mListener.onNext();
     }
 
     /**
      * 再生中の時間を設定
      */
     public void setDuration() {
-        int second = TimeUtil.millisecondToSecond(MusicManager.getCurrentPosition());
+        int second = TimeUtil.millisecondToSecond(mListener.onGetCurrentPosition());
 
         if (mCurrentPositionSecond == second) return;
 
@@ -142,5 +140,62 @@ public class Player {
 
         mTimer.cancel();
         mTimer = null;
+    }
+
+    private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if (! fromUser) return;
+
+            int msec = progress * 1000;
+
+            mListener.onSeekTo(msec);
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+
+    /**
+     * interface
+     */
+    public interface OnPlayerListener {
+        /**
+         * 曲の再生
+         */
+        void onPlay();
+
+        /**
+         * 曲の一時停止
+         */
+        void onPause();
+
+        /**
+         * 前の曲
+         */
+        void onPrev();
+
+        /**
+         * 次の曲
+         */
+        void onNext();
+
+        /**
+         * 再生曲の現在時間を取得
+         */
+        int onGetCurrentPosition();
+
+        /**
+         * seekTo
+         */
+        void onSeekTo(int msec);
     }
 }

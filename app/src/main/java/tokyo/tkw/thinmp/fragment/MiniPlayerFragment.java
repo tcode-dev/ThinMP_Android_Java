@@ -1,11 +1,15 @@
 package tokyo.tkw.thinmp.fragment;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,118 +17,144 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
-
 import tokyo.tkw.thinmp.activity.PlayerActivity;
 import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.player.MiniPlayer;
-import tokyo.tkw.thinmp.player.MusicManager;
+import tokyo.tkw.thinmp.player.MusicService;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MiniPlayerFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MiniPlayerFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * MiniPlayerFragment
  */
-public class MiniPlayerFragment extends Fragment implements MiniPlayer.OnMiniPlayerListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
+public class MiniPlayerFragment extends Fragment {
     private MiniPlayer mMiniPlayer;
+    private FragmentMiniPlayerBinding mBinding;
+    public MusicService mMusicService;
 
-    public MiniPlayerFragment() {
-        // Required empty public constructor
+    /**
+     * ServiceConnection
+     */
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
+            mMusicService = binder.getService();
+            mMusicService.setListener(musicServiceListener);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
+    /**
+     * MiniPlayerのListener
+     */
+    private MiniPlayer.OnMiniPlayerListener mMiniPlayerListener = new MiniPlayer.OnMiniPlayerListener() {
+        /**
+         * 再生画面へ遷移
+         */
+        @Override
+        public void onClickPlayer() {
+            Intent intent = new Intent(getContext(), PlayerActivity.class);
+            startActivity(intent);
+        }
+
+        /**
+         * 曲の再生
+         */
+        @Override
+        public void onClickPlay() {
+            mMusicService.play();
+        }
+
+        /**
+         * 曲の一時停止
+         */
+        @Override
+        public void onClickPause() {
+            mMusicService.pause();
+        }
+
+        /**
+         * 次の曲
+         */
+        @Override
+        public void onClickNext() {
+            mMusicService.next();
+        }
+
+        /**
+         * 曲を取得
+         */
+        @Override
+        public Track onGetTrack() {
+            return mMusicService.getTrack();
+        }
+    };
+
+    /**
+     * MusicServiceのListener
+     */
+    private MusicService.OnMusicServiceListener musicServiceListener = new MusicService.OnMusicServiceListener() {
+        @Override
+        public void onChangeTrack(Track track) {
+            update(track);
+        }
+    };
+
+    /**
+     * doBindService
+     */
+    public void doBindService() {
+        FragmentActivity activity = getActivity();
+        Intent intent = new Intent(activity, MusicService.class);
+        activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MiniPlayerFragment.
+     * onCreate
+     * @param savedInstanceState
      */
-    // TODO: Rename and change types and number of parameters
-    public static MiniPlayerFragment newInstance(String param1, String param2) {
-        MiniPlayerFragment fragment = new MiniPlayerFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        if (mMusicService == null) {
+            doBindService();
         }
+
+        getActivity().startService(new Intent(getActivity(), MusicService.class));
     }
 
+    /**
+     * onCreateView
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        FragmentMiniPlayerBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mini_player, container, false);
-        mMiniPlayer = new MiniPlayer(binding, (MiniPlayer.OnMiniPlayerListener) this);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_mini_player, container, false);
+        mMiniPlayer = new MiniPlayer(mBinding, mMiniPlayerListener);
 
-        binding.setMiniPlayer(mMiniPlayer);
+        mBinding.setMiniPlayer(mMiniPlayer);
 
-        Track track = MusicManager.getTrack();
-        mMiniPlayer.update(track);
-
-        return binding.getRoot();
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        return mBinding.getRoot();
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * onDestroy
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mMusicService != null) {
+            getActivity().unbindService(mConnection);
+            mConnection = null;
+        }
     }
 
     /**
@@ -133,41 +163,16 @@ public class MiniPlayerFragment extends Fragment implements MiniPlayer.OnMiniPla
      * @param position
      */
     public void start(ArrayList<Track> trackList, int position) {
-        MusicManager.set(trackList, position);
-        MusicManager.start();
-        mMiniPlayer.update(MusicManager.getTrack());
+        mMusicService.setPlayingList(trackList, position);
+        mMusicService.start();
+        mMiniPlayer.update(mMusicService.getTrack());
     }
 
     /**
-     * 再生画面へ遷移
+     * 曲変更
+     * @param track
      */
-    @Override
-    public void onClickPlayer() {
-        Intent intent = new Intent(getContext(), PlayerActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * 曲の再生
-     */
-    @Override
-    public void onClickPlay() {
-        MusicManager.play();
-    }
-
-    /**
-     * 曲の一時停止
-     */
-    @Override
-    public void onClickPause() {
-        MusicManager.pause();
-    }
-
-    /**
-     * 次の曲
-     */
-    @Override
-    public void onClickNext() {
-        MusicManager.next();
+    public void update(Track track) {
+        mMiniPlayer.update(track);
     }
 }

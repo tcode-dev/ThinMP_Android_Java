@@ -11,7 +11,9 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
         <ImageView
             android:layout_width="match_parent"
@@ -67,9 +69,10 @@
             android:layout_marginEnd="8dp"
             android:text="@{player.currentTime}"
             android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="@+id/seekBar"
             app:layout_constraintEnd_toStartOf="@+id/seekBar"
             app:layout_constraintTop_toTopOf="@+id/seekBar"
-            tools:text="@android:string/selectAll" />
+            tools:text="current" />
 
         <TextView
             android:id="@+id/durationTime"
@@ -78,17 +81,21 @@
             android:layout_marginStart="8dp"
             android:text="@{player.durationTime}"
             android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="@+id/seekBar"
             app:layout_constraintStart_toEndOf="@+id/seekBar"
             app:layout_constraintTop_toTopOf="@+id/seekBar"
-            tools:text="aaaaaa" />
+            tools:text="duration" />
 
         <SeekBar
             android:id="@+id/seekBar"
-            style="@android:style/Widget.Material.Light.SeekBar"
+            style="@android:style/Widget.Material.SeekBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:max="@{player.durationSecond}"
+            android:min="0"
+            android:paddingEnd="0dp"
+            android:paddingStart="0dp"
             android:progress="@{player.currentSecond}"
             app:layout_constraintEnd_toEndOf="@+id/thumbnail"
             app:layout_constraintStart_toStartOf="@+id/thumbnail"

@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="ThinMP"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,6 +27,11 @@
         <activity android:name=".activity.ArtistActivity" />
         <activity android:name=".activity.PlaylistDetailActivity" />
         <activity android:name=".activity.PlayerActivity" />
+
+        <service
+            android:name=".player.MusicService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>

@@ -19,7 +19,6 @@ import tokyo.tkw.thinmp.util.ThumbnailController;
 public class MiniPlayer {
     public ObservableBoolean isActive = new ObservableBoolean();
     public ObservableBoolean isPlaying = new ObservableBoolean();
-    public ObservableBoolean hasNext = new ObservableBoolean();
     public ObservableField<String> trackName = new ObservableField<>();
     public ObservableField<Bitmap> thumbnail = new ObservableField<>();
 
@@ -51,12 +50,20 @@ public class MiniPlayer {
     }
 
     /**
-     * プレイヤーを非表示
+     * プレイヤーを表示
      * @param track
      */
     private void setActive(Track track) {
         this.isActive.set(true);
         this.isPlaying.set(true);
+        this.changeTrack(track);
+    }
+
+    /**
+     * changeTrack
+     * @param track
+     */
+    private void changeTrack(Track track) {
         this.trackName.set(track.getTitle());
         this.mBinding.thumbnail.setImageBitmap(new ThumbnailController((Context) ActivityUtil.getContext()).getThumbnail(track.getThumbnailId()));
     }
@@ -75,9 +82,7 @@ public class MiniPlayer {
      * @param view
      */
     public void onClickPlay(View view) {
-        // 開始・停止ボタンのトグル
         this.isPlaying.set(true);
-        // 曲の再生
         mListener.onClickPlay();
     }
 
@@ -86,9 +91,7 @@ public class MiniPlayer {
      * @param view
      */
     public void onClickPause(View view) {
-        // 開始・停止ボタンのトグル
         this.isPlaying.set(false);
-        // 曲の一時停止
         mListener.onClickPause();
     }
 
@@ -97,8 +100,8 @@ public class MiniPlayer {
      * @param view
      */
     public void onClickNext(View view) {
-        // 次の曲
         mListener.onClickNext();
+        changeTrack(mListener.onGetTrack());
     }
 
     /**
@@ -106,7 +109,7 @@ public class MiniPlayer {
      */
     public interface OnMiniPlayerListener {
         /**
-         * ページ遷移
+         * プレイヤー全画面表示（ページ遷移）
          */
         void onClickPlayer();
 
@@ -124,5 +127,11 @@ public class MiniPlayer {
          * 次の曲
          */
         void onClickNext();
+
+        /**
+         * onGetTrack
+         * @return
+         */
+        Track onGetTrack();
     }
 }

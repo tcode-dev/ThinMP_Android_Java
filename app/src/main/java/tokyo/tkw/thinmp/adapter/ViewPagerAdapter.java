@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import tokyo.tkw.thinmp.fragment.FavoriteListFragment;
+import tokyo.tkw.thinmp.fragment.HorizontalFragment;
 import tokyo.tkw.thinmp.fragment.PlaylistFragment;
 import tokyo.tkw.thinmp.fragment.TopFragment;
 import tokyo.tkw.thinmp.fragment.TrackListFragment;
@@ -25,6 +26,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 3: return new TrackListFragment();
             case 4: return new PlaylistFragment();
             case 5: return new FavoriteListFragment();
+            case 6: return new HorizontalFragment();
 
             default: return null;
         }
@@ -39,6 +41,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 3: return "曲";
             case 4: return "プレイリスト";
             case 5: return "お気に入り";
+            case 6: return "横スライド";
 
             default: return null;
         }
@@ -46,6 +49,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 6;
+        return 7;
     }
 }
