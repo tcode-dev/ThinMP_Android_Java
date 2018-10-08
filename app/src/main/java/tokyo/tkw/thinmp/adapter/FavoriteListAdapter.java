@@ -46,9 +46,6 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Trac
         holder.thumbnail.setImageBitmap(getThumbnail(track.getThumbnailId()));
         holder.track.setText(title);
         holder.artist.setText(track.getArtistName());
-
-//        holder.itemView.setOnClickListener(new TrackClickListener(mContext, mTrackList, position));
-//        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, track.getId(), title));
     }
 
     private Track getTrack(String id) {
