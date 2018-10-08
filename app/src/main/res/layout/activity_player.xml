@@ -208,6 +208,8 @@
                 android:layout_height="30dp"
                 android:background="@null"
                 android:scaleType="centerCrop"
+                android:onClick="@{player::onClickShuffle}"
+                android:visibility="@{player.isShuffle ? View.VISIBLE : View.GONE}"
                 app:srcCompat="@drawable/shuffle_on" />
 
             <ImageButton
@@ -216,6 +218,8 @@
                 android:layout_height="30dp"
                 android:background="@null"
                 android:scaleType="centerCrop"
+                android:onClick="@{player::onClickShuffle}"
+                android:visibility="@{player.isShuffle ? View.GONE : View.VISIBLE}"
                 app:srcCompat="@drawable/shuffle_off" />
 
         </FrameLayout>

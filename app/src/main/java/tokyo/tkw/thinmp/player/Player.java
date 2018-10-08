@@ -26,6 +26,7 @@ public class Player {
     public ObservableField<Integer> currentSecond = new ObservableField<>();
     public ObservableBoolean isPlaying = new ObservableBoolean();
     public ObservableField<Bitmap> thumbnail = new ObservableField<>();
+    public ObservableBoolean isShuffle = new ObservableBoolean();
 
     private ActivityPlayerBinding mBinding;
     private Timer mTimer;
@@ -54,6 +55,8 @@ public class Player {
         this.isPlaying.set(true);
         // サムネイル
         this.mBinding.thumbnail.setImageBitmap(new ThumbnailProvider().getThumbnail(track.getThumbnailId()));
+        // シャッフル
+        this.isShuffle.set(false);
         // seekbar
         this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
@@ -64,8 +67,8 @@ public class Player {
      */
     public void onClickPlay(View view) {
         mListener.onPlay();
-        this.isPlaying.set(true);
         this.setDurationTimer();
+        this.isPlaying.set(true);
     }
 
     /**
@@ -73,9 +76,9 @@ public class Player {
      * @param view
      */
     public void onClickPause(View view) {
+        this.cancelDurationTimer();
         mListener.onPause();
         this.isPlaying.set(false);
-        this.cancelDurationTimer();
     }
 
     /**
@@ -94,6 +97,15 @@ public class Player {
     public void onClickNext(View view) {
         cancelDurationTimer();
         mListener.onNext();
+    }
+
+    /**
+     * onClickShuffle
+     * @param view
+     */
+    public void onClickShuffle(View view) {
+        boolean isShuffle = mListener.onShuffle();
+        this.isShuffle.set(isShuffle);
     }
 
     /**
@@ -185,6 +197,11 @@ public class Player {
          * 次の曲
          */
         void onNext();
+
+        /**
+         * シャッフル
+         */
+        boolean onShuffle();
 
         /**
          * 再生曲の現在時間を取得

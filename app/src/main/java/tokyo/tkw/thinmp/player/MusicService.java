@@ -19,6 +19,7 @@ public class MusicService extends Service {
     private final int REPEAT_ALL = 2;
 
     private int mRepeat = REPEAT_OFF;
+    private boolean mShuffle = false;
     private MediaPlayer mMediaPlayer;
     private ArrayList<Track> mOriginalList;
     private PlayingList mPlayingList;
@@ -123,17 +124,13 @@ public class MusicService extends Service {
     }
 
     /**
-     * シャッフルon
+     * シャッフル
      */
-    public void setShuffleOn() {
-        mPlayingList = new PlayingList(mOriginalList, mPlayingList.getCurrentPosition());
-    }
+    public boolean shuffle() {
+        mShuffle = !mShuffle;
+        mPlayingList = mShuffle ? mPlayingList.getShufflePlayingList() : new PlayingList(mOriginalList, mPlayingList.getCurrentPosition());
 
-    /**
-     * シャッフルoff
-     */
-    public void setShuffleOff() {
-        mPlayingList = mPlayingList.getShufflePlayingList();
+        return mShuffle;
     }
 
     /**

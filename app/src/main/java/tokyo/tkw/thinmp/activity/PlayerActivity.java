@@ -76,6 +76,11 @@ public class PlayerActivity extends AppCompatActivity {
         }
 
         @Override
+        public boolean onShuffle() {
+            return mMusicService.shuffle();
+        }
+
+        @Override
         public int onGetCurrentPosition() {
             return mMusicService.getCurrentPosition();
         }
