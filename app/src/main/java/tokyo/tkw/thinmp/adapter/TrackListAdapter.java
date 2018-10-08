@@ -68,7 +68,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
         return new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                mListener.OnClickItem(position);
+                mListener.onClickItem(position);
             }
         };
     }
@@ -91,6 +91,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
      * interface
      */
     public interface OnTrackListItemClickListener {
-        void OnClickItem(int position);
+        void onClickItem(int position);
     }
 }

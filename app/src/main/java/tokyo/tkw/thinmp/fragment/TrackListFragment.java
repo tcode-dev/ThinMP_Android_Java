@@ -86,7 +86,7 @@ public class TrackListFragment extends Fragment implements TrackListAdapter.OnTr
     }
 
     @Override
-    public void OnClickItem(int position) {
+    public void onClickItem(int position) {
         if (mListener != null) {
             mListener.onStartClick(mTrackList, position);
         }
