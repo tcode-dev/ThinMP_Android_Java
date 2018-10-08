@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.player;
 
-import android.content.Context;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.graphics.Bitmap;
@@ -9,8 +8,7 @@ import android.view.View;
 import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
 
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.util.ActivityUtil;
-import tokyo.tkw.thinmp.util.ThumbnailProvider;
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 
 /**
  * 画面下のミニプレイヤー

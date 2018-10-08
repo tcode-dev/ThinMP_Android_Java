@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.util.ThumbnailProvider;
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 

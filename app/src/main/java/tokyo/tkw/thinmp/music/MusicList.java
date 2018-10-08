@@ -1,49 +1,30 @@
 package tokyo.tkw.thinmp.music;
 
 import android.app.Activity;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.MediaStore;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.util.StorageController;
-
-import static android.net.Uri.parse;
+import tokyo.tkw.thinmp.provider.MusicProvider;
 
 /**
  * MusicList
  */
-
 public class MusicList {
-    private Cursor mCursor;
-    private Activity mContext;
-
-    private TrackList mTrackList = new TrackList();
-    private ArtistList mArtistList = new ArtistList();
-    private AlbumList mAlbumList = new AlbumList();
+    private TrackList mTrackList;
+    private ArtistList mArtistList;
+    private AlbumList mAlbumList;
 
     private static MusicList instance = null;
 
-    public MusicList(Activity context) {
-        mContext = context;
-        init();
+    public MusicList(Activity activity) {
+        MusicProvider musicProvider = new MusicProvider(activity);
+        mTrackList = musicProvider.getTrackList();
+        mArtistList = musicProvider.getArtistList();
+        mAlbumList = musicProvider.getAlbumList();
     }
 
-    public void init() {
-        mCursor = getCursor();
-
-        if (mCursor == null) return;
-
-        setAll();
-
-        mCursor.close();
-        mCursor = null;
-        mContext = null;
-    }
-
-    public static void setInstance(Activity context) {
-        instance = new MusicList(context);
+    public static void setInstance(Activity activity) {
+        instance = new MusicList(activity);
     }
 
     public static MusicList getInstance() {
@@ -135,114 +116,5 @@ public class MusicList {
      */
     public static Track getTrack(String id) {
         return instance.mTrackList.getTrack(id);
-    }
-
-    /**
-     * ストレージから曲一覧を取得
-     */
-    private Cursor getCursor() {
-        StorageController storageController = new StorageController(mContext);
-
-        return storageController.getCursor();
-    }
-
-    /**
-     * 曲一覧を設定
-     */
-    private void setAll() {
-        while (mCursor.moveToNext()) {
-            Track track = getTrack();
-
-            mTrackList.add(track);
-            mArtistList.add(track);
-            mAlbumList.add(track);
-        }
-    }
-
-    /**
-     * 曲情報を取得
-     * @return
-     */
-    private Track getTrack() {
-        String id = getId();
-        String title = getTitle();
-        Uri uri = getUri();
-        String artistId = getArtistId();
-        String artistName = getArtistName();
-        String albumId = getAlbumId();
-        String albumName = getAlbumName();
-        String thumbnailId = albumId;//サムネイルはアルバムアートを使用する
-        int duration = getDuration();
-
-        Track track = new Track(id, title, uri, artistId, artistName, albumId, albumName, thumbnailId, duration);
-
-        return track;
-    }
-
-    /**
-     * idを取得
-     * @return
-     */
-    private String getId() {
-        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media._ID));
-    }
-
-    /**
-     * 曲名を取得
-     * @return
-     */
-    private String getTitle() {
-        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
-    }
-
-    /**
-     * アーティストidを取得
-     * @return
-     */
-    private String getArtistId() {
-        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID));
-    }
-
-    /**
-     * アーティスト名を取得
-     * @return
-     */
-    private String getArtistName() {
-        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-    }
-
-    /**
-     * 曲のuriを取得
-     * @return
-     */
-    private Uri getUri() {
-        String url = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + getId();
-        Uri uri = parse(url);
-
-        return uri;
-    }
-
-    /**
-     * アルバムidを取得
-     * @return
-     */
-    private String getAlbumId() {
-        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-    }
-
-    /**
-     * アルバム名を取得
-     * @return
-     */
-    private String getAlbumName() {
-        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-    }
-
-    /**
-     * 再生時間を取得
-     * @return
-     */
-    private int getDuration() {
-        return mCursor.getInt(mCursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
     }
 }

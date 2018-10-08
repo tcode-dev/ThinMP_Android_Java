@@ -15,7 +15,7 @@ import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.playlist.PlaylistTrack;
-import tokyo.tkw.thinmp.util.ThumbnailProvider;
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
 public class PlaylistAdapter extends RealmRecyclerViewAdapter<Playlist, ImageRowViewHolder> {

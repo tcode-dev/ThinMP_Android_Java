@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.player;
 
-import android.content.Context;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.graphics.Bitmap;
@@ -12,8 +11,7 @@ import java.util.TimerTask;
 
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.util.ActivityUtil;
-import tokyo.tkw.thinmp.util.ThumbnailProvider;
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.util.TimeUtil;
 
 /**

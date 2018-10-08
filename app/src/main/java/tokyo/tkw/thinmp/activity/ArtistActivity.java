@@ -19,7 +19,7 @@ import tokyo.tkw.thinmp.adapter.ArtistAlbumListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
-import tokyo.tkw.thinmp.util.ThumbnailProvider;
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 
 public class ArtistActivity extends AppCompatActivity {
     private ImageView mBackgroundView;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.util.ThumbnailProvider;
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
 /**

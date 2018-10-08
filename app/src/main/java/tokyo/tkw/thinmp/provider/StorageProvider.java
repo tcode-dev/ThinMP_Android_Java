@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.util;
+package tokyo.tkw.thinmp.provider;
 
 import android.Manifest;
 import android.app.Activity;
@@ -9,14 +9,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 /**
- * Created by tk on 2018/03/19.
+ * StorageProvider
  */
-
-public class StorageController {
+public class StorageProvider {
     private final int PERMISSION_CODE = 1;
     private Activity mContext;
 
-    public StorageController(Activity context) {
+    public StorageProvider(Activity context) {
         mContext = context;
     }
 

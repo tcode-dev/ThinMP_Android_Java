@@ -14,7 +14,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.Favorite;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.music.MusicList;
-import tokyo.tkw.thinmp.util.ThumbnailProvider;
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, TrackViewHolder> {

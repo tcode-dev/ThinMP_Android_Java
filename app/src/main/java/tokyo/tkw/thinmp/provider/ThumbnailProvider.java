@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.util;
+package tokyo.tkw.thinmp.provider;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +8,8 @@ import android.net.Uri;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
+
+import tokyo.tkw.thinmp.util.ActivityUtil;
 
 import static android.net.Uri.parse;
 
