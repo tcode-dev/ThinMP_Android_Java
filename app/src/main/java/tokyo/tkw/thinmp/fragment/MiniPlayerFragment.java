@@ -102,6 +102,16 @@ public class MiniPlayerFragment extends Fragment {
         public void onChangeTrack(Track track) {
             update(track);
         }
+
+        @Override
+        public void onStarted() {
+
+        }
+
+        @Override
+        public void onFinished() {
+
+        }
     };
 
     /**

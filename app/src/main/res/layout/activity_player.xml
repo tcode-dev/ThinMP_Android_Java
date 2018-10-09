@@ -173,6 +173,8 @@
                 android:layout_height="30dp"
                 android:background="@null"
                 android:scaleType="centerCrop"
+                android:onClick="@{player::onClickRepeat}"
+                android:visibility="@{player.repeat == 0 ? View.VISIBLE : View.GONE}"
                 app:srcCompat="@drawable/repeat_off" />
 
             <ImageButton
@@ -181,6 +183,8 @@
                 android:layout_height="30dp"
                 android:background="@null"
                 android:scaleType="centerCrop"
+                android:onClick="@{player::onClickRepeat}"
+                android:visibility="@{player.repeat == 1 ? View.VISIBLE : View.GONE}"
                 app:srcCompat="@drawable/repeat_one" />
 
             <ImageButton
@@ -189,6 +193,8 @@
                 android:layout_height="30dp"
                 android:background="@null"
                 android:scaleType="centerCrop"
+                android:onClick="@{player::onClickRepeat}"
+                android:visibility="@{player.repeat == 2 ? View.VISIBLE : View.GONE}"
                 app:srcCompat="@drawable/repeat_all" />
 
         </FrameLayout>

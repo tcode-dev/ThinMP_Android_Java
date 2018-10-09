@@ -26,6 +26,7 @@ public class Player {
     public ObservableField<Integer> currentSecond = new ObservableField<>();
     public ObservableBoolean isPlaying = new ObservableBoolean();
     public ObservableField<Bitmap> thumbnail = new ObservableField<>();
+    public ObservableField<Integer> repeat = new ObservableField<>();
     public ObservableBoolean isShuffle = new ObservableBoolean();
 
     private ActivityPlayerBinding mBinding;
@@ -38,7 +39,7 @@ public class Player {
         mListener = listener;
     }
 
-    public void update(Track track) {
+    public void update(Track track, Integer repeat, boolean isShuffle) {
         // 曲名
         this.trackName.set(track.getTitle());
         // アーティスト名
@@ -55,10 +56,20 @@ public class Player {
         this.isPlaying.set(true);
         // サムネイル
         this.mBinding.thumbnail.setImageBitmap(new ThumbnailProvider().getThumbnail(track.getThumbnailId()));
+        // リピート
+        this.repeat.set(repeat);
         // シャッフル
-        this.isShuffle.set(false);
+        this.isShuffle.set(isShuffle);
         // seekbar
         this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+    }
+
+    public void start() {
+        this.setDurationTimer();
+    }
+
+    public void finish() {
+        this.cancelDurationTimer();
     }
 
     /**
@@ -97,6 +108,15 @@ public class Player {
     public void onClickNext(View view) {
         cancelDurationTimer();
         mListener.onNext();
+    }
+
+    /**
+     * onClickRepeat
+     * @param view
+     */
+    public void onClickRepeat(View view) {
+        Integer repeat = mListener.onRepeat();
+        this.repeat.set(repeat);
     }
 
     /**
@@ -197,6 +217,11 @@ public class Player {
          * 次の曲
          */
         void onNext();
+
+        /**
+         * リピート
+         */
+        Integer onRepeat();
 
         /**
          * シャッフル

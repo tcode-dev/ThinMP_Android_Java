@@ -19,7 +19,6 @@ public class PlayerActivity extends AppCompatActivity {
     private ActivityPlayerBinding mBinding;
     private Player mPlayer;
     public MusicService mMusicService;
-    public boolean mBound = false;
 
     /**
      * MusicServiceのListener
@@ -27,7 +26,17 @@ public class PlayerActivity extends AppCompatActivity {
     private MusicService.OnMusicServiceListener musicServiceListener = new MusicService.OnMusicServiceListener() {
         @Override
         public void onChangeTrack(Track track) {
-            mPlayer.update(mMusicService.getTrack());
+            updatePlayer();
+        }
+
+        @Override
+        public void onStarted() {
+            mPlayer.start();
+        }
+
+        @Override
+        public void onFinished() {
+            mPlayer.finish();
         }
     };
 
@@ -40,7 +49,6 @@ public class PlayerActivity extends AppCompatActivity {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             mMusicService = binder.getService();
             mMusicService.setListener(musicServiceListener);
-            mBound = true;
 
             setPlayer();
         }
@@ -73,6 +81,11 @@ public class PlayerActivity extends AppCompatActivity {
         @Override
         public void onNext() {
             mMusicService.next();
+        }
+
+        @Override
+        public Integer onRepeat() {
+            return mMusicService.repeat();
         }
 
         @Override
@@ -136,11 +149,15 @@ public class PlayerActivity extends AppCompatActivity {
         mPlayer = new Player(mBinding, mPlayerListener);
 
         mBinding.setPlayer(mPlayer);
-        mPlayer.update(mMusicService.getTrack());
+        updatePlayer();
 
         if (mMusicService.isPlaying()) {
             mPlayer.setDurationTimer();
         }
+    }
+
+    private void updatePlayer() {
+        mPlayer.update(mMusicService.getTrack(), mMusicService.getRepeatStatus(), mMusicService.getShuffleStatus());
     }
 
     /**

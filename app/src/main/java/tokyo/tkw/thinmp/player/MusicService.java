@@ -103,23 +103,42 @@ public class MusicService extends Service {
     }
 
     /**
+     * リピート
+     */
+    public Integer repeat() {
+        switch (mRepeat) {
+            case REPEAT_OFF :
+                repeatAll();
+                break;
+            case REPEAT_ALL :
+                repeatOne();
+                break;
+            case REPEAT_ONE :
+                repeatOff();
+                break;
+        }
+
+        return mRepeat;
+    }
+
+    /**
      * 1曲リピート
      */
-    public void setRepeatOne() {
+    private void repeatOne() {
         mRepeat = REPEAT_ONE;
     }
 
     /**
      * 全曲リピート
      */
-    public void setRepeatAll() {
+    private void repeatAll() {
         mRepeat = REPEAT_ALL;
     }
 
     /**
      * リピートoff
      */
-    public void setRepeatOff() {
+    private void repeatOff() {
         mRepeat = REPEAT_OFF;
     }
 
@@ -166,6 +185,22 @@ public class MusicService extends Service {
     }
 
     /**
+     * シャッフルの状態を返す
+     * @return
+     */
+    public boolean getShuffleStatus() {
+        return mShuffle;
+    }
+
+    /**
+     * リピートの状態を返す
+     * @return
+     */
+    public Integer getRepeatStatus() {
+        return mRepeat;
+    }
+
+    /**
      * MediaPlayerを破棄
      */
     public void destroy() {
@@ -185,6 +220,7 @@ public class MusicService extends Service {
     private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
+            mListener.onFinished();
             playNext();
         }
     };
@@ -198,16 +234,19 @@ public class MusicService extends Service {
                 if (mPlayingList.hasNext()) {
                     mPlayingList.next();
                     start();
+                    mListener.onStarted();
                 }
 
                 return;
             case REPEAT_ONE :
-                // MediaPlayerの機能でリピートするので何もしない
+                start();
+                mListener.onStarted();
 
                 return;
             case REPEAT_ALL :
                 mPlayingList.next();
                 start();
+                mListener.onStarted();
 
                 return;
             default:
@@ -223,5 +262,13 @@ public class MusicService extends Service {
          * 曲変更
          */
         void onChangeTrack(Track track);
+        /**
+         * 再生開始
+         */
+        void onStarted();
+        /**
+         * 再生終了
+         */
+        void onFinished();
     }
 }
