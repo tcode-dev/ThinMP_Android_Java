@@ -118,6 +118,8 @@ public class MiniPlayerFragment extends Fragment {
      * doBindService
      */
     public void doBindService() {
+        if (mMusicService != null) return;
+
         FragmentActivity activity = getActivity();
         Intent intent = new Intent(activity, MusicService.class);
         activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
@@ -130,9 +132,8 @@ public class MiniPlayerFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (mMusicService == null) {
-            doBindService();
-        }
+
+        doBindService();
 
         getActivity().startService(new Intent(getActivity(), MusicService.class));
     }
@@ -163,8 +164,25 @@ public class MiniPlayerFragment extends Fragment {
         super.onDestroy();
         if (mMusicService != null) {
             getActivity().unbindService(mConnection);
-            mConnection = null;
+            mMusicService = null;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mMusicService != null) {
+            getActivity().unbindService(mConnection);
+            mMusicService = null;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        doBindService();
     }
 
     /**
