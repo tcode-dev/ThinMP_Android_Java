@@ -240,7 +240,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toStartOf="@+id/favoriteArtist"
             app:layout_constraintTop_toBottomOf="@+id/playToggle"
-            app:srcCompat="@drawable/shuffle_on" />
+            app:srcCompat="@drawable/favorite_song" />
 
         <ImageButton
             android:id="@+id/favoriteArtist"
@@ -252,7 +252,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toStartOf="@+id/playlist"
             app:layout_constraintTop_toBottomOf="@+id/playToggle"
-            app:srcCompat="@drawable/shuffle_on" />
+            app:srcCompat="@drawable/favorite_artist" />
 
         <ImageButton
             android:id="@+id/playlist"
@@ -264,7 +264,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/playToggle"
-            app:srcCompat="@drawable/shuffle_on" />
+            app:srcCompat="@drawable/playlist" />
 
     </android.support.constraint.ConstraintLayout>
 
