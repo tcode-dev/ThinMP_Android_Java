@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/list">
+        app:layout_constraintTop_toTopOf="@+id/list"
+        android:fitsSystemWindows="true">
 
         <android.support.v4.view.PagerTabStrip
             android:id="@+id/strip"

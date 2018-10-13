@@ -1,33 +1,23 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.content.pm.PackageManager;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.view.Window;
 
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.favorite.FavoriteRegister;
-import tokyo.tkw.thinmp.fragment.FavoriteListFragment;
 import tokyo.tkw.thinmp.fragment.HorizontalFragment;
 import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
-import tokyo.tkw.thinmp.fragment.PlaylistFragment;
-import tokyo.tkw.thinmp.fragment.TopFragment;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.ViewPagerAdapter;
-import tokyo.tkw.thinmp.fragment.AlbumListFragment;
-import tokyo.tkw.thinmp.fragment.ArtistListFragment;
 import tokyo.tkw.thinmp.fragment.TrackListFragment;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.util.ActivityUtil;
 
 public class MainActivity
         extends AppCompatActivity
@@ -49,34 +39,6 @@ public class MainActivity
 
         ViewPager viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        setSize();
-        setTitleBarPadding();
-    }
-
-    private void setSize() {
-        final Rect rect = new Rect();
-        Window window = this.getWindow();
-        window.getDecorView().getWindowVisibleDisplayFrame(rect);
-        ActivityUtil activityUtil = (ActivityUtil) getApplication();
-        activityUtil.setStatusbarHeight(rect.top);
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        activityUtil.setDisplayWidth(displayMetrics.widthPixels);
-        activityUtil.setDisplayHeight(displayMetrics.heightPixels);
-    }
-
-    private void setTitleBarPadding() {
-        ActivityUtil activityUtil = (ActivityUtil) getApplication();
-        View view = findViewById(R.id.pager);
-
-        view.setPadding(0, activityUtil.getStatusbarHeight(), 0, 0);
     }
 
     @Override

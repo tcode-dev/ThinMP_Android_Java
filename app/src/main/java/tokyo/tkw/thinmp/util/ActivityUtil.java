@@ -8,9 +8,6 @@ import android.content.Context;
  */
 public class ActivityUtil extends Application {
     private static Context context;
-    private Integer mStatusbarHeight;
-    private Integer mDisplayWidth;
-    private Integer mDisplayHeight;
 
     public void onCreate(){
         super.onCreate();
@@ -19,30 +16,5 @@ public class ActivityUtil extends Application {
 
     public static Context getContext() {
         return context;
-    }
-
-    public Integer getStatusbarHeight() {
-        return mStatusbarHeight;
-    }
-
-    public void setStatusbarHeight(Integer height) {
-
-        mStatusbarHeight = height;
-    }
-
-    public Integer getDisplayWidth() {
-        return mDisplayWidth;
-    }
-
-    public void setDisplayWidth(Integer width) {
-        this.mDisplayWidth = width;
-    }
-
-    public Integer getDisplayHeight() {
-        return mDisplayHeight;
-    }
-
-    public void setDisplayHeight(Integer height) {
-        this.mDisplayHeight = height;
     }
 }
