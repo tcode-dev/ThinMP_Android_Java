@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.favorite.FavoriteRegister;
-import tokyo.tkw.thinmp.fragment.HorizontalFragment;
 import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
@@ -22,8 +21,7 @@ import tokyo.tkw.thinmp.music.Track;
 public class MainActivity
         extends AppCompatActivity
         implements
-        TrackListFragment.OnFragmentInteractionListener,
-        HorizontalFragment.OnFragmentInteractionListener {
+        TrackListFragment.OnFragmentInteractionListener {
 
     private final int PERMISSION_CODE = 1;
 
@@ -39,10 +37,6 @@ public class MainActivity
 
         ViewPager viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
     }
 
     @Override
