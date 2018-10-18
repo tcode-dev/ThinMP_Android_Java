@@ -1,23 +1,12 @@
 package tokyo.tkw.thinmp.favorite;
 
-import android.app.Activity;
-
 import io.realm.Realm;
+import tokyo.tkw.thinmp.util.ActivityUtil;
 
 public class FavoriteRegister {
-    private Activity mContext;
-    private static FavoriteRegister instance = null;
 
-    public FavoriteRegister(Activity context) {
-        mContext = context;
-    }
-
-    public static void setInstance(Activity context) {
-        instance = new FavoriteRegister(context);
-    }
-
-    public void update(String trackId) {
-        Realm.init(mContext);
+    public static void update(String trackId) {
+        Realm.init(ActivityUtil.getContext());
         Realm realm = Realm.getDefaultInstance();
         Favorite favorite = realm.where(Favorite.class).equalTo("trackId", trackId).findFirst();
 
@@ -32,18 +21,18 @@ public class FavoriteRegister {
         realm.commitTransaction();
     }
 
-    public Favorite get(String trackId) {
-        Realm.init(mContext);
+    public static Favorite get(String trackId) {
+        Realm.init(ActivityUtil.getContext());
         Realm realm = Realm.getDefaultInstance();
 
         return realm.where(Favorite.class).equalTo("trackId", trackId).findFirst();
     }
 
     public static void set(String trackId) {
-        instance.update(trackId);
+        update(trackId);
     }
 
     public static boolean exists(String trackId) {
-        return instance.get(trackId) != null;
+        return get(trackId) != null;
     }
 }

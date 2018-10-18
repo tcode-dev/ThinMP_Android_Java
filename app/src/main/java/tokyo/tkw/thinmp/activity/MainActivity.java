@@ -33,7 +33,6 @@ public class MainActivity
         setContentView(R.layout.activity_main);
 
         MusicList.setInstance(this);
-        FavoriteRegister.setInstance(this);
 
         ViewPager viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
