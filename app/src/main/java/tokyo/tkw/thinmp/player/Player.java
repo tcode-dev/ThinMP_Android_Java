@@ -10,6 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
+import tokyo.tkw.thinmp.favorite.FavoriteRegister;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.util.TimeUtil;
@@ -28,11 +29,13 @@ public class Player {
     public ObservableField<Bitmap> thumbnail = new ObservableField<>();
     public ObservableField<Integer> repeat = new ObservableField<>();
     public ObservableBoolean isShuffle = new ObservableBoolean();
+    public ObservableBoolean isFavorite = new ObservableBoolean();
 
     private ActivityPlayerBinding mBinding;
     private Timer mTimer;
     private int mCurrentPositionSecond;
     private OnPlayerListener mListener;
+    private String mTrackId;
 
     public Player(ActivityPlayerBinding binding, OnPlayerListener listener) {
         mBinding = binding;
@@ -40,6 +43,8 @@ public class Player {
     }
 
     public void update(Track track, Integer repeat, boolean isShuffle) {
+        // trackId
+        this.mTrackId = track.getId();
         // 曲名
         this.trackName.set(track.getTitle());
         // アーティスト名
@@ -60,6 +65,8 @@ public class Player {
         this.repeat.set(repeat);
         // シャッフル
         this.isShuffle.set(isShuffle);
+        // お気に入り
+        this.isFavorite.set(FavoriteRegister.exists(this.mTrackId));
         // seekbar
         this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
@@ -126,6 +133,15 @@ public class Player {
     public void onClickShuffle(View view) {
         boolean isShuffle = mListener.onShuffle();
         this.isShuffle.set(isShuffle);
+    }
+
+    /**
+     * OnClickFavorite
+     * @param view
+     */
+    public void OnClickFavorite(View view) {
+        boolean favorite = FavoriteRegister.set(mTrackId);
+        isFavorite.set(favorite);
     }
 
     /**
