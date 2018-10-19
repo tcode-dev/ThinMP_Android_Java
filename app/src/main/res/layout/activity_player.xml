@@ -260,17 +260,34 @@
 
         </FrameLayout>
 
-        <ImageButton
+        <FrameLayout
             android:id="@+id/favoriteArtist"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
-            android:background="@null"
-            android:scaleType="centerCrop"
             app:layout_constraintEnd_toStartOf="@+id/playlist"
-            app:layout_constraintTop_toBottomOf="@+id/playToggle"
-            app:srcCompat="@drawable/favorite_artist_off" />
+            app:layout_constraintTop_toBottomOf="@+id/playToggle">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:onClick="@{player::OnClickFavoriteArtist}"
+                android:visibility="@{player.isFavoriteArtist ? View.VISIBLE : View.GONE}"
+                app:srcCompat="@drawable/favorite_artist_on" />
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:onClick="@{player::OnClickFavoriteArtist}"
+                android:visibility="@{player.isFavoriteArtist ? View.GONE : View.VISIBLE}"
+                app:srcCompat="@drawable/favorite_artist_off" />
+
+        </FrameLayout>
 
         <ImageButton
             android:id="@+id/playlist"

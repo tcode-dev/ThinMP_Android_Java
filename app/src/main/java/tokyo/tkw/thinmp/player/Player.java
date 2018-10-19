@@ -10,6 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
+import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteRegister;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
@@ -30,12 +31,13 @@ public class Player {
     public ObservableField<Integer> repeat = new ObservableField<>();
     public ObservableBoolean isShuffle = new ObservableBoolean();
     public ObservableBoolean isFavorite = new ObservableBoolean();
+    public ObservableBoolean isFavoriteArtist = new ObservableBoolean();
 
     private ActivityPlayerBinding mBinding;
     private Timer mTimer;
     private int mCurrentPositionSecond;
     private OnPlayerListener mListener;
-    private String mTrackId;
+    private Track mTrack;
 
     public Player(ActivityPlayerBinding binding, OnPlayerListener listener) {
         mBinding = binding;
@@ -43,8 +45,8 @@ public class Player {
     }
 
     public void update(Track track, Integer repeat, boolean isShuffle) {
-        // trackId
-        this.mTrackId = track.getId();
+        // track
+        this.mTrack = track;
         // 曲名
         this.trackName.set(track.getTitle());
         // アーティスト名
@@ -66,7 +68,9 @@ public class Player {
         // シャッフル
         this.isShuffle.set(isShuffle);
         // お気に入り
-        this.isFavorite.set(FavoriteRegister.exists(this.mTrackId));
+        this.isFavorite.set(FavoriteRegister.exists(mTrack.getId()));
+        // お気に入りアーティスト
+        this.isFavoriteArtist.set(FavoriteArtistRegister.exists(mTrack.getArtistId()));
         // seekbar
         this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
@@ -140,8 +144,17 @@ public class Player {
      * @param view
      */
     public void OnClickFavorite(View view) {
-        boolean favorite = FavoriteRegister.set(mTrackId);
+        boolean favorite = FavoriteRegister.set(mTrack.getId());
         isFavorite.set(favorite);
+    }
+
+    /**
+     * OnClickFavoriteArtist
+     * @param view
+     */
+    public void OnClickFavoriteArtist(View view) {
+        boolean favorite = FavoriteArtistRegister.set(mTrack.getArtistId());
+        isFavoriteArtist.set(favorite);
     }
 
     /**
