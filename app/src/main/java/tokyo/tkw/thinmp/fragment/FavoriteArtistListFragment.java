@@ -1,7 +1,7 @@
 package tokyo.tkw.thinmp.fragment;
 
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.activity.ArtistActivity;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistListAdapter;
 import tokyo.tkw.thinmp.favorite.FavoriteArtist;
 
@@ -21,6 +22,16 @@ import tokyo.tkw.thinmp.favorite.FavoriteArtist;
  * FavoriteArtistListFragment
  */
 public class FavoriteArtistListFragment extends Fragment {
+    private FavoriteArtistListAdapter.FavoriteArtistListListener mOnClickListener = new FavoriteArtistListAdapter.FavoriteArtistListListener() {
+        @Override
+        public void onClick(String artistId) {
+            Activity context = getActivity();
+            Intent intent = new Intent(context, ArtistActivity.class);
+            intent.putExtra("artist_id", artistId);
+            context.startActivity(intent);
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,7 +46,7 @@ public class FavoriteArtistListFragment extends Fragment {
         Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
         RealmResults<FavoriteArtist> favoriteList = realm.where(FavoriteArtist.class).findAll().sort("createdAt");
-        FavoriteArtistListAdapter adapter = new FavoriteArtistListAdapter(context, favoriteList);
+        FavoriteArtistListAdapter adapter = new FavoriteArtistListAdapter(favoriteList, mOnClickListener);
         favoriteListView.setAdapter(adapter);
 
         // 区切り線の描画

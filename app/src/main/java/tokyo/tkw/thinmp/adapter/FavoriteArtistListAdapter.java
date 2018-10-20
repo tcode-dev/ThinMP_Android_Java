@@ -1,8 +1,6 @@
 package tokyo.tkw.thinmp.adapter;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +9,19 @@ import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteArtist;
-import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
 public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<FavoriteArtist, ArtistViewHolder> {
-    private Activity mContext;
+    private FavoriteArtistListListener mListener;
     private ThumbnailProvider mThumbnailProvider;
 
-    public FavoriteArtistListAdapter(@NonNull Activity context, OrderedRealmCollection<FavoriteArtist> favoriteList) {
+    public FavoriteArtistListAdapter(OrderedRealmCollection<FavoriteArtist> favoriteList, FavoriteArtistListListener listener) {
         super(favoriteList, true);
 
-        mContext = context;
+        mListener = listener;
         mThumbnailProvider = new ThumbnailProvider();
     }
 
@@ -43,7 +40,7 @@ public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<Favorite
         holder.thumbnail.setImageBitmap(getThumbnail(artist.getThumbnailId()));
         holder.artist.setText(artist.getName());
 
-        holder.itemView.setOnClickListener(new ArtistClickListener(mContext, artist.getId()));
+        holder.itemView.setOnClickListener(onClickListener(artist.getId()));
     }
 
     private Artist getArtist(String id) {
@@ -52,5 +49,21 @@ public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<Favorite
 
     private Bitmap getThumbnail(String id) {
         return mThumbnailProvider.getThumbnail(id);
+    }
+
+    private View.OnClickListener onClickListener(String artistId) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onClick(artistId);
+            }
+        };
+    }
+
+    /**
+     * interface
+     */
+    public interface FavoriteArtistListListener {
+        void onClick(String id);
     }
 }
