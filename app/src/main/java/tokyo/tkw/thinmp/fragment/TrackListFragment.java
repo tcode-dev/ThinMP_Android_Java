@@ -57,13 +57,6 @@ public class TrackListFragment extends Fragment implements TrackListAdapter.OnTr
         mListener = null;
     }
 
-    /**
-     * OnFragmentInteractionListener
-     */
-    public interface OnFragmentInteractionListener {
-        void onStartClick(ArrayList<Track> trackList, int position);
-    }
-
     private void setView() {
         mListView = mFragmentView.findViewById(R.id.list);
     }
@@ -88,7 +81,14 @@ public class TrackListFragment extends Fragment implements TrackListAdapter.OnTr
     @Override
     public void onClickItem(int position) {
         if (mListener != null) {
-            mListener.onStartClick(mTrackList, position);
+            mListener.onStartClick(MusicList.getTrackList(), position);
         }
+    }
+
+    /**
+     * interface
+     */
+    public interface OnFragmentInteractionListener {
+        void onStartClick(ArrayList<Track> trackList, int position);
     }
 }

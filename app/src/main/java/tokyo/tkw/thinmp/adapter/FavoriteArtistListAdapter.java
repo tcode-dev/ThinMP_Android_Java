@@ -64,6 +64,6 @@ public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<Favorite
      * interface
      */
     public interface FavoriteArtistListListener {
-        void onClick(String id);
+        void onClick(String artistId);
     }
 }

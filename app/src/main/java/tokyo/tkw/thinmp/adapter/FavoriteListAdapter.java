@@ -1,12 +1,8 @@
 package tokyo.tkw.thinmp.adapter;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
@@ -18,15 +14,13 @@ import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, TrackViewHolder> {
-    private Activity mContext;
+    private OnFavoriteListItemClickListener mListener;
     private ThumbnailProvider mThumbnailProvider;
-    private ArrayList<Track> mTrackList;
 
-    public FavoriteListAdapter(Activity context, OrderedRealmCollection<Favorite> favoriteList, ArrayList<Track> trackList) {
+    public FavoriteListAdapter(OrderedRealmCollection<Favorite> favoriteList, OnFavoriteListItemClickListener listener) {
         super(favoriteList, true);
 
-        mContext = context;
-        mTrackList = trackList;
+        mListener = listener;
         mThumbnailProvider = new ThumbnailProvider();
     }
 
@@ -40,19 +34,34 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Trac
     @Override
     public void onBindViewHolder(TrackViewHolder holder, int position) {
         final Favorite favorite = getItem(position);
-        final Track track = getTrack(favorite.getTrackId());
+        final String trackId = favorite.getTrackId();
+        final Track track = getTrack(trackId);
         final String title = track.getTitle();
 
-        holder.thumbnail.setImageBitmap(getThumbnail(track.getThumbnailId()));
+        holder.thumbnail.setImageBitmap(mThumbnailProvider.getThumbnail(track.getThumbnailId()));
         holder.track.setText(title);
         holder.artist.setText(track.getArtistName());
+
+        holder.itemView.setOnClickListener(onClickListener(position));
     }
 
     private Track getTrack(String id) {
         return MusicList.getTrack(id);
     }
 
-    private Bitmap getThumbnail(String id) {
-        return mThumbnailProvider.getThumbnail(id);
+    private View.OnClickListener onClickListener(int position) {
+        return new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mListener.onClickItem(position);
+            }
+        };
+    }
+
+    /**
+     * interface
+     */
+    public interface OnFavoriteListItemClickListener {
+        void onClickItem(int position);
     }
 }
