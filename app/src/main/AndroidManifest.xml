@@ -27,11 +27,12 @@
         <activity android:name=".activity.ArtistActivity" />
         <activity android:name=".activity.PlaylistDetailActivity" />
         <activity android:name=".activity.PlayerActivity" />
+        <activity android:name=".activity.FavoriteSongEditActivity"></activity>
 
         <service
             android:name=".player.MusicService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
 
 </manifest>

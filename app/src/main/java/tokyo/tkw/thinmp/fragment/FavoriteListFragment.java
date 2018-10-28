@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.activity.FavoriteSongEditActivity;
 import tokyo.tkw.thinmp.adapter.FavoriteListAdapter;
 import tokyo.tkw.thinmp.favorite.FavoriteList;
 import tokyo.tkw.thinmp.music.Track;
@@ -37,6 +39,14 @@ public class FavoriteListFragment extends Fragment implements FavoriteListAdapte
 
         FavoriteListAdapter adapter = new FavoriteListAdapter(FavoriteList.getFavoriteList(context), (FavoriteListAdapter.OnFavoriteListItemClickListener) this);
         favoriteListView.setAdapter(adapter);
+
+        view.findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FavoriteSongEditActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
         // 区切り線の描画
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
