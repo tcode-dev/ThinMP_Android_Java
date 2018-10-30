@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import tokyo.tkw.thinmp.fragment.FavoriteArtistListFragment;
-import tokyo.tkw.thinmp.fragment.FavoriteListFragment;
+import tokyo.tkw.thinmp.fragment.FavoriteSongListFragment;
 import tokyo.tkw.thinmp.fragment.PlaylistFragment;
 import tokyo.tkw.thinmp.fragment.TopFragment;
 import tokyo.tkw.thinmp.fragment.TrackListFragment;
@@ -25,7 +25,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 2: return new AlbumListFragment();
             case 3: return new TrackListFragment();
             case 4: return new PlaylistFragment();
-            case 5: return new FavoriteListFragment();
+            case 5: return new FavoriteSongListFragment();
             case 6: return new FavoriteArtistListFragment();
 
             default: return null;

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.favorite.FavoriteRegister;
+import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
 
@@ -48,7 +48,7 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
     }
 
     public void setFavorite(String trackId) {
-        FavoriteRegister.set(trackId);
+        FavoriteSongRegister.set(trackId);
     }
 
     @Override

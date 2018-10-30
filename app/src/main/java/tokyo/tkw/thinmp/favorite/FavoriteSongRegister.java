@@ -8,17 +8,17 @@ import java.util.List;
 import io.realm.Realm;
 import tokyo.tkw.thinmp.util.ActivityUtil;
 
-public class FavoriteRegister {
+public class FavoriteSongRegister {
     private final String fieldName = "trackId";
     private Realm mRealm;
 
-    public FavoriteRegister() {
+    public FavoriteSongRegister() {
         Realm.init(ActivityUtil.getContext());
         mRealm = Realm.getDefaultInstance();
     }
 
-    public static FavoriteRegister createInstance() {
-        return new FavoriteRegister();
+    public static FavoriteSongRegister createInstance() {
+        return new FavoriteSongRegister();
     }
 
     public void beginTransaction() {
@@ -29,8 +29,8 @@ public class FavoriteRegister {
         mRealm.commitTransaction();
     }
 
-    public Favorite findFirst(String trackId) {
-        return mRealm.where(Favorite.class).equalTo(fieldName, trackId).findFirst();
+    public FavoriteSong findFirst(String trackId) {
+        return mRealm.where(FavoriteSong.class).equalTo(fieldName, trackId).findFirst();
     }
 
     /**
@@ -39,13 +39,13 @@ public class FavoriteRegister {
      * @return
      */
     private boolean update(String trackId) {
-        Favorite favorite = findFirst(trackId);
+        FavoriteSong favorite = findFirst(trackId);
 
         beginTransaction();
 
         boolean isFavorite;
         if (favorite == null) {
-            mRealm.createObject(Favorite.class, trackId);
+            mRealm.createObject(FavoriteSong.class, trackId);
             isFavorite = true;
         } else {
             favorite.deleteFromRealm();
@@ -64,28 +64,28 @@ public class FavoriteRegister {
     private void allUpdate(List list) {
         beginTransaction();
 
-        mRealm.delete(Favorite.class);
+        mRealm.delete(FavoriteSong.class);
 
-        Stream.of(list).map(trackId -> mRealm.createObject(Favorite.class, trackId)).collect(Collectors.toList());
+        Stream.of(list).map(trackId -> mRealm.createObject(FavoriteSong.class, trackId)).collect(Collectors.toList());
 
         commitTransaction();
     }
 
 
     public static boolean set(String trackId) {
-        FavoriteRegister favoriteRegister = FavoriteRegister.createInstance();
+        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
 
         return favoriteRegister.update(trackId);
     }
 
     public static boolean exists(String trackId) {
-        FavoriteRegister favoriteRegister = FavoriteRegister.createInstance();
+        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
 
         return favoriteRegister.findFirst(trackId) != null;
     }
 
     public static void update(List list) {
-        FavoriteRegister favoriteRegister = FavoriteRegister.createInstance();
+        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
         favoriteRegister.allUpdate(list);
     }
 }

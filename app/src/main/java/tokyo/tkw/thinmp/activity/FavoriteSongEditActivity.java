@@ -16,9 +16,9 @@ import java.util.List;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongEditAdapter;
-import tokyo.tkw.thinmp.favorite.Favorite;
-import tokyo.tkw.thinmp.favorite.FavoriteList;
-import tokyo.tkw.thinmp.favorite.FavoriteRegister;
+import tokyo.tkw.thinmp.favorite.FavoriteSong;
+import tokyo.tkw.thinmp.favorite.FavoriteSongList;
+import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 
 public class FavoriteSongEditActivity extends AppCompatActivity {
 
@@ -29,8 +29,8 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
 
         RecyclerView view = findViewById(R.id.favoriteList);
 
-        RealmResults<Favorite> realmResults = FavoriteList.getFavoriteList(this);
-        List<Favorite> favoriteList = Stream.of(realmResults).toList();
+        RealmResults<FavoriteSong> realmResults = FavoriteSongList.getFavoriteList(this);
+        List<FavoriteSong> favoriteList = Stream.of(realmResults).toList();
 
         FavoriteSongEditAdapter adapter = new FavoriteSongEditAdapter(favoriteList);
 
@@ -66,8 +66,8 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
         findViewById(R.id.apply).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<String> trackIdList = Stream.of(favoriteList).map(Favorite::getTrackId).collect(Collectors.toList());
-                FavoriteRegister.update(trackIdList);
+                List<String> trackIdList = Stream.of(favoriteList).map(FavoriteSong::getTrackId).collect(Collectors.toList());
+                FavoriteSongRegister.update(trackIdList);
                 finish();
             }
         });

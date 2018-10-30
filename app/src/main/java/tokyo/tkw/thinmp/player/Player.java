@@ -11,7 +11,7 @@ import java.util.TimerTask;
 
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
-import tokyo.tkw.thinmp.favorite.FavoriteRegister;
+import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.util.TimeUtil;
@@ -68,7 +68,7 @@ public class Player {
         // シャッフル
         this.isShuffle.set(isShuffle);
         // お気に入り
-        this.isFavorite.set(FavoriteRegister.exists(mTrack.getId()));
+        this.isFavorite.set(FavoriteSongRegister.exists(mTrack.getId()));
         // お気に入りアーティスト
         this.isFavoriteArtist.set(FavoriteArtistRegister.exists(mTrack.getArtistId()));
         // seekbar
@@ -144,7 +144,7 @@ public class Player {
      * @param view
      */
     public void OnClickFavorite(View view) {
-        boolean favorite = FavoriteRegister.set(mTrack.getId());
+        boolean favorite = FavoriteSongRegister.set(mTrack.getId());
         isFavorite.set(favorite);
     }
 

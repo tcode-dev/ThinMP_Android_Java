@@ -17,19 +17,19 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.FavoriteSongEditActivity;
 import tokyo.tkw.thinmp.adapter.FavoriteListAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteList;
+import tokyo.tkw.thinmp.favorite.FavoriteSongList;
 import tokyo.tkw.thinmp.music.Track;
 
 /**
  * FavoriteListFragment
  */
-public class FavoriteListFragment extends Fragment implements FavoriteListAdapter.OnFavoriteListItemClickListener {
+public class FavoriteSongListFragment extends Fragment implements FavoriteListAdapter.OnFavoriteListItemClickListener {
     private OnFragmentInteractionListener mListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_favorite_list, container, false);
+        View view =  inflater.inflate(R.layout.fragment_favorite_song_list, container, false);
 
         Activity context = getActivity();
 
@@ -37,7 +37,7 @@ public class FavoriteListFragment extends Fragment implements FavoriteListAdapte
         LinearLayoutManager layout = new LinearLayoutManager(context);
         favoriteListView.setLayoutManager(layout);
 
-        FavoriteListAdapter adapter = new FavoriteListAdapter(FavoriteList.getFavoriteList(context), (FavoriteListAdapter.OnFavoriteListItemClickListener) this);
+        FavoriteListAdapter adapter = new FavoriteListAdapter(FavoriteSongList.getFavoriteList(context), (FavoriteListAdapter.OnFavoriteListItemClickListener) this);
         favoriteListView.setAdapter(adapter);
 
         view.findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class FavoriteListFragment extends Fragment implements FavoriteListAdapte
     @Override
     public void onClickItem(int position) {
         if (mListener != null) {
-            mListener.onStartClick(FavoriteList.getTrackList(getActivity()), position);
+            mListener.onStartClick(FavoriteSongList.getTrackList(getActivity()), position);
         }
     }
 

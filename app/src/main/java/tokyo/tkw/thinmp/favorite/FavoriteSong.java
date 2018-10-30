@@ -5,7 +5,7 @@ import java.util.Date;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Favorite extends RealmObject {
+public class FavoriteSong extends RealmObject {
     @PrimaryKey
     private String trackId;
     private Date createdAt = new Date();

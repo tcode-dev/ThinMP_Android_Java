@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.favorite.Favorite;
+import tokyo.tkw.thinmp.favorite.FavoriteSong;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class FavoriteSongEditAdapter extends RecyclerView.Adapter<TrackViewHolder> {
-    private List<Favorite> mFavoriteList;
+    private List<FavoriteSong> mFavoriteList;
     private ThumbnailProvider mThumbnailProvider;
 
-    public FavoriteSongEditAdapter(List<Favorite> favoriteList) {
+    public FavoriteSongEditAdapter(List<FavoriteSong> favoriteList) {
         mFavoriteList = favoriteList;
         mThumbnailProvider = new ThumbnailProvider();
     }
@@ -32,7 +32,7 @@ public class FavoriteSongEditAdapter extends RecyclerView.Adapter<TrackViewHolde
 
     @Override
     public void onBindViewHolder(TrackViewHolder holder, int position) {
-        final Favorite favorite = mFavoriteList.get(position);
+        final FavoriteSong favorite = mFavoriteList.get(position);
         Track track = getTrack(favorite.getTrackId());
         String title = track.getTitle();
 

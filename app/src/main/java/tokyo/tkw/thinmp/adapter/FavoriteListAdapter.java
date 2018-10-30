@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.favorite.Favorite;
+import tokyo.tkw.thinmp.favorite.FavoriteSong;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
-public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, TrackViewHolder> {
+public class FavoriteListAdapter extends RealmRecyclerViewAdapter<FavoriteSong, TrackViewHolder> {
     private OnFavoriteListItemClickListener mListener;
     private ThumbnailProvider mThumbnailProvider;
 
-    public FavoriteListAdapter(OrderedRealmCollection<Favorite> favoriteList, OnFavoriteListItemClickListener listener) {
+    public FavoriteListAdapter(OrderedRealmCollection<FavoriteSong> favoriteList, OnFavoriteListItemClickListener listener) {
         super(favoriteList, true);
 
         mListener = listener;
@@ -33,7 +33,7 @@ public class FavoriteListAdapter extends RealmRecyclerViewAdapter<Favorite, Trac
 
     @Override
     public void onBindViewHolder(TrackViewHolder holder, int position) {
-        final Favorite favorite = getItem(position);
+        final FavoriteSong favorite = getItem(position);
         final String trackId = favorite.getTrackId();
         final Track track = getTrack(trackId);
         final String title = track.getTitle();

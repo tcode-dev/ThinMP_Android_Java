@@ -1,7 +1,6 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,8 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.favorite.FavoriteRegister;
-import tokyo.tkw.thinmp.fragment.FavoriteListFragment;
+import tokyo.tkw.thinmp.fragment.FavoriteSongListFragment;
 import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
@@ -23,7 +21,7 @@ public class MainActivity
         extends AppCompatActivity
         implements
         TrackListFragment.OnFragmentInteractionListener,
-        FavoriteListFragment.OnFragmentInteractionListener {
+        FavoriteSongListFragment.OnFragmentInteractionListener {
 
     private final int PERMISSION_CODE = 1;
 
