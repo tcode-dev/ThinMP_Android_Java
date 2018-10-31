@@ -8,7 +8,6 @@ import io.realm.Realm;
 import tokyo.tkw.thinmp.util.ActivityUtil;
 
 public class FavoriteSongRegister {
-    private final String fieldName = "trackId";
     private Realm mRealm;
 
     public FavoriteSongRegister() {
@@ -29,7 +28,7 @@ public class FavoriteSongRegister {
     }
 
     public FavoriteSong findFirst(String trackId) {
-        return mRealm.where(FavoriteSong.class).equalTo(fieldName, trackId).findFirst();
+        return mRealm.where(FavoriteSong.class).equalTo("trackId", trackId).findFirst();
     }
 
     /**

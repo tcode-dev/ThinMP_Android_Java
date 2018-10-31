@@ -37,7 +37,7 @@ public class FavoriteSongListFragment extends Fragment implements FavoriteListAd
         LinearLayoutManager layout = new LinearLayoutManager(context);
         favoriteListView.setLayoutManager(layout);
 
-        FavoriteListAdapter adapter = new FavoriteListAdapter(FavoriteSongList.getFavoriteList(context), (FavoriteListAdapter.OnFavoriteListItemClickListener) this);
+        FavoriteListAdapter adapter = new FavoriteListAdapter(FavoriteSongList.getFavoriteList(), (FavoriteListAdapter.OnFavoriteListItemClickListener) this);
         favoriteListView.setAdapter(adapter);
 
         view.findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class FavoriteSongListFragment extends Fragment implements FavoriteListAd
     @Override
     public void onClickItem(int position) {
         if (mListener != null) {
-            mListener.onStartClick(FavoriteSongList.getTrackList(getActivity()), position);
+            mListener.onStartClick(FavoriteSongList.getTrackList(), position);
         }
     }
 

@@ -11,12 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.ArtistActivity;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistListAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteArtist;
+import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
 
 /**
  * FavoriteArtistListFragment
@@ -43,10 +41,7 @@ public class FavoriteArtistListFragment extends Fragment {
         LinearLayoutManager layout = new LinearLayoutManager(context);
         favoriteListView.setLayoutManager(layout);
 
-        Realm.init(context);
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<FavoriteArtist> favoriteList = realm.where(FavoriteArtist.class).findAll().sort("createdAt");
-        FavoriteArtistListAdapter adapter = new FavoriteArtistListAdapter(favoriteList, mOnClickListener);
+        FavoriteArtistListAdapter adapter = new FavoriteArtistListAdapter(FavoriteArtistList.getFavoriteList(), mOnClickListener);
         favoriteListView.setAdapter(adapter);
 
         // 区切り線の描画

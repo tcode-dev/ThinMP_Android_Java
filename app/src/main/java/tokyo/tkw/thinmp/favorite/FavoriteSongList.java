@@ -1,17 +1,16 @@
 package tokyo.tkw.thinmp.favorite;
 
-import android.app.Activity;
-
 import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.music.MusicList;
+import tokyo.tkw.thinmp.util.ActivityUtil;
 
 public class FavoriteSongList {
-    public static ArrayList<Track> getTrackList(Activity activity) {
-        return getTrackList(getFavoriteList(activity));
+    public static ArrayList<Track> getTrackList() {
+        return getTrackList(getFavoriteList());
     }
 
     private static ArrayList<Track> getTrackList(RealmResults<FavoriteSong> favoriteList) {
@@ -25,8 +24,8 @@ public class FavoriteSongList {
         return trackList;
     }
 
-    public static RealmResults<FavoriteSong> getFavoriteList(Activity activity) {
-        Realm.init(activity);
+    public static RealmResults<FavoriteSong> getFavoriteList() {
+        Realm.init(ActivityUtil.getContext());
         Realm realm = Realm.getDefaultInstance();
 
         return realm.where(FavoriteSong.class).findAll().sort("id");

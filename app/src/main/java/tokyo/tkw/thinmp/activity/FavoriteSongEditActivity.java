@@ -29,7 +29,7 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
 
         RecyclerView view = findViewById(R.id.favoriteList);
 
-        RealmResults<FavoriteSong> realmResults = FavoriteSongList.getFavoriteList(this);
+        RealmResults<FavoriteSong> realmResults = FavoriteSongList.getFavoriteList();
         List<FavoriteSong> favoriteList = Stream.of(realmResults).toList();
 
         FavoriteSongEditAdapter adapter = new FavoriteSongEditAdapter(favoriteList);
