@@ -29,6 +29,6 @@ public class FavoriteSongList {
         Realm.init(activity);
         Realm realm = Realm.getDefaultInstance();
 
-        return realm.where(FavoriteSong.class).findAll().sort("createdAt");
+        return realm.where(FavoriteSong.class).findAll().sort("id");
     }
 }

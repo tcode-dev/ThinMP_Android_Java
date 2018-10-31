@@ -1,7 +1,6 @@
 package tokyo.tkw.thinmp.favorite;
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
+import com.annimon.stream.IntStream;
 
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class FavoriteSongRegister {
 
         boolean isFavorite;
         if (favorite == null) {
-            mRealm.createObject(FavoriteSong.class, trackId);
+            mRealm.createObject(FavoriteSong.class, nextId()).setTrackId(trackId);
             isFavorite = true;
         } else {
             favorite.deleteFromRealm();
@@ -66,11 +65,16 @@ public class FavoriteSongRegister {
 
         mRealm.delete(FavoriteSong.class);
 
-        Stream.of(list).map(trackId -> mRealm.createObject(FavoriteSong.class, trackId)).collect(Collectors.toList());
+        IntStream.range(0, list.size()).forEach(i -> mRealm.createObject(FavoriteSong.class, i + 1).setTrackId(list.get(i).toString()));
 
         commitTransaction();
     }
 
+    private int nextId() {
+        Number maxId = mRealm.where(FavoriteSong.class).max("id");
+
+        return (maxId != null) ? maxId.intValue() + 1 : 1;
+    }
 
     public static boolean set(String trackId) {
         FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
