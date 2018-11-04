@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.music.Track;
@@ -67,7 +68,7 @@ public class TrackListFragment extends Fragment implements TrackListAdapter.OnTr
 
     private void setAdapter() {
         Activity context = getActivity();
-        TrackListAdapter adapter = new TrackListAdapter(context, mTrackList, (TrackListAdapter.OnTrackListItemClickListener) this);
+        TrackListAdapter adapter = new TrackListAdapter(mTrackList, this);
         LinearLayoutManager layout = new LinearLayoutManager(context);
         mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
@@ -83,6 +84,12 @@ public class TrackListFragment extends Fragment implements TrackListAdapter.OnTr
         if (mListener != null) {
             mListener.onStartClick(MusicList.getTrackList(), position);
         }
+    }
+
+    @Override
+    public void onClickMenu(View view, Track track) {
+        TrackMenu trackMenu = new TrackMenu(getActivity(), view, track);
+        trackMenu.show();
     }
 
     /**

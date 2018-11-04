@@ -10,6 +10,7 @@ import android.widget.PopupMenu;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
+import tokyo.tkw.thinmp.music.Track;
 
 /**
  * メニュー
@@ -48,11 +49,11 @@ public class TrackMenu {
         }
     };
 
-    public TrackMenu(Activity context, View view, String trackId, String defaultPlaylistName) {
+    public TrackMenu(Activity context, View view, Track track) {
         mContext = context;
         mView = view;
-        mTrackId = trackId;
-        mDefaultPlaylistName = defaultPlaylistName;
+        mTrackId = track.getId();
+        mDefaultPlaylistName = track.getTitle();
     }
 
     /**
