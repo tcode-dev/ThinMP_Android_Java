@@ -13,11 +13,11 @@ import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
-public class FavoriteListAdapter extends RealmRecyclerViewAdapter<FavoriteSong, TrackViewHolder> {
+public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSong, TrackViewHolder> {
     private OnFavoriteListItemClickListener mListener;
     private ThumbnailProvider mThumbnailProvider;
 
-    public FavoriteListAdapter(OrderedRealmCollection<FavoriteSong> favoriteList, OnFavoriteListItemClickListener listener) {
+    public FavoriteSongListAdapter(OrderedRealmCollection<FavoriteSong> favoriteList, OnFavoriteListItemClickListener listener) {
         super(favoriteList, true);
 
         mListener = listener;

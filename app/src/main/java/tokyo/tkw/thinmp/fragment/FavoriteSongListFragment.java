@@ -16,14 +16,14 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.FavoriteSongEditActivity;
-import tokyo.tkw.thinmp.adapter.FavoriteListAdapter;
+import tokyo.tkw.thinmp.adapter.FavoriteSongListAdapter;
 import tokyo.tkw.thinmp.favorite.FavoriteSongList;
 import tokyo.tkw.thinmp.music.Track;
 
 /**
  * FavoriteListFragment
  */
-public class FavoriteSongListFragment extends Fragment implements FavoriteListAdapter.OnFavoriteListItemClickListener {
+public class FavoriteSongListFragment extends Fragment implements FavoriteSongListAdapter.OnFavoriteListItemClickListener {
     private OnFragmentInteractionListener mListener;
 
     @Override
@@ -37,7 +37,7 @@ public class FavoriteSongListFragment extends Fragment implements FavoriteListAd
         LinearLayoutManager layout = new LinearLayoutManager(context);
         favoriteListView.setLayoutManager(layout);
 
-        FavoriteListAdapter adapter = new FavoriteListAdapter(FavoriteSongList.getFavoriteList(), (FavoriteListAdapter.OnFavoriteListItemClickListener) this);
+        FavoriteSongListAdapter adapter = new FavoriteSongListAdapter(FavoriteSongList.getFavoriteList(), (FavoriteSongListAdapter.OnFavoriteListItemClickListener) this);
         favoriteListView.setAdapter(adapter);
 
         view.findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
