@@ -1,5 +1,9 @@
 package tokyo.tkw.thinmp.favorite;
 
+import com.annimon.stream.IntStream;
+
+import java.util.List;
+
 import io.realm.Realm;
 import tokyo.tkw.thinmp.util.ActivityUtil;
 
@@ -46,8 +50,22 @@ public class FavoriteArtistRegister {
         return isFavorite;
     }
 
+    /**
+     * truncateしてlistを登録する
+     * @param list
+     */
+    private void allUpdate(List list) {
+        beginTransaction();
+
+        mRealm.delete(FavoriteArtist.class);
+
+        IntStream.range(0, list.size()).forEach(i -> mRealm.createObject(FavoriteArtist.class, i + 1).setArtistId(list.get(i).toString()));
+
+        commitTransaction();
+    }
+
     private int nextId() {
-        Number maxId = mRealm.where(FavoriteSong.class).max("id");
+        Number maxId = mRealm.where(FavoriteArtist.class).max("id");
 
         return (maxId != null) ? maxId.intValue() + 1 : 1;
     }
@@ -62,5 +80,10 @@ public class FavoriteArtistRegister {
         FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
 
         return favoriteRegister.getArtist(artistId) != null;
+    }
+
+    public static void update(List list) {
+        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
+        favoriteRegister.allUpdate(list);
     }
 }

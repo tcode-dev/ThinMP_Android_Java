@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.ArtistActivity;
+import tokyo.tkw.thinmp.activity.FavoriteArtistEditActivity;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistListAdapter;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
 
@@ -43,6 +44,14 @@ public class FavoriteArtistListFragment extends Fragment {
 
         FavoriteArtistListAdapter adapter = new FavoriteArtistListAdapter(FavoriteArtistList.getFavoriteList(), mOnClickListener);
         favoriteListView.setAdapter(adapter);
+
+        view.findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FavoriteArtistEditActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
         // 区切り線の描画
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
