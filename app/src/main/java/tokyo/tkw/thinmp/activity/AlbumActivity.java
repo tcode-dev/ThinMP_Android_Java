@@ -4,25 +4,30 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
+import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.adapter.AlbumTrackListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.player.MusicService;
 import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.music.Track;
 
-public class AlbumActivity extends AppCompatActivity {
+public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAdapter.OnTrackListItemClickListener {
     private ImageView mBackgroundView;
     private ImageView mThumbnailView;
     private TextView mAlbumNameView;
@@ -83,7 +88,7 @@ public class AlbumActivity extends AppCompatActivity {
     }
 
     private void setAdapter() {
-        AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(this, mTrackList);
+        AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(mTrackList, this);
         LinearLayoutManager layout = new LinearLayoutManager(this);
         mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
@@ -92,5 +97,19 @@ public class AlbumActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 this, new LinearLayoutManager(this).getOrientation());
         mListView.addItemDecoration(dividerItemDecoration);
+    }
+
+    @Override
+    public void onClickItem(int position) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.includeMiniPlayer);
+        if (fragment != null && fragment instanceof MiniPlayerFragment) {
+            ((MiniPlayerFragment) fragment).start(mTrackList, position);
+        }
+    }
+
+    @Override
+    public void onClickMenu(View view, Track track) {
+        TrackMenu trackMenu = new TrackMenu(this, view, track);
+        trackMenu.show();
     }
 }

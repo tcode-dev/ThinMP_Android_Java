@@ -15,16 +15,15 @@ import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
 
 /**
- * Created by tk on 2018/03/22.
+ * AlbumTrackListAdapter
  */
-
 public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListViewHolder> {
-    private Activity mContext;
     private ArrayList<Track> mTrackList;
+    private OnTrackListItemClickListener mListener;
 
-    public AlbumTrackListAdapter(@NonNull Activity context, @NonNull ArrayList<Track> trackList) {
-        mContext = context;
+    public AlbumTrackListAdapter(@NonNull ArrayList<Track> trackList, OnTrackListItemClickListener listener) {
         mTrackList = trackList;
+        mListener = listener;
     }
 
     @Override
@@ -40,6 +39,8 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
         String title = track.getTitle();
 
         holder.title.setText(title);
+        holder.itemView.setOnClickListener(listItemClickListener(position));
+        holder.menu.setOnClickListener(openMenuButtonClickListener(track));
     }
 
     @Override
@@ -54,5 +55,40 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
     @Override
     public long getItemId(int position) {
         return super.getItemId(position);
+    }
+
+    /**
+     * listitemをクリックしたときのイベント
+     * @param position
+     * @return
+     */
+    private View.OnClickListener listItemClickListener(int position) {
+        return new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mListener.onClickItem(position);
+            }
+        };
+    }
+
+    /**
+     * メニューオープンのイベント
+     * @return
+     */
+    public View.OnClickListener openMenuButtonClickListener(Track track) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onClickMenu(view, track);
+            }
+        };
+    }
+
+    /**
+     * interface
+     */
+    public interface OnTrackListItemClickListener {
+        void onClickItem(int position);
+        void onClickMenu(View view, Track track);
     }
 }
