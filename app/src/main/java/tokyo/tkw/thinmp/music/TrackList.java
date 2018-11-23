@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by tk on 2018/03/23.
+ * TrackList
  */
-
 public class TrackList {
     private HashMap<String, Track> mMap = new HashMap<String, Track>();
     private ArrayList<Track> mList = new ArrayList<>();

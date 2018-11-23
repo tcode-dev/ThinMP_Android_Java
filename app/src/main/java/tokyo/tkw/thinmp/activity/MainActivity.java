@@ -41,7 +41,7 @@ public class MainActivity
     @Override
     public void onStartClick(ArrayList<Track> trackList, int position) {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.includeMiniPlayer);
-        if (fragment != null && fragment instanceof MiniPlayerFragment) {
+        if (fragment instanceof MiniPlayerFragment) {
             ((MiniPlayerFragment) fragment).start(trackList, position);
         }
     }

@@ -8,9 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,7 +23,6 @@ import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 public class ArtistActivity extends AppCompatActivity {
     private ImageView mBackgroundView;
     private ImageView mThumbnailView;
-    private TextView mArtistNameView;
     private RecyclerView mListView;
 
     private ArrayList<Album> mAlbumIdList;
@@ -35,7 +32,7 @@ public class ArtistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist);
 
-        String artistId = getIntent().getStringExtra("artist_id");
+        String artistId = getIntent().getStringExtra("artistId");
         Artist artist = MusicList.getArtist(artistId);
 
         setView();
@@ -64,7 +61,6 @@ public class ArtistActivity extends AppCompatActivity {
     private void setView() {
         mBackgroundView = findViewById(R.id.background);
         mThumbnailView = findViewById(R.id.thumbnail);
-        mArtistNameView = findViewById(R.id.artistName);
         mListView = findViewById(R.id.list);
     }
 

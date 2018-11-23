@@ -15,9 +15,6 @@ import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TopViewHolder;
 
-/**
- * TOP
- */
 public class TopAdapter extends RecyclerView.Adapter<TopViewHolder> {
     private Activity mContext;
     private ThumbnailProvider mThumbnailProvider;

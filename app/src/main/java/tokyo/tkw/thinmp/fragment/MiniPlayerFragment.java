@@ -28,7 +28,6 @@ import tokyo.tkw.thinmp.player.MusicService;
  */
 public class MiniPlayerFragment extends Fragment {
     private MiniPlayer mMiniPlayer;
-    private FragmentMiniPlayerBinding mBinding;
     public MusicService mMusicService;
 
     /**
@@ -148,7 +147,7 @@ public class MiniPlayerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_mini_player, container, false);
+        FragmentMiniPlayerBinding mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_mini_player, container, false);
         mMiniPlayer = new MiniPlayer(mBinding, mMiniPlayerListener);
 
         mBinding.setMiniPlayer(mMiniPlayer);

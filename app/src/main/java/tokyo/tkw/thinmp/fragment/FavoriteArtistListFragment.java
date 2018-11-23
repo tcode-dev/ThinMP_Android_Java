@@ -26,7 +26,7 @@ public class FavoriteArtistListFragment extends Fragment {
         public void onClick(String artistId) {
             Activity context = getActivity();
             Intent intent = new Intent(context, ArtistActivity.class);
-            intent.putExtra("artist_id", artistId);
+            intent.putExtra("artistId", artistId);
             context.startActivity(intent);
         }
     };

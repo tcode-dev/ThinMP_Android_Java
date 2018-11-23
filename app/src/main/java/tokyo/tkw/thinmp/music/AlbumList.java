@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by tk on 2018/03/23.
+ * AlbumList
  */
-
 public class AlbumList {
     private HashMap<String, Album> mMap = new HashMap<String, Album>();
     private ArrayList<Album> mAlbumList = new ArrayList<Album>();

@@ -15,10 +15,6 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
-/**
- * Created by tk on 2018/03/22.
- */
-
 public class ArtistListAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
     private Activity mContext;
     private ThumbnailProvider mThumbnailProvider;

@@ -3,9 +3,8 @@ package tokyo.tkw.thinmp.music;
 import java.util.ArrayList;
 
 /**
- * Created by tk on 2018/03/22.
+ * Album
  */
-
 public class Album {
     private String id;
     private String name;

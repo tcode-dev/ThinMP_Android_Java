@@ -1,12 +1,9 @@
 package tokyo.tkw.thinmp.adapter;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
@@ -18,17 +15,11 @@ import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrack, TrackViewHolder> {
-    private Activity mContext;
     private ThumbnailProvider mThumbnailProvider;
-    private OrderedRealmCollection<PlaylistTrack> mPlaylistTracks;
-    private ArrayList<Track> mTrackList;
 
-    public PlaylistDetailAdapter(Activity context, OrderedRealmCollection<PlaylistTrack> playlistTracks, ArrayList<Track> trackList) {
+    public PlaylistDetailAdapter(OrderedRealmCollection<PlaylistTrack> playlistTracks) {
         super(playlistTracks, true);
 
-        mContext = context;
-        mPlaylistTracks = playlistTracks;
-        mTrackList = trackList;
         mThumbnailProvider = new ThumbnailProvider();
     }
 

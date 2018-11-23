@@ -15,10 +15,6 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.AlbumListViewHolder;
 
-/**
- * Created by tk on 2018/03/22.
- */
-
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListViewHolder> {
     private Activity mContext;
     private ThumbnailProvider mThumbnailProvider;

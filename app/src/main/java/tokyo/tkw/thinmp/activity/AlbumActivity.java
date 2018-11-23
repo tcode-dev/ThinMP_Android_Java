@@ -22,7 +22,6 @@ import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.adapter.AlbumTrackListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.player.MusicService;
 import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.music.Track;
@@ -102,7 +101,7 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
     @Override
     public void onClickItem(int position) {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.includeMiniPlayer);
-        if (fragment != null && fragment instanceof MiniPlayerFragment) {
+        if (fragment instanceof MiniPlayerFragment) {
             ((MiniPlayerFragment) fragment).start(mTrackList, position);
         }
     }

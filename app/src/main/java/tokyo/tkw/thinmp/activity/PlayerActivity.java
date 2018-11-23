@@ -16,7 +16,6 @@ import tokyo.tkw.thinmp.player.MusicService;
 import tokyo.tkw.thinmp.player.Player;
 
 public class PlayerActivity extends AppCompatActivity {
-    private ActivityPlayerBinding mBinding;
     private Player mPlayer;
     public MusicService mMusicService;
 
@@ -145,7 +144,7 @@ public class PlayerActivity extends AppCompatActivity {
      * setPlayer
      */
     private void setPlayer() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_player);
+        ActivityPlayerBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_player);
         mPlayer = new Player(mBinding, mPlayerListener);
 
         mBinding.setPlayer(mPlayer);

@@ -31,8 +31,7 @@ public class PlaylistDetailActivity extends AppCompatActivity {
         Realm.init(this);
         Realm realm = Realm.getDefaultInstance();
         RealmResults<PlaylistTrack> playlistTracks = realm.where(PlaylistTrack.class).equalTo("playlistId", playlistId).findAll();
-        ArrayList<Track> trackList = getTrackList(playlistTracks);
-        PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(this, playlistTracks, trackList);
+        PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(playlistTracks);
         view.setAdapter(adapter);
 
         // 区切り線の描画
