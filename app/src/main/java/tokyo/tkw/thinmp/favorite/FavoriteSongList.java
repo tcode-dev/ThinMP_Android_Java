@@ -14,7 +14,7 @@ public class FavoriteSongList {
     }
 
     private static ArrayList<Track> getTrackList(RealmResults<FavoriteSong> favoriteList) {
-        ArrayList<Track> trackList = new ArrayList<Track>();
+        ArrayList<Track> trackList = new ArrayList<>();
 
         for (FavoriteSong favorite: favoriteList) {
             Track track = MusicList.getTrack(favorite.getTrackId());

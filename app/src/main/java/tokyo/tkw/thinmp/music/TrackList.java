@@ -7,7 +7,7 @@ import java.util.HashMap;
  * TrackList
  */
 public class TrackList {
-    private HashMap<String, Track> mMap = new HashMap<String, Track>();
+    private HashMap<String, Track> mMap = new HashMap<>();
     private ArrayList<Track> mList = new ArrayList<>();
 
     public void add(Track track) {

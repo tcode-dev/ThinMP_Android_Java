@@ -11,7 +11,7 @@ public class Album {
     private String artistId;
     private String artistName;
     private String thumbnailId;
-    private ArrayList<String> trackIdList = new ArrayList<String>();
+    private ArrayList<String> trackIdList = new ArrayList<>();
 
     public Album(String id, String name, String artistId, String artistName, String thumbnailId) {
         this.id = id;

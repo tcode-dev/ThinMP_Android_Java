@@ -9,8 +9,8 @@ public class Artist {
     private String id;
     private String name;
     private String thumbnailId;
-    private ArrayList<String> albumIdList = new ArrayList<String>();
-    private ArrayList<String> trackIdList = new ArrayList<String>();
+    private ArrayList<String> albumIdList = new ArrayList<>();
+    private ArrayList<String> trackIdList = new ArrayList<>();
 
     public Artist(String id, String name, String thumbnailId) {
         this.id = id;

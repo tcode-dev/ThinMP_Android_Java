@@ -81,7 +81,7 @@ public class MusicList {
     public static ArrayList<Album> getArtistAlbumList(String artistId) {
         Artist artist = getArtist(artistId);
         ArrayList<String> albumIdList = artist.getAlbumIdList();
-        ArrayList<Album> albumList = new ArrayList<Album>();
+        ArrayList<Album> albumList = new ArrayList<>();
 
         for (String id: albumIdList) {
             Album album = instance.mAlbumList.getAlbum(id);
@@ -99,7 +99,7 @@ public class MusicList {
     public static ArrayList<Track> getAlbumTrackList(String albumId) {
         Album album = getAlbum(albumId);
         ArrayList<String> trackIdList = album.getTrackIdList();
-        ArrayList<Track> trackList = new ArrayList<Track>();
+        ArrayList<Track> trackList = new ArrayList<>();
 
         for (String id: trackIdList) {
             Track track = instance.mTrackList.getTrack(id);

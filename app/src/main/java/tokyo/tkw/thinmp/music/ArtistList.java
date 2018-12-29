@@ -7,8 +7,8 @@ import java.util.HashMap;
  * ArtistList
  */
 public class ArtistList {
-    private HashMap<String, Artist> mMap = new HashMap<String, Artist>();
-    private ArrayList<Artist> mList = new ArrayList<Artist>();
+    private HashMap<String, Artist> mMap = new HashMap<>();
+    private ArrayList<Artist> mList = new ArrayList<>();
 
     public void add(Track track) {
         String artistId = track.getArtistId();

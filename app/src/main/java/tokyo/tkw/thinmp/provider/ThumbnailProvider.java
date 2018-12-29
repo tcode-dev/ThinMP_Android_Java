@@ -20,11 +20,11 @@ import static android.net.Uri.parse;
 public class ThumbnailProvider {
     private final String ALBUM_ART_URL = "content://media/external/audio/albumart/";
 
-    private HashMap<String, Bitmap> mMap = new HashMap<String, Bitmap>();
+    private HashMap<String, Bitmap> mMap = new HashMap<>();
     private Context mContext;
 
     public ThumbnailProvider() {
-        mContext = (Context) ActivityUtil.getContext();
+        mContext = ActivityUtil.getContext();
     }
 
     public Bitmap getThumbnail(String id) {
