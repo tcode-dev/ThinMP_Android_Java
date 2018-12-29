@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
 
+import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ActivityUtil;
 
 import static android.net.Uri.parse;
@@ -61,7 +62,11 @@ public class ThumbnailProvider {
                 albumArt = BitmapFactory.decodeStream(is);
             }
         } catch (FileNotFoundException err) {
-//            err.printStackTrace();
+            err.printStackTrace();
+        }
+
+        if (albumArt == null) {
+            albumArt = getDefaultBitmap();
         }
 
         return albumArt;
@@ -77,5 +82,14 @@ public class ThumbnailProvider {
         Uri uri = parse(url);
 
         return uri;
+    }
+
+    /**
+     * デフォルト画像のbitmapを返す
+     *
+     * @return
+     */
+    private Bitmap getDefaultBitmap() {
+        return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_album_art);
     }
 }
