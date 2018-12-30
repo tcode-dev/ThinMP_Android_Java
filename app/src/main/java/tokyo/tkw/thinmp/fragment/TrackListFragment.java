@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.adapter.TrackListAdapter;
 import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.MusicList;
-import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.adapter.TrackListAdapter;
 
 /**
  * TrackListFragment

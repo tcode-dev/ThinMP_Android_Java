@@ -15,12 +15,12 @@ public class TrackList {
 
         String id = track.getId();
 
-        if (! mMap.containsKey(id)) {
+        if (!mMap.containsKey(id)) {
             mMap.put(id, track);
         }
     }
 
-    public ArrayList<Track> getList(){
+    public ArrayList<Track> getList() {
         return mList;
     }
 

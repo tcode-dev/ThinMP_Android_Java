@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.music.MusicList;
+import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.util.ActivityUtil;
 
 public class FavoriteSongList {
@@ -16,7 +16,7 @@ public class FavoriteSongList {
     private static ArrayList<Track> getTrackList(RealmResults<FavoriteSong> favoriteList) {
         ArrayList<Track> trackList = new ArrayList<>();
 
-        for (FavoriteSong favorite: favoriteList) {
+        for (FavoriteSong favorite : favoriteList) {
             Track track = MusicList.getTrack(favorite.getTrackId());
             trackList.add(track);
         }

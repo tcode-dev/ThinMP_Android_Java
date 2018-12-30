@@ -6,6 +6,7 @@ package tokyo.tkw.thinmp.util;
 public class TimeUtil {
     /**
      * ミリ秒を秒に変換する
+     *
      * @param millisecond
      * @return
      */
@@ -19,6 +20,7 @@ public class TimeUtil {
      * 1時間未満の場合m:ss
      * 頻繁に呼ばれるので速度重視
      * String#formatは使わずに一度だけ文字列結合する
+     *
      * @param second
      * @return
      */

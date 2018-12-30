@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.view.View;
 
 import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
-
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 
@@ -30,6 +29,7 @@ public class MiniPlayer {
 
     /**
      * プレイヤーエリアを更新する
+     *
      * @param track
      */
     public void update(Track track) {
@@ -49,6 +49,7 @@ public class MiniPlayer {
 
     /**
      * プレイヤーを表示
+     *
      * @param track
      */
     private void setActive(Track track) {
@@ -59,6 +60,7 @@ public class MiniPlayer {
 
     /**
      * changeTrack
+     *
      * @param track
      */
     private void changeTrack(Track track) {
@@ -68,6 +70,7 @@ public class MiniPlayer {
 
     /**
      * プレイヤーエリアクリック時のイベント
+     *
      * @param view
      */
     public void onClickPlayer(View view) {
@@ -77,6 +80,7 @@ public class MiniPlayer {
 
     /**
      * 再生開始ボタン
+     *
      * @param view
      */
     public void onClickPlay(View view) {
@@ -86,6 +90,7 @@ public class MiniPlayer {
 
     /**
      * 一時停止ボタン
+     *
      * @param view
      */
     public void onClickPause(View view) {
@@ -95,6 +100,7 @@ public class MiniPlayer {
 
     /**
      * 次へボタン
+     *
      * @param view
      */
     public void onClickNext(View view) {
@@ -128,6 +134,7 @@ public class MiniPlayer {
 
         /**
          * onGetTrack
+         *
          * @return
          */
         Track onGetTrack();

@@ -35,6 +35,7 @@ public class PlaylistRegister extends Fragment {
 
     /**
      * 曲を登録
+     *
      * @param name
      * @param track
      */
@@ -47,6 +48,7 @@ public class PlaylistRegister extends Fragment {
 
     /**
      * アルバムの曲を登録
+     *
      * @param name
      * @param album
      */
@@ -72,7 +74,7 @@ public class PlaylistRegister extends Fragment {
         playlist.setOrder(nextOrder);
         List<PlaylistTrack> playlistTracks = new ArrayList<>();
 
-        for (String trackId: trackIdList) {
+        for (String trackId : trackIdList) {
             PlaylistTrack playlistTrack = new PlaylistTrack();
             playlistTrack.setPlaylistId(playlistId);
             playlistTrack.setTrackId(trackId);

@@ -14,10 +14,9 @@ import android.support.annotation.Nullable;
  * @see <a href="https://jayrambhia.com/blog/android-background-blur">Background Blur in Android</a>
  */
 public class RSBlurProcessor {
-    private RenderScript rs;
-
     private static final boolean IS_BLUR_SUPPORTED = Build.VERSION.SDK_INT >= 17;
     private static final int MAX_RADIUS = 25;
+    private RenderScript rs;
 
     public RSBlurProcessor(RenderScript rs) {
         this.rs = rs;
@@ -61,7 +60,7 @@ public class RSBlurProcessor {
         blurScript.forEach(allocation);
 
         // Repeat the blur for extra effect
-        for (int i=0; i<repeat; i++) {
+        for (int i = 0; i < repeat; i++) {
             blurScript.forEach(allocation);
         }
 

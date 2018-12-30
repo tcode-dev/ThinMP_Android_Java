@@ -17,15 +17,23 @@ public class MusicService extends Service {
     private final int REPEAT_OFF = 0;
     private final int REPEAT_ONE = 1;
     private final int REPEAT_ALL = 2;
-
+    public IBinder mBinder = new MusicBinder();
     private int mRepeat = REPEAT_OFF;
     private boolean mShuffle = false;
     private MediaPlayer mMediaPlayer;
     private ArrayList<Track> mOriginalList;
     private PlayingList mPlayingList;
     private OnMusicServiceListener mListener;
-
-    public IBinder mBinder = new MusicBinder();
+    /**
+     * 再生が終わったあとの処理
+     */
+    private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            mListener.onFinished();
+            playNext();
+        }
+    };
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -33,16 +41,8 @@ public class MusicService extends Service {
     }
 
     /**
-     * bind
-     */
-    public class MusicBinder extends Binder {
-        public MusicService getService() {
-            return MusicService.this;
-        }
-    }
-
-    /**
      * 再生リストを登録
+     *
      * @param playList
      * @param position
      */
@@ -53,6 +53,7 @@ public class MusicService extends Service {
 
     /**
      * リスナーを登録
+     *
      * @param listener
      */
     public void setListener(OnMusicServiceListener listener) {
@@ -96,6 +97,7 @@ public class MusicService extends Service {
 
     /**
      * 現在の再生位置を取得
+     *
      * @return ミリ秒
      */
     public int getCurrentPosition() {
@@ -107,13 +109,13 @@ public class MusicService extends Service {
      */
     public Integer repeat() {
         switch (mRepeat) {
-            case REPEAT_OFF :
+            case REPEAT_OFF:
                 repeatAll();
                 break;
-            case REPEAT_ALL :
+            case REPEAT_ALL:
                 repeatOne();
                 break;
-            case REPEAT_ONE :
+            case REPEAT_ONE:
                 repeatOff();
                 break;
         }
@@ -154,6 +156,7 @@ public class MusicService extends Service {
 
     /**
      * 現在のtrackを取得
+     *
      * @return Track
      */
     public Track getTrack() {
@@ -178,6 +181,7 @@ public class MusicService extends Service {
 
     /**
      * 再生中か
+     *
      * @return
      */
     public boolean isPlaying() {
@@ -186,6 +190,7 @@ public class MusicService extends Service {
 
     /**
      * シャッフルの状態を返す
+     *
      * @return
      */
     public boolean getShuffleStatus() {
@@ -194,6 +199,7 @@ public class MusicService extends Service {
 
     /**
      * リピートの状態を返す
+     *
      * @return
      */
     public Integer getRepeatStatus() {
@@ -215,22 +221,11 @@ public class MusicService extends Service {
     }
 
     /**
-     * 再生が終わったあとの処理
-     */
-    private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-            mListener.onFinished();
-            playNext();
-        }
-    };
-
-    /**
      * 再生が終わったあとに次の曲の再生
      */
     private void playNext() {
         switch (mRepeat) {
-            case REPEAT_OFF :
+            case REPEAT_OFF:
                 if (mPlayingList.hasNext()) {
                     mPlayingList.next();
                     start();
@@ -238,12 +233,12 @@ public class MusicService extends Service {
                 }
 
                 return;
-            case REPEAT_ONE :
+            case REPEAT_ONE:
                 start();
                 mListener.onStarted();
 
                 return;
-            case REPEAT_ALL :
+            case REPEAT_ALL:
                 mPlayingList.next();
                 start();
                 mListener.onStarted();
@@ -262,13 +257,24 @@ public class MusicService extends Service {
          * 曲変更
          */
         void onChangeTrack(Track track);
+
         /**
          * 再生開始
          */
         void onStarted();
+
         /**
          * 再生終了
          */
         void onFinished();
+    }
+
+    /**
+     * bind
+     */
+    public class MusicBinder extends Binder {
+        public MusicService getService() {
+            return MusicService.this;
+        }
     }
 }

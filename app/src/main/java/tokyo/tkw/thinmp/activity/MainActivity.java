@@ -9,12 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.fragment.FavoriteSongListFragment;
-import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.ViewPagerAdapter;
+import tokyo.tkw.thinmp.fragment.FavoriteSongListFragment;
+import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
 import tokyo.tkw.thinmp.fragment.TrackListFragment;
+import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
 
 public class MainActivity

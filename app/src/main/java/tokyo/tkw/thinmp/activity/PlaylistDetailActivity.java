@@ -1,7 +1,7 @@
 package tokyo.tkw.thinmp.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,7 +43,7 @@ public class PlaylistDetailActivity extends AppCompatActivity {
     private ArrayList<Track> getTrackList(RealmResults<PlaylistTrack> playlistTracks) {
         ArrayList<Track> trackList = new ArrayList<Track>();
 
-        for (PlaylistTrack playlistTrack: playlistTracks) {
+        for (PlaylistTrack playlistTrack : playlistTracks) {
             Track track = MusicList.getTrack(playlistTrack.getTrackId());
             trackList.add(track);
         }

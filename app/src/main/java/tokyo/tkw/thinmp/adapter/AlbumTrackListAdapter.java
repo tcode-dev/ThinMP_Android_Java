@@ -55,11 +55,12 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
 
     /**
      * listitemをクリックしたときのイベント
+     *
      * @param position
      * @return
      */
     private View.OnClickListener listItemClickListener(int position) {
-        return new View.OnClickListener(){
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onClickItem(position);
@@ -69,6 +70,7 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
 
     /**
      * メニューオープンのイベント
+     *
      * @return
      */
     public View.OnClickListener openMenuButtonClickListener(Track track) {
@@ -85,6 +87,7 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
      */
     public interface OnTrackListItemClickListener {
         void onClickItem(int position);
+
         void onClickMenu(View view, Track track);
     }
 }

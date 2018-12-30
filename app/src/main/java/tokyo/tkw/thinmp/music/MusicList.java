@@ -10,11 +10,10 @@ import tokyo.tkw.thinmp.provider.MusicProvider;
  * MusicList
  */
 public class MusicList {
+    private static MusicList instance = null;
     private TrackList mTrackList;
     private ArtistList mArtistList;
     private AlbumList mAlbumList;
-
-    private static MusicList instance = null;
 
     public MusicList(Activity activity) {
         MusicProvider musicProvider = new MusicProvider(activity);
@@ -23,16 +22,17 @@ public class MusicList {
         mAlbumList = musicProvider.getAlbumList();
     }
 
-    public static void setInstance(Activity activity) {
-        instance = new MusicList(activity);
-    }
-
     public static MusicList getInstance() {
         return instance;
     }
 
+    public static void setInstance(Activity activity) {
+        instance = new MusicList(activity);
+    }
+
     /**
      * 曲一覧を取得
+     *
      * @return
      */
     public static ArrayList<Track> getTrackList() {
@@ -41,6 +41,7 @@ public class MusicList {
 
     /**
      * アーティスト一覧を取得
+     *
      * @return
      */
     public static ArrayList<Artist> getArtistList() {
@@ -49,6 +50,7 @@ public class MusicList {
 
     /**
      * アーティストを取得
+     *
      * @param id
      * @return
      */
@@ -58,6 +60,7 @@ public class MusicList {
 
     /**
      * アルバム一覧を取得
+     *
      * @return
      */
     public static ArrayList<Album> getAlbumList() {
@@ -66,6 +69,7 @@ public class MusicList {
 
     /**
      * アルバムを取得
+     *
      * @param id
      * @return
      */
@@ -75,6 +79,7 @@ public class MusicList {
 
     /**
      * アーティストのアルバム一覧を取得
+     *
      * @param artistId
      * @return
      */
@@ -83,7 +88,7 @@ public class MusicList {
         ArrayList<String> albumIdList = artist.getAlbumIdList();
         ArrayList<Album> albumList = new ArrayList<>();
 
-        for (String id: albumIdList) {
+        for (String id : albumIdList) {
             Album album = instance.mAlbumList.getAlbum(id);
             albumList.add(album);
         }
@@ -93,6 +98,7 @@ public class MusicList {
 
     /**
      * アルバムの曲一覧を取得
+     *
      * @param albumId
      * @return
      */
@@ -101,7 +107,7 @@ public class MusicList {
         ArrayList<String> trackIdList = album.getTrackIdList();
         ArrayList<Track> trackList = new ArrayList<>();
 
-        for (String id: trackIdList) {
+        for (String id : trackIdList) {
             Track track = instance.mTrackList.getTrack(id);
             trackList.add(track);
         }
@@ -111,6 +117,7 @@ public class MusicList {
 
     /**
      * trackを取得
+     *
      * @param id
      * @return
      */

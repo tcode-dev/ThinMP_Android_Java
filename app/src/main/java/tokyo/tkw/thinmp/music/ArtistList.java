@@ -13,7 +13,7 @@ public class ArtistList {
     public void add(Track track) {
         String artistId = track.getArtistId();
 
-        if (! mMap.containsKey(artistId)) {
+        if (!mMap.containsKey(artistId)) {
             Artist artist = new Artist(
                     artistId,
                     track.getArtistName(),

@@ -13,7 +13,7 @@ public class AlbumList {
     public void add(Track track) {
         String albumId = track.getAlbumId();
 
-        if (! mMap.containsKey(albumId)) {
+        if (!mMap.containsKey(albumId)) {
             Album album = new Album(
                     albumId,
                     track.getAlbumName(),

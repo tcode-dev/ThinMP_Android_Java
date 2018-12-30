@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
@@ -16,9 +16,8 @@ import tokyo.tkw.thinmp.player.MusicService;
 import tokyo.tkw.thinmp.player.Player;
 
 public class PlayerActivity extends AppCompatActivity {
-    private Player mPlayer;
     public MusicService mMusicService;
-
+    private Player mPlayer;
     /**
      * MusicServiceのListener
      */
@@ -38,26 +37,6 @@ public class PlayerActivity extends AppCompatActivity {
             mPlayer.finish();
         }
     };
-
-    /**
-     * ServiceConnection
-     */
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
-            mMusicService = binder.getService();
-            mMusicService.setListener(musicServiceListener);
-
-            setPlayer();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    };
-
     /**
      * Playerのinterface
      */
@@ -102,9 +81,28 @@ public class PlayerActivity extends AppCompatActivity {
             mMusicService.seekTo(msec);
         }
     };
+    /**
+     * ServiceConnection
+     */
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
+            mMusicService = binder.getService();
+            mMusicService.setListener(musicServiceListener);
+
+            setPlayer();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     /**
      * onCreate
+     *
      * @param savedInstanceState
      */
     @Override

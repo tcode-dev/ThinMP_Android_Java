@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
@@ -54,11 +54,12 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
 
     /**
      * listitemをクリックしたときのイベント
+     *
      * @param position
      * @return
      */
     private View.OnClickListener listItemClickListener(int position) {
-        return new View.OnClickListener(){
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onClickItem(position);
@@ -68,6 +69,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
 
     /**
      * メニューオープンのイベント
+     *
      * @return
      */
     public View.OnClickListener openMenuButtonClickListener(Track track) {
@@ -84,6 +86,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
      */
     public interface OnTrackListItemClickListener {
         void onClickItem(int position);
+
         void onClickMenu(View view, Track track);
     }
 }

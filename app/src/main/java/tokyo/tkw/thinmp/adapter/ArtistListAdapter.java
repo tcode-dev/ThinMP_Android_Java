@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.music.Artist;
-import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
@@ -26,6 +26,7 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
         mThumbnailProvider = new ThumbnailProvider();
         mArtistList = artistList;
     }
+
     @Override
     public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_row, parent, false);

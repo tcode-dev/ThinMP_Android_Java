@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.music.Album;
-import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
+import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.music.MusicList;
 
 /**
  * AlbumListFragment

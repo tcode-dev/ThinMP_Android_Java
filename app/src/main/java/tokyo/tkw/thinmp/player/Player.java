@@ -38,6 +38,27 @@ public class Player {
     private int mCurrentPositionSecond;
     private OnPlayerListener mListener;
     private Track mTrack;
+    private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if (!fromUser) return;
+
+            int msec = progress * 1000;
+
+            mListener.onSeekTo(msec);
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
 
     public Player(ActivityPlayerBinding binding, OnPlayerListener listener) {
         mBinding = binding;
@@ -85,6 +106,7 @@ public class Player {
 
     /**
      * 再生ボタンのイベント
+     *
      * @param view
      */
     public void onClickPlay(View view) {
@@ -95,6 +117,7 @@ public class Player {
 
     /**
      * 一時停止ボタンのイベント
+     *
      * @param view
      */
     public void onClickPause(View view) {
@@ -105,6 +128,7 @@ public class Player {
 
     /**
      * prevボタンのイベント
+     *
      * @param view
      */
     public void onClickPrev(View view) {
@@ -114,6 +138,7 @@ public class Player {
 
     /**
      * nextボタンのイベント
+     *
      * @param view
      */
     public void onClickNext(View view) {
@@ -123,6 +148,7 @@ public class Player {
 
     /**
      * onClickRepeat
+     *
      * @param view
      */
     public void onClickRepeat(View view) {
@@ -132,6 +158,7 @@ public class Player {
 
     /**
      * onClickShuffle
+     *
      * @param view
      */
     public void onClickShuffle(View view) {
@@ -141,6 +168,7 @@ public class Player {
 
     /**
      * OnClickFavorite
+     *
      * @param view
      */
     public void OnClickFavorite(View view) {
@@ -150,6 +178,7 @@ public class Player {
 
     /**
      * OnClickFavoriteArtist
+     *
      * @param view
      */
     public void OnClickFavoriteArtist(View view) {
@@ -173,6 +202,7 @@ public class Player {
 
     /**
      * durationTimer
+     *
      * @return
      */
     public TimerTask durationTimer() {
@@ -200,28 +230,6 @@ public class Player {
         mTimer.cancel();
         mTimer = null;
     }
-
-    private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
-
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (! fromUser) return;
-
-            int msec = progress * 1000;
-
-            mListener.onSeekTo(msec);
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-
-        }
-    };
 
     /**
      * interface

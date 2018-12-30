@@ -7,12 +7,12 @@ import java.util.Collections;
  * 再生中の曲リスト
  */
 public class PlayingList {
+    // 最後の曲のインデックス
+    private static int mLastIndex;
     // 再生曲リスト
     private ArrayList<Track> mPlayingList;
     // 現在位置
     private int mCurrentPosition;
-    // 最後の曲のインデックス
-    private static int mLastIndex;
 
     public PlayingList(ArrayList<Track> playingList, int position) {
         mPlayingList = playingList;
@@ -22,6 +22,7 @@ public class PlayingList {
 
     /**
      * 再生中のtrackを取得
+     *
      * @return
      */
     public Track getTrack() {
@@ -30,6 +31,7 @@ public class PlayingList {
 
     /**
      * 現在の曲の位置を取得
+     *
      * @return
      */
     public int getCurrentPosition() {
@@ -38,6 +40,7 @@ public class PlayingList {
 
     /**
      * 前の曲が存在するか
+     *
      * @return
      */
     public boolean hasPrev() {
@@ -46,6 +49,7 @@ public class PlayingList {
 
     /**
      * 次の曲が存在するか
+     *
      * @return
      */
     public boolean hasNext() {

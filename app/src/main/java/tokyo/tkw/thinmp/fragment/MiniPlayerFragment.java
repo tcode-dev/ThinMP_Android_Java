@@ -27,26 +27,8 @@ import tokyo.tkw.thinmp.player.MusicService;
  * MiniPlayerFragment
  */
 public class MiniPlayerFragment extends Fragment {
-    private MiniPlayer mMiniPlayer;
     public MusicService mMusicService;
-
-    /**
-     * ServiceConnection
-     */
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
-            mMusicService = binder.getService();
-            mMusicService.setListener(musicServiceListener);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    };
-
+    private MiniPlayer mMiniPlayer;
     /**
      * MiniPlayerのListener
      */
@@ -92,7 +74,6 @@ public class MiniPlayerFragment extends Fragment {
             return mMusicService.getTrack();
         }
     };
-
     /**
      * MusicServiceのListener
      */
@@ -112,6 +93,22 @@ public class MiniPlayerFragment extends Fragment {
 
         }
     };
+    /**
+     * ServiceConnection
+     */
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
+            mMusicService = binder.getService();
+            mMusicService.setListener(musicServiceListener);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     /**
      * doBindService
@@ -126,6 +123,7 @@ public class MiniPlayerFragment extends Fragment {
 
     /**
      * onCreate
+     *
      * @param savedInstanceState
      */
     @Override
@@ -139,6 +137,7 @@ public class MiniPlayerFragment extends Fragment {
 
     /**
      * onCreateView
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -186,6 +185,7 @@ public class MiniPlayerFragment extends Fragment {
 
     /**
      * 再生開始
+     *
      * @param trackList
      * @param position
      */
@@ -197,6 +197,7 @@ public class MiniPlayerFragment extends Fragment {
 
     /**
      * 曲変更
+     *
      * @param track
      */
     public void update(Track track) {

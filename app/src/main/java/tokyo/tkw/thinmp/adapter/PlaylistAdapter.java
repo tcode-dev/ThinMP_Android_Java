@@ -61,7 +61,7 @@ public class PlaylistAdapter extends RealmRecyclerViewAdapter<Playlist, ImageRow
 
         if (mTrackId != null) {
             // playlist追加画面の場合
-            holder.itemView.setOnClickListener(new View.OnClickListener(){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     PlaylistRegister playlistRegister = new PlaylistRegister();

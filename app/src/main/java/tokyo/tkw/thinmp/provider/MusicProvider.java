@@ -28,27 +28,36 @@ public class MusicProvider {
 
     /**
      * TrackListを取得
+     *
      * @return
      */
     public TrackList getTrackList() {
         return mTrackList;
-    };
+    }
+
+    ;
 
     /**
      * ArtistListを取得
+     *
      * @return
      */
     public ArtistList getArtistList() {
         return mArtistList;
-    };
+    }
+
+    ;
 
     /**
      * AlbumListを取得
+     *
      * @return
      */
     public AlbumList getAlbumList() {
         return mAlbumList;
-    };
+    }
+
+    ;
 
     /**
      * 曲一覧、アーティスト一覧、アルバム一覧を作成する
@@ -63,6 +72,7 @@ public class MusicProvider {
         mCursor.close();
         mCursor = null;
     }
+
     /**
      * cursorから全曲取得して一覧を作成する
      */
@@ -78,6 +88,7 @@ public class MusicProvider {
 
     /**
      * Trackを作成
+     *
      * @return Track
      */
     private Track makeTrack() {
@@ -98,6 +109,7 @@ public class MusicProvider {
 
     /**
      * idを取得
+     *
      * @return
      */
     private String getId() {
@@ -106,6 +118,7 @@ public class MusicProvider {
 
     /**
      * 曲名を取得
+     *
      * @return
      */
     private String getTitle() {
@@ -114,6 +127,7 @@ public class MusicProvider {
 
     /**
      * アーティストidを取得
+     *
      * @return
      */
     private String getArtistId() {
@@ -122,6 +136,7 @@ public class MusicProvider {
 
     /**
      * アーティスト名を取得
+     *
      * @return
      */
     private String getArtistName() {
@@ -130,6 +145,7 @@ public class MusicProvider {
 
     /**
      * 曲のuriを取得
+     *
      * @return
      */
     private Uri getUri() {
@@ -141,6 +157,7 @@ public class MusicProvider {
 
     /**
      * アルバムidを取得
+     *
      * @return
      */
     private String getAlbumId() {
@@ -149,6 +166,7 @@ public class MusicProvider {
 
     /**
      * アルバム名を取得
+     *
      * @return
      */
     private String getAlbumName() {
@@ -157,6 +175,7 @@ public class MusicProvider {
 
     /**
      * 再生時間を取得
+     *
      * @return
      */
     private int getDuration() {

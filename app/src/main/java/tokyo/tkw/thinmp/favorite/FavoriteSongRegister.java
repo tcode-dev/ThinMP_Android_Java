@@ -19,6 +19,23 @@ public class FavoriteSongRegister {
         return new FavoriteSongRegister();
     }
 
+    public static boolean set(String trackId) {
+        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
+
+        return favoriteRegister.update(trackId);
+    }
+
+    public static boolean exists(String trackId) {
+        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
+
+        return favoriteRegister.findFirst(trackId) != null;
+    }
+
+    public static void update(List list) {
+        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
+        favoriteRegister.allUpdate(list);
+    }
+
     public void beginTransaction() {
         mRealm.beginTransaction();
     }
@@ -33,6 +50,7 @@ public class FavoriteSongRegister {
 
     /**
      * trackをupdate
+     *
      * @param trackId
      * @return
      */
@@ -57,6 +75,7 @@ public class FavoriteSongRegister {
 
     /**
      * truncateしてlistを登録する
+     *
      * @param list
      */
     private void allUpdate(List list) {
@@ -73,22 +92,5 @@ public class FavoriteSongRegister {
         Number maxId = mRealm.where(FavoriteSong.class).max("id");
 
         return (maxId != null) ? maxId.intValue() + 1 : 1;
-    }
-
-    public static boolean set(String trackId) {
-        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
-
-        return favoriteRegister.update(trackId);
-    }
-
-    public static boolean exists(String trackId) {
-        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
-
-        return favoriteRegister.findFirst(trackId) != null;
-    }
-
-    public static void update(List list) {
-        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
-        favoriteRegister.allUpdate(list);
     }
 }

@@ -28,7 +28,7 @@ public class ThumbnailProvider {
     }
 
     public Bitmap getThumbnail(String id) {
-        if (! hasThumbnail(id)) {
+        if (!hasThumbnail(id)) {
             setThumbnail(id);
         }
 

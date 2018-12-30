@@ -52,9 +52,13 @@ public class Track implements Serializable {
         return artistName;
     }
 
-    public String getAlbumId() {return albumId;}
+    public String getAlbumId() {
+        return albumId;
+    }
 
-    public String getAlbumName() {return albumName;}
+    public String getAlbumName() {
+        return albumName;
+    }
 
     public String getThumbnailId() {
         return thumbnailId;

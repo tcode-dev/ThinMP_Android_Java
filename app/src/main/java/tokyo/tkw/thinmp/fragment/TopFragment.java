@@ -27,7 +27,6 @@ public class TopFragment extends Fragment {
     private ArrayList<Album> mAlbumList;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

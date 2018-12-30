@@ -29,9 +29,9 @@ public class StorageProvider {
                     null
             );
         } else {
-            ActivityCompat.requestPermissions( mContext,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                PERMISSION_CODE);
+            ActivityCompat.requestPermissions(mContext,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    PERMISSION_CODE);
             return null;
         }
     }

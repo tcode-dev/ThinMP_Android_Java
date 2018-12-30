@@ -19,6 +19,23 @@ public class FavoriteArtistRegister {
         return new FavoriteArtistRegister();
     }
 
+    public static boolean set(String artistId) {
+        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
+
+        return favoriteRegister.update(artistId);
+    }
+
+    public static boolean exists(String artistId) {
+        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
+
+        return favoriteRegister.getArtist(artistId) != null;
+    }
+
+    public static void update(List list) {
+        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
+        favoriteRegister.allUpdate(list);
+    }
+
     public void beginTransaction() {
         mRealm.beginTransaction();
     }
@@ -52,6 +69,7 @@ public class FavoriteArtistRegister {
 
     /**
      * truncateしてlistを登録する
+     *
      * @param list
      */
     private void allUpdate(List list) {
@@ -68,22 +86,5 @@ public class FavoriteArtistRegister {
         Number maxId = mRealm.where(FavoriteArtist.class).max("id");
 
         return (maxId != null) ? maxId.intValue() + 1 : 1;
-    }
-
-    public static boolean set(String artistId) {
-        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
-
-        return favoriteRegister.update(artistId);
-    }
-
-    public static boolean exists(String artistId) {
-        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
-
-        return favoriteRegister.getArtist(artistId) != null;
-    }
-
-    public static void update(List list) {
-        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
-        favoriteRegister.allUpdate(list);
     }
 }

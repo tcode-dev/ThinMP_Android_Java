@@ -74,12 +74,15 @@ public class PlaylistDialogFragment extends DialogFragment {
 
     /**
      * プレイリスト一覧を表示
+     *
      * @param view
      * @param trackId
      */
     private void setViewPlaylist(View view, String trackId) {
         Activity context = getActivity();
-        Runnable callback = () -> {mDialog.dismiss();};
+        Runnable callback = () -> {
+            mDialog.dismiss();
+        };
 
         RecyclerView playlistView = view.findViewById(R.id.playlist);
         LinearLayoutManager layout = new LinearLayoutManager(context);
@@ -99,6 +102,7 @@ public class PlaylistDialogFragment extends DialogFragment {
 
     /**
      * プレイリスト登録
+     *
      * @param trackId
      */
     private void addPlaylist(String trackId) {
@@ -109,6 +113,7 @@ public class PlaylistDialogFragment extends DialogFragment {
 
     /**
      * プレイリスト追加クリック時のイベント
+     *
      * @return
      */
     private View.OnClickListener addPlaylistListener() {
@@ -122,6 +127,7 @@ public class PlaylistDialogFragment extends DialogFragment {
 
     /**
      * OKボタンクリック時のイベント
+     *
      * @param trackId
      * @return
      */
@@ -137,6 +143,7 @@ public class PlaylistDialogFragment extends DialogFragment {
 
     /**
      * キャンセルボタンクリック時のイベント
+     *
      * @return
      */
     private View.OnClickListener cancelListener() {
