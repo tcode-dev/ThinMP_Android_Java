@@ -1,7 +1,6 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
 import android.support.v4.app.Fragment;
@@ -9,10 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -29,8 +27,6 @@ import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAdapter.OnTrackListItemClickListener {
     private ImageView mBackgroundView;
     private ImageView mThumbnailView;
-    private TextView mAlbumNameView;
-    private TextView mArtistNameView;
     private RecyclerView mListView;
 
     private ArrayList<Track> mTrackList;
@@ -44,18 +40,17 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
 
         String albumId = getIntent().getStringExtra("albumId");
         Album album = MusicList.getAlbum(albumId);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        //アルバム名
-        mAlbumNameView.setText(album.getName());
-
-        //アーティスト名
-        mArtistNameView.setText(album.getArtistName());
+        toolbar.setTitle(album.getArtistName());
+        toolbar.setSubtitle(album.getName());
+        setSupportActionBar(toolbar);
 
         //サムネイル
         Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(album.getThumbnailId());
         mThumbnailView.setImageBitmap(thumbnailBitmap);
 
-        //背景画像(同じ画像はキャッシュしているので、サムネイルもぼかしが掛からないようにnewして取得)
+        //背景画像(同じ画像はキャッシュしているので、サムネイルもぼかしが掛からないように別インスタンスで取得)
         Bitmap backgroundBitmap = new ThumbnailProvider().getThumbnail(album.getThumbnailId());
         RenderScript rs = RenderScript.create(this);
         RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
@@ -68,22 +63,9 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
         setAdapter();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        final Rect rect = new Rect();
-        Window window = this.getWindow();
-        window.getDecorView().getWindowVisibleDisplayFrame(rect);
-
-        mThumbnailView.setPadding(0, rect.top + 100, 0, 100);
-    }
-
     private void setView() {
         mBackgroundView = findViewById(R.id.background);
         mThumbnailView = findViewById(R.id.thumbnail);
-        mAlbumNameView = findViewById(R.id.primaryText);
-        mArtistNameView = findViewById(R.id.artistName);
         mListView = findViewById(R.id.list);
     }
 
