@@ -50,8 +50,8 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
         Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(album.getThumbnailId());
         mThumbnailView.setImageBitmap(thumbnailBitmap);
 
-        //背景画像(同じ画像はキャッシュしているので、サムネイルもぼかしが掛からないように別インスタンスで取得)
-        Bitmap backgroundBitmap = new ThumbnailProvider().getThumbnail(album.getThumbnailId());
+        //背景画像
+        Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888,true);
         RenderScript rs = RenderScript.create(this);
         RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
         Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f, 3);
