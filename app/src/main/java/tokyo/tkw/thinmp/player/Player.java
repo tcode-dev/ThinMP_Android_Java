@@ -3,6 +3,7 @@ package tokyo.tkw.thinmp.player;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.graphics.Bitmap;
+import android.renderscript.RenderScript;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -13,7 +14,9 @@ import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
+import tokyo.tkw.thinmp.util.ActivityUtil;
 import tokyo.tkw.thinmp.util.TimeUtil;
 
 /**
@@ -28,6 +31,7 @@ public class Player {
     public ObservableField<Integer> currentSecond = new ObservableField<>();
     public ObservableBoolean isPlaying = new ObservableBoolean();
     public ObservableField<Bitmap> thumbnail = new ObservableField<>();
+    public ObservableField<Bitmap> background = new ObservableField<>();
     public ObservableField<Integer> repeat = new ObservableField<>();
     public ObservableBoolean isShuffle = new ObservableBoolean();
     public ObservableBoolean isFavorite = new ObservableBoolean();
@@ -83,7 +87,14 @@ public class Player {
         // 再生中
         this.isPlaying.set(true);
         // サムネイル
-        this.mBinding.thumbnail.setImageBitmap(new ThumbnailProvider().getThumbnail(track.getThumbnailId()));
+        Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(track.getThumbnailId());
+        this.mBinding.thumbnail.setImageBitmap(thumbnailBitmap);
+        // 背景画像
+        Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888,true);
+        RenderScript rs = RenderScript.create(ActivityUtil.getContext());
+        RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
+        Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f, 3);
+        this.mBinding.background.setImageBitmap(blurBitMap);
         // リピート
         this.repeat.set(repeat);
         // シャッフル
