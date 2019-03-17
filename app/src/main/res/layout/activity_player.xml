@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:alpha="0.5"
+                android:alpha="0.8"
                 android:scaleType="centerCrop"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="102dp" />
@@ -49,6 +49,7 @@
                 android:id="@+id/trackName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:text="@{player.trackName}"
                 android:textColor="#000000"
@@ -144,7 +145,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="30dp"
                     android:layout_marginBottom="8dp"
                     android:background="@null"
                     android:scaleType="centerCrop"
@@ -155,15 +156,15 @@
 
                 <FrameLayout
                     android:id="@+id/playToggle"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <ImageButton
                         android:id="@+id/play"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@null"
                         android:onClick="@{player::onClickPlay}"
                         android:scaleType="centerCrop"
@@ -172,8 +173,8 @@
 
                     <ImageButton
                         android:id="@+id/pause"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@null"
                         android:onClick="@{player::onClickPause}"
                         android:scaleType="centerCrop"
@@ -186,7 +187,7 @@
                     android:id="@+id/next"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="@null"
