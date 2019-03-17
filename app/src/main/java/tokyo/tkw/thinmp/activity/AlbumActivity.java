@@ -1,8 +1,10 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -40,11 +42,15 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
 
         String albumId = getIntent().getStringExtra("albumId");
         Album album = MusicList.getAlbum(albumId);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
-        toolbar.setTitle(album.getArtistName());
-        toolbar.setSubtitle(album.getName());
         setSupportActionBar(toolbar);
+
+        CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
+
+        toolbarLayout.setTitle(album.getName());
+        toolbarLayout.setExpandedTitleColor(Color.BLACK);
+        toolbarLayout.setCollapsedTitleTextColor(Color.BLACK);
 
         //サムネイル
         Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(album.getThumbnailId());
