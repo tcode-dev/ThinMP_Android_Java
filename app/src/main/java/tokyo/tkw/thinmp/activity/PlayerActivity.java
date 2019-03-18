@@ -59,6 +59,7 @@ public class PlayerActivity extends AppCompatActivity {
         @Override
         public void onNext() {
             mMusicService.next();
+            updatePlayer();
         }
 
         @Override
