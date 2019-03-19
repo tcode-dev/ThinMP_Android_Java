@@ -17,6 +17,7 @@ public class MusicService extends Service {
     private final int REPEAT_OFF = 0;
     private final int REPEAT_ONE = 1;
     private final int REPEAT_ALL = 2;
+    private final int PREV_MS = 3000;
     public IBinder mBinder = new MusicBinder();
     private int mRepeat = REPEAT_OFF;
     private boolean mShuffle = false;
@@ -169,14 +170,18 @@ public class MusicService extends Service {
      * 前の曲へ
      */
     public void prev() {
-        mPlayingList.prev();
+        if (getCurrentPosition() <= PREV_MS) {
+            mPlayingList.prev();
+        }
+        start();
+        mListener.onStarted();
     }
 
     /**
      * 次の曲へ
      */
     public void next() {
-        mPlayingList.next();
+        playNext();
     }
 
     /**
@@ -221,7 +226,7 @@ public class MusicService extends Service {
     }
 
     /**
-     * 再生が終わったあとに次の曲の再生
+     * 次の曲の再生
      */
     private void playNext() {
         switch (mRepeat) {
