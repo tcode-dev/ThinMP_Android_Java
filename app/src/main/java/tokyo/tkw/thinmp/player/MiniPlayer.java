@@ -3,7 +3,11 @@ package tokyo.tkw.thinmp.player;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.graphics.Bitmap;
+import android.view.MotionEvent;
 import android.view.View;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
 import tokyo.tkw.thinmp.music.Track;
@@ -14,6 +18,10 @@ import tokyo.tkw.thinmp.provider.ThumbnailProvider;
  * UIの変更を行う
  */
 public class MiniPlayer {
+    private final int INCREMENT_MS = 3000;
+    private final long KEY_PRESS_INTERVAL_MS = 100L;
+    private final long KEY_PRESS_DELAY_MS = 0;
+
     public ObservableBoolean isActive = new ObservableBoolean();
     public ObservableBoolean isPlaying = new ObservableBoolean();
     public ObservableField<String> trackName = new ObservableField<>();
@@ -21,6 +29,8 @@ public class MiniPlayer {
 
     private FragmentMiniPlayerBinding mBinding;
     private OnMiniPlayerListener mListener;
+    private int mDurationMSecond;
+    private Timer mFastForwardTask;
 
     public MiniPlayer(FragmentMiniPlayerBinding binding, MiniPlayer.OnMiniPlayerListener listener) {
         mBinding = binding;
@@ -66,6 +76,7 @@ public class MiniPlayer {
     private void changeTrack(Track track) {
         this.trackName.set(track.getTitle());
         this.mBinding.thumbnail.setImageBitmap(new ThumbnailProvider().getThumbnail(track.getThumbnailId()));
+        this.mDurationMSecond = track.getDurationSecond() * 1000;
     }
 
     /**
@@ -109,6 +120,74 @@ public class MiniPlayer {
     }
 
     /**
+     * onLongClickNext
+     *
+     * @param view
+     */
+    public boolean onLongClickNext(View view) {
+        setFastForward();
+        return true;
+    }
+
+    /**
+     * onTouchNext
+     *
+     * @param view
+     * @param event
+     * @return
+     */
+    public boolean onTouchNext(View view, MotionEvent event) {
+        if (mFastForwardTask != null && event.getAction() == MotionEvent.ACTION_UP) {
+            cancelFastForwardTask();
+        }
+
+        return false;
+    }
+
+    /**
+     * setFastForward
+     */
+    public void setFastForward() {
+        mFastForwardTask = new Timer();
+        mFastForwardTask.schedule(fastForwardTask(), KEY_PRESS_DELAY_MS, KEY_PRESS_INTERVAL_MS);
+    }
+
+    /**
+     * fastForwardTask
+     */
+    public TimerTask fastForwardTask() {
+        return new TimerTask() {
+            public void run() {
+                fastForward();
+            }
+        };
+    }
+
+    /**
+     * fastForward
+     */
+    public void fastForward() {
+        int nextMsec = mListener.onGetCurrentPosition() + INCREMENT_MS;
+
+        if (nextMsec <= mDurationMSecond) {
+            mListener.onSeekTo(nextMsec);
+        } else {
+            cancelFastForwardTask();
+            mListener.onSeekTo(mDurationMSecond);
+        }
+    }
+
+    /**
+     * cancelFastForwardTask
+     */
+    public void cancelFastForwardTask() {
+        if (mFastForwardTask == null) return;
+
+        mFastForwardTask.cancel();
+        mFastForwardTask = null;
+    }
+
+    /**
      * interface
      */
     public interface OnMiniPlayerListener {
@@ -138,5 +217,15 @@ public class MiniPlayer {
          * @return
          */
         Track onGetTrack();
+
+        /**
+         * 再生曲の現在時間を取得
+         */
+        int onGetCurrentPosition();
+
+        /**
+         * seekTo
+         */
+        void onSeekTo(int msec);
     }
 }

@@ -73,6 +73,19 @@ public class MiniPlayerFragment extends Fragment {
         public Track onGetTrack() {
             return mMusicService.getTrack();
         }
+
+        @Override
+        public int onGetCurrentPosition() {
+            return mMusicService.getCurrentPosition();
+        }
+
+        /**
+         * seekTo
+         */
+        @Override
+        public void onSeekTo(int msec) {
+            mMusicService.seekTo(msec);
+        }
     };
     /**
      * MusicServiceのListener

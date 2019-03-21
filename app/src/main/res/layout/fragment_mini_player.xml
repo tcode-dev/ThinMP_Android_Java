@@ -82,6 +82,8 @@
             android:layout_height="70dp"
             android:background="@null"
             android:onClick="@{miniPlayer::onClickNext}"
+            android:onLongClick="@{miniPlayer::onLongClickNext}"
+            android:onTouch="@{miniPlayer::onTouchNext}"
             android:paddingBottom="30dp"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
