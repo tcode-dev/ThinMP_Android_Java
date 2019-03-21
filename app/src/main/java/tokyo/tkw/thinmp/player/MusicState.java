@@ -7,17 +7,17 @@ public class MusicState {
     private boolean hasNext;
     private int repeat;
     private boolean isShuffle;
-    private boolean isFavorite;
+    private boolean isFavoriteSong;
     private boolean isFavoriteArtist;
 
-    public MusicState(boolean isPlaying, int currentPosition, boolean hasPrev, boolean hasNext, int repeat, boolean isShuffle, boolean isFavorite, boolean isFavoriteArtist) {
+    public MusicState(boolean isPlaying, int currentPosition, boolean hasPrev, boolean hasNext, int repeat, boolean isShuffle, boolean isFavoriteSong, boolean isFavoriteArtist) {
         this.isPlaying = isPlaying;
         this.currentPosition = currentPosition;
         this.hasPrev = hasPrev;
         this.hasNext = hasNext;
         this.repeat = repeat;
         this.isShuffle = isShuffle;
-        this.isFavorite = isFavorite;
+        this.isFavoriteSong = isFavoriteSong;
         this.isFavoriteArtist = isFavoriteArtist;
     }
 
@@ -45,8 +45,8 @@ public class MusicState {
         return isShuffle;
     }
 
-    public boolean isFavorite() {
-        return isFavorite;
+    public boolean isFavoriteSong() {
+        return isFavoriteSong;
     }
 
     public boolean isFavoriteArtist() {

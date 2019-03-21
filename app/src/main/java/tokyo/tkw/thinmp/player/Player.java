@@ -94,7 +94,7 @@ public class Player {
         // 曲のミリ秒
         this.mDurationMSecond = track.getDurationSecond() * 1000;
         // 再生中
-        this.isPlaying.set(true);
+        this.isPlaying.set(state.isPlaying());
         // サムネイル
         Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(track.getThumbnailId());
         this.mBinding.thumbnail.setImageBitmap(thumbnailBitmap);
@@ -111,7 +111,7 @@ public class Player {
         // シャッフル
         this.isShuffle.set(state.isShuffle());
         // お気に入り
-        this.isFavorite.set(state.isFavorite());
+        this.isFavorite.set(state.isFavoriteSong());
         // お気に入りアーティスト
         this.isFavoriteArtist.set(state.isFavoriteArtist());
         // seekbar
