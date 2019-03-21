@@ -85,6 +85,8 @@ public class Player {
         this.trackName.set(track.getTitle());
         // アーティスト名
         this.artistName.set(track.getArtistName());
+        // 再生位置の秒数（0のときも反映されるように初期値を設定）
+        this.mCurrentPositionSecond = -1;//
         // seekBarProgress
         seekBarProgress(state.getCurrentPosition());
         // 曲の時間
