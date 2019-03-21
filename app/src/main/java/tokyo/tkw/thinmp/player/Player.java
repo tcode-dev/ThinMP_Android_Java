@@ -4,6 +4,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.renderscript.RenderScript;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -23,6 +24,10 @@ import tokyo.tkw.thinmp.util.TimeUtil;
  * 再生中の画面
  */
 public class Player {
+    private final int INCREMENT_MS = 3000;
+    private final int DECREMENT_MS = 3000;
+    private final long KEY_PRESS_INTERVAL_MS = 100L;
+    private final long KEY_PRESS_DELAY_MS = 0;
     public ObservableField<String> trackName = new ObservableField<>();
     public ObservableField<String> artistName = new ObservableField<>();
     public ObservableField<String> currentTime = new ObservableField<>();
@@ -39,10 +44,12 @@ public class Player {
     public ObservableBoolean isFavoriteArtist = new ObservableBoolean();
 
     private ActivityPlayerBinding mBinding;
-    private Timer mTimer;
+    private Timer mSeekBarProgressTask;
+    private Timer mFastForwardTask;
     private int mCurrentPositionSecond;
     private OnPlayerListener mListener;
     private Track mTrack;
+    private int mDurationMSecond;
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
 
         @Override
@@ -77,12 +84,14 @@ public class Player {
         this.trackName.set(track.getTitle());
         // アーティスト名
         this.artistName.set(track.getArtistName());
-        // 再生位置
-        setCurrentPosition(state.getCurrentPosition());
+        // seekBarProgress
+        seekBarProgress(state.getCurrentPosition());
         // 曲の時間
         this.durationTime.set(track.getDurationTime());
         // 曲の秒数
         this.durationSecond.set(track.getDurationSecond());
+        // 曲のミリ秒
+        this.mDurationMSecond = track.getDurationSecond() * 1000;
         // 再生中
         this.isPlaying.set(true);
         // サムネイル
@@ -106,56 +115,82 @@ public class Player {
         this.isFavoriteArtist.set(state.isFavoriteArtist());
         // seekbar
         this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+
     }
 
     public void start() {
-        this.setDurationTimer();
+        this.setSeekBarProgressTask();
     }
 
     public void finish() {
-        this.cancelDurationTimer();
+        this.cancelSeekBarProgressTask();
     }
 
     /**
-     * 再生ボタンのイベント
+     * onClickPlay
      *
      * @param view
      */
     public void onClickPlay(View view) {
         mListener.onPlay();
-        this.setDurationTimer();
+        this.cancelSeekBarProgressTask();
         this.isPlaying.set(true);
     }
 
     /**
-     * 一時停止ボタンのイベント
+     * onClickPause
      *
      * @param view
      */
     public void onClickPause(View view) {
-        this.cancelDurationTimer();
+        this.cancelSeekBarProgressTask();
         mListener.onPause();
         this.isPlaying.set(false);
     }
 
     /**
-     * prevボタンのイベント
+     * onClickPrev
      *
      * @param view
      */
     public void onClickPrev(View view) {
-        cancelDurationTimer();
+        cancelSeekBarProgressTask();
         mListener.onPrev();
     }
 
     /**
-     * nextボタンのイベント
+     * onClickNext
      *
      * @param view
      */
     public void onClickNext(View view) {
-        cancelDurationTimer();
+        cancelSeekBarProgressTask();
         mListener.onNext();
+    }
+
+    /**
+     * onLongClickNext
+     *
+     * @param view
+     */
+    public boolean onLongClickNext(View view) {
+        setFastForward();
+        return true;
+    }
+
+    /**
+     * onTouchNext
+     *
+     * @param view
+     * @param event
+     * @return
+     */
+    public boolean onTouchNext(View view, MotionEvent event) {
+        if (mFastForwardTask != null && event.getAction() == MotionEvent.ACTION_UP) {
+            cancelFastForwardTask();
+        }
+
+        return false;
     }
 
     /**
@@ -199,16 +234,16 @@ public class Player {
     }
 
     /**
-     * 再生中の時間を設定
+     * seekBarProgress
      */
-    public void setCurrentPosition() {
-        setCurrentPosition(mListener.onGetCurrentPosition());
+    public void seekBarProgress() {
+        seekBarProgress(mListener.onGetCurrentPosition());
     }
 
     /**
-     * 再生中の時間を設定
+     * seekBarProgress
      */
-    public void setCurrentPosition(int currentPosition) {
+    public void seekBarProgress(int currentPosition) {
         int second = TimeUtil.millisecondToSecond(currentPosition);
 
         if (mCurrentPositionSecond == second) return;
@@ -220,34 +255,79 @@ public class Player {
     }
 
     /**
-     * durationTimer
+     * seekBarProgressTask
      *
-     * @return
+     * @return TimerTask
      */
-    public TimerTask durationTimer() {
+    public TimerTask seekBarProgressTask() {
         return new TimerTask() {
             public void run() {
-                setCurrentPosition();
+                seekBarProgress();
             }
         };
     }
 
     /**
-     * Timerを登録
+     * setSeekBarProgressTask
      */
-    public void setDurationTimer() {
-        mTimer = new Timer();
-        mTimer.schedule(this.durationTimer(), 0, 1000L);
+    public void setSeekBarProgressTask() {
+        mSeekBarProgressTask = new Timer();
+        mSeekBarProgressTask.schedule(seekBarProgressTask(), 0, 1000L);
     }
 
     /**
-     * Timerをキャンセル
+     * cancelSeekBarProgressTask
      */
-    public void cancelDurationTimer() {
-        if (mTimer == null) return;
+    public void cancelSeekBarProgressTask() {
+        if (mSeekBarProgressTask == null) return;
 
-        mTimer.cancel();
-        mTimer = null;
+        mSeekBarProgressTask.cancel();
+        mSeekBarProgressTask = null;
+    }
+
+    /**
+     * setFastForward
+     */
+    public void setFastForward() {
+        mFastForwardTask = new Timer();
+        mFastForwardTask.schedule(fastForwardTask(), KEY_PRESS_DELAY_MS, KEY_PRESS_INTERVAL_MS);
+    }
+
+    /**
+     * fastForwardTask
+     */
+    public TimerTask fastForwardTask() {
+        return new TimerTask() {
+            public void run() {
+                fastForward();
+            }
+        };
+    }
+
+    /**
+     * fastForward
+     */
+    public void fastForward() {
+        int nextMsec = mListener.onGetCurrentPosition() + INCREMENT_MS;
+
+        if (nextMsec <= mDurationMSecond) {
+            mListener.onSeekTo(nextMsec);
+            seekBarProgress(nextMsec);
+        } else {
+            cancelFastForwardTask();
+            mListener.onSeekTo(mDurationMSecond);
+            seekBarProgress(mDurationMSecond);
+        }
+    }
+
+    /**
+     * cancelFastForwardTask
+     */
+    public void cancelFastForwardTask() {
+        if (mFastForwardTask == null) return;
+
+        mFastForwardTask.cancel();
+        mFastForwardTask = null;
     }
 
     /**

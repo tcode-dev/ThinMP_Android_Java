@@ -121,7 +121,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         if (mMusicService != null) {
             if (mMusicService.isPlaying()) {
-                mPlayer.cancelDurationTimer();
+                mPlayer.cancelSeekBarProgressTask();
             }
             unbindService(mConnection);
             mMusicService = null;
@@ -149,7 +149,7 @@ public class PlayerActivity extends AppCompatActivity {
         updatePlayer();
 
         if (mMusicService.isPlaying()) {
-            mPlayer.setDurationTimer();
+            mPlayer.setSeekBarProgressTask();
         }
     }
 

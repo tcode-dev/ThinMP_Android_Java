@@ -167,7 +167,6 @@
 
                     </FrameLayout>
 
-
                     <FrameLayout
                         android:id="@+id/playToggle"
                         android:layout_width="85dp"
@@ -214,6 +213,8 @@
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:onClick="@{player::onClickNext}"
+                            android:onLongClick="@{player::onLongClickNext}"
+                            android:onTouch="@{player::onTouchNext}"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.hasNext ? View.VISIBLE : View.GONE}"
                             app:srcCompat="@drawable/next_ultra_violet" />
