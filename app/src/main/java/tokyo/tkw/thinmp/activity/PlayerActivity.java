@@ -154,7 +154,7 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void updatePlayer() {
-        mPlayer.update(mMusicService.getTrack(), mMusicService.getRepeatStatus(), mMusicService.getShuffleStatus());
+        mPlayer.update(mMusicService.getTrack(), mMusicService.getState());
     }
 
     /**

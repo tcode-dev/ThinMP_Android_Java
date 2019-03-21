@@ -9,6 +9,8 @@ import android.os.IBinder;
 
 import java.util.ArrayList;
 
+import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
+import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.music.PlayingList;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.util.ActivityUtil;
@@ -168,6 +170,7 @@ public class MusicService extends Service {
 
     /**
      * 前の曲へ
+     * 再生時間が3秒を超える場合同じ曲を最初から再生
      */
     public void prev() {
         if (getCurrentPosition() <= PREV_MS) {
@@ -178,10 +181,61 @@ public class MusicService extends Service {
     }
 
     /**
+     * 前の曲があるか
+     */
+    public boolean hasPrev() {
+        switch (mRepeat) {
+            case REPEAT_OFF:
+                return mPlayingList.hasPrev();
+
+            case REPEAT_ONE:
+                return true;
+
+            case REPEAT_ALL:
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    /**
      * 次の曲へ
      */
     public void next() {
         playNext();
+    }
+
+    /**
+     * 次の曲があるか
+     */
+    public boolean hasNext() {
+        switch (mRepeat) {
+            case REPEAT_OFF:
+                return mPlayingList.hasNext();
+
+            case REPEAT_ONE:
+                return true;
+
+            case REPEAT_ALL:
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * 次の曲の再生
+     */
+    private void playNext() {
+        if (!hasNext()) {
+            return;
+        }
+
+        mPlayingList.next();
+        start();
+        mListener.onStarted();
     }
 
     /**
@@ -198,7 +252,7 @@ public class MusicService extends Service {
      *
      * @return
      */
-    public boolean getShuffleStatus() {
+    public boolean getShuffle() {
         return mShuffle;
     }
 
@@ -207,7 +261,7 @@ public class MusicService extends Service {
      *
      * @return
      */
-    public Integer getRepeatStatus() {
+    public Integer getRepeat() {
         return mRepeat;
     }
 
@@ -225,33 +279,10 @@ public class MusicService extends Service {
         mMediaPlayer = null;
     }
 
-    /**
-     * 次の曲の再生
-     */
-    private void playNext() {
-        switch (mRepeat) {
-            case REPEAT_OFF:
-                if (mPlayingList.hasNext()) {
-                    mPlayingList.next();
-                    start();
-                    mListener.onStarted();
-                }
+    public MusicState getState() {
+        Track track = mPlayingList.getTrack();
 
-                return;
-            case REPEAT_ONE:
-                start();
-                mListener.onStarted();
-
-                return;
-            case REPEAT_ALL:
-                mPlayingList.next();
-                start();
-                mListener.onStarted();
-
-                return;
-            default:
-                return;
-        }
+        return new MusicState(mMediaPlayer.isPlaying(), getCurrentPosition(), hasPrev(), hasNext(), getRepeat(), getShuffle(), FavoriteSongRegister.exists(track.getId()), FavoriteArtistRegister.exists(track.getArtistId()));
     }
 
     /**

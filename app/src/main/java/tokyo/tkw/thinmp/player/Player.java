@@ -33,6 +33,7 @@ public class Player {
     public ObservableField<Bitmap> thumbnail = new ObservableField<>();
     public ObservableField<Bitmap> background = new ObservableField<>();
     public ObservableField<Integer> repeat = new ObservableField<>();
+    public ObservableBoolean hasNext = new ObservableBoolean();
     public ObservableBoolean isShuffle = new ObservableBoolean();
     public ObservableBoolean isFavorite = new ObservableBoolean();
     public ObservableBoolean isFavoriteArtist = new ObservableBoolean();
@@ -69,19 +70,17 @@ public class Player {
         mListener = listener;
     }
 
-    public void update(Track track, Integer repeat, boolean isShuffle) {
+    public void update(Track track, MusicState state) {
         // track
         this.mTrack = track;
         // 曲名
         this.trackName.set(track.getTitle());
         // アーティスト名
         this.artistName.set(track.getArtistName());
-        // 現在の曲の時間
-        this.currentTime.set("0:00");
+        // 再生位置
+        setCurrentPosition(state.getCurrentPosition());
         // 曲の時間
         this.durationTime.set(track.getDurationTime());
-        // 現在の曲の秒
-        this.currentSecond.set(0);
         // 曲の秒数
         this.durationSecond.set(track.getDurationSecond());
         // 再生中
@@ -95,14 +94,16 @@ public class Player {
         RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
         Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f, 3);
         this.mBinding.background.setImageBitmap(blurBitMap);
+        // 次へ
+        this.hasNext.set(state.hasNext());
         // リピート
-        this.repeat.set(repeat);
+        this.repeat.set(state.getRepeat());
         // シャッフル
-        this.isShuffle.set(isShuffle);
+        this.isShuffle.set(state.isShuffle());
         // お気に入り
-        this.isFavorite.set(FavoriteSongRegister.exists(mTrack.getId()));
+        this.isFavorite.set(state.isFavorite());
         // お気に入りアーティスト
-        this.isFavoriteArtist.set(FavoriteArtistRegister.exists(mTrack.getArtistId()));
+        this.isFavoriteArtist.set(state.isFavoriteArtist());
         // seekbar
         this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
@@ -200,8 +201,15 @@ public class Player {
     /**
      * 再生中の時間を設定
      */
-    public void setDuration() {
-        int second = TimeUtil.millisecondToSecond(mListener.onGetCurrentPosition());
+    public void setCurrentPosition() {
+        setCurrentPosition(mListener.onGetCurrentPosition());
+    }
+
+    /**
+     * 再生中の時間を設定
+     */
+    public void setCurrentPosition(int currentPosition) {
+        int second = TimeUtil.millisecondToSecond(currentPosition);
 
         if (mCurrentPositionSecond == second) return;
 
@@ -219,7 +227,7 @@ public class Player {
     public TimerTask durationTimer() {
         return new TimerTask() {
             public void run() {
-                setDuration();
+                setCurrentPosition();
             }
         };
     }
