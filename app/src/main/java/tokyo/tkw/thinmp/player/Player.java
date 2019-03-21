@@ -24,8 +24,8 @@ import tokyo.tkw.thinmp.util.TimeUtil;
  * 再生中の画面
  */
 public class Player {
-    private final int INCREMENT_MS = 3000;
     private final int DECREMENT_MS = 3000;
+    private final int INCREMENT_MS = 3000;
     private final long KEY_PRESS_INTERVAL_MS = 100L;
     private final long KEY_PRESS_DELAY_MS = 0;
     public ObservableField<String> trackName = new ObservableField<>();
@@ -45,6 +45,7 @@ public class Player {
 
     private ActivityPlayerBinding mBinding;
     private Timer mSeekBarProgressTask;
+    private Timer mFastBackwardTask;
     private Timer mFastForwardTask;
     private int mCurrentPositionSecond;
     private OnPlayerListener mListener;
@@ -156,6 +157,31 @@ public class Player {
     public void onClickPrev(View view) {
         cancelSeekBarProgressTask();
         mListener.onPrev();
+    }
+
+    /**
+     * onLongClickPrev
+     *
+     * @param view
+     */
+    public boolean onLongClickPrev(View view) {
+        setFastBackwardTask();
+        return true;
+    }
+
+    /**
+     * onTouchPrev
+     *
+     * @param view
+     * @param event
+     * @return
+     */
+    public boolean onTouchPrev(View view, MotionEvent event) {
+        if (mFastBackwardTask != null && event.getAction() == MotionEvent.ACTION_UP) {
+            cancelFastBackwardTask();
+        }
+
+        return false;
     }
 
     /**
@@ -283,6 +309,51 @@ public class Player {
 
         mSeekBarProgressTask.cancel();
         mSeekBarProgressTask = null;
+    }
+
+    /**
+     * setFastBackwardTask
+     */
+    public void setFastBackwardTask() {
+        mFastBackwardTask = new Timer();
+        mFastBackwardTask.schedule(fastBackwardTask(), KEY_PRESS_DELAY_MS, KEY_PRESS_INTERVAL_MS);
+    }
+
+    /**
+     * fastBackwardTask
+     */
+    public TimerTask fastBackwardTask() {
+        return new TimerTask() {
+            public void run() {
+                fastBackward();
+            }
+        };
+    }
+
+    /**
+     * fastBackward
+     */
+    public void fastBackward() {
+        int nextMsec = mListener.onGetCurrentPosition() - DECREMENT_MS;
+
+        if (nextMsec >= 0) {
+            mListener.onSeekTo(nextMsec);
+            seekBarProgress(nextMsec);
+        } else {
+            cancelFastBackwardTask();
+            mListener.onSeekTo(0);
+            seekBarProgress(0);
+        }
+    }
+
+    /**
+     * cancelFastBackwardTask
+     */
+    public void cancelFastBackwardTask() {
+        if (mFastBackwardTask == null) return;
+
+        mFastBackwardTask.cancel();
+        mFastBackwardTask = null;
     }
 
     /**

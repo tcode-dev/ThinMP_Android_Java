@@ -162,6 +162,8 @@
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:onClick="@{player::onClickPrev}"
+                            android:onLongClick="@{player::onLongClickPrev}"
+                            android:onTouch="@{player::onTouchPrev}"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/prev_ultra_violet" />
 
