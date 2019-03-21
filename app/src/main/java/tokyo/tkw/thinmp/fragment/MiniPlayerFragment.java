@@ -102,6 +102,7 @@ public class MiniPlayerFragment extends Fragment {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             mMusicService = binder.getService();
             mMusicService.setListener(musicServiceListener);
+            update(mMusicService.getTrack());
         }
 
         @Override
