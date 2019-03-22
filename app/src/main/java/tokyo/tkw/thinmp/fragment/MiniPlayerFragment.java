@@ -75,6 +75,11 @@ public class MiniPlayerFragment extends Fragment {
         }
 
         @Override
+        public boolean onIsPlaying() {
+            return mMusicService.getState().isPlaying();
+        }
+
+        @Override
         public int onGetCurrentPosition() {
             return mMusicService.getCurrentPosition();
         }
@@ -206,7 +211,7 @@ public class MiniPlayerFragment extends Fragment {
     public void start(ArrayList<Track> trackList, int position) {
         mMusicService.setPlayingList(trackList, position);
         mMusicService.start();
-        mMiniPlayer.update(mMusicService.getTrack());
+        update(mMusicService.getTrack());
     }
 
     /**

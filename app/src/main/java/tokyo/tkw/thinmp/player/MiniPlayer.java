@@ -64,7 +64,7 @@ public class MiniPlayer {
      */
     private void setActive(Track track) {
         this.isActive.set(true);
-        this.isPlaying.set(true);
+        this.isPlaying.set(mListener.onIsPlaying());
         this.changeTrack(track);
     }
 
@@ -217,6 +217,13 @@ public class MiniPlayer {
          * @return
          */
         Track onGetTrack();
+
+        /**
+         * onGetState
+         *
+         * @return
+         */
+        boolean onIsPlaying();
 
         /**
          * 再生曲の現在時間を取得
