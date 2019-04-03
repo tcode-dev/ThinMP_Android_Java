@@ -1,16 +1,13 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -25,6 +22,7 @@ import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
+import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAdapter.OnTrackListItemClickListener {
     private ImageView mBackgroundView;
@@ -42,22 +40,13 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
 
         String albumId = getIntent().getStringExtra("albumId");
         Album album = MusicList.getAlbum(albumId);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-
-        CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
-
-        toolbarLayout.setTitle(album.getName());
-        toolbarLayout.setExpandedTitleColor(Color.BLACK);
-        toolbarLayout.setCollapsedTitleTextColor(Color.BLACK);
 
         //サムネイル
         Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(album.getThumbnailId());
         mThumbnailView.setImageBitmap(thumbnailBitmap);
 
         //背景画像
-        Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888,true);
+        Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true);
         RenderScript rs = RenderScript.create(this);
         RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
         Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f, 3);
@@ -65,6 +54,12 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
 
         //曲一覧
         mTrackList = MusicList.getAlbumTrackList(albumId);
+
+        ResponsiveTextView titleView = findViewById(R.id.title);
+        titleView.setText(album.getName());
+
+        ResponsiveTextView subTitleView = findViewById(R.id.subTitle);
+        subTitleView.setText(album.getArtistName());
 
         setAdapter();
     }

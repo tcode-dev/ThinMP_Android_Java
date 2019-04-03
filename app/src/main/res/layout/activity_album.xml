@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".activity.AlbumActivity">
 
     <android.support.design.widget.CoordinatorLayout
@@ -22,9 +23,9 @@
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                android:orientation="vertical"
                 app:toolbarId="@+id/toolbar">
 
                 <android.support.v7.widget.Toolbar
@@ -70,7 +71,7 @@
                         app:layout_constraintTop_toTopOf="@+id/background" />
 
                     <ImageView
-                        android:id="@+id/menu"
+                        android:id="@+id/play"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="8dp"
@@ -79,6 +80,31 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:srcCompat="@drawable/play3" />
 
+                    <tokyo.tkw.thinmp.view.ResponsiveTextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="34dp"
+                        android:layout_marginBottom="6dp"
+                        app:layout_constraintBottom_toTopOf="@+id/subTitle"
+                        app:layout_constraintStart_toStartOf="@+id/background"
+                        app:minScale="0.7"
+                        app:offsetY="bottom"
+                        app:textColor="#000000"
+                        app:textSize="80" />
+
+                    <tokyo.tkw.thinmp.view.ResponsiveTextView
+                        android:id="@+id/subTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="34dp"
+                        android:layout_marginBottom="2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/background"
+                        app:minScale="0.7"
+                        app:offsetY="top"
+                        app:textColor="#5C5C5C"
+                        app:textSize="50" />
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>
