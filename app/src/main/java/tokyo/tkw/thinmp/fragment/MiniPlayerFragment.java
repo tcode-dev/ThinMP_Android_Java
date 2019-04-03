@@ -186,16 +186,6 @@ public class MiniPlayerFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mMusicService != null) {
-            getActivity().unbindService(mConnection);
-            mMusicService = null;
-        }
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
 
