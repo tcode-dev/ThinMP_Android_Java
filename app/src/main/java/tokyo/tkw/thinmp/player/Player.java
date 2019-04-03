@@ -136,7 +136,7 @@ public class Player {
      */
     public void onClickPlay(View view) {
         mListener.onPlay();
-        this.cancelSeekBarProgressTask();
+        this.setSeekBarProgressTask();
         this.isPlaying.set(true);
     }
 
