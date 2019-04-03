@@ -51,6 +51,7 @@ public class Player {
     private OnPlayerListener mListener;
     private Track mTrack;
     private int mDurationMSecond;
+    private MusicState mMusicState;
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
 
         @Override
@@ -81,6 +82,8 @@ public class Player {
     public void update(Track track, MusicState state) {
         // track
         this.mTrack = track;
+        // 状態
+        this.mMusicState = state;
         // 曲名
         this.trackName.set(track.getTitle());
         // アーティスト名
@@ -101,13 +104,11 @@ public class Player {
         Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(track.getThumbnailId());
         this.mBinding.thumbnail.setImageBitmap(thumbnailBitmap);
         // 背景画像
-        Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888,true);
+        Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true);
         RenderScript rs = RenderScript.create(ActivityUtil.getContext());
         RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
         Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f, 3);
         this.mBinding.background.setImageBitmap(blurBitMap);
-        // 次へ
-        this.hasNext.set(state.hasNext());
         // リピート
         this.repeat.set(state.getRepeat());
         // シャッフル
@@ -118,7 +119,6 @@ public class Player {
         this.isFavoriteArtist.set(state.isFavoriteArtist());
         // seekbar
         this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
-
     }
 
     public void start() {
@@ -192,6 +192,10 @@ public class Player {
      * @param view
      */
     public void onClickNext(View view) {
+        if (!mMusicState.hasNext()) {
+            return;
+        }
+
         cancelSeekBarProgressTask();
         mListener.onNext();
     }
