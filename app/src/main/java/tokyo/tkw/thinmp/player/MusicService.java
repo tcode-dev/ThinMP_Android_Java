@@ -46,7 +46,6 @@ public class MusicService extends Service {
             }
 
             start();
-            mListener.onStarted();
         }
     };
 
@@ -94,6 +93,7 @@ public class MusicService extends Service {
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
 
         mListener.onChangeTrack(track);
+        mListener.onStarted();
     }
 
     /**
@@ -204,7 +204,6 @@ public class MusicService extends Service {
             mPlayingList.prev();
         }
         start();
-        mListener.onStarted();
     }
 
     /**
@@ -230,7 +229,18 @@ public class MusicService extends Service {
      * 次の曲へ
      */
     public void next() {
-        playNext();
+        if (!hasNext()) {
+            return;
+        }
+        destroy();
+
+        mPlayingList.next();
+        Track track = mPlayingList.getTrack();
+        mMediaPlayer = MediaPlayer.create((Context) ActivityUtil.getContext(), track.getUri());
+
+        mMediaPlayer.setOnCompletionListener(onCompletionListener);
+
+        mListener.onChangeTrack(track);
     }
 
     /**
@@ -255,14 +265,13 @@ public class MusicService extends Service {
     /**
      * 次の曲の再生
      */
-    private void playNext() {
+    public void playNext() {
         if (!hasNext()) {
             return;
         }
 
         mPlayingList.next();
         start();
-        mListener.onStarted();
     }
 
     /**

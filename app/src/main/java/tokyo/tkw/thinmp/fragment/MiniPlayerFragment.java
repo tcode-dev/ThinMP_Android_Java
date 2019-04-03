@@ -63,7 +63,11 @@ public class MiniPlayerFragment extends Fragment {
          */
         @Override
         public void onClickNext() {
-            mMusicService.next();
+            if (mMusicService.isPlaying()) {
+                mMusicService.playNext();
+            } else {
+                mMusicService.next();
+            }
         }
 
         /**
@@ -76,7 +80,7 @@ public class MiniPlayerFragment extends Fragment {
 
         @Override
         public boolean onIsPlaying() {
-            return mMusicService.getState().isPlaying();
+            return mMusicService.isPlaying();
         }
 
         @Override

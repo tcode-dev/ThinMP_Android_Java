@@ -58,7 +58,11 @@ public class PlayerActivity extends AppCompatActivity {
 
         @Override
         public void onNext() {
-            mMusicService.next();
+            if (mMusicService.isPlaying()) {
+                mMusicService.playNext();
+            } else {
+                mMusicService.next();
+            }
         }
 
         @Override
