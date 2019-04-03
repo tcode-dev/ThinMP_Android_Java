@@ -36,7 +36,17 @@ public class MusicService extends Service {
         @Override
         public void onCompletion(MediaPlayer mp) {
             mListener.onFinished();
-            playNext();
+
+            if (!hasNext()) {
+                return;
+            }
+
+            if (mRepeat != REPEAT_ONE) {
+                mPlayingList.next();
+            }
+
+            start();
+            mListener.onStarted();
         }
     };
 
