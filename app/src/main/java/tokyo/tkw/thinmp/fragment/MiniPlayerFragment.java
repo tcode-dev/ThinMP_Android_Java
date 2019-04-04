@@ -183,6 +183,7 @@ public class MiniPlayerFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
         if (mMusicService != null) {
             getActivity().unbindService(mConnection);
             mMusicService = null;
@@ -193,7 +194,20 @@ public class MiniPlayerFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        if (mMusicService != null) {
+            mMusicService.setListener(musicServiceListener);
+        }
+
         doBindService();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mMusicService != null) {
+            mMusicService.unsetListener();
+        }
     }
 
     /**
