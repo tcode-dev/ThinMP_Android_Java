@@ -1,7 +1,6 @@
 package tokyo.tkw.thinmp.player;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
@@ -88,7 +87,7 @@ public class MusicService extends Service {
         destroy();
 
         Track track = mPlayingList.getTrack();
-        mMediaPlayer = MediaPlayer.create((Context) ActivityUtil.getContext(), track.getUri());
+        mMediaPlayer = MediaPlayer.create(ActivityUtil.getContext(), track.getUri());
         mMediaPlayer.start();
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
 
@@ -203,6 +202,24 @@ public class MusicService extends Service {
         if (getCurrentPosition() <= PREV_MS) {
             mPlayingList.prev();
         }
+
+        destroy();
+
+        Track track = mPlayingList.getTrack();
+        mMediaPlayer = MediaPlayer.create(ActivityUtil.getContext(), track.getUri());
+        mMediaPlayer.setOnCompletionListener(onCompletionListener);
+
+        mListener.onChangeTrack(track);
+    }
+
+    /**
+     * 前の曲へ
+     * 再生時間が3秒を超える場合同じ曲を最初から再生
+     */
+    public void playPrev() {
+        if (getCurrentPosition() <= PREV_MS) {
+            mPlayingList.prev();
+        }
         start();
     }
 
@@ -236,8 +253,7 @@ public class MusicService extends Service {
 
         mPlayingList.next();
         Track track = mPlayingList.getTrack();
-        mMediaPlayer = MediaPlayer.create((Context) ActivityUtil.getContext(), track.getUri());
-
+        mMediaPlayer = MediaPlayer.create(ActivityUtil.getContext(), track.getUri());
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
 
         mListener.onChangeTrack(track);
