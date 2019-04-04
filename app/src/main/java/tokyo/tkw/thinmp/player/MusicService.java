@@ -81,13 +81,6 @@ public class MusicService extends Service {
     }
 
     /**
-     * リスナーを解除
-     */
-    public void unsetListener() {
-        mListener = null;
-    }
-
-    /**
      * 再生を開始
      */
     public void start() {

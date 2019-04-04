@@ -201,15 +201,6 @@ public class MiniPlayerFragment extends Fragment {
         doBindService();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mMusicService != null) {
-            mMusicService.unsetListener();
-        }
-    }
-
     /**
      * 再生開始
      *

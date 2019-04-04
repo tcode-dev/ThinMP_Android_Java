@@ -146,15 +146,6 @@ public class PlayerActivity extends AppCompatActivity {
         doBindService();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        if (mMusicService != null) {
-            mMusicService.unsetListener();
-        }
-    }
-
     /**
      * setPlayer
      */
