@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.text.Layout;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +47,14 @@ public class ResponsiveTextView extends View {
     public void draw(Canvas canvas) {
         super.draw(canvas);
 
+        int canvasWidth = canvas.getWidth();
+        int textWidth = (int) Layout.getDesiredWidth(mText, mTextPaint);
+        int currentWidth = (int) ((float) textWidth * mScale);
+        final CharSequence text = (currentWidth <= canvasWidth) ? mText : TextUtils.ellipsize(mText, mTextPaint,
+                canvasWidth * (1 + (1 - mScale)), TextUtils.TruncateAt.END);
+
         canvas.scale(mScale, mScale);
-        canvas.drawText(mText, 0, mText.length(), 0, mOffsetYCalc.calc(), mTextPaint);
+        canvas.drawText(text, 0, text.length(), 0, mOffsetYCalc.calc(), mTextPaint);
     }
 
     @Override
