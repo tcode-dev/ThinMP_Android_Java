@@ -93,7 +93,7 @@
                         app:minScale="0.7"
                         app:offsetY="bottom"
                         app:textColor="#000000"
-                        app:textSize="80" />
+                        app:textSize="24" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/subTitle"
@@ -105,10 +105,10 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/background"
-                        app:minScale="0.7"
+                        app:minScale="0.8"
                         app:offsetY="top"
                         app:textColor="#5C5C5C"
-                        app:textSize="50" />
+                        app:textSize="16" />
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>

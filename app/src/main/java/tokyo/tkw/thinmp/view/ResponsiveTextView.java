@@ -1,6 +1,7 @@
 package tokyo.tkw.thinmp.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.text.Layout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -100,7 +102,7 @@ public class ResponsiveTextView extends View {
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
         mTextPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mTextPaint.setStrokeWidth(STROKE_WIDTH);
-        mTextPaint.setTextSize(mTextSize);
+        mTextPaint.setTextSize(toDimensionTextSize(getContext(), mTextSize));
         mTextPaint.setColor(Color.parseColor(mTextColor));
 
         mOffsetY = -mTextPaint.ascent();
@@ -110,9 +112,26 @@ public class ResponsiveTextView extends View {
         setLayoutParams(params);
     }
 
-
     public void setText(String text) {
         mText = text;
+    }
+
+    /**
+     * TextPaint#setTextSizeに単位を指定できないので端末に適したサイズに変換する
+     * @see android.widget.TextView#setTextSize
+     * @param context
+     * @param size
+     * @return float
+     */
+    private float toDimensionTextSize(Context context, int size) {
+        Resources r;
+        if (context == null) {
+            r = Resources.getSystem();
+        } else {
+            r = context.getResources();
+        }
+        return TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_SP, (float) size, r.getDisplayMetrics());
     }
 
     private OffsetYCalc offsetYCalcFactory(String position) {
