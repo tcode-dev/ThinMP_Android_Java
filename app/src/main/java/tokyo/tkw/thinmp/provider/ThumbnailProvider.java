@@ -22,9 +22,15 @@ public class ThumbnailProvider {
 
     private HashMap<String, Bitmap> mMap = new HashMap<>();
     private Context mContext;
+    private int mDefaultResourceId;
 
     public ThumbnailProvider() {
+        this(R.drawable.album);
+    }
+
+    public ThumbnailProvider(int defaultResourceId) {
         mContext = ActivityUtil.getContext();
+        mDefaultResourceId = defaultResourceId;
     }
 
     public Bitmap getThumbnail(String id) {
@@ -90,6 +96,6 @@ public class ThumbnailProvider {
      * @return
      */
     private Bitmap getDefaultBitmap() {
-        return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_album_art);
+        return BitmapFactory.decodeResource(mContext.getResources(), mDefaultResourceId);
     }
 }

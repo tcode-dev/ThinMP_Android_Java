@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
@@ -101,7 +102,7 @@ public class Player {
         // 再生中
         this.isPlaying.set(state.isPlaying());
         // サムネイル
-        Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(track.getThumbnailId());
+        Bitmap thumbnailBitmap = new ThumbnailProvider(R.drawable.playing).getThumbnail(track.getThumbnailId());
         this.mBinding.thumbnail.setImageBitmap(thumbnailBitmap);
         // 背景画像
         Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true);
