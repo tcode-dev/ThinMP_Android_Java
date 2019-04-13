@@ -3,6 +3,7 @@ package tokyo.tkw.thinmp.view;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 
 public class BackImageButtonView extends android.support.v7.widget.AppCompatImageButton {
@@ -22,11 +23,18 @@ public class BackImageButtonView extends android.support.v7.widget.AppCompatImag
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        this.setOnClickListener(new View.OnClickListener(){
+        this.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ((Activity) getContext()).finish();
+                Context context = getContext();
+
+                if (context instanceof Activity) {
+                    ((Activity) getContext()).finish();
+                } else if (context instanceof ContextThemeWrapper) {
+                    // CollapsingToolbarLayoutの中だとContextThemeWrapperが返ってくる
+                    ((Activity) ((ContextThemeWrapper) context).getBaseContext()).finish();
+                }
             }
         });
     }

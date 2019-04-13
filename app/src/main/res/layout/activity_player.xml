@@ -51,11 +51,12 @@
                     app:layout_constraintTop_toTopOf="@+id/background" />
 
                 <tokyo.tkw.thinmp.view.BackImageButtonView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="40dp"
                     android:background="@null"
+                    android:padding="10dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/back"
                     app:layout_constraintStart_toStartOf="@+id/view"
