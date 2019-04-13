@@ -30,7 +30,7 @@ public class BackImageButtonView extends android.support.v7.widget.AppCompatImag
                 Context context = getContext();
 
                 if (context instanceof Activity) {
-                    ((Activity) getContext()).finish();
+                    ((Activity) context).finish();
                 } else if (context instanceof ContextThemeWrapper) {
                     // CollapsingToolbarLayoutの中だとContextThemeWrapperが返ってくる
                     ((Activity) ((ContextThemeWrapper) context).getBaseContext()).finish();
