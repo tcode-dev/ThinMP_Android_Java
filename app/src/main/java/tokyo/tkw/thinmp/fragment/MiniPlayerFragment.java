@@ -27,8 +27,9 @@ import tokyo.tkw.thinmp.player.MusicService;
  * MiniPlayerFragment
  */
 public class MiniPlayerFragment extends Fragment {
-    public MusicService mMusicService;
+    private MusicService mMusicService;
     private MiniPlayer mMiniPlayer;
+    private boolean mBound = false;
     /**
      * MiniPlayerのListener
      */
@@ -124,25 +125,15 @@ public class MiniPlayerFragment extends Fragment {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             mMusicService = binder.getService();
             mMusicService.setListener(musicServiceListener);
-            update(mMusicService.getTrack());
+            update();
+            mBound = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-
+            mBound = false;
         }
     };
-
-    /**
-     * doBindService
-     */
-    public void doBindService() {
-        if (mMusicService != null) return;
-
-        FragmentActivity activity = getActivity();
-        Intent intent = new Intent(activity, MusicService.class);
-        activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-    }
 
     /**
      * onCreate
@@ -153,8 +144,7 @@ public class MiniPlayerFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        doBindService();
-
+        bindMusicService();
         getActivity().startService(new Intent(getActivity(), MusicService.class));
     }
 
@@ -177,28 +167,33 @@ public class MiniPlayerFragment extends Fragment {
         return mBinding.getRoot();
     }
 
-    /**
-     * onDestroy
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (mMusicService != null) {
-            getActivity().unbindService(mConnection);
-            mMusicService = null;
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
 
-        if (mMusicService != null) {
+        if (mBound) {
+            update();
             mMusicService.setListener(musicServiceListener);
         }
+    }
 
-        doBindService();
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mBound) {
+            mMusicService.unsetListener();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (mBound) {
+            unbindMusicService();
+            mBound = false;
+        }
     }
 
     /**
@@ -215,10 +210,33 @@ public class MiniPlayerFragment extends Fragment {
 
     /**
      * 曲変更
+     */
+    public void update() {
+        update(mMusicService.getTrack());
+    }
+
+    /**
+     * 曲変更
      *
      * @param track
      */
     public void update(Track track) {
         mMiniPlayer.update(track);
+    }
+
+    /**
+     * bindMusicService
+     */
+    public void bindMusicService() {
+        FragmentActivity activity = getActivity();
+        Intent intent = new Intent(activity, MusicService.class);
+        activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    /**
+     * unbindMusicService
+     */
+    private void unbindMusicService() {
+        getActivity().unbindService(mConnection);
     }
 }

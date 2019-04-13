@@ -147,7 +147,7 @@ public class Player {
      * @param view
      */
     public void onClickPause(View view) {
-        this.cancelSeekBarProgressTask();
+        cancelSeekBarProgressTask();
         mListener.onPause();
         this.isPlaying.set(false);
     }
@@ -311,11 +311,19 @@ public class Player {
     /**
      * cancelSeekBarProgressTask
      */
-    public void cancelSeekBarProgressTask() {
+    private void cancelSeekBarProgressTask() {
         if (mSeekBarProgressTask == null) return;
 
         mSeekBarProgressTask.cancel();
         mSeekBarProgressTask = null;
+    }
+
+    /**
+     * stopDisplayUpdate
+     * 画面更新の必要がないスリープに入る時などに使用する
+     */
+    public void stopDisplayUpdate() {
+        cancelSeekBarProgressTask();
     }
 
     /**

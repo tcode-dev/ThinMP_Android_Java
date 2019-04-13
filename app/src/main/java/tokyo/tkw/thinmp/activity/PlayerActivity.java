@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import tokyo.tkw.thinmp.R;
@@ -16,8 +17,9 @@ import tokyo.tkw.thinmp.player.MusicService;
 import tokyo.tkw.thinmp.player.Player;
 
 public class PlayerActivity extends AppCompatActivity {
-    public MusicService mMusicService;
+    private MusicService mMusicService;
     private Player mPlayer;
+    private boolean mBound = false;
     /**
      * MusicServiceのListener
      */
@@ -98,42 +100,21 @@ public class PlayerActivity extends AppCompatActivity {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             mMusicService = binder.getService();
             mMusicService.setListener(musicServiceListener);
-
             setPlayer();
+            mBound = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-
+            mBound = false;
         }
     };
 
-    /**
-     * onCreate
-     *
-     * @param savedInstanceState
-     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        doBindService();
-    }
-
-    /**
-     * onDestroy
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if (mMusicService != null) {
-            if (mMusicService.isPlaying()) {
-                mPlayer.cancelSeekBarProgressTask();
-            }
-            unbindService(mConnection);
-            mMusicService = null;
-        }
+        bindMusicService();
     }
 
     /**
@@ -143,7 +124,29 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        doBindService();
+        if (mBound) {
+            setPlayer();
+            mMusicService.setListener(musicServiceListener);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mBound) {
+            mPlayer.stopDisplayUpdate();
+            mMusicService.unsetListener();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mBound) {
+            unbindMusicService();
+        }
     }
 
     /**
@@ -166,12 +169,17 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     /**
-     * doBindService
+     * bindMusicService
      */
-    public void doBindService() {
-        if (mMusicService != null) return;
-
+    private void bindMusicService() {
         Intent intent = new Intent(this, MusicService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    /**
+     * unbindMusicService
+     */
+    private void unbindMusicService() {
+        unbindService(mConnection);
     }
 }

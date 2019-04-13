@@ -34,7 +34,7 @@ public class MusicService extends Service {
     private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
-            mListener.onFinished();
+            onFinished();
 
             if (!hasNext()) {
                 return;
@@ -81,6 +81,13 @@ public class MusicService extends Service {
     }
 
     /**
+     * リスナーを削除
+     */
+    public void unsetListener() {
+        mListener = null;
+    }
+
+    /**
      * 再生を開始
      */
     public void start() {
@@ -91,8 +98,8 @@ public class MusicService extends Service {
         mMediaPlayer.start();
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
 
-        mListener.onChangeTrack(track);
-        mListener.onStarted();
+        onChangeTrack(track);
+        onStarted();
     }
 
     /**
@@ -209,7 +216,7 @@ public class MusicService extends Service {
         mMediaPlayer = MediaPlayer.create(ActivityUtil.getContext(), track.getUri());
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
 
-        mListener.onChangeTrack(track);
+        onChangeTrack(track);
     }
 
     /**
@@ -256,7 +263,7 @@ public class MusicService extends Service {
         mMediaPlayer = MediaPlayer.create(ActivityUtil.getContext(), track.getUri());
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
 
-        mListener.onChangeTrack(track);
+        onChangeTrack(track);
     }
 
     /**
@@ -335,6 +342,41 @@ public class MusicService extends Service {
         Track track = mPlayingList.getTrack();
 
         return new MusicState(mMediaPlayer.isPlaying(), getCurrentPosition(), hasPrev(), hasNext(), getRepeat(), getShuffle(), FavoriteSongRegister.exists(track.getId()), FavoriteArtistRegister.exists(track.getArtistId()));
+    }
+
+    /**
+     * listenerがあるか
+     * （スリープなど画面を更新する必要がない場合Listenerを削除している）
+     */
+    private boolean hasListener() {
+        return (mListener != null);
+    }
+
+    /**
+     * 曲変更
+     */
+    private void onChangeTrack(Track track) {
+        if (hasListener()) {
+            mListener.onChangeTrack(track);
+        }
+    }
+
+    /**
+     * 再生開始
+     */
+    private void onStarted() {
+        if (hasListener()) {
+            mListener.onStarted();
+        }
+    }
+
+    /**
+     * 再生終了
+     */
+    private void onFinished() {
+        if (hasListener()) {
+            mListener.onFinished();
+        }
     }
 
     /**
