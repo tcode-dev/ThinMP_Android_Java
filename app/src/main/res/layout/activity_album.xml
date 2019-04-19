@@ -33,7 +33,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:fitsSystemWindows="true"
-                    app:layout_collapseMode="pin"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
                 <android.support.constraint.ConstraintLayout
@@ -42,6 +41,7 @@
                     android:layout_height="match_parent"
                     android:background="#ffffff"
                     android:fitsSystemWindows="true"
+                    app:layout_collapseMode="pin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
@@ -83,7 +83,6 @@
                     <tokyo.tkw.thinmp.view.BackImageButtonView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="40dp"
                         android:background="@null"
                         android:scaleType="centerInside"
@@ -91,6 +90,18 @@
                         android:src="@drawable/back"
                         app:layout_constraintStart_toStartOf="@+id/background"
                         app:layout_constraintTop_toTopOf="@+id/background" />
+
+                    <tokyo.tkw.thinmp.view.BackImageButtonView2
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@null"
+                        android:padding="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/back"
+                        app:layout_anchorGravity="left|bottom"
+                        app:layout_constraintBottom_toBottomOf="@+id/gradation"
+                        app:layout_constraintStart_toStartOf="@+id/background" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/title"
