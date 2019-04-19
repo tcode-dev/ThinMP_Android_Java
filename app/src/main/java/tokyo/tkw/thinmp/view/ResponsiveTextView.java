@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -91,13 +92,22 @@ public class ResponsiveTextView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        final ViewParent parent = getRootView().findViewById(R.id.app_bar);
+        ViewParent parentAppbar = getRootView().findViewById(R.id.app_bar);
 
-        if (!(parent instanceof AppBarLayout)) {
+        if (!(parentAppbar instanceof AppBarLayout)) {
             return;
         }
 
-        mScaleRate = (1 - mMinScale) / (float) ((AppBarLayout) parent).getTotalScrollRange();
+        ViewParent parentToolbar = getRootView().findViewById(R.id.toolbar);
+
+        if (!(parentToolbar instanceof Toolbar)) {
+            return;
+        }
+
+        int actualScrollRange =
+                ((AppBarLayout) parentAppbar).getTotalScrollRange() - ((Toolbar) parentToolbar).getHeight();
+
+        mScaleRate = (1 - mMinScale) / (float) actualScrollRange;
 
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
         mTextPaint.setStyle(Paint.Style.FILL_AND_STROKE);
