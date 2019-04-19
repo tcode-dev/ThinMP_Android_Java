@@ -91,7 +91,7 @@
                         app:layout_constraintStart_toStartOf="@+id/background"
                         app:layout_constraintTop_toTopOf="@+id/background" />
 
-                    <tokyo.tkw.thinmp.view.BackImageButtonView2
+                    <tokyo.tkw.thinmp.view.CollapsingBackImageButtonView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginBottom="8dp"

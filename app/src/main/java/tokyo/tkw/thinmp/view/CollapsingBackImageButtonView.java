@@ -13,19 +13,19 @@ import tokyo.tkw.thinmp.R;
  * 戻るボタン
  * CollapsingToolbarLayoutで折りたたみ後に表示する
  */
-public class BackImageButtonView2 extends BackImageButtonView {
+public class CollapsingBackImageButtonView extends BackImageButtonView {
     private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
     private int mActualScrollRange;
 
-    public BackImageButtonView2(Context context) {
+    public CollapsingBackImageButtonView(Context context) {
         super(context);
     }
 
-    public BackImageButtonView2(Context context, AttributeSet attrs) {
+    public CollapsingBackImageButtonView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BackImageButtonView2(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CollapsingBackImageButtonView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -40,7 +40,7 @@ public class BackImageButtonView2 extends BackImageButtonView {
         }
 
         if (mOnOffsetChangedListener == null) {
-            mOnOffsetChangedListener = new BackImageButtonView2.OffsetUpdateListener();
+            mOnOffsetChangedListener = new CollapsingBackImageButtonView.OffsetUpdateListener();
         }
 
         ((AppBarLayout) parent).addOnOffsetChangedListener(mOnOffsetChangedListener);
