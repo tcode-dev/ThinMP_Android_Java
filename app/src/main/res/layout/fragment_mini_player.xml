@@ -16,7 +16,7 @@
         android:background="#ffffff"
         android:onClick="@{miniPlayer::onClickPlayer}"
         android:elevation="10dp"
-        android:visibility="@{miniPlayer.isActive ? View.VISIBLE : View.GONE}">
+        android:visibility="@{miniPlayer.isActive ? View.VISIBLE : View.INVISIBLE}">
 
         <ImageView
             android:id="@+id/thumbnail"

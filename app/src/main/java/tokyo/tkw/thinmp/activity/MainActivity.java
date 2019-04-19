@@ -34,7 +34,7 @@ public class MainActivity
 
         MusicList.setInstance(this);
 
-        ViewPager viewPager = findViewById(R.id.pager);
+        ViewPager viewPager = findViewById(R.id.main);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
     }
 

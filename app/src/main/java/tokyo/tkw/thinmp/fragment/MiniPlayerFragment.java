@@ -30,6 +30,7 @@ public class MiniPlayerFragment extends Fragment {
     private MusicService mMusicService;
     private MiniPlayer mMiniPlayer;
     private boolean mBound = false;
+    private boolean shouldEnsuredPlayer = true;
     /**
      * MiniPlayerのListener
      */
@@ -197,6 +198,24 @@ public class MiniPlayerFragment extends Fragment {
     }
 
     /**
+     * ミニプレイヤー表示時に画面下に余白を確保する
+     * 余白を設定するviewにはidにmainを設定しておく
+     */
+    private void ensurePlayer() {
+        ViewGroup rootView =
+                (ViewGroup) ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
+        ViewGroup mainView = rootView.findViewById(R.id.main);
+
+        ViewGroup.MarginLayoutParams mlp =
+                (ViewGroup.MarginLayoutParams) mainView.getLayoutParams();
+        mlp.setMargins(mlp.leftMargin, mlp.topMargin, mlp.rightMargin, this.getView().getHeight());
+
+        mainView.setLayoutParams(mlp);
+
+        shouldEnsuredPlayer = false;
+    }
+
+    /**
      * 再生開始
      *
      * @param trackList
@@ -205,7 +224,7 @@ public class MiniPlayerFragment extends Fragment {
     public void start(ArrayList<Track> trackList, int position) {
         mMusicService.setPlayingList(trackList, position);
         mMusicService.start();
-        update(mMusicService.getTrack());
+        update();
     }
 
     /**
@@ -222,6 +241,10 @@ public class MiniPlayerFragment extends Fragment {
      */
     public void update(Track track) {
         mMiniPlayer.update(track);
+
+        if (track != null && shouldEnsuredPlayer) {
+            ensurePlayer();
+        }
     }
 
     /**
