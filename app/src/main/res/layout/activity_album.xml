@@ -118,7 +118,7 @@
                         app:minScale="0.7"
                         app:offsetY="bottom"
                         app:textColor="#000000"
-                        app:textSize="24" />
+                        app:textSize="20" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/subTitle"
@@ -154,6 +154,7 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:nestedScrollingEnabled="false"
                 android:scrollbars="vertical"
                 tools:layout_editor_absoluteX="8dp"

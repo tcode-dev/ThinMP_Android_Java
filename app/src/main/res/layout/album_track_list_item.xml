@@ -20,7 +20,7 @@
             android:gravity="center_vertical"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="normal" />
 
         <ImageView
