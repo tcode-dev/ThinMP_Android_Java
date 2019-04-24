@@ -7,7 +7,6 @@ import android.net.Uri;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ActivityUtil;
@@ -19,8 +18,6 @@ import static android.net.Uri.parse;
  */
 public class ThumbnailProvider {
     private final String ALBUM_ART_URL = "content://media/external/audio/albumart/";
-
-    private HashMap<String, Bitmap> mMap = new HashMap<>();
     private Context mContext;
     private int mDefaultResourceId;
 
@@ -34,22 +31,7 @@ public class ThumbnailProvider {
     }
 
     public Bitmap getThumbnail(String id) {
-        if (!hasThumbnail(id)) {
-            setThumbnail(id);
-        }
-
-        return mMap.get(id);
-    }
-
-    public void setThumbnail(String id) {
-        Bitmap thumbnail = getAlbumArt(id);
-        if (thumbnail != null) {
-            mMap.put(id, thumbnail);
-        }
-    }
-
-    private Boolean hasThumbnail(String id) {
-        return mMap.containsKey(id);
+        return getAlbumArt(id);
     }
 
     /**
