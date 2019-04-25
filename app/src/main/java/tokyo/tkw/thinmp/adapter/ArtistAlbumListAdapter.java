@@ -28,7 +28,7 @@ public class ArtistAlbumListAdapter extends RecyclerView.Adapter<ArtistAlbumList
 
     @Override
     public ArtistAlbumListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_col, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.panel, parent, false);
 
         return new ArtistAlbumListViewHolder(view);
     }

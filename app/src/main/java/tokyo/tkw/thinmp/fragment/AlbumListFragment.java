@@ -3,8 +3,7 @@ package tokyo.tkw.thinmp.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,13 +48,8 @@ public class AlbumListFragment extends Fragment {
     private void setAdapter() {
         Activity context = getActivity();
         AlbumListAdapter adapter = new AlbumListAdapter(context, mAlbumList);
-        LinearLayoutManager layout = new LinearLayoutManager(context);
+        GridLayoutManager layout = new GridLayoutManager(context, 2);
         mListView.setLayoutManager(layout);
         mListView.setAdapter(adapter);
-
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                context, new LinearLayoutManager(context).getOrientation());
-        mListView.addItemDecoration(dividerItemDecoration);
     }
 }

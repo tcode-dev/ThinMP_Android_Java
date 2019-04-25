@@ -28,7 +28,7 @@ public class TopAdapter extends RecyclerView.Adapter<TopViewHolder> {
 
     @Override
     public TopViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.top_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.panel2, parent, false);
 
         return new TopViewHolder(view);
     }
