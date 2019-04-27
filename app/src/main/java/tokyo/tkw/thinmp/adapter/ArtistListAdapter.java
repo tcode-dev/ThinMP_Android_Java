@@ -12,18 +12,14 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.music.Artist;
-import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
 public class ArtistListAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
     private Activity mContext;
-    private ThumbnailProvider mThumbnailProvider;
-
     private ArrayList<Artist> mArtistList;
 
     public ArtistListAdapter(@NonNull Activity context, @NonNull ArrayList<Artist> artistList) {
         mContext = context;
-        mThumbnailProvider = new ThumbnailProvider();
         mArtistList = artistList;
     }
 
@@ -38,7 +34,7 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
     public void onBindViewHolder(ArtistViewHolder holder, int position) {
         Artist artist = mArtistList.get(position);
 
-        holder.thumbnail.setImageBitmap(mThumbnailProvider.getThumbnail(artist.getThumbnailId()));
+        holder.thumbnail.setImageBitmap(artist.getThumbnail());
         holder.artist.setText(artist.getName());
 
         holder.itemView.setOnClickListener(new ArtistClickListener(mContext, artist.getId()));

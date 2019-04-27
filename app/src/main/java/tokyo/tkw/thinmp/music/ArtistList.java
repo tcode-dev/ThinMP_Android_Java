@@ -16,8 +16,7 @@ public class ArtistList {
         if (!mMap.containsKey(artistId)) {
             Artist artist = new Artist(
                     artistId,
-                    track.getArtistName(),
-                    track.getThumbnailId()
+                    track.getArtistName()
             );
             mMap.put(artistId, artist);
             mList.add(artist);

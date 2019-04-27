@@ -7,6 +7,7 @@ import android.net.Uri;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ActivityUtil;
@@ -31,9 +32,23 @@ public class ThumbnailProvider {
     }
 
     public Bitmap getThumbnail(String id) {
-        return getAlbumArt(id);
+        Bitmap albumArt = getAlbumArt(id);
+        if (albumArt != null) {
+            return albumArt;
+        }
+
+        return getDefaultBitmap();
     }
 
+    public Bitmap getThumbnail(List<String> idList) {
+        for (String id : idList) {
+            Bitmap albumArt = getAlbumArt(id);
+            if (albumArt != null) {
+                return albumArt;
+            }
+        }
+        return getDefaultBitmap();
+    }
     /**
      * アルバムアートを取得
      *
@@ -51,10 +66,6 @@ public class ThumbnailProvider {
             }
         } catch (FileNotFoundException err) {
             err.printStackTrace();
-        }
-
-        if (albumArt == null) {
-            albumArt = getDefaultBitmap();
         }
 
         return albumArt;

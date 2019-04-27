@@ -1,6 +1,14 @@
 package tokyo.tkw.thinmp.music;
 
+import android.graphics.Bitmap;
+
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 
 /**
  * Artist
@@ -8,14 +16,12 @@ import java.util.ArrayList;
 public class Artist {
     private String id;
     private String name;
-    private String thumbnailId;
     private ArrayList<String> albumIdList = new ArrayList<>();
     private ArrayList<String> trackIdList = new ArrayList<>();
 
-    public Artist(String id, String name, String thumbnailId) {
+    public Artist(String id, String name) {
         this.id = id;
         this.name = name;
-        this.thumbnailId = thumbnailId;
     }
 
     public String getId() {
@@ -26,8 +32,12 @@ public class Artist {
         return name;
     }
 
-    public String getThumbnailId() {
-        return thumbnailId;
+    public Bitmap getThumbnail() {
+        List<String> idList =
+                Stream.of(albumIdList).map(id -> MusicList.getAlbum(id).getThumbnailId()).distinct().collect(Collectors.toList());
+        ThumbnailProvider thumbnailProvider = new ThumbnailProvider();
+
+        return thumbnailProvider.getThumbnail(idList);
     }
 
     public ArrayList<String> getAlbumIdList() {
