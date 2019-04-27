@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,6 @@ import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.MusicList;
 
 public class ArtistActivity extends AppCompatActivity {
-    private TextView mArtistNameView;
     private RecyclerView mListView;
 
     private ArrayList<Album> mAlbumIdList;
@@ -31,8 +30,9 @@ public class ArtistActivity extends AppCompatActivity {
 
         setView();
 
-        //アーティスト名
-        mArtistNameView.setText(artist.getName());
+        Toolbar toolbar = findViewById(R.id.tool_bar);
+        toolbar.setTitle(artist.getName());
+        setSupportActionBar(toolbar);
 
         //アルバム一覧
         mAlbumIdList = MusicList.getArtistAlbumList(artistId);
@@ -41,7 +41,6 @@ public class ArtistActivity extends AppCompatActivity {
     }
 
     private void setView() {
-        mArtistNameView = findViewById(R.id.artistName);
         mListView = findViewById(R.id.list);
     }
 
