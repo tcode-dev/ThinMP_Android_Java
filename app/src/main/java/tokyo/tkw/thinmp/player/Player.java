@@ -102,7 +102,7 @@ public class Player {
         // 再生中
         this.isPlaying.set(state.isPlaying());
         // サムネイル
-        Bitmap thumbnailBitmap = new ThumbnailProvider(R.drawable.playing).getThumbnail(track.getThumbnailId());
+        Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(track.getThumbnailId());
         this.mBinding.thumbnail.setImageBitmap(thumbnailBitmap);
         // 背景画像
         Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true);
