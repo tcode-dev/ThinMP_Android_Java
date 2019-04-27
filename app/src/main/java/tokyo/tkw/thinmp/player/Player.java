@@ -52,7 +52,6 @@ public class Player {
     private Timer mFastForwardTask;
     private OnPlayerListener mListener;
     private Track mTrack;
-    private int mCurrentPositionSecond;
     private int mDurationMSecond;
     private MusicState mMusicState;
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
@@ -63,6 +62,7 @@ public class Player {
 
             int msec = progress * 1000;
 
+            seekBarProgress(msec);
             mListener.onSeekTo(msec);
         }
 
@@ -91,8 +91,6 @@ public class Player {
         this.trackName.set(track.getTitle());
         // アーティスト名
         this.artistName.set(track.getArtistName());
-        // 再生位置の秒数（0のときも反映されるように初期値を設定）
-        this.mCurrentPositionSecond = -1;//
         // seekBarProgress
         seekBarProgress(state.getCurrentPosition());
         // 曲の時間
@@ -280,12 +278,8 @@ public class Player {
     public void seekBarProgress(int currentPosition) {
         int second = TimeUtil.millisecondToSecond(currentPosition);
 
-        if (mCurrentPositionSecond == second) return;
-
-        mCurrentPositionSecond = second;
-
         this.currentTime.set(TimeUtil.secondToTime(second));
-        this.currentSecond.set(mCurrentPositionSecond);
+        this.currentSecond.set(second);
     }
 
     /**
