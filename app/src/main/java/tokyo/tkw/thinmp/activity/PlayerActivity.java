@@ -72,7 +72,7 @@ public class PlayerActivity extends AppCompatActivity {
         }
 
         @Override
-        public Integer onRepeat() {
+        public int onRepeat() {
             return mMusicService.repeat();
         }
 

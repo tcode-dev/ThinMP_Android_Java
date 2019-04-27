@@ -38,7 +38,9 @@ public class Player {
     public ObservableBoolean isPlaying = new ObservableBoolean();
     public ObservableField<Bitmap> thumbnail = new ObservableField<>();
     public ObservableField<Bitmap> background = new ObservableField<>();
-    public ObservableField<Integer> repeat = new ObservableField<>();
+    public ObservableBoolean isRepeatOff = new ObservableBoolean();
+    public ObservableBoolean isRepeatOne = new ObservableBoolean();
+    public ObservableBoolean isRepeatAll = new ObservableBoolean();
     public ObservableBoolean hasNext = new ObservableBoolean();
     public ObservableBoolean isShuffle = new ObservableBoolean();
     public ObservableBoolean isFavorite = new ObservableBoolean();
@@ -48,9 +50,9 @@ public class Player {
     private Timer mSeekBarProgressTask;
     private Timer mFastBackwardTask;
     private Timer mFastForwardTask;
-    private int mCurrentPositionSecond;
     private OnPlayerListener mListener;
     private Track mTrack;
+    private int mCurrentPositionSecond;
     private int mDurationMSecond;
     private MusicState mMusicState;
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
@@ -111,7 +113,7 @@ public class Player {
         Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f, 3);
         this.mBinding.background.setImageBitmap(blurBitMap);
         // リピート
-        this.repeat.set(state.getRepeat());
+        setRepeat(state.getRepeat());
         // シャッフル
         this.isShuffle.set(state.isShuffle());
         // お気に入り
@@ -232,8 +234,7 @@ public class Player {
      * @param view
      */
     public void onClickRepeat(View view) {
-        Integer repeat = mListener.onRepeat();
-        this.repeat.set(repeat);
+        setRepeat(mListener.onRepeat());
     }
 
     /**
@@ -417,6 +418,16 @@ public class Player {
     }
 
     /**
+     * setRepeat
+     * @param repeat
+     */
+    private void setRepeat(int repeat) {
+        this.isRepeatOff.set(repeat == MusicService.REPEAT_OFF);
+        this.isRepeatOne.set(repeat == MusicService.REPEAT_ONE);
+        this.isRepeatAll.set(repeat == MusicService.REPEAT_ALL);
+    }
+
+    /**
      * interface
      */
     public interface OnPlayerListener {
@@ -443,7 +454,7 @@ public class Player {
         /**
          * リピート
          */
-        Integer onRepeat();
+        int onRepeat();
 
         /**
          * シャッフル

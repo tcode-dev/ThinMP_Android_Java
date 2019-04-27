@@ -16,9 +16,9 @@ import tokyo.tkw.thinmp.provider.ConfigProvider;
 import tokyo.tkw.thinmp.util.ActivityUtil;
 
 public class MusicService extends Service {
-    private final int REPEAT_OFF = 0;
-    private final int REPEAT_ONE = 1;
-    private final int REPEAT_ALL = 2;
+    public static final int REPEAT_OFF = 0;
+    public static final int REPEAT_ONE = 1;
+    public static final int REPEAT_ALL = 2;
     private final int PREV_MS = 3000;
 
     public IBinder mBinder = new MusicBinder();
@@ -135,7 +135,7 @@ public class MusicService extends Service {
     /**
      * リピート
      */
-    public Integer repeat() {
+    public int repeat() {
         switch (mRepeat) {
             case REPEAT_OFF:
                 repeatAll();
