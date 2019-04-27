@@ -15,11 +15,11 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
+            android:textColor="#5C5C5C"
             android:textSize="16sp"
             android:textStyle="normal" />
 

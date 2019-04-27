@@ -2,7 +2,6 @@ package tokyo.tkw.thinmp.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.renderscript.RenderScript;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -20,12 +19,10 @@ import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAdapter.OnTrackListItemClickListener {
-    private ImageView mBackgroundView;
     private ImageView mThumbnailView;
     private RecyclerView mListView;
 
@@ -45,13 +42,6 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
         Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(album.getThumbnailId());
         mThumbnailView.setImageBitmap(thumbnailBitmap);
 
-        //背景画像
-        Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true);
-        RenderScript rs = RenderScript.create(this);
-        RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
-        Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f, 3);
-        mBackgroundView.setImageBitmap(blurBitMap);
-
         //曲一覧
         mTrackList = MusicList.getAlbumTrackList(albumId);
 
@@ -65,7 +55,6 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
     }
 
     private void setView() {
-        mBackgroundView = findViewById(R.id.background);
         mThumbnailView = findViewById(R.id.thumbnail);
         mListView = findViewById(R.id.list);
     }

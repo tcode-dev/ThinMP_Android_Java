@@ -48,35 +48,29 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <ImageView
-                        android:id="@+id/background"
+                        android:id="@+id/thumbnail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:alpha="0.5"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <View
                         android:id="@+id/gradation"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
                         android:background="@drawable/bg_gradation"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                    <tokyo.tkw.thinmp.view.SquareImageView
-                        android:id="@+id/thumbnail"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:layout_marginBottom="30dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/background"
-                        app:layout_constraintEnd_toEndOf="@+id/background"
-                        app:layout_constraintStart_toStartOf="@+id/background"
-                        app:layout_constraintTop_toTopOf="@+id/background" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+                        app:layout_constraintStart_toStartOf="@+id/thumbnail" />
 
                     <ImageView
                         android:id="@+id/play"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -90,8 +84,8 @@
                         android:scaleType="centerInside"
                         android:padding="10dp"
                         android:src="@drawable/back"
-                        app:layout_constraintStart_toStartOf="@+id/background"
-                        app:layout_constraintTop_toTopOf="@+id/background" />
+                        app:layout_constraintStart_toStartOf="@+id/thumbnail"
+                        app:layout_constraintTop_toTopOf="@+id/thumbnail" />
 
                     <tokyo.tkw.thinmp.view.CollapsingBackImageButtonView
                         android:layout_width="40dp"
@@ -102,8 +96,8 @@
                         android:scaleType="centerInside"
                         android:src="@drawable/back"
                         app:layout_anchorGravity="left|bottom"
-                        app:layout_constraintBottom_toBottomOf="@+id/gradation"
-                        app:layout_constraintStart_toStartOf="@+id/background" />
+                        app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
+                        app:layout_constraintStart_toStartOf="@+id/thumbnail" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/title"
@@ -113,9 +107,9 @@
                         android:layout_marginEnd="60dp"
                         android:layout_marginBottom="6dp"
                         app:layout_constraintBottom_toTopOf="@+id/subTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/background"
-                        app:layout_constraintStart_toStartOf="@+id/background"
-                        app:minScale="0.7"
+                        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+                        app:layout_constraintStart_toStartOf="@+id/thumbnail"
+                        app:minScale="0.8"
                         app:offsetY="bottom"
                         app:textColor="#000000"
                         app:textSize="20" />
@@ -126,10 +120,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="34dp"
                         android:layout_marginEnd="60dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/background"
+                        app:layout_constraintStart_toStartOf="@+id/thumbnail"
                         app:minScale="0.8"
                         app:offsetY="top"
                         app:textColor="#5C5C5C"
@@ -154,8 +148,8 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:nestedScrollingEnabled="false"
+                android:paddingStart="20dp"
                 android:scrollbars="vertical"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="8dp" />
