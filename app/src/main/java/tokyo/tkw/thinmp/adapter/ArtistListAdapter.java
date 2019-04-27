@@ -29,7 +29,7 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
 
     @Override
     public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_list_item, parent, false);
 
         return new ArtistViewHolder(view);
     }
