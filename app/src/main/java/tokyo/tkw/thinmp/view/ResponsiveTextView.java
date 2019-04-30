@@ -22,42 +22,50 @@ import tokyo.tkw.thinmp.R;
 
 public class ResponsiveTextView extends View {
     private final int STROKE_WIDTH = 1;
-    private final float DEFAULT_SCALE_RATE = 0.5f;
+    private final float DEFAULT_COLLAPSE_SCALE = 0.5f;
     private final int DEFAULT_TEXT_SIZE = 50;
+    private final int DEFAULT_OFFSET_X = 0;
     private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
     private TextPaint mTextPaint;
     private String mText;
     private float mScale = 1;
+    private float mOffsetX;
     private float mOffsetY;
     private int mTextSize;
     private String mTextColor;
-    private float mMinScale;
+    private float mCollapseScale;
     private float mScaleRate;
     private OffsetYCalc mOffsetYCalc;
+    private float mActualScrollRange;
+    private float mScrollRate;
 
     public ResponsiveTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ResponsiveTextView);
-        mMinScale = typedArray.getFloat(R.styleable.ResponsiveTextView_minScale, DEFAULT_SCALE_RATE);
+        mCollapseScale = typedArray.getFloat(R.styleable.ResponsiveTextView_collapseScale, DEFAULT_COLLAPSE_SCALE);
         mTextSize = typedArray.getInt(R.styleable.ResponsiveTextView_textSize, DEFAULT_TEXT_SIZE);
         mTextColor = typedArray.getString(R.styleable.ResponsiveTextView_textColor);
-        String position = typedArray.getString(R.styleable.ResponsiveTextView_offsetY);
-        mOffsetYCalc = offsetYCalcFactory(position);
+        mOffsetX = toDimensionTextSize(getContext(),
+                typedArray.getInt(R.styleable.ResponsiveTextView_collapseOffsetX,
+                        DEFAULT_OFFSET_X));
+        mOffsetYCalc =
+                offsetYCalcFactory(typedArray.getString(R.styleable.ResponsiveTextView_collapseVerticalAlign));
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
 
-        int canvasWidth = canvas.getWidth();
+        float offsetX = mScrollRate * mOffsetX;
+        int canvasWidth = canvas.getWidth() - (int) offsetX;
         int textWidth = (int) Layout.getDesiredWidth(mText, mTextPaint);
         int currentWidth = (int) ((float) textWidth * mScale);
-        final CharSequence text = (currentWidth <= canvasWidth) ? mText : TextUtils.ellipsize(mText, mTextPaint,
-                canvasWidth * (1 + (1 - mScale)), TextUtils.TruncateAt.END);
+        final CharSequence text = (currentWidth <= canvasWidth) ? mText :
+                TextUtils.ellipsize(mText, mTextPaint, canvasWidth * (1 + (1 - mScale)), TextUtils.TruncateAt.END);
 
         canvas.scale(mScale, mScale);
-        canvas.drawText(text, 0, text.length(), 0, mOffsetYCalc.calc(), mTextPaint);
+        canvas.drawText(text, 0, text.length(), offsetX, mOffsetYCalc.calc(), mTextPaint);
     }
 
     @Override
@@ -104,10 +112,10 @@ public class ResponsiveTextView extends View {
             return;
         }
 
-        int actualScrollRange =
+        mActualScrollRange =
                 ((AppBarLayout) parentAppbar).getTotalScrollRange() - ((Toolbar) parentToolbar).getHeight();
 
-        mScaleRate = (1 - mMinScale) / (float) actualScrollRange;
+        mScaleRate = (1 - mCollapseScale) / mActualScrollRange;
 
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
         mTextPaint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -115,10 +123,11 @@ public class ResponsiveTextView extends View {
         mTextPaint.setTextSize(toDimensionTextSize(getContext(), mTextSize));
         mTextPaint.setColor(Color.parseColor(mTextColor));
 
-        mOffsetY = -mTextPaint.ascent();
-        int height = (int) (-mTextPaint.ascent() + mTextPaint.descent());
+        Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
+        mOffsetY = - fontMetrics.ascent;
+
         ViewGroup.LayoutParams params = getLayoutParams();
-        params.height = (int) ((float) height * mScale);
+        params.height = (int) (- fontMetrics.top + fontMetrics.bottom);
         setLayoutParams(params);
     }
 
@@ -189,6 +198,7 @@ public class ResponsiveTextView extends View {
         @Override
         public void onOffsetChanged(AppBarLayout layout, int verticalOffset) {
             mScale = 1 + (((float) verticalOffset) * mScaleRate);
+            mScrollRate = (float) -verticalOffset / mActualScrollRange;
 
             invalidate();
         }

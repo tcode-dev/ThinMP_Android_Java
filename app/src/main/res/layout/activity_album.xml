@@ -79,10 +79,10 @@
                     <tokyo.tkw.thinmp.view.BackImageButtonView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="32dp"
                         android:background="@null"
-                        android:scaleType="centerInside"
                         android:padding="10dp"
+                        android:scaleType="centerInside"
                         android:src="@drawable/back"
                         app:layout_constraintStart_toStartOf="@+id/thumbnail"
                         app:layout_constraintTop_toTopOf="@+id/thumbnail" />
@@ -103,31 +103,33 @@
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="34dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginEnd="60dp"
-                        android:layout_marginBottom="6dp"
+                        android:layout_marginBottom="2dp"
                         app:layout_constraintBottom_toTopOf="@+id/subTitle"
                         app:layout_constraintEnd_toEndOf="@+id/thumbnail"
                         app:layout_constraintStart_toStartOf="@+id/thumbnail"
-                        app:minScale="0.8"
-                        app:offsetY="bottom"
+                        app:textSize="20"
                         app:textColor="#000000"
-                        app:textSize="20" />
+                        app:collapseScale="0.8"
+                        app:collapseOffsetX="20"
+                        app:collapseVerticalAlign="bottom" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/subTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="34dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginEnd="60dp"
                         android:layout_marginBottom="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/thumbnail"
-                        app:minScale="0.8"
-                        app:offsetY="top"
+                        app:textSize="16"
                         app:textColor="#5C5C5C"
-                        app:textSize="16" />
+                        app:collapseScale="0.8"
+                        app:collapseOffsetX="20"
+                        app:collapseVerticalAlign="top" />
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>

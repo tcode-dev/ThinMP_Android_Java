@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ResponsiveTextView">
-        <attr name="minScale" format="float" />
-        <attr name="textSize" format="integer" />
         <attr name="textColor" format="string" />
-        <attr name="offsetY" format="string"/>
+        <attr name="textSize" format="integer" />
+        <attr name="collapseScale" format="float" />
+        <attr name="collapseOffsetX" format="integer"/>
+        <attr name="collapseVerticalAlign" format="string"/>
     </declare-styleable>
 </resources>
