@@ -42,15 +42,20 @@ public class ResponsiveTextView extends View {
     public ResponsiveTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ResponsiveTextView);
-        mCollapseScale = typedArray.getFloat(R.styleable.ResponsiveTextView_collapseScale, DEFAULT_COLLAPSE_SCALE);
-        mTextSize = typedArray.getInt(R.styleable.ResponsiveTextView_textSize, DEFAULT_TEXT_SIZE);
-        mTextColor = typedArray.getString(R.styleable.ResponsiveTextView_textColor);
+        TypedArray responsiveTypedArray = getContext().obtainStyledAttributes(attrs,
+                R.styleable.Responsive);
+        mCollapseScale = responsiveTypedArray.getFloat(R.styleable.Responsive_collapseScale, DEFAULT_COLLAPSE_SCALE);
         mOffsetX = toDimensionTextSize(getContext(),
-                typedArray.getInt(R.styleable.ResponsiveTextView_collapseOffsetX,
+                responsiveTypedArray.getInt(R.styleable.Responsive_collapseOffsetX,
                         DEFAULT_OFFSET_X));
         mOffsetYCalc =
-                offsetYCalcFactory(typedArray.getString(R.styleable.ResponsiveTextView_collapseVerticalAlign));
+                offsetYCalcFactory(responsiveTypedArray.getString(R.styleable.Responsive_collapseVerticalAlign));
+
+        TypedArray responsiveTextViewTypedArray = getContext().obtainStyledAttributes(attrs,
+                R.styleable.ResponsiveTextView);
+        mTextSize = responsiveTextViewTypedArray.getInt(R.styleable.ResponsiveTextView_textSize, DEFAULT_TEXT_SIZE);
+        mTextColor = responsiveTextViewTypedArray.getString(R.styleable.ResponsiveTextView_textColor);
+
     }
 
     @Override
