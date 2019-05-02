@@ -68,36 +68,13 @@
 
                     <ImageView
                         android:id="@+id/play"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:srcCompat="@drawable/play3" />
-
-                    <tokyo.tkw.thinmp.view.BackImageButtonView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="32dp"
-                        android:background="@null"
-                        android:padding="10dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/back"
-                        app:layout_constraintStart_toStartOf="@+id/thumbnail"
-                        app:layout_constraintTop_toTopOf="@+id/thumbnail" />
-
-                    <tokyo.tkw.thinmp.view.CollapsingBackImageButtonView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@null"
-                        android:padding="10dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/back"
-                        app:layout_anchorGravity="left|bottom"
-                        app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
-                        app:layout_constraintStart_toStartOf="@+id/thumbnail" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/title"
@@ -113,7 +90,7 @@
                         app:textColor="#000000"
                         app:collapseScale="0.8"
                         app:collapseOffsetX="20"
-                        app:collapseVerticalAlign="bottom" />
+                        app:collapseOffsetY="8" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/subTitle"
@@ -128,9 +105,20 @@
                         app:textSize="16"
                         app:textColor="#5C5C5C"
                         app:collapseScale="0.8"
-                        app:collapseOffsetX="20"
-                        app:collapseVerticalAlign="top" />
+                        app:collapseOffsetX="20" />
+
                 </android.support.constraint.ConstraintLayout>
+
+                <tokyo.tkw.thinmp.view.BackImageButtonView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/back"
+                    app:layout_collapseMode="pin" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -143,7 +131,6 @@
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context=".activity.ScrollingActivity"
-            tools:layout_editor_absoluteX="16dp"
             tools:showIn="@layout/activity_album">
 
             <android.support.v7.widget.RecyclerView
@@ -152,9 +139,7 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 android:paddingStart="20dp"
-                android:scrollbars="vertical"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp" />
+                android:scrollbars="vertical" />
 
         </android.support.v4.widget.NestedScrollView>
 

@@ -3,7 +3,7 @@
     <declare-styleable name="Responsive">
         <attr name="collapseScale" format="float" />
         <attr name="collapseOffsetX" format="integer"/>
-        <attr name="collapseVerticalAlign" format="string"/>
+        <attr name="collapseOffsetY" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="ResponsiveTextView">
