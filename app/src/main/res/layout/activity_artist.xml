@@ -14,11 +14,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:layout_weight="1"
+            android:alpha="0.5"
+            android:scaleType="centerCrop" />
+
+        <View
+            android:id="@+id/gradation"
+            android:layout_width="wrap_content"
+            android:layout_height="330dp"
+            android:background="@drawable/bg_gradation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/background"
+            app:layout_constraintStart_toStartOf="@+id/background" />
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:fitsSystemWindows="true"
+            android:background="@null"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.design.widget.CollapsingToolbarLayout
@@ -26,7 +44,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@+id/toolbar">
 
@@ -41,28 +58,10 @@
                     android:id="@+id/frameLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#ffffff"
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="pin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
-
-                    <ImageView
-                        android:id="@+id/background"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_weight="1"
-                        android:alpha="0.5"
-                        android:scaleType="centerCrop" />
-
-                    <View
-                        android:id="@+id/gradation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:background="@drawable/bg_gradation"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/background"
-                        app:layout_constraintStart_toStartOf="@+id/background" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveCircleImageView
                         android:id="@+id/thumbnail"
@@ -99,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="20dp"
-                        android:text="10 albums"
+                        android:text="10 albums, 1 hour, 30 minutes"
                         android:textColor="#5c5c5c"
                         android:textSize="16sp"
                         app:fadeIn="false"
@@ -161,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="Tracks"
+                    android:text="Songs"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -170,7 +169,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
-                    android:scrollbars="vertical" />
+                    android:scrollbars="vertical"
+                    android:layout_marginStart="20dp" />
 
             </LinearLayout>
 

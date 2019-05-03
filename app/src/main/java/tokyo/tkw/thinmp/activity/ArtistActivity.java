@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.ArtistAlbumListAdapter;
-import tokyo.tkw.thinmp.adapter.TrackListAdapter;
+import tokyo.tkw.thinmp.adapter.ArtistTrackListAdapter;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.MusicList;
@@ -24,8 +24,8 @@ import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class ArtistActivity extends AppCompatActivity {
-    private TrackListAdapter.OnTrackListItemClickListener mTrackListListener =
-            new TrackListAdapter.OnTrackListItemClickListener() {
+    private ArtistTrackListAdapter.OnTrackListItemClickListener mTrackListListener =
+            new ArtistTrackListAdapter.OnTrackListItemClickListener() {
 
         @Override
         public void onClickItem(int position) {
@@ -37,8 +37,6 @@ public class ArtistActivity extends AppCompatActivity {
 
         }
     };
-
-    private ArrayList<Album> mAlbumIdList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +74,11 @@ public class ArtistActivity extends AppCompatActivity {
         // 曲一覧
         ArrayList<Track> trackList = MusicList.getArtistTrackList(artistId);
         RecyclerView trackListView = findViewById(R.id.trackList);
-        TrackListAdapter adapter2 = new TrackListAdapter(trackList, mTrackListListener);
+        ArtistTrackListAdapter artistTrackListAdapter = new ArtistTrackListAdapter(trackList,
+                mTrackListListener);
         LinearLayoutManager layout2 = new LinearLayoutManager(this);
         trackListView.setLayoutManager(layout2);
-        trackListView.setAdapter(adapter2);
+        trackListView.setAdapter(artistTrackListAdapter);
 
         // 区切り線の描画
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
