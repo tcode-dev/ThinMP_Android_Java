@@ -7,6 +7,7 @@ import android.net.Uri;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import tokyo.tkw.thinmp.R;
@@ -21,6 +22,7 @@ public class ThumbnailProvider {
     private final String ALBUM_ART_URL = "content://media/external/audio/albumart/";
     private Context mContext;
     private int mDefaultResourceId;
+    private HashMap<String, Bitmap> mMap = new HashMap<>();
 
     public ThumbnailProvider() {
         this(R.drawable.album);
@@ -49,12 +51,17 @@ public class ThumbnailProvider {
         }
         return getDefaultBitmap();
     }
+
     /**
      * アルバムアートを取得
      *
      * @return
      */
     private Bitmap getAlbumArt(String id) {
+        if (hasThumbnail(id)) {
+            return mMap.get(id);
+        }
+
         Bitmap albumArt = null;
 
         try {
@@ -66,6 +73,10 @@ public class ThumbnailProvider {
             }
         } catch (FileNotFoundException err) {
             err.printStackTrace();
+        }
+
+        if (albumArt != null) {
+            mMap.put(id, albumArt);
         }
 
         return albumArt;
@@ -90,5 +101,9 @@ public class ThumbnailProvider {
      */
     private Bitmap getDefaultBitmap() {
         return BitmapFactory.decodeResource(mContext.getResources(), mDefaultResourceId);
+    }
+
+    private Boolean hasThumbnail(String id) {
+        return mMap.containsKey(id);
     }
 }
