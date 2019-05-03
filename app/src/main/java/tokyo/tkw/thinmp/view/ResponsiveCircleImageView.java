@@ -12,9 +12,9 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ViewUtil;
 
 public class ResponsiveCircleImageView extends CircleImageView {
-    private final float DEFAULT_COLLAPSE_SCALE = 0.8f;
-    private final int DEFAULT_OFFSET_X = 0;
-    private final int DEFAULT_OFFSET_Y = 0;
+    private static final float DEFAULT_COLLAPSE_SCALE = 0.8f;
+    private static final int DEFAULT_OFFSET_X = 0;
+    private static final int DEFAULT_OFFSET_Y = 0;
     private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
     private float mCollapseScale;
     private float mOffsetX;
@@ -24,8 +24,7 @@ public class ResponsiveCircleImageView extends CircleImageView {
     public ResponsiveCircleImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.Responsive);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Responsive);
         mCollapseScale = 1 - typedArray.getFloat(R.styleable.Responsive_collapseScale,
                 DEFAULT_COLLAPSE_SCALE);
         mOffsetX = ViewUtil.dpToDimensionPx(context,

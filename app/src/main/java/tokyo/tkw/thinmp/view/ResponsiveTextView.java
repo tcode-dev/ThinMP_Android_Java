@@ -19,11 +19,11 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ViewUtil;
 
 public class ResponsiveTextView extends View {
-    private final int STROKE_WIDTH = 1;
-    private final float DEFAULT_COLLAPSE_SCALE = 0.8f;
-    private final int DEFAULT_TEXT_SIZE = 24;
-    private final int DEFAULT_OFFSET_X = 0;
-    private final int DEFAULT_OFFSET_Y = 0;
+    private static final int STROKE_WIDTH = 1;
+    private static final float DEFAULT_COLLAPSE_SCALE = 0.8f;
+    private static final int DEFAULT_TEXT_SIZE = 24;
+    private static final int DEFAULT_OFFSET_X = 0;
+    private static final int DEFAULT_OFFSET_Y = 0;
     private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
     private float mCollapseScale;
     private float mOffsetX;
