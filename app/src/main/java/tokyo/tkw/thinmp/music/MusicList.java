@@ -97,6 +97,25 @@ public class MusicList {
     }
 
     /**
+     * アーティストの曲一覧を取得
+     *
+     * @param artistId
+     * @return
+     */
+    public static ArrayList<Track> getArtistTrackList(String artistId) {
+        Artist artist = getArtist(artistId);
+        ArrayList<String> trackIdList = artist.getTrackIdList();
+        ArrayList<Track> trackList = new ArrayList<>();
+
+        for (String id : trackIdList) {
+            Track track = instance.mTrackList.getTrack(id);
+            trackList.add(track);
+        }
+
+        return trackList;
+    }
+
+    /**
      * アルバムの曲一覧を取得
      *
      * @param albumId

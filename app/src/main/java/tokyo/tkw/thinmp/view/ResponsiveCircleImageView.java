@@ -24,7 +24,8 @@ public class ResponsiveCircleImageView extends CircleImageView {
     public ResponsiveCircleImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Responsive);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs,
+                R.styleable.Responsive);
         mCollapseScale = 1 - typedArray.getFloat(R.styleable.Responsive_collapseScale,
                 DEFAULT_COLLAPSE_SCALE);
         mOffsetX = ViewUtil.dpToDimensionPx(context,

@@ -38,18 +38,19 @@ public class ResponsiveTextView extends View {
 
         TypedArray responsiveTypedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.Responsive);
+        TypedArray responsiveTextViewTypedArray = context.obtainStyledAttributes(attrs,
+                R.styleable.ResponsiveTextView);
 
         mCollapseScale = 1 - responsiveTypedArray.getFloat(R.styleable.Responsive_collapseScale,
                 DEFAULT_COLLAPSE_SCALE);
 
         mOffsetX = ViewUtil.dpToDimensionPx(context,
-                responsiveTypedArray.getInt(R.styleable.Responsive_collapseOffsetX, DEFAULT_OFFSET_X));
+                responsiveTypedArray.getInt(R.styleable.Responsive_collapseOffsetX,
+                        DEFAULT_OFFSET_X));
 
         mOffsetY = ViewUtil.dpToDimensionPx(context,
-                responsiveTypedArray.getInt(R.styleable.Responsive_collapseOffsetY, DEFAULT_OFFSET_Y));
-
-        TypedArray responsiveTextViewTypedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.ResponsiveTextView);
+                responsiveTypedArray.getInt(R.styleable.Responsive_collapseOffsetY,
+                        DEFAULT_OFFSET_Y));
 
         int textSize = responsiveTextViewTypedArray.getInt(R.styleable.ResponsiveTextView_textSize,
                 DEFAULT_TEXT_SIZE);

@@ -23,9 +23,6 @@ import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAdapter.OnTrackListItemClickListener {
-    private ImageView mThumbnailView;
-    private RecyclerView mListView;
-
     private ArrayList<Track> mTrackList;
 
     @Override
@@ -33,42 +30,35 @@ public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
 
-        setView();
-
         String albumId = getIntent().getStringExtra("albumId");
         Album album = MusicList.getAlbum(albumId);
 
-        //サムネイル
+        // サムネイル
+        ImageView thumbnailView = findViewById(R.id.thumbnail);
         Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(album.getThumbnailId());
-        mThumbnailView.setImageBitmap(thumbnailBitmap);
+        thumbnailView.setImageBitmap(thumbnailBitmap);
 
-        //曲一覧
-        mTrackList = MusicList.getAlbumTrackList(albumId);
-
+        // アルバム名
         ResponsiveTextView titleView = findViewById(R.id.title);
         titleView.setText(album.getName());
 
+        // アーティスト名
         ResponsiveTextView subTitleView = findViewById(R.id.subTitle);
         subTitleView.setText(album.getArtistName());
 
-        setAdapter();
-    }
+        // 曲一覧
+        mTrackList = MusicList.getAlbumTrackList(albumId);
 
-    private void setView() {
-        mThumbnailView = findViewById(R.id.thumbnail);
-        mListView = findViewById(R.id.list);
-    }
-
-    private void setAdapter() {
         AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(mTrackList, this);
         LinearLayoutManager layout = new LinearLayoutManager(this);
-        mListView.setLayoutManager(layout);
-        mListView.setAdapter(adapter);
+        RecyclerView listView = findViewById(R.id.list);
+        listView.setLayoutManager(layout);
+        listView.setAdapter(adapter);
 
         // 区切り線の描画
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 this, new LinearLayoutManager(this).getOrientation());
-        mListView.addItemDecoration(dividerItemDecoration);
+        listView.addItemDecoration(dividerItemDecoration);
     }
 
     @Override
