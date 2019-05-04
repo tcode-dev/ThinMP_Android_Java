@@ -32,6 +32,8 @@ public class ResponsiveCircleImageView extends CircleImageView {
                 typedArray.getInt(R.styleable.Responsive_collapseOffsetX, DEFAULT_OFFSET_X));
         mOffsetY = ViewUtil.dpToDimensionPx(context,
                 typedArray.getInt(R.styleable.Responsive_collapseOffsetY, DEFAULT_OFFSET_Y));
+
+        typedArray.recycle();
     }
 
     @Override

@@ -38,11 +38,9 @@ public class ResponsiveTextView extends View {
 
         TypedArray responsiveTypedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.Responsive);
-        TypedArray responsiveTextViewTypedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.ResponsiveTextView);
 
-        mCollapseScale = 1 - responsiveTypedArray.getFloat(R.styleable.Responsive_collapseScale,
-                DEFAULT_COLLAPSE_SCALE);
+        mCollapseScale = 1 - responsiveTypedArray.getFloat(R.styleable.Responsive_collapseScale, DEFAULT_COLLAPSE_SCALE);
+
 
         mOffsetX = ViewUtil.dpToDimensionPx(context,
                 responsiveTypedArray.getInt(R.styleable.Responsive_collapseOffsetX,
@@ -52,11 +50,18 @@ public class ResponsiveTextView extends View {
                 responsiveTypedArray.getInt(R.styleable.Responsive_collapseOffsetY,
                         DEFAULT_OFFSET_Y));
 
+        responsiveTypedArray.recycle();
+
+        TypedArray responsiveTextViewTypedArray = context.obtainStyledAttributes(attrs,
+                R.styleable.ResponsiveTextView);
+
         int textSize = responsiveTextViewTypedArray.getInt(R.styleable.ResponsiveTextView_textSize,
                 DEFAULT_TEXT_SIZE);
 
         String textColor =
                 responsiveTextViewTypedArray.getString(R.styleable.ResponsiveTextView_textColor);
+
+        responsiveTextViewTypedArray.recycle();
 
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
         mTextPaint.setStyle(Paint.Style.FILL_AND_STROKE);
