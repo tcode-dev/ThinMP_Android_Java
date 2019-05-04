@@ -12,7 +12,10 @@
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/background"
@@ -35,9 +38,8 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:fitsSystemWindows="true"
             android:background="@null"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:fitsSystemWindows="true">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
@@ -84,8 +86,8 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="40dp"
                         android:clipChildren="false"
+                        app:collapseOffsetY="34"
                         app:collapseScale="0.8"
-                        app:collapseOffsetY="35"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/thumbnail"
@@ -98,12 +100,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="20dp"
-                        android:text="10 albums, 1 hour, 30 minutes"
+                        android:text="10 albums, 35 songs, 1h 30min"
                         android:textColor="#5c5c5c"
                         android:textSize="16sp"
+                        app:fadeEnd="0.4"
                         app:fadeIn="false"
                         app:fadeStart="0.2"
-                        app:fadeEnd="0.4"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/thumbnail" />
 
@@ -135,8 +137,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:focusableInTouchMode="true">
 
                 <TextView
                     android:id="@+id/albumTitle"
@@ -151,9 +154,9 @@
                     android:id="@+id/albumList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
                     android:nestedScrollingEnabled="false"
-                    android:scrollbars="vertical"
-                    android:layout_marginEnd="20dp" />
+                    android:scrollbars="vertical" />
 
                 <TextView
                     android:id="@+id/trackTitle"
@@ -168,9 +171,9 @@
                     android:id="@+id/trackList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:nestedScrollingEnabled="false"
-                    android:scrollbars="vertical"
-                    android:layout_marginStart="20dp" />
+                    android:scrollbars="vertical" />
 
             </LinearLayout>
 

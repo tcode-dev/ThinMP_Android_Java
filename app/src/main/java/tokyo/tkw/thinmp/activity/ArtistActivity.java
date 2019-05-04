@@ -67,7 +67,7 @@ public class ArtistActivity extends AppCompatActivity {
         ArrayList<Album> albumIdList = MusicList.getArtistAlbumList(artistId);
         RecyclerView albumListView = findViewById(R.id.albumList);
         ArtistAlbumListAdapter adapter = new ArtistAlbumListAdapter(this, albumIdList);
-        LinearLayoutManager layout = new GridLayoutManager(this, 2);
+        GridLayoutManager layout = new GridLayoutManager(this, 2);
         albumListView.setLayoutManager(layout);
         albumListView.setAdapter(adapter);
 
