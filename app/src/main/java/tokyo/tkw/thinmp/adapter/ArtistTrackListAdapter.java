@@ -9,21 +9,23 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.activity.ArtistActivity;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class ArtistTrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
-    private ThumbnailProvider mThumbnailProvider;
     private OnTrackListItemClickListener mListener;
+    private ArtistActivity.ArtistActivityListener mArtistActivityListener;
     private int mItemCount;
 
     private ArrayList<Track> mTrackList;
 
-    public ArtistTrackListAdapter(@NonNull ArrayList<Track> trackList, OnTrackListItemClickListener listener) {
-        mThumbnailProvider = new ThumbnailProvider();
+    public ArtistTrackListAdapter(@NonNull ArrayList<Track> trackList,
+                                  OnTrackListItemClickListener listener,
+                                  ArtistActivity.ArtistActivityListener artistActivityListener) {
         mTrackList = trackList;
         mListener = listener;
+        mArtistActivityListener = artistActivityListener;
         mItemCount = mTrackList.size();
     }
 
@@ -40,7 +42,7 @@ public class ArtistTrackListAdapter extends RecyclerView.Adapter<TrackViewHolder
         Track track = mTrackList.get(position);
         String title = track.getTitle();
 
-        holder.thumbnail.setImageBitmap(mThumbnailProvider.getThumbnail(track.getThumbnailId()));
+        holder.thumbnail.setImageBitmap(mArtistActivityListener.getThumbnail(track.getThumbnailId()));
         holder.track.setText(title);
 
         holder.itemView.setOnClickListener(listItemClickListener(position));

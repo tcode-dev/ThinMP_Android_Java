@@ -10,19 +10,20 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.activity.ArtistActivity;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.music.Album;
-import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.ArtistAlbumListViewHolder;
 
 public class ArtistAlbumListAdapter extends RecyclerView.Adapter<ArtistAlbumListViewHolder> {
     private Activity mContext;
-    private ThumbnailProvider mThumbnailProvider;
     private ArrayList<Album> mAlbumList;
+    private ArtistActivity.ArtistActivityListener mArtistActivityListener;
 
-    public ArtistAlbumListAdapter(@NonNull Activity context, @NonNull ArrayList<Album> albumList) {
+    public ArtistAlbumListAdapter(@NonNull Activity context, @NonNull ArrayList<Album> albumList,
+                                  ArtistActivity.ArtistActivityListener artistActivityListener) {
         mContext = context;
-        mThumbnailProvider = new ThumbnailProvider();
+        mArtistActivityListener = artistActivityListener;
         mAlbumList = albumList;
     }
 
@@ -37,7 +38,7 @@ public class ArtistAlbumListAdapter extends RecyclerView.Adapter<ArtistAlbumList
     public void onBindViewHolder(ArtistAlbumListViewHolder holder, int position) {
         Album album = mAlbumList.get(position);
 
-        holder.thumbnail.setImageBitmap(mThumbnailProvider.getThumbnail(album.getThumbnailId()));
+        holder.thumbnail.setImageBitmap(mArtistActivityListener.getThumbnail(album.getThumbnailId()));
         holder.albumName.setText(album.getName());
 
         holder.itemView.setOnClickListener(new AlbumClickListener(mContext, album.getId()));

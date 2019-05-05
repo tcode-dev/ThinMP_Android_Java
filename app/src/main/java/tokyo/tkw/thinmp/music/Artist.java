@@ -40,6 +40,13 @@ public class Artist {
         return thumbnailProvider.getThumbnail(idList);
     }
 
+    public List<String> getThumbnailIdList() {
+        return Stream.of(albumIdList)
+                .map(id -> MusicList.getAlbum(id).getThumbnailId())
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
     public ArrayList<String> getAlbumIdList() {
         return albumIdList;
     }

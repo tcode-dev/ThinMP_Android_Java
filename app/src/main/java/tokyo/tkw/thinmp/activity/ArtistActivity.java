@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -21,6 +22,8 @@ import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
+import tokyo.tkw.thinmp.util.ViewUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class ArtistActivity extends AppCompatActivity {
@@ -38,6 +41,16 @@ public class ArtistActivity extends AppCompatActivity {
         }
     };
 
+    private ArtistActivityListener mArtistActivityListener = new ArtistActivityListener() {
+
+        @Override
+        public Bitmap getThumbnail(String id) {
+            return mThumbnailProvider.getThumbnail(id);
+        }
+    };
+
+    private ThumbnailProvider mThumbnailProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +59,17 @@ public class ArtistActivity extends AppCompatActivity {
         String artistId = getIntent().getStringExtra("artistId");
         Artist artist = MusicList.getArtist(artistId);
 
+        // アルバムのサムネイルのviewの幅を取得
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Float padding = ViewUtil.dpToDimensionPx(this,60);
+        Float width = (dm.widthPixels - padding) / 2;
+
+        mThumbnailProvider = ThumbnailProvider.createAlbumThumbnailProvider(this, width);
+
         // サムネイル
         ImageView thumbnailView = findViewById(R.id.thumbnail);
-        Bitmap thumbnailBitmap = artist.getThumbnail();
+        Bitmap thumbnailBitmap = mThumbnailProvider.getThumbnail(artist.getThumbnailIdList());
         thumbnailView.setImageBitmap(thumbnailBitmap);
 
         // 背景画像
@@ -66,7 +87,7 @@ public class ArtistActivity extends AppCompatActivity {
         // アルバム一覧
         ArrayList<Album> albumIdList = MusicList.getArtistAlbumList(artistId);
         RecyclerView albumListView = findViewById(R.id.albumList);
-        ArtistAlbumListAdapter adapter = new ArtistAlbumListAdapter(this, albumIdList);
+        ArtistAlbumListAdapter adapter = new ArtistAlbumListAdapter(this, albumIdList, mArtistActivityListener);
         GridLayoutManager layout = new GridLayoutManager(this, 2);
         albumListView.setLayoutManager(layout);
         albumListView.setAdapter(adapter);
@@ -75,7 +96,7 @@ public class ArtistActivity extends AppCompatActivity {
         ArrayList<Track> trackList = MusicList.getArtistTrackList(artistId);
         RecyclerView trackListView = findViewById(R.id.trackList);
         ArtistTrackListAdapter artistTrackListAdapter = new ArtistTrackListAdapter(trackList,
-                mTrackListListener);
+                mTrackListListener, mArtistActivityListener);
         LinearLayoutManager layout2 = new LinearLayoutManager(this);
         trackListView.setLayoutManager(layout2);
         trackListView.setAdapter(artistTrackListAdapter);
@@ -84,5 +105,12 @@ public class ArtistActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 this, new LinearLayoutManager(this).getOrientation());
         trackListView.addItemDecoration(dividerItemDecoration);
+    }
+
+    /**
+     * interface
+     */
+    public interface ArtistActivityListener {
+        Bitmap getThumbnail(String id);
     }
 }
