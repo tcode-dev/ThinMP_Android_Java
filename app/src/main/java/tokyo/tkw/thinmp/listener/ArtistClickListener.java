@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import tokyo.tkw.thinmp.activity.ArtistActivity;
+import tokyo.tkw.thinmp.activity.ArtistDetailActivity;
 
 public class ArtistClickListener implements View.OnClickListener {
     private Activity mContext;
@@ -17,7 +17,7 @@ public class ArtistClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(mContext, ArtistActivity.class);
+        Intent intent = new Intent(mContext, ArtistDetailActivity.class);
         intent.putExtra("artistId", mArtistId);
         mContext.startActivity(intent);
     }

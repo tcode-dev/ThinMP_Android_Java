@@ -9,20 +9,20 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.activity.ArtistActivity;
+import tokyo.tkw.thinmp.activity.ArtistDetailActivity;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class ArtistTrackListAdapter extends RecyclerView.Adapter<TrackViewHolder> {
     private OnTrackListItemClickListener mListener;
-    private ArtistActivity.ArtistActivityListener mArtistActivityListener;
+    private ArtistDetailActivity.ArtistActivityListener mArtistActivityListener;
     private int mItemCount;
 
     private ArrayList<Track> mTrackList;
 
     public ArtistTrackListAdapter(@NonNull ArrayList<Track> trackList,
                                   OnTrackListItemClickListener listener,
-                                  ArtistActivity.ArtistActivityListener artistActivityListener) {
+                                  ArtistDetailActivity.ArtistActivityListener artistActivityListener) {
         mTrackList = trackList;
         mListener = listener;
         mArtistActivityListener = artistActivityListener;

@@ -13,6 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.PlaylistsActivity"></activity>
+        <activity android:name=".activity.FavoriteSongsActivity" />
+        <activity android:name=".activity.FavoriteArtistsActivity" />
+        <activity android:name=".activity.TracksActivity" />
+        <activity android:name=".activity.AlbumsActivity" />
+        <activity android:name=".activity.ArtistsActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:label="ThinMP"
@@ -23,8 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AlbumActivity" />
-        <activity android:name=".activity.ArtistActivity" />
+        <activity android:name=".activity.AlbumDetailActivity" />
+        <activity android:name=".activity.ArtistDetailActivity" />
         <activity android:name=".activity.PlaylistDetailActivity" />
         <activity android:name=".activity.PlayerActivity" />
         <activity android:name=".activity.FavoriteSongEditActivity" />
@@ -34,7 +40,7 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activity.FavoriteArtistEditActivity"></activity>
+        <activity android:name=".activity.FavoriteArtistEditActivity" />
     </application>
 
 </manifest>

@@ -22,13 +22,13 @@ import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
-public class AlbumActivity extends AppCompatActivity implements AlbumTrackListAdapter.OnTrackListItemClickListener {
+public class AlbumDetailActivity extends AppCompatActivity implements AlbumTrackListAdapter.OnTrackListItemClickListener {
     private ArrayList<Track> mTrackList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_album);
+        setContentView(R.layout.activity_album_detail);
 
         String albumId = getIntent().getStringExtra("albumId");
         Album album = MusicList.getAlbum(albumId);

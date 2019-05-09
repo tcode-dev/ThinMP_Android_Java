@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import tokyo.tkw.thinmp.activity.AlbumActivity;
+import tokyo.tkw.thinmp.activity.AlbumDetailActivity;
 
 public class AlbumClickListener implements View.OnClickListener {
     private Activity mContext;
@@ -17,7 +17,7 @@ public class AlbumClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(mContext, AlbumActivity.class);
+        Intent intent = new Intent(mContext, AlbumDetailActivity.class);
         intent.putExtra("albumId", mAlbumId);
         mContext.startActivity(intent);
     }

@@ -1,12 +1,31 @@
 <resources>
     <string name="app_name">ThinMP</string>
-    <string name="title_activity_test_view">TestViewActivity</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-    <string name="hello_world">Hello Square World!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="library">Library</string>
+    <string name="artists">Artists</string>
+    <string name="albums">Albums</string>
+    <string name="tracks">Tracks</string>
+    <string name="favorite_artists">Favorite Artists</string>
+    <string name="favorite_songs">Favorite Songs</string>
+    <string name="playlists">Playlists</string>
+    <string name="playlist">Playlist</string>
+
+    <string name="edit">EDIT</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="add_favorite_artist">Add Favorite Artist</string>
+    <string name="add_favorite_song">Add Favorite Song</string>
+    <string name="remove_favorite_song">Remove Favorite Song</string>
+    <string name="add_playlist">Add Playlist</string>
+    <string name="create_playlist">playlistを作成</string>
+    <string name="create_playlist_label">プレイリスト名を入力</string>
+
+    <string-array name="library_menu">
+        <item>@string/artists</item>
+        <item>@string/albums</item>
+        <item>@string/tracks</item>
+        <item>@string/favorite_artists</item>
+        <item>@string/favorite_songs</item>
+        <item>@string/playlists</item>
+    </string-array>
 </resources>

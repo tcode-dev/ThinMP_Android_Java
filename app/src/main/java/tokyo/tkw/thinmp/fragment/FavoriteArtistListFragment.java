@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.activity.ArtistActivity;
+import tokyo.tkw.thinmp.activity.ArtistDetailActivity;
 import tokyo.tkw.thinmp.activity.FavoriteArtistEditActivity;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistListAdapter;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
@@ -25,7 +25,7 @@ public class FavoriteArtistListFragment extends Fragment {
         @Override
         public void onClick(String artistId) {
             Activity context = getActivity();
-            Intent intent = new Intent(context, ArtistActivity.class);
+            Intent intent = new Intent(context, ArtistDetailActivity.class);
             intent.putExtra("artistId", artistId);
             context.startActivity(intent);
         }

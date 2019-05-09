@@ -26,7 +26,7 @@ import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.util.ViewUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
-public class ArtistActivity extends AppCompatActivity {
+public class ArtistDetailActivity extends AppCompatActivity {
     private ArtistTrackListAdapter.OnTrackListItemClickListener mTrackListListener =
             new ArtistTrackListAdapter.OnTrackListItemClickListener() {
 
@@ -54,7 +54,7 @@ public class ArtistActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_artist);
+        setContentView(R.layout.activity_artist_detail);
 
         String artistId = getIntent().getStringExtra("artistId");
         Artist artist = MusicList.getArtist(artistId);
