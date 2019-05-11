@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:padding="6dp" />
+        android:layout_width="58dp"
+        android:layout_height="58dp" />
 
-    <TextView
-        android:id="@+id/primaryText"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="track"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/menu"
-        app:layout_constraintStart_toEndOf="@+id/thumbnail"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/secondaryText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="artist"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/menu"
-        app:layout_constraintStart_toEndOf="@+id/thumbnail"
-        app:layout_constraintTop_toBottomOf="@id/primaryText" />
+        <TextView
+            android:id="@+id/primaryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/secondaryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/menu"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
         android:padding="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/open_menu" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
