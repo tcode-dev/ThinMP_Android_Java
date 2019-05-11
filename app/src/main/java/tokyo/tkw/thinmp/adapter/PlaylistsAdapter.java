@@ -18,21 +18,21 @@ import tokyo.tkw.thinmp.playlist.PlaylistTrack;
 import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
-public class PlaylistAdapter extends RealmRecyclerViewAdapter<Playlist, ImageRowViewHolder> {
+public class PlaylistsAdapter extends RealmRecyclerViewAdapter<Playlist, ImageRowViewHolder> {
     private Activity mContext;
     private ThumbnailProvider mThumbnailProvider;
     private String mTrackId = null;
     private Runnable mCallback;
 
-    public PlaylistAdapter(Activity context, OrderedRealmCollection<Playlist> Playlists) {
-        super(Playlists, true);
+    public PlaylistsAdapter(Activity context, OrderedRealmCollection<Playlist> playlists) {
+        super(playlists, true);
 
         mContext = context;
         mThumbnailProvider = new ThumbnailProvider();
     }
 
-    public PlaylistAdapter(Activity context, OrderedRealmCollection<Playlist> Playlists, String trackId, Runnable callback) {
-        super(Playlists, true);
+    public PlaylistsAdapter(Activity context, OrderedRealmCollection<Playlist> playlists, String trackId, Runnable callback) {
+        super(playlists, true);
 
         mContext = context;
         mThumbnailProvider = new ThumbnailProvider();
@@ -73,7 +73,6 @@ public class PlaylistAdapter extends RealmRecyclerViewAdapter<Playlist, ImageRow
         } else {
             // プレイリスト一覧画面の場合
             holder.itemView.setOnClickListener(new PlaylistClickListener(mContext, playlistId));
-//        holder.menu.setOnClickListener(new OpenTrackMenuClickListener(mContext, track.getId(), title));
         }
 
     }

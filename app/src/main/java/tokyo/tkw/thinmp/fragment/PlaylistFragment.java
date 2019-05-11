@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.PlaylistAdapter;
+import tokyo.tkw.thinmp.adapter.PlaylistsAdapter;
 import tokyo.tkw.thinmp.playlist.Playlist;
 
 /**
@@ -34,7 +34,7 @@ public class PlaylistFragment extends Fragment {
         Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Playlist> playlists = realm.where(Playlist.class).findAll().sort("order");
-        PlaylistAdapter adapter = new PlaylistAdapter(context, playlists);
+        PlaylistsAdapter adapter = new PlaylistsAdapter(context, playlists);
         playlistView.setAdapter(adapter);
 
         // 区切り線の描画
