@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:baselineAligned="true"
     android:background="#ffffff"
-    android:padding="10dp">
+    android:baselineAligned="true"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <tokyo.tkw.thinmp.view.CircleImageView
         android:id="@+id/thumbnail"
@@ -14,12 +15,11 @@
 
     <TextView
         android:id="@+id/primaryText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:text="TextView"
         android:textSize="18sp"
         android:textStyle="normal" />
 
