@@ -4,7 +4,7 @@
     <string name="library">Library</string>
     <string name="artists">Artists</string>
     <string name="albums">Albums</string>
-    <string name="tracks">Tracks</string>
+    <string name="songs">Songs</string>
     <string name="favorite_artists">Favorite Artists</string>
     <string name="favorite_songs">Favorite Songs</string>
     <string name="playlists">Playlists</string>
@@ -23,7 +23,7 @@
     <string-array name="library_menu">
         <item>@string/artists</item>
         <item>@string/albums</item>
-        <item>@string/tracks</item>
+        <item>@string/songs</item>
         <item>@string/favorite_artists</item>
         <item>@string/favorite_songs</item>
         <item>@string/playlists</item>

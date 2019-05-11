@@ -38,12 +38,20 @@
                 android:clipToPadding="false"
                 android:paddingBottom="20dp"
                 android:scrollbars="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:nestedScrollingEnabled="false" />
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <fragment
+        android:id="@+id/includeMiniPlayer"
+        android:name="tokyo.tkw.thinmp.fragment.MiniPlayerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
