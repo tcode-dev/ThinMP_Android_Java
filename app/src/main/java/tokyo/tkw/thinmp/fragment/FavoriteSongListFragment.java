@@ -80,6 +80,11 @@ public class FavoriteSongListFragment extends Fragment implements FavoriteSongLi
         }
     }
 
+    @Override
+    public void onClickMenu(View view, Track track) {
+
+    }
+
     /**
      * interface
      */

@@ -1,6 +1,6 @@
 package tokyo.tkw.thinmp.menu;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
@@ -16,7 +16,7 @@ import tokyo.tkw.thinmp.music.Track;
  * メニュー
  */
 public class TrackMenu {
-    private Activity mContext;
+    private Context mContext;
     private View mView;
     private String mTrackId;
     private String mDefaultPlaylistName;
@@ -50,7 +50,7 @@ public class TrackMenu {
         }
     };
 
-    public TrackMenu(Activity context, View view, Track track) {
+    public TrackMenu(Context context, View view, Track track) {
         mContext = context;
         mView = view;
         mTrackId = track.getId();

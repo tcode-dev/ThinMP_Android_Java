@@ -43,6 +43,7 @@ public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSo
         holder.artist.setText(track.getArtistName());
 
         holder.itemView.setOnClickListener(onClickListener(position));
+        holder.menu.setOnClickListener(openMenuButtonClickListener(track));
     }
 
     private Track getTrack(String id) {
@@ -59,9 +60,25 @@ public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSo
     }
 
     /**
+     * メニューオープンのイベント
+     *
+     * @return
+     */
+    public View.OnClickListener openMenuButtonClickListener(Track track) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onClickMenu(view, track);
+            }
+        };
+    }
+
+    /**
      * interface
      */
     public interface OnFavoriteListItemClickListener {
         void onClickItem(int position);
+
+        void onClickMenu(View view, Track track);
     }
 }
