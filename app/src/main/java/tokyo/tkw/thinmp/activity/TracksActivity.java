@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.TrackListAdapter;
@@ -22,7 +23,11 @@ public class TracksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracks);
 
-        RecyclerView listView = findViewById(R.id.list);
+        initList();
+    }
+
+    private void initList() {
+        RecyclerView listView = findViewById(R.id.main);
 
         TrackListAdapter adapter = new TrackListAdapter(MusicList.getTrackList(),
                 trackListItemClickListener(this));
