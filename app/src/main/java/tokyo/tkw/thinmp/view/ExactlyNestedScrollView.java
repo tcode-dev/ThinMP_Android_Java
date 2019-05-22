@@ -6,9 +6,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * NestedScrollViewにRecyclerViewを配置すると要素が全て展開されるので必要な個数のみ（displayの高さ分っぽい）展開する
- * MeasureSpec.EXACTLY : sizeで指定した値に幅（高さ）を設定すること。子Viewもこの範囲に収まるようにサイズを決める。
- * MeasureSpec.UNSPECIFIED : 特に指定なし。自由で構いません
+ * NestedScrollViewにRecyclerViewを配置すると要素が全て展開されるので必要な個数のみ展開する
+ * MeasureSpec.EXACTLY : sizeで指定した値に幅（高さ）を設定する。子Viewもこの範囲に収まるようにサイズを決める。
+ * MeasureSpec.UNSPECIFIED : 指定なし。子viewが全て展開される
  * MeasureSpec.AT_MOST : sizeで指定した値以下にする。子Viewもそれ前提でサイズを決める
  */
 public class ExactlyNestedScrollView extends NestedScrollView {
