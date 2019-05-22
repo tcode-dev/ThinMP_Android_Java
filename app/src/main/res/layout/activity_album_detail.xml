@@ -124,7 +124,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
+        <tokyo.tkw.thinmp.view.ExactlyNestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -135,12 +135,12 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="true"
                 android:paddingStart="20dp"
                 android:scrollbars="vertical" />
 
-        </android.support.v4.widget.NestedScrollView>
+        </tokyo.tkw.thinmp.view.ExactlyNestedScrollView>
 
     </android.support.design.widget.CoordinatorLayout>
 
