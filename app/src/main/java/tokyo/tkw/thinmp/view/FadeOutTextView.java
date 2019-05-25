@@ -2,14 +2,17 @@ package tokyo.tkw.thinmp.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.util.AttributeSet;
 import android.view.ViewParent;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
+
+import com.google.android.material.appbar.AppBarLayout;
+
 import tokyo.tkw.thinmp.R;
 
-public class FadeOutTextView extends android.support.v7.widget.AppCompatTextView {
+public class FadeOutTextView extends AppCompatTextView {
     private static final float DEFAULT_START = 0;
     private static final float DEFAULT_END = 1;
     private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;

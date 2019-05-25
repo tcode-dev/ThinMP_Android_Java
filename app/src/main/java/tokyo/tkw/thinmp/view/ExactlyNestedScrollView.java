@@ -1,9 +1,10 @@
 package tokyo.tkw.thinmp.view;
 
 import android.content.Context;
-import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.core.widget.NestedScrollView;
 
 /**
  * NestedScrollViewにRecyclerViewを配置すると要素が全て展開されるので必要な個数のみ展開する

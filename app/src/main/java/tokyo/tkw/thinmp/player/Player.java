@@ -1,17 +1,17 @@
 package tokyo.tkw.thinmp.player;
 
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.renderscript.RenderScript;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SeekBar;
 
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
-import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;

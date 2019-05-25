@@ -5,8 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.text.Layout;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -14,6 +12,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+
+import androidx.annotation.Nullable;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ViewUtil;

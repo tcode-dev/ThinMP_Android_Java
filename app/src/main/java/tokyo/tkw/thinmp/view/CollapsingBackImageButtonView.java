@@ -1,11 +1,13 @@
 package tokyo.tkw.thinmp.view;
 
 import android.content.Context;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewParent;
+
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 import tokyo.tkw.thinmp.R;
 

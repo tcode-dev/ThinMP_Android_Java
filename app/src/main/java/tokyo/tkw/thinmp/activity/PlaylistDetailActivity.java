@@ -1,10 +1,11 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class PlaylistDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_playlist_detail);
 
         int playlistId = getIntent().getIntExtra("playlistId", 0);
-        RecyclerView view = findViewById(R.id.playlist);
+        RecyclerView view = findViewById(R.id.main);
         LinearLayoutManager layout = new LinearLayoutManager(this);
         view.setLayoutManager(layout);
 

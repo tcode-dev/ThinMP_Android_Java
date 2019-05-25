@@ -2,12 +2,14 @@ package tokyo.tkw.thinmp.view;
 
 import android.content.Context;
 import android.graphics.Outline;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 
-public class CircleImageView extends android.support.v7.widget.AppCompatImageView {
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+
+public class CircleImageView extends AppCompatImageView {
     public CircleImageView(Context context) {
         super(context);
 

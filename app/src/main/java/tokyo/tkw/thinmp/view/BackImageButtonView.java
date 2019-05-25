@@ -6,7 +6,9 @@ import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 
-public class BackImageButtonView extends android.support.v7.widget.AppCompatImageButton {
+import androidx.appcompat.widget.AppCompatImageButton;
+
+public class BackImageButtonView extends AppCompatImageButton {
     public BackImageButtonView(Context context) {
         super(context);
     }

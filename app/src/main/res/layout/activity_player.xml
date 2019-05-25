@@ -16,12 +16,12 @@
         android:layout_height="match_parent"
         android:background="#ffffff">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="20dp">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="360dp">
@@ -93,14 +93,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/trackName" />
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/duration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -152,9 +152,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/seekBar" />
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/primaryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -239,9 +239,9 @@
 
                     </FrameLayout>
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/secondaryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -251,7 +251,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/primaryButton"
                     tools:layout_editor_absoluteX="16dp">
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/repeat"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
@@ -308,9 +308,9 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/repeat_one_ultra_violet" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/shuffle"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
@@ -347,9 +347,9 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/shuffle_off_ultra_violet" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/favoriteSong"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
@@ -384,9 +384,9 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/favorite_song_off_ultra_violet" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/favoriteArtist"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
@@ -421,9 +421,9 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/favorite_artist_off_ultra_violet" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/playlist"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
@@ -440,10 +440,14 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/playlist_ultra_violet" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </android.support.constraint.ConstraintLayout>
-            </android.support.constraint.ConstraintLayout>
-        </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
+
 </layout>

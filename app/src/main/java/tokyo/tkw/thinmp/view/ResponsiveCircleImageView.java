@@ -3,10 +3,12 @@ package tokyo.tkw.thinmp.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.util.AttributeSet;
 import android.view.ViewParent;
+
+import androidx.annotation.Nullable;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.ViewUtil;

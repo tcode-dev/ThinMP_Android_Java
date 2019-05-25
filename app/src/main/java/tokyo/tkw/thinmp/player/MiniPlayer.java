@@ -1,10 +1,11 @@
 package tokyo.tkw.thinmp.player;
 
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 
 import java.util.Timer;
 import java.util.TimerTask;
