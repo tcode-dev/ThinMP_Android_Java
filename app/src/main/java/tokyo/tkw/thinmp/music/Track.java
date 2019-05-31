@@ -1,9 +1,11 @@
 package tokyo.tkw.thinmp.music;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import java.io.Serializable;
 
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 import tokyo.tkw.thinmp.util.TimeUtil;
 
 /**
@@ -62,6 +64,10 @@ public class Track implements Serializable {
 
     public String getThumbnailId() {
         return thumbnailId;
+    }
+
+    public Bitmap getThumbnail() {
+        return new ThumbnailProvider().getThumbnail(thumbnailId);
     }
 
     public int getDurationSecond() {

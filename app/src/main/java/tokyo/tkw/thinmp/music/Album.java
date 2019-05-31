@@ -1,6 +1,10 @@
 package tokyo.tkw.thinmp.music;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
+
+import tokyo.tkw.thinmp.provider.ThumbnailProvider;
 
 /**
  * Album
@@ -35,6 +39,10 @@ public class Album {
 
     public String getThumbnailId() {
         return thumbnailId;
+    }
+
+    public Bitmap getThumbnail() {
+        return new ThumbnailProvider().getThumbnail(id);
     }
 
     public ArrayList<String> getTrackIdList() {

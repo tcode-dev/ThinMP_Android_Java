@@ -14,7 +14,8 @@ import tokyo.tkw.thinmp.R;
 
 @EpoxyModelClass(layout = R.layout.header)
 public abstract class HeaderModel extends EpoxyModelWithHolder<HeaderModel.Holder> {
-    @EpoxyAttribute String title;
+    @EpoxyAttribute
+    String title;
 
     @Override
     public void bind(@NonNull Holder holder) {
