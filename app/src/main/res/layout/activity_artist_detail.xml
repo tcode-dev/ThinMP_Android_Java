@@ -125,8 +125,7 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
+        <tokyo.tkw.thinmp.view.ExactlyNestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -139,11 +138,11 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
+                android:nestedScrollingEnabled="true"
                 android:paddingLeft="20dp"
                 android:scrollbars="vertical" />
 
-        </androidx.core.widget.NestedScrollView>
+        </tokyo.tkw.thinmp.view.ExactlyNestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
