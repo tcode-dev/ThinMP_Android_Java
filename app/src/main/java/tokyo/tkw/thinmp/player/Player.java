@@ -105,11 +105,7 @@ public class Player {
         Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(track.getThumbnailId());
         this.mBinding.thumbnail.setImageBitmap(thumbnailBitmap);
         // 背景画像
-        Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true);
-        RenderScript rs = RenderScript.create(ActivityUtil.getContext());
-        RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
-        Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f, 3);
-        this.mBinding.background.setImageBitmap(blurBitMap);
+        this.mBinding.background.setImageBitmap(thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true));
         // リピート
         setRepeat(state.getRepeat());
         // シャッフル

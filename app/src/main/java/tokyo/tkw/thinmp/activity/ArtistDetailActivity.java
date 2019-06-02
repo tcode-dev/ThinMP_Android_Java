@@ -34,11 +34,7 @@ public class ArtistDetailActivity extends AppCompatActivity {
 
         // 背景画像
         ImageView backgroundView = findViewById(R.id.background);
-        Bitmap backgroundBitmap = thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true);
-        RenderScript rs = RenderScript.create(this);
-        RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
-        Bitmap blurBitMap = rsBlurProcessor.blur(backgroundBitmap, 20f, 3);
-        backgroundView.setImageBitmap(blurBitMap);
+        backgroundView.setImageBitmap(thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true));
 
         // タイトル
         ResponsiveTextView titleView = findViewById(R.id.title);

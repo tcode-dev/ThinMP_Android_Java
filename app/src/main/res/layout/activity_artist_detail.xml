@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <tokyo.tkw.thinmp.view.BlurImageView
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="330dp"
