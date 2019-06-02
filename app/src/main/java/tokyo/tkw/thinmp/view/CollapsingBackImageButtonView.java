@@ -19,16 +19,8 @@ public class CollapsingBackImageButtonView extends BackImageButtonView {
     private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
     private int mActualScrollRange;
 
-    public CollapsingBackImageButtonView(Context context) {
-        super(context);
-    }
-
     public CollapsingBackImageButtonView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public CollapsingBackImageButtonView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
     }
 
     @Override

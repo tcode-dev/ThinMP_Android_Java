@@ -4,39 +4,26 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
-import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 
 public class BackImageButtonView extends AppCompatImageButton {
-    public BackImageButtonView(Context context) {
-        super(context);
-    }
-
     public BackImageButtonView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public BackImageButtonView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        this.setOnClickListener(new View.OnClickListener() {
+        this.setOnClickListener(v -> {
+            Context context = getContext();
 
-            @Override
-            public void onClick(View v) {
-                Context context = getContext();
-
-                if (context instanceof Activity) {
-                    ((Activity) context).finish();
-                } else if (context instanceof ContextThemeWrapper) {
-                    // CollapsingToolbarLayoutの中だとContextThemeWrapperが返ってくる
-                    ((Activity) ((ContextThemeWrapper) context).getBaseContext()).finish();
-                }
+            if (context instanceof Activity) {
+                ((Activity) context).finish();
+            } else if (context instanceof ContextThemeWrapper) {
+                // CollapsingToolbarLayoutの中だとContextThemeWrapperが返ってくる
+                ((Activity) ((ContextThemeWrapper) context).getBaseContext()).finish();
             }
         });
     }

@@ -10,20 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
 public class CircleImageView extends AppCompatImageView {
-    public CircleImageView(Context context) {
-        super(context);
-
-        initSet();
-    }
-
     public CircleImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
-        initSet();
-    }
-
-    public CircleImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
 
         initSet();
     }
