@@ -1,20 +1,23 @@
 package tokyo.tkw.thinmp.activity;
 
-import android.graphics.Bitmap;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-import android.renderscript.RenderScript;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistDetailController;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.MusicList;
-import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
+
+import static android.net.Uri.parse;
 
 public class ArtistDetailActivity extends AppCompatActivity {
     @Override
@@ -27,14 +30,15 @@ public class ArtistDetailActivity extends AppCompatActivity {
         // artist取得
         Artist artist = MusicList.getArtist(artistId);
 
-        // サムネイル
-        ImageView thumbnailView = findViewById(R.id.thumbnail);
-        Bitmap thumbnailBitmap = artist.getThumbnail();
-        thumbnailView.setImageBitmap(thumbnailBitmap);
+        Uri uri = parse("content://media/external/audio/albumart/" + artist.getThumbnailIdList().get(0));
 
         // 背景画像
         ImageView backgroundView = findViewById(R.id.background);
-        backgroundView.setImageBitmap(thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true));
+        Glide.with((Context) this).asBitmap().load(uri).into(backgroundView);
+
+        // サムネイル
+        ImageView thumbnailView = findViewById(R.id.thumbnail);
+        Glide.with((Context) this).load(uri).into(thumbnailView);
 
         // タイトル
         ResponsiveTextView titleView = findViewById(R.id.title);

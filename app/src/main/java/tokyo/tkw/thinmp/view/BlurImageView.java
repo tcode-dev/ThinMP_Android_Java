@@ -32,6 +32,10 @@ public class BlurImageView extends AppCompatImageView {
 
     @Override
     public void setImageBitmap(Bitmap bm) {
+        if (bm == null) {
+            return;
+        }
+
         RenderScript rs = RenderScript.create(getContext());
         RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
         Bitmap blurBitMap = rsBlurProcessor.blur(bm, mRadius, mRepeat);

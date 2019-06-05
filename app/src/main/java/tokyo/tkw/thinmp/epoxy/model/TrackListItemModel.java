@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.epoxy.model;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,9 +12,7 @@ import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyHolder;
 import com.airbnb.epoxy.EpoxyModelClass;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
-import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
+import com.bumptech.glide.Glide;
 
 import tokyo.tkw.thinmp.R;
 
@@ -35,7 +32,7 @@ public abstract class TrackListItemModel extends EpoxyModelWithHolder<TrackListI
     public void bind(@NonNull Holder holder) {
         holder.parent.setOnClickListener(clickListener);
         Uri uri = parse("content://media/external/audio/albumart/" + thumbnailId);
-        Picasso.get().load(uri).into(holder.thumbnail);
+        Glide.with(holder.thumbnail).load(uri).into(holder.thumbnail);
         holder.trackName.setText(trackName);
     }
 
