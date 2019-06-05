@@ -42,7 +42,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.airbnb.android:epoxy:3.5.1'
     annotationProcessor 'com.airbnb.android:epoxy-processor:3.5.1'
-    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 }
