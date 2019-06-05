@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.epoxy.model;
 
-import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -12,11 +11,10 @@ import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyHolder;
 import com.airbnb.epoxy.EpoxyModelClass;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
-import com.bumptech.glide.Glide;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.util.GlideUtil;
 
-import static android.net.Uri.parse;
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
 @EpoxyModelClass(layout = R.layout.artist_track_list_item)
@@ -31,8 +29,7 @@ public abstract class TrackListItemModel extends EpoxyModelWithHolder<TrackListI
     @Override
     public void bind(@NonNull Holder holder) {
         holder.parent.setOnClickListener(clickListener);
-        Uri uri = parse("content://media/external/audio/albumart/" + thumbnailId);
-        Glide.with(holder.thumbnail).load(uri).into(holder.thumbnail);
+        GlideUtil.thumbnail(holder.thumbnail.getContext(), thumbnailId, holder.thumbnail);
         holder.trackName.setText(trackName);
     }
 

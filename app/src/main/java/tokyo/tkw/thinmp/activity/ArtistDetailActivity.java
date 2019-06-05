@@ -15,6 +15,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistDetailController;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.MusicList;
+import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 import static android.net.Uri.parse;
@@ -38,7 +39,7 @@ public class ArtistDetailActivity extends AppCompatActivity {
 
         // サムネイル
         ImageView thumbnailView = findViewById(R.id.thumbnail);
-        Glide.with((Context) this).load(uri).into(thumbnailView);
+        GlideUtil.thumbnail(this, artist.getThumbnailIdList().get(0), thumbnailView);
 
         // タイトル
         ResponsiveTextView titleView = findViewById(R.id.title);
