@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.util;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
@@ -44,7 +43,7 @@ public class GlideUtil {
 
     public static void bitmap(ArrayList<String> thumbnailIdList, ImageView view,
                               int resourceId) {
-        DoGlide glide = new DoGlide(view.getContext(), thumbnailIdList, view, resourceId);
+        DoGlide glide = new DoGlide(thumbnailIdList, view, resourceId);
         glide.exec();
     }
 
@@ -53,14 +52,12 @@ public class GlideUtil {
     }
 
     private static class DoGlide {
-        private Context mContext;
         private Iterator mIterator;
         private ImageView mView;
         private int mResourceId;
 
-        public DoGlide(Context context, ArrayList<String> thumbnailIdList, ImageView view,
+        public DoGlide(ArrayList<String> thumbnailIdList, ImageView view,
                        int resourceId) {
-            mContext = context;
             mIterator = thumbnailIdList.iterator();
             mView = view;
             mResourceId = resourceId;
@@ -68,7 +65,7 @@ public class GlideUtil {
 
         public void exec() {
             if (mIterator.hasNext()) {
-                Glide.with(mContext).asBitmap().load(createUri((String) mIterator.next())).listener(new RequestListener<Bitmap>() {
+                Glide.with(mView).asBitmap().load(createUri((String) mIterator.next())).listener(new RequestListener<Bitmap>() {
                     Handler handler = new Handler();
 
                     @Override
@@ -86,7 +83,7 @@ public class GlideUtil {
                     }
                 }).into(mView);
             } else {
-                Glide.with(mContext).asBitmap().load(mResourceId).into(mView);
+                Glide.with(mView).asBitmap().load(mResourceId).into(mView);
             }
         }
     }
