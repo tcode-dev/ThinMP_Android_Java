@@ -10,12 +10,12 @@ import tokyo.tkw.thinmp.R;
 
 public class ArtistViewHolder extends RecyclerView.ViewHolder {
     public ImageView thumbnail;
-    public TextView artist;
+    public TextView artistName;
 
     public ArtistViewHolder(View view) {
         super(view);
 
         thumbnail = view.findViewById(R.id.thumbnail);
-        artist = view.findViewById(R.id.primaryText);
+        artistName = view.findViewById(R.id.artistName);
     }
 }

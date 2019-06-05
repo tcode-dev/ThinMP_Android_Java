@@ -12,6 +12,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteArtist;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.MusicList;
+import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
 public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
@@ -34,8 +35,8 @@ public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHo
         final Artist artist = getArtist(favorite.getArtistId());
         String title = artist.getName();
 
-        holder.thumbnail.setImageBitmap(artist.getThumbnail());
-        holder.artist.setText(title);
+        GlideUtil.bitmap(artist.getThumbnailIdList(), holder.thumbnail);
+        holder.artistName.setText(title);
     }
 
     @Override

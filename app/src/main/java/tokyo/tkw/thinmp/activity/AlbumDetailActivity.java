@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.activity;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import android.view.View;
@@ -21,7 +20,7 @@ import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.ThumbnailProvider;
+import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class AlbumDetailActivity extends AppCompatActivity implements AlbumTrackListAdapter.OnTrackListItemClickListener {
@@ -37,8 +36,7 @@ public class AlbumDetailActivity extends AppCompatActivity implements AlbumTrack
 
         // サムネイル
         ImageView thumbnailView = findViewById(R.id.thumbnail);
-        Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(album.getThumbnailId());
-        thumbnailView.setImageBitmap(thumbnailBitmap);
+        GlideUtil.bitmap(album.getThumbnailId(), thumbnailView);
 
         // アルバム名
         ResponsiveTextView titleView = findViewById(R.id.title);

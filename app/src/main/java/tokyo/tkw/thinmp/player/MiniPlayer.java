@@ -12,7 +12,7 @@ import java.util.TimerTask;
 
 import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.ThumbnailProvider;
+import tokyo.tkw.thinmp.util.GlideUtil;
 
 /**
  * 画面下のミニプレイヤー
@@ -76,7 +76,7 @@ public class MiniPlayer {
      */
     private void changeTrack(Track track) {
         this.trackName.set(track.getTitle());
-        this.mBinding.thumbnail.setImageBitmap(new ThumbnailProvider().getThumbnail(track.getThumbnailId()));
+        GlideUtil.bitmap(track.getThumbnailId(), this.mBinding.thumbnail);
         this.mDurationMSecond = track.getDurationSecond() * 1000;
     }
 

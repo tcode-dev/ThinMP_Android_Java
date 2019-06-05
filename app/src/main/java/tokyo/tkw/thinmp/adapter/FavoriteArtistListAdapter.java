@@ -10,6 +10,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteArtist;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.MusicList;
+import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
 public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<FavoriteArtist, ArtistViewHolder> {
@@ -33,8 +34,8 @@ public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<Favorite
         final FavoriteArtist favorite = getItem(position);
         final Artist artist = getArtist(favorite.getArtistId());
 
-        holder.thumbnail.setImageBitmap(artist.getThumbnail());
-        holder.artist.setText(artist.getName());
+        GlideUtil.bitmap(artist.getThumbnailIdList(), holder.thumbnail);
+        holder.artistName.setText(artist.getName());
 
         holder.itemView.setOnClickListener(onClickListener(artist.getId()));
     }

@@ -13,14 +13,17 @@ import com.airbnb.epoxy.EpoxyHolder;
 import com.airbnb.epoxy.EpoxyModelClass;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
 
+import java.util.ArrayList;
+
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.util.GlideUtil;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
 @EpoxyModelClass(layout = R.layout.artist_list_item)
 public abstract class ArtistListItemModel extends EpoxyModelWithHolder<ArtistListItemModel.Holder> {
     @EpoxyAttribute
-    Bitmap thumbnail;
+    ArrayList<String> thumbnailIdList;
     @EpoxyAttribute
     String artistName;
     @EpoxyAttribute(DoNotHash)
@@ -29,7 +32,7 @@ public abstract class ArtistListItemModel extends EpoxyModelWithHolder<ArtistLis
     @Override
     public void bind(@NonNull Holder holder) {
         holder.parent.setOnClickListener(clickListener);
-        holder.thumbnail.setImageBitmap(thumbnail);
+        GlideUtil.bitmap(thumbnailIdList, holder.thumbnail);
         holder.artistName.setText(artistName);
     }
 

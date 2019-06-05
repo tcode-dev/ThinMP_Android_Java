@@ -24,7 +24,7 @@ public class ArtistsController extends Typed2EpoxyController<ArtistsController.D
             new ArtistListItemModel_()
                     .id(artist.getId())
                     .artistName(artist.getName())
-                    .thumbnail(artist.getThumbnail())
+                    .thumbnailIdList(artist.getThumbnailIdList())
                     .clickListener(new ArtistClickListener(context, artist.getId()))
                     .addTo(this);
         }

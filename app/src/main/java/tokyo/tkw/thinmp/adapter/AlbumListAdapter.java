@@ -13,17 +13,15 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.music.Album;
-import tokyo.tkw.thinmp.provider.ThumbnailProvider;
+import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.AlbumListViewHolder;
 
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListViewHolder> {
     private Activity mContext;
-    private ThumbnailProvider mThumbnailProvider;
     private ArrayList<Album> mAlbumList;
 
     public AlbumListAdapter(@NonNull Activity context, @NonNull ArrayList<Album> albumList) {
         mContext = context;
-        mThumbnailProvider = new ThumbnailProvider();
         mAlbumList = albumList;
     }
 
@@ -39,7 +37,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListViewHolder> 
     public void onBindViewHolder(AlbumListViewHolder holder, int position) {
         Album album = mAlbumList.get(position);
 
-        holder.thumbnail.setImageBitmap(mThumbnailProvider.getThumbnail(album.getThumbnailId()));
+        GlideUtil.bitmap(album.getThumbnailId(), holder.thumbnail);
         holder.albumName.setText(album.getName());
         holder.artistName.setText(album.getArtistName());
 

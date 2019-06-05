@@ -1,7 +1,6 @@
 package tokyo.tkw.thinmp.player;
 
 import android.graphics.Bitmap;
-import android.renderscript.RenderScript;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SeekBar;
@@ -16,9 +15,7 @@ import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.plugin.RSBlurProcessor;
-import tokyo.tkw.thinmp.provider.ThumbnailProvider;
-import tokyo.tkw.thinmp.util.ActivityUtil;
+import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.util.TimeUtil;
 
 /**
@@ -101,11 +98,10 @@ public class Player {
         this.mDurationMSecond = track.getDurationSecond() * 1000;
         // 再生中
         this.isPlaying.set(state.isPlaying());
-        // サムネイル
-        Bitmap thumbnailBitmap = new ThumbnailProvider().getThumbnail(track.getThumbnailId());
-        this.mBinding.thumbnail.setImageBitmap(thumbnailBitmap);
         // 背景画像
-        this.mBinding.background.setImageBitmap(thumbnailBitmap.copy(Bitmap.Config.ARGB_8888, true));
+        GlideUtil.bitmap(track.getThumbnailId(), this.mBinding.background);
+        // サムネイル
+        GlideUtil.bitmap(track.getThumbnailId(), this.mBinding.thumbnail);
         // リピート
         setRepeat(state.getRepeat());
         // シャッフル

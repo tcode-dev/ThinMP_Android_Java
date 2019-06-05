@@ -11,14 +11,13 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.ThumbnailProvider;
+import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TitleViewHolder;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int VIEW_TYPE_TITLE = 1;
     private final static int VIEW_TYPE_TRACK = 2;
-    private ThumbnailProvider mThumbnailProvider;
     private OnTrackListItemClickListener mListener;
     private int mItemCount;
 
@@ -26,7 +25,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public TrackListAdapter(@NonNull ArrayList<Track> trackList,
                             OnTrackListItemClickListener listener) {
-        mThumbnailProvider = new ThumbnailProvider();
         mTrackList = trackList;
         mListener = listener;
         mItemCount = mTrackList.size() + 1;
@@ -78,7 +76,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         Track track = mTrackList.get(position);
         String title = track.getTitle();
 
-        trackViewHolder.thumbnail.setImageBitmap(mThumbnailProvider.getThumbnail(track.getThumbnailId()));
+        GlideUtil.bitmap(track.getThumbnailId(), trackViewHolder.thumbnail);
         trackViewHolder.track.setText(title);
         trackViewHolder.artist.setText(track.getArtistName());
 
