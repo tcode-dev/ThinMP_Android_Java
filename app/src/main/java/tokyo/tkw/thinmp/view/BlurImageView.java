@@ -28,6 +28,8 @@ public class BlurImageView extends AppCompatImageView {
 
         mRadius = typedArray.getFloat(R.styleable.Blur_blurRadius, RADIUS);
         mRepeat = typedArray.getInt(R.styleable.Blur_blurRepeat, REPEAT);
+
+        typedArray.recycle();
     }
 
     @Override

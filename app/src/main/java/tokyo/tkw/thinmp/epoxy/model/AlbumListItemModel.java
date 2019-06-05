@@ -29,7 +29,7 @@ public abstract class AlbumListItemModel extends EpoxyModelWithHolder<AlbumListI
     @Override
     public void bind(@NonNull Holder holder) {
         holder.parent.setOnClickListener(clickListener);
-        GlideUtil.thumbnail(holder.thumbnail.getContext(), thumbnailId, holder.thumbnail);
+        GlideUtil.bitmap(thumbnailId, holder.thumbnail);
         holder.albumName.setText(albumName);
     }
 
