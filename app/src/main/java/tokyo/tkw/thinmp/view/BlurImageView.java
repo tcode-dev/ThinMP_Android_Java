@@ -40,7 +40,8 @@ public class BlurImageView extends AppCompatImageView {
 
         RenderScript rs = RenderScript.create(getContext());
         RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
-        Bitmap blurBitMap = rsBlurProcessor.blur(bm, mRadius, mRepeat);
+        Bitmap blurBitMap = rsBlurProcessor.blur(bm.copy(Bitmap.Config.ARGB_8888, true), mRadius,
+                mRepeat);
 
         super.setImageBitmap(blurBitMap);
     }
