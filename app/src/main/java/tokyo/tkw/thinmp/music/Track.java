@@ -9,7 +9,7 @@ import tokyo.tkw.thinmp.util.TimeUtil;
 /**
  * 曲
  */
-public class Track implements Serializable {
+public class Track extends Music implements Serializable {
     private String id;
     private String title;
     private Uri uri;

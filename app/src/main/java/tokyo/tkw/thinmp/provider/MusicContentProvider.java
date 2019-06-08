@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.Music;
+import tokyo.tkw.thinmp.music.Track;
 
 import static android.net.Uri.parse;
 
@@ -80,8 +81,17 @@ public abstract class MusicContentProvider<T extends Music> {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
     }
 
+    //サムネイルはアルバムアートを使用する
+    protected String getThumbnailId() {
+        return getAlbumId();
+    }
+
     protected int getDuration() {
         return mCursor.getInt(mCursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
+    }
+
+    protected Artist getArtist() {
+        return new Artist(getArtistId(), getArtistName());
     }
 
     protected Album getAlbum() {
@@ -89,8 +99,8 @@ public abstract class MusicContentProvider<T extends Music> {
                 getAlbumId());
     }
 
-    protected Artist getArtist() {
-        return new Artist(getArtistId(), getArtistName());
+    protected Track getTrack() {
+        return new Track(getId(), getTitle(), getUri(), getArtistId(), getArtistName(), getAlbumId(), getAlbumName(), getThumbnailId(), getDuration());
     }
 
     private void init() {

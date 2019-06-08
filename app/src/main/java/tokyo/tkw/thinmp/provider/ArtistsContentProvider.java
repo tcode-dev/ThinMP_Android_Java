@@ -17,7 +17,8 @@ public class ArtistsContentProvider extends MusicContentProvider<Artist> {
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[]{
                         "DISTINCT " + MediaStore.Audio.Media.ARTIST_ID,
-                        MediaStore.Audio.Media.ARTIST},
+                        MediaStore.Audio.Media.ARTIST
+                },
                 MediaStore.Audio.Media.IS_MUSIC + " = 1",
                 null,
                 MediaStore.Audio.Media.ARTIST + " ASC"

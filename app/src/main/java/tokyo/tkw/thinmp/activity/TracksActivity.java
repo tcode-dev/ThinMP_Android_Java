@@ -10,14 +10,18 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.TrackListAdapter;
 import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
 import tokyo.tkw.thinmp.menu.TrackMenu;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.provider.TracksContentProvider;
 
 public class TracksActivity extends AppCompatActivity {
+    private ArrayList<Track> mTrackList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +33,10 @@ public class TracksActivity extends AppCompatActivity {
     private void initList() {
         RecyclerView listView = findViewById(R.id.main);
 
-        TrackListAdapter adapter = new TrackListAdapter(MusicList.getTrackList(),
+        TracksContentProvider tracksContentProvider = new TracksContentProvider(this);
+        mTrackList = tracksContentProvider.getList();
+
+        TrackListAdapter adapter = new TrackListAdapter(mTrackList,
                 trackListItemClickListener(this));
         LinearLayoutManager layout = new LinearLayoutManager(this);
         listView.setLayoutManager(layout);
@@ -49,7 +56,7 @@ public class TracksActivity extends AppCompatActivity {
                 Fragment fragment =
                         getSupportFragmentManager().findFragmentById(R.id.includeMiniPlayer);
                 if (fragment instanceof MiniPlayerFragment) {
-                    ((MiniPlayerFragment) fragment).start(MusicList.getTrackList(), position);
+                    ((MiniPlayerFragment) fragment).start(mTrackList, position);
                 }
             }
 

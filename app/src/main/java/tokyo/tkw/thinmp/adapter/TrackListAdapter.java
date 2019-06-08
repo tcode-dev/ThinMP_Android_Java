@@ -72,15 +72,16 @@ public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     private void bindTrackViewHolder(RecyclerView.ViewHolder holder, int position) {
+        int trackPosition = position - 1;
         TrackViewHolder trackViewHolder = (TrackViewHolder) holder;
-        Track track = mTrackList.get(position);
+        Track track = mTrackList.get(trackPosition);
         String title = track.getTitle();
 
         GlideUtil.bitmap(track.getThumbnailId(), trackViewHolder.thumbnail);
         trackViewHolder.track.setText(title);
         trackViewHolder.artist.setText(track.getArtistName());
 
-        trackViewHolder.itemView.setOnClickListener(listItemClickListener(position));
+        trackViewHolder.itemView.setOnClickListener(listItemClickListener(trackPosition));
         trackViewHolder.menu.setOnClickListener(openMenuButtonClickListener(track));
     }
 
