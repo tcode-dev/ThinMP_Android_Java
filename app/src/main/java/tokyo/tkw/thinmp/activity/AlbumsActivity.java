@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
+import tokyo.tkw.thinmp.provider.AlbumsContentProvider;
 
 public class AlbumsActivity extends AppCompatActivity {
 
@@ -19,7 +20,8 @@ public class AlbumsActivity extends AppCompatActivity {
 
         RecyclerView listView = findViewById(R.id.list);
 
-        AlbumListAdapter adapter = new AlbumListAdapter(this, MusicList.getAlbumList());
+        AlbumsContentProvider albumsContentProvider = new AlbumsContentProvider(this);
+        AlbumListAdapter adapter = new AlbumListAdapter(this, albumsContentProvider.getList());
         GridLayoutManager layout = new GridLayoutManager(this, 2);
         listView.setLayoutManager(layout);
         listView.setAdapter(adapter);

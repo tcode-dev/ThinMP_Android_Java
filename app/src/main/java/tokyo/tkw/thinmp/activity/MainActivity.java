@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setList() {
         RecyclerView list = findViewById(R.id.list);
-        AlbumsContentProvider albumContentProvider = new AlbumsContentProvider(this);
-        AlbumListAdapter adapter = new AlbumListAdapter(this, albumContentProvider.getList());
+        AlbumsContentProvider albumsContentProvider = new AlbumsContentProvider(this);
+        AlbumListAdapter adapter = new AlbumListAdapter(this, albumsContentProvider.getList());
         GridLayoutManager layout = new GridLayoutManager(this, 2);
 
         list.setLayoutManager(layout);
