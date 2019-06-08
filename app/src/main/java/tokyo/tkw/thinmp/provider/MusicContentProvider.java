@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
+import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Music;
 
 import static android.net.Uri.parse;
@@ -22,8 +23,22 @@ public abstract class MusicContentProvider<T extends Music> {
     protected Context mContext;
     private Cursor mCursor;
 
+    abstract Cursor createCursor();
+
+    abstract T fetch();
+
     public MusicContentProvider(Context context) {
         mContext = context;
+    }
+
+    public T get() {
+        init();
+
+        T target = fetch();
+
+        destroy();
+
+        return target;
     }
 
     public ArrayList<T> getList() {
@@ -35,10 +50,6 @@ public abstract class MusicContentProvider<T extends Music> {
 
         return list;
     }
-
-    abstract Cursor createCursor();
-
-    abstract T fetch();
 
     protected String getId() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media._ID));
@@ -70,6 +81,11 @@ public abstract class MusicContentProvider<T extends Music> {
 
     protected int getDuration() {
         return mCursor.getInt(mCursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
+    }
+
+    protected Album getAlbum() {
+        return new Album(getAlbumId(), getAlbumName(), getArtistId(), getArtistName(),
+                getAlbumId());
     }
 
     private void init() {

@@ -6,8 +6,8 @@ import android.provider.MediaStore;
 
 import tokyo.tkw.thinmp.music.Album;
 
-public class AlbumContentProvider extends MusicContentProvider<Album> {
-    public AlbumContentProvider(Context context) {
+public class AlbumsContentProvider extends MusicContentProvider<Album> {
+    public AlbumsContentProvider(Context context) {
         super(context);
     }
 
@@ -22,12 +22,12 @@ public class AlbumContentProvider extends MusicContentProvider<Album> {
                         MediaStore.Audio.Media.ARTIST},
                 MediaStore.Audio.Media.IS_MUSIC + " = 1",
                 null,
-                null
+                MediaStore.Audio.Media._ID + " desc"
         );
     }
 
     @Override
     Album fetch() {
-        return new Album(getAlbumId(), getAlbumName(), getArtistId(), getArtistName(), getAlbumId());
+        return getAlbum();
     }
 }

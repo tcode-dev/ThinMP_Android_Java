@@ -14,7 +14,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.adapter.LibraryAdapter;
 import tokyo.tkw.thinmp.music.MusicList;
-import tokyo.tkw.thinmp.provider.AlbumContentProvider;
+import tokyo.tkw.thinmp.provider.AlbumsContentProvider;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setList() {
         RecyclerView list = findViewById(R.id.list);
-        AlbumContentProvider albumContentProvider = new AlbumContentProvider(this);
+        AlbumsContentProvider albumContentProvider = new AlbumsContentProvider(this);
         AlbumListAdapter adapter = new AlbumListAdapter(this, albumContentProvider.getList());
         GridLayoutManager layout = new GridLayoutManager(this, 2);
 
