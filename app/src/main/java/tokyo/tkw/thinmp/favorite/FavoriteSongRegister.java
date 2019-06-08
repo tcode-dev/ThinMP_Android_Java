@@ -2,7 +2,7 @@ package tokyo.tkw.thinmp.favorite;
 
 import com.annimon.stream.IntStream;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import io.realm.Realm;
 import tokyo.tkw.thinmp.util.ActivityUtil;
@@ -31,7 +31,7 @@ public class FavoriteSongRegister {
         return favoriteRegister.findFirst(trackId) != null;
     }
 
-    public static void update(List list) {
+    public static void update(ArrayList list) {
         FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
         favoriteRegister.allUpdate(list);
     }
@@ -78,12 +78,13 @@ public class FavoriteSongRegister {
      *
      * @param list
      */
-    private void allUpdate(List list) {
+    private void allUpdate(ArrayList list) {
         beginTransaction();
 
         mRealm.delete(FavoriteSong.class);
 
-        IntStream.range(0, list.size()).forEach(i -> mRealm.createObject(FavoriteSong.class, i + 1).setTrackId(list.get(i).toString()));
+        IntStream.range(0, list.size()).forEach(i -> mRealm.createObject(FavoriteSong.class,
+                i + 1).setTrackId(list.get(i).toString()));
 
         commitTransaction();
     }

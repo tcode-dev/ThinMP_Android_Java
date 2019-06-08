@@ -7,19 +7,21 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteSong;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class FavoriteSongEditAdapter extends RecyclerView.Adapter<TrackViewHolder> {
     private List<FavoriteSong> mFavoriteList;
+    private Map<String, Track> mTrackMap;
 
-    public FavoriteSongEditAdapter(List<FavoriteSong> favoriteList) {
+    public FavoriteSongEditAdapter(List<FavoriteSong> favoriteList, Map<String, Track> trackMap) {
         mFavoriteList = favoriteList;
+        mTrackMap = trackMap;
     }
 
     @Override
@@ -32,8 +34,8 @@ public class FavoriteSongEditAdapter extends RecyclerView.Adapter<TrackViewHolde
 
     @Override
     public void onBindViewHolder(TrackViewHolder holder, int position) {
-        final FavoriteSong favorite = mFavoriteList.get(position);
-        Track track = getTrack(favorite.getTrackId());
+        FavoriteSong favorite = mFavoriteList.get(position);
+        Track track = mTrackMap.get(favorite.getTrackId());
         String title = track.getTitle();
 
         GlideUtil.bitmap(track.getThumbnailId(), holder.thumbnail);
@@ -44,9 +46,5 @@ public class FavoriteSongEditAdapter extends RecyclerView.Adapter<TrackViewHolde
     @Override
     public int getItemCount() {
         return mFavoriteList.size();
-    }
-
-    private Track getTrack(String id) {
-        return MusicList.getTrack(id);
     }
 }
