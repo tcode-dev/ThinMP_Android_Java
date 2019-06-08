@@ -10,9 +10,19 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import io.realm.OrderedRealmCollection;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistListAdapter;
+import tokyo.tkw.thinmp.favorite.FavoriteArtist;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
+import tokyo.tkw.thinmp.music.Artist;
+import tokyo.tkw.thinmp.provider.ArtistsContentProvider;
 
 public class FavoriteArtistsActivity extends AppCompatActivity {
     @Override
@@ -26,8 +36,18 @@ public class FavoriteArtistsActivity extends AppCompatActivity {
 
     private void initList() {
         RecyclerView favoriteListView = findViewById(R.id.list);
+        OrderedRealmCollection<FavoriteArtist> realmResults = FavoriteArtistList.getFavoriteList();
+
+        ArrayList<FavoriteArtist> favoriteList =
+                (ArrayList<FavoriteArtist>) Stream.of(realmResults).toList();
+        ArrayList<String> artistIdList =
+                (ArrayList<String>) Stream.of(favoriteList).map(FavoriteArtist::getArtistId).collect(Collectors.toList());
+        ArtistsContentProvider artistsContentProvider = new ArtistsContentProvider(this,
+                artistIdList);
+        Map<String, Artist> artistMap =
+                Stream.of(artistsContentProvider.getList()).collect(Collectors.toMap(artist -> artist.getId(), artist -> artist));
         FavoriteArtistListAdapter adapter =
-                new FavoriteArtistListAdapter(FavoriteArtistList.getFavoriteList(),
+                new FavoriteArtistListAdapter(realmResults, artistMap,
                         favoriteArtistListListener(this));
         favoriteListView.setAdapter(adapter);
 

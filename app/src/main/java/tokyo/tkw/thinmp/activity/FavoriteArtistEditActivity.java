@@ -35,10 +35,14 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
         RecyclerView view = findViewById(R.id.favoriteList);
 
         RealmResults<FavoriteArtist> realmResults = FavoriteArtistList.getFavoriteList();
-        ArrayList<FavoriteArtist> favoriteList = (ArrayList<FavoriteArtist>) Stream.of(realmResults).toList();
-        ArrayList<String> artistIdList = (ArrayList<String>) Stream.of(favoriteList).map(FavoriteArtist::getArtistId).collect(Collectors.toList());
-        ArtistsContentProvider artistsContentProvider = new ArtistsContentProvider(this, artistIdList);
-        Map<String, Artist> artistMap = Stream.of(artistsContentProvider.getList()).collect(Collectors.toMap(artist -> artist.getId(), artist -> artist));
+        ArrayList<FavoriteArtist> favoriteList =
+                (ArrayList<FavoriteArtist>) Stream.of(realmResults).toList();
+        ArrayList<String> artistIdList =
+                (ArrayList<String>) Stream.of(favoriteList).map(FavoriteArtist::getArtistId).collect(Collectors.toList());
+        ArtistsContentProvider artistsContentProvider = new ArtistsContentProvider(this,
+                artistIdList);
+        Map<String, Artist> artistMap =
+                Stream.of(artistsContentProvider.getList()).collect(Collectors.toMap(artist -> artist.getId(), artist -> artist));
         FavoriteArtistEditAdapter adapter = new FavoriteArtistEditAdapter(favoriteList, artistMap);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
@@ -47,7 +51,8 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
         ) {
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
                 final int fromPos = viewHolder.getAdapterPosition();
                 final int toPos = target.getAdapterPosition();
 
@@ -73,7 +78,8 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
         findViewById(R.id.apply).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<String> artistIdList = Stream.of(favoriteList).map(FavoriteArtist::getArtistId).collect(Collectors.toList());
+                List<String> artistIdList =
+                        Stream.of(favoriteList).map(FavoriteArtist::getArtistId).collect(Collectors.toList());
                 FavoriteArtistRegister.update(artistIdList);
                 finish();
             }
