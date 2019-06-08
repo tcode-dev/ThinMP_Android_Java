@@ -6,8 +6,8 @@ import android.provider.MediaStore;
 
 import tokyo.tkw.thinmp.music.Artist;
 
-public class ArtistsContentProvider extends MusicContentProvider<Artist> {
-    public ArtistsContentProvider(Context context) {
+public class AllArtistsContentProvider extends MusicContentProvider<Artist> {
+    public AllArtistsContentProvider(Context context) {
         super(context);
     }
 
