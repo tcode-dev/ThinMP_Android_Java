@@ -4,23 +4,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Map;
+
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteSong;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSong,
         TrackViewHolder> {
+    private Map<String, Track> mTrackMap;
     private OnFavoriteListItemClickListener mListener;
 
     public FavoriteSongListAdapter(OrderedRealmCollection<FavoriteSong> favoriteList,
+                                   Map<String, Track> trackMap,
                                    OnFavoriteListItemClickListener listener) {
         super(favoriteList, true);
 
+        mTrackMap = trackMap;
         mListener = listener;
     }
 
@@ -34,10 +38,9 @@ public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSo
 
     @Override
     public void onBindViewHolder(TrackViewHolder holder, int position) {
-        final FavoriteSong favorite = getItem(position);
-        final String trackId = favorite.getTrackId();
-        final Track track = getTrack(trackId);
-        final String title = track.getTitle();
+        FavoriteSong favorite = getItem(position);
+        Track track = mTrackMap.get(favorite.getTrackId());
+        String title = track.getTitle();
 
         GlideUtil.bitmap(track.getThumbnailId(), holder.thumbnail);
         holder.track.setText(title);
@@ -45,10 +48,6 @@ public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSo
 
         holder.itemView.setOnClickListener(onClickListener(position));
         holder.menu.setOnClickListener(openMenuButtonClickListener(track));
-    }
-
-    private Track getTrack(String id) {
-        return MusicList.getTrack(id);
     }
 
     private View.OnClickListener onClickListener(int position) {
