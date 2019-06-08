@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistDetailController;
 import tokyo.tkw.thinmp.music.Artist;
-import tokyo.tkw.thinmp.music.MusicList;
+import tokyo.tkw.thinmp.provider.ArtistAlbumsContentProvider;
+import tokyo.tkw.thinmp.provider.ArtistContentProvider;
+import tokyo.tkw.thinmp.provider.ArtistTracksContentProvider;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
@@ -23,7 +25,8 @@ public class ArtistDetailActivity extends AppCompatActivity {
         String artistId = getIntent().getStringExtra("artistId");
 
         // artist取得
-        Artist artist = MusicList.getArtist(artistId);
+        ArtistContentProvider artistContentProvider = new ArtistContentProvider(this, artistId);
+        Artist artist = artistContentProvider.get();
 
         // 背景画像
         ImageView backgroundView = findViewById(R.id.background);
@@ -48,11 +51,15 @@ public class ArtistDetailActivity extends AppCompatActivity {
         controller.setSpanCount(2);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
 
+        ArtistAlbumsContentProvider artistAlbumsContentProvider =
+                new ArtistAlbumsContentProvider(this, artistId);
+        ArtistTracksContentProvider artistTracksContentProvider =
+                new ArtistTracksContentProvider(this, artistId);
         ArtistDetailController.Data data = new ArtistDetailController.Data();
         data.albums = getResources().getString(R.string.albums);
-        data.albumList = MusicList.getArtistAlbumList(artistId);
+        data.albumList = artistAlbumsContentProvider.getList();
         data.songs = getResources().getString(R.string.songs);
-        data.trackList = MusicList.getArtistTrackList(artistId);
+        data.trackList = artistTracksContentProvider.getList();
         data.titleSpanSize = 2;
         data.albumListSpanSize = 1;
         data.trackListSpanSize = 2;
