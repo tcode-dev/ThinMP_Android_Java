@@ -16,7 +16,7 @@ public class TimeUtil {
 
     /**
      * 秒を時刻形式に変換する
-     * 1時以上の場合h:mm:ss
+     * 1時間以上の場合h:mm:ss
      * 1時間未満の場合m:ss
      * 頻繁に呼ばれるので速度重視
      * String#formatは使わずに一度だけ文字列結合する
