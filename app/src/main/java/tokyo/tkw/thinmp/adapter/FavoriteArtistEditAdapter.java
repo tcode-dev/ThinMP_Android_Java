@@ -6,33 +6,37 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteArtist;
 import tokyo.tkw.thinmp.music.Artist;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
 public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
-    private List<FavoriteArtist> mFavoriteList;
+    private ArrayList<FavoriteArtist> mFavoriteList;
+    private Map<String, Artist> mArtistMap;
 
-    public FavoriteArtistEditAdapter(List<FavoriteArtist> favoriteList) {
+    public FavoriteArtistEditAdapter(ArrayList<FavoriteArtist> favoriteList,
+                                     Map<String, Artist> artistMap) {
         mFavoriteList = favoriteList;
+        mArtistMap = artistMap;
     }
 
     @Override
     public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_list_item,
+                parent, false);
 
         return new ArtistViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ArtistViewHolder holder, int position) {
-        final FavoriteArtist favorite = mFavoriteList.get(position);
-        final Artist artist = getArtist(favorite.getArtistId());
+        FavoriteArtist favorite = mFavoriteList.get(position);
+        Artist artist = mArtistMap.get(favorite.getArtistId());
         String title = artist.getName();
 
         GlideUtil.bitmap(artist.getThumbnailIdList(), holder.thumbnail);
@@ -42,9 +46,5 @@ public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHo
     @Override
     public int getItemCount() {
         return mFavoriteList.size();
-    }
-
-    private Artist getArtist(String id) {
-        return MusicList.getArtist(id);
     }
 }

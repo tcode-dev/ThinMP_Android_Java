@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
@@ -20,6 +22,8 @@ import tokyo.tkw.thinmp.adapter.FavoriteArtistEditAdapter;
 import tokyo.tkw.thinmp.favorite.FavoriteArtist;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
+import tokyo.tkw.thinmp.music.Artist;
+import tokyo.tkw.thinmp.provider.ArtistsContentProvider;
 
 public class FavoriteArtistEditActivity extends AppCompatActivity {
 
@@ -31,9 +35,11 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
         RecyclerView view = findViewById(R.id.favoriteList);
 
         RealmResults<FavoriteArtist> realmResults = FavoriteArtistList.getFavoriteList();
-        List<FavoriteArtist> favoriteList = Stream.of(realmResults).toList();
-
-        FavoriteArtistEditAdapter adapter = new FavoriteArtistEditAdapter(favoriteList);
+        ArrayList<FavoriteArtist> favoriteList = (ArrayList<FavoriteArtist>) Stream.of(realmResults).toList();
+        ArrayList<String> artistIdList = (ArrayList<String>) Stream.of(favoriteList).map(FavoriteArtist::getArtistId).collect(Collectors.toList());
+        ArtistsContentProvider artistsContentProvider = new ArtistsContentProvider(this, artistIdList);
+        Map<String, Artist> artistMap = Stream.of(artistsContentProvider.getList()).collect(Collectors.toMap(artist -> artist.getId(), artist -> artist));
+        FavoriteArtistEditAdapter adapter = new FavoriteArtistEditAdapter(favoriteList, artistMap);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
