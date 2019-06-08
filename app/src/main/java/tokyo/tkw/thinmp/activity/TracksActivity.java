@@ -17,7 +17,7 @@ import tokyo.tkw.thinmp.adapter.TrackListAdapter;
 import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
 import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.TracksContentProvider;
+import tokyo.tkw.thinmp.provider.AllTracksContentProvider;
 
 public class TracksActivity extends AppCompatActivity {
     private ArrayList<Track> mTrackList;
@@ -33,8 +33,8 @@ public class TracksActivity extends AppCompatActivity {
     private void initList() {
         RecyclerView listView = findViewById(R.id.main);
 
-        TracksContentProvider tracksContentProvider = new TracksContentProvider(this);
-        mTrackList = tracksContentProvider.getList();
+        AllTracksContentProvider allTracksContentProvider = new AllTracksContentProvider(this);
+        mTrackList = allTracksContentProvider.getList();
 
         TrackListAdapter adapter = new TrackListAdapter(mTrackList,
                 trackListItemClickListener(this));
