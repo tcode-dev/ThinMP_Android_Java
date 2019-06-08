@@ -34,13 +34,11 @@ public abstract class MusicContentProvider<T extends Music> {
     }
 
     public T get() {
-        init();
+        ArrayList<T> list = getList();
 
-        T target = fetch();
+        if (list.isEmpty()) return null;
 
-        destroy();
-
-        return target;
+        return list.get(0);
     }
 
     public ArrayList<T> getList() {

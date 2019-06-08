@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.provider.AlbumsContentProvider;
 
 public class AlbumsActivity extends AppCompatActivity {

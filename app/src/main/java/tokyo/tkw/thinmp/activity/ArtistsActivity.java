@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistsController;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.provider.ArtistsContentProvider;
 
 public class ArtistsActivity extends AppCompatActivity {
