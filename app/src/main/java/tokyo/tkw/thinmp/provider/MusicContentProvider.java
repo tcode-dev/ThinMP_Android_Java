@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.Music;
 
 import static android.net.Uri.parse;
@@ -86,6 +87,10 @@ public abstract class MusicContentProvider<T extends Music> {
     protected Album getAlbum() {
         return new Album(getAlbumId(), getAlbumName(), getArtistId(), getArtistName(),
                 getAlbumId());
+    }
+
+    protected Artist getArtist() {
+        return new Artist(getArtistId(), getArtistName());
     }
 
     private void init() {

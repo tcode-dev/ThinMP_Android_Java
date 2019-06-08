@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Artist
  */
-public class Artist {
+public class Artist extends Music {
     private String id;
     private String name;
     private ArrayList<String> albumIdList = new ArrayList<>();
