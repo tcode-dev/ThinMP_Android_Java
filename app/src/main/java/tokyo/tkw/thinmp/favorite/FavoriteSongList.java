@@ -1,31 +1,56 @@
 package tokyo.tkw.thinmp.favorite;
 
+import android.content.Context;
+
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.util.ActivityUtil;
+import tokyo.tkw.thinmp.provider.TracksContentProvider;
 
 public class FavoriteSongList {
-    public static ArrayList<Track> getTrackList() {
-        return getTrackList(getFavoriteList());
+    private Context mContext;
+    private RealmResults<FavoriteSong> mRealmResults;
+
+    public FavoriteSongList(Context context) {
+        mContext = context;
+        mRealmResults = findAll();
     }
 
-    private static ArrayList<Track> getTrackList(RealmResults<FavoriteSong> favoriteList) {
-        ArrayList<Track> trackList = new ArrayList<>();
-
-        for (FavoriteSong favorite : favoriteList) {
-            Track track = MusicList.getTrack(favorite.getTrackId());
-            trackList.add(track);
-        }
-
-        return trackList;
+    public RealmResults<FavoriteSong> getRealmResults() {
+        return mRealmResults;
     }
 
-    public static RealmResults<FavoriteSong> getFavoriteList() {
-        Realm.init(ActivityUtil.getContext());
+    public ArrayList<FavoriteSong> getList() {
+        return (ArrayList<FavoriteSong>) Stream.of(mRealmResults).toList();
+    }
+
+    public ArrayList<Track> getTrackList() {
+        ArrayList<String> trackIdList =
+                (ArrayList<String>) Stream.of(mRealmResults).map(FavoriteSong::getTrackId).collect(Collectors.toList());
+
+        TracksContentProvider tracksContentProvider = new TracksContentProvider(mContext,
+                trackIdList);
+
+        return tracksContentProvider.getList();
+    }
+
+    public Map<String, Track> getTrackMap() {
+        return getTrackMap(getTrackList());
+    }
+
+    public Map<String, Track> getTrackMap(ArrayList<Track> trackList) {
+        return Stream.of(trackList).collect(Collectors.toMap(track -> track.getId(),
+                track -> track));
+    }
+
+    private RealmResults<FavoriteSong> findAll() {
+        Realm.init(mContext);
         Realm realm = Realm.getDefaultInstance();
 
         return realm.where(FavoriteSong.class).findAll().sort("id");

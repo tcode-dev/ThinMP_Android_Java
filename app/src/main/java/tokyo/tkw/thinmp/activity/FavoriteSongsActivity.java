@@ -11,24 +11,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
-
-import java.util.ArrayList;
-import java.util.Map;
-
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongListAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteSong;
 import tokyo.tkw.thinmp.favorite.FavoriteSongList;
 import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
 import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.TracksContentProvider;
 
 public class FavoriteSongsActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,17 +31,11 @@ public class FavoriteSongsActivity extends AppCompatActivity {
     private void initList() {
         RecyclerView favoriteListView = findViewById(R.id.list);
 
-        RealmResults<FavoriteSong> realmResults = FavoriteSongList.getFavoriteList();
-        ArrayList<FavoriteSong> favoriteList =
-                (ArrayList<FavoriteSong>) Stream.of(realmResults).toList();
-        ArrayList<String> trackIdList =
-                (ArrayList<String>) Stream.of(favoriteList).map(FavoriteSong::getTrackId).collect(Collectors.toList());
-        TracksContentProvider tracksContentProvider = new TracksContentProvider(this, trackIdList);
-        Map<String, Track> trackMap =
-                Stream.of(tracksContentProvider.getList()).collect(Collectors.toMap(track -> track.getId(), track -> track));
+        FavoriteSongList favoriteSongList = new FavoriteSongList(this);
 
         FavoriteSongListAdapter adapter =
-                new FavoriteSongListAdapter(realmResults, trackMap,
+                new FavoriteSongListAdapter(favoriteSongList.getRealmResults(),
+                        favoriteSongList.getTrackMap(),
                         favoriteListItemClickListener(this));
         favoriteListView.setAdapter(adapter);
 
@@ -83,7 +67,8 @@ public class FavoriteSongsActivity extends AppCompatActivity {
                 Fragment fragment =
                         getSupportFragmentManager().findFragmentById(R.id.includeMiniPlayer);
                 if (fragment instanceof MiniPlayerFragment) {
-                    ((MiniPlayerFragment) fragment).start(FavoriteSongList.getTrackList(),
+                    FavoriteSongList favoriteSongList = new FavoriteSongList(getBaseContext());
+                    ((MiniPlayerFragment) fragment).start(favoriteSongList.getTrackList(),
                             position);
                 }
             }

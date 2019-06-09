@@ -13,16 +13,12 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongEditAdapter;
 import tokyo.tkw.thinmp.favorite.FavoriteSong;
 import tokyo.tkw.thinmp.favorite.FavoriteSongList;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
-import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.TracksContentProvider;
 
 public class FavoriteSongEditActivity extends AppCompatActivity {
 
@@ -33,14 +29,10 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
 
         RecyclerView view = findViewById(R.id.favoriteList);
 
-        RealmResults<FavoriteSong> realmResults = FavoriteSongList.getFavoriteList();
-        ArrayList<FavoriteSong> favoriteList = (ArrayList<FavoriteSong>) Stream.of(realmResults).toList();
-        ArrayList<String> trackIdList =
-                (ArrayList<String>) Stream.of(favoriteList).map(FavoriteSong::getTrackId).collect(Collectors.toList());
-        TracksContentProvider tracksContentProvider = new TracksContentProvider(this, trackIdList);
-        Map<String, Track> trackMap =
-                Stream.of(tracksContentProvider.getList()).collect(Collectors.toMap(track -> track.getId(), track -> track));
-        FavoriteSongEditAdapter adapter = new FavoriteSongEditAdapter(favoriteList, trackMap);
+        FavoriteSongList favoriteSongList = new FavoriteSongList(this);
+        ArrayList<FavoriteSong> favoriteList = favoriteSongList.getList();
+        FavoriteSongEditAdapter adapter = new FavoriteSongEditAdapter(favoriteList,
+                favoriteSongList.getTrackMap());
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
@@ -48,7 +40,8 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
         ) {
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
                 final int fromPos = viewHolder.getAdapterPosition();
                 final int toPos = target.getAdapterPosition();
 
@@ -74,7 +67,8 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
         findViewById(R.id.apply).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> trackIdList = (ArrayList<String>) Stream.of(favoriteList).map(FavoriteSong::getTrackId).collect(Collectors.toList());
+                ArrayList<String> trackIdList =
+                        (ArrayList<String>) Stream.of(favoriteList).map(FavoriteSong::getTrackId).collect(Collectors.toList());
                 FavoriteSongRegister.update(trackIdList);
                 finish();
             }
