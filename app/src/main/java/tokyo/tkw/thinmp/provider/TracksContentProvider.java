@@ -3,17 +3,18 @@ package tokyo.tkw.thinmp.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 
 import java.util.ArrayList;
 
 public class TracksContentProvider extends MediaStoreAudioMediaProvider {
-    private ArrayList<String> mTrackIdList;
+    private String[] mTrackIdList;
+    private String mPlaceholders;
 
     public TracksContentProvider(Context context, ArrayList<String> trackIdList) {
         super(context);
 
-        mTrackIdList = trackIdList;
+        mTrackIdList = toStringArray(trackIdList);
+        mPlaceholders = makePlaceholders(trackIdList.size());
     }
 
     @Override
@@ -29,9 +30,8 @@ public class TracksContentProvider extends MediaStoreAudioMediaProvider {
                         MediaStore.Audio.Media.ALBUM,
                         MediaStore.Audio.Media.DURATION
                 },
-                MediaStore.Audio.Media._ID + " IN (" + TextUtils.join(",", mTrackIdList) + ") AND" +
-                        " " + MediaStore.Audio.Media.IS_MUSIC + " = 1",
-                null,
+                MediaStore.Audio.Media._ID + " IN (" + mPlaceholders + ") AND " + MediaStore.Audio.Media.IS_MUSIC + " = 1",
+                mTrackIdList,
                 null
         );
     }

@@ -5,9 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.text.TextUtils;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.annimon.stream.Collectors;
+import com.annimon.stream.IntStream;
 
 import java.util.ArrayList;
 
@@ -44,6 +48,14 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
         return list;
     }
 
+    protected String[] toStringArray(ArrayList<String> list) {
+        return list.toArray(new String[list.size()]);
+    }
+
+    protected String makePlaceholders(int size) {
+        return TextUtils.join(",",
+                IntStream.range(0, size).boxed().map((i) -> "?").collect(Collectors.toList()));
+    }
 
     private void init() {
         if (isAllowed()) {
