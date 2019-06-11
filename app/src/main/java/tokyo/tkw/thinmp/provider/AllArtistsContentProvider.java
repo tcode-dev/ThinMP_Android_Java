@@ -4,9 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
-import tokyo.tkw.thinmp.music.Artist;
-
-public class AllArtistsContentProvider extends MusicContentProvider<Artist> {
+public class AllArtistsContentProvider extends MediaStoreAudioArtistsProvider {
     public AllArtistsContentProvider(Context context) {
         super(context);
     }
@@ -14,19 +12,14 @@ public class AllArtistsContentProvider extends MusicContentProvider<Artist> {
     @Override
     Cursor createCursor() {
         return mContext.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
                 new String[]{
-                        "DISTINCT " + MediaStore.Audio.Media.ARTIST_ID,
-                        MediaStore.Audio.Media.ARTIST
+                        MediaStore.Audio.Artists._ID,
+                        MediaStore.Audio.Artists.ARTIST
                 },
-                MediaStore.Audio.Media.IS_MUSIC + " = 1",
                 null,
-                MediaStore.Audio.Media.ARTIST + " ASC"
+                null,
+                MediaStore.Audio.Artists.ARTIST + " ASC"
         );
-    }
-
-    @Override
-    Artist fetch() {
-        return getArtist();
     }
 }

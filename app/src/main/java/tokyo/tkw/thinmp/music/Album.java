@@ -3,20 +3,18 @@ package tokyo.tkw.thinmp.music;
 import java.util.ArrayList;
 
 /**
- * Album
+ * アルバム情報
  */
 public class Album extends Music {
     private String id;
     private String name;
-    private String artistId;
     private String artistName;
     private String thumbnailId;
     private ArrayList<String> trackIdList = new ArrayList<>();
 
-    public Album(String id, String name, String artistId, String artistName, String thumbnailId) {
+    public Album(String id, String name, String artistName, String thumbnailId) {
         this.id = id;
         this.name = name;
-        this.artistId = artistId;
         this.artistName = artistName;
         this.thumbnailId = thumbnailId;
     }

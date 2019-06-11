@@ -7,9 +7,7 @@ import android.text.TextUtils;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.music.Track;
-
-public class TracksContentProvider extends MusicContentProvider<Track> {
+public class TracksContentProvider extends MediaStoreAudioMediaProvider {
     private ArrayList<String> mTrackIdList;
 
     public TracksContentProvider(Context context, ArrayList<String> trackIdList) {
@@ -36,10 +34,5 @@ public class TracksContentProvider extends MusicContentProvider<Track> {
                 null,
                 null
         );
-    }
-
-    @Override
-    Track fetch() {
-        return getTrack();
     }
 }

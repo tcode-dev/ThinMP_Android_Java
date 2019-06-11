@@ -7,9 +7,7 @@ import android.text.TextUtils;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.music.Artist;
-
-public class ArtistsContentProvider extends MusicContentProvider<Artist> {
+public class ArtistsContentProvider extends MediaStoreAudioArtistsProvider {
     private ArrayList<String> mArtistIdList;
 
     public ArtistsContentProvider(Context context, ArrayList<String> artistIdList) {
@@ -21,19 +19,14 @@ public class ArtistsContentProvider extends MusicContentProvider<Artist> {
     @Override
     Cursor createCursor() {
         return mContext.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
                 new String[]{
-                        "DISTINCT " + MediaStore.Audio.Media.ARTIST_ID,
-                        MediaStore.Audio.Media.ARTIST
+                        MediaStore.Audio.Artists._ID,
+                        MediaStore.Audio.Artists.ARTIST
                 },
-                MediaStore.Audio.Media.ARTIST_ID + " IN (" + TextUtils.join(",", mArtistIdList) + ") AND " + MediaStore.Audio.Media.IS_MUSIC + " = 1",
+                MediaStore.Audio.Artists._ID + " IN (" + TextUtils.join(",", mArtistIdList) + ")",
                 null,
-                MediaStore.Audio.Media.ARTIST + " ASC"
+                MediaStore.Audio.Artists.ARTIST + " ASC"
         );
-    }
-
-    @Override
-    Artist fetch() {
-        return getArtist();
     }
 }

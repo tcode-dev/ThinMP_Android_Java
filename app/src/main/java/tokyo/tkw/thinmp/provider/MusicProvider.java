@@ -99,10 +99,9 @@ public class MusicProvider {
         String artistName = getArtistName();
         String albumId = getAlbumId();
         String albumName = getAlbumName();
-        String thumbnailId = albumId;//サムネイルはアルバムアートを使用する
         int duration = getDuration();
 
-        Track track = new Track(id, title, uri, artistId, artistName, albumId, albumName, thumbnailId, duration);
+        Track track = new Track(id, title, uri, artistId, artistName, albumId, albumName, duration);
 
         return track;
     }

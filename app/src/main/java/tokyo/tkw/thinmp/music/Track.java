@@ -20,7 +20,7 @@ public class Track extends Music implements Serializable {
     private String thumbnailId;
     private int duration;
 
-    public Track(String id, String title, Uri uri, String artistId, String artistName, String albumId, String albumName, String thumbnailId, int duration) {
+    public Track(String id, String title, Uri uri, String artistId, String artistName, String albumId, String albumName, int duration) {
         this.id = id;
         this.title = title;
         this.uri = uri;
@@ -28,7 +28,7 @@ public class Track extends Music implements Serializable {
         this.artistName = artistName;
         this.albumId = albumId;
         this.albumName = albumName;
-        this.thumbnailId = thumbnailId;
+        this.thumbnailId = albumId;
         this.duration = duration;
     }
 

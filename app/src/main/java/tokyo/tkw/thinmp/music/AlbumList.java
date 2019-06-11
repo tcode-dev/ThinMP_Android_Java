@@ -17,7 +17,6 @@ public class AlbumList {
             Album album = new Album(
                     albumId,
                     track.getAlbumName(),
-                    track.getArtistId(),
                     track.getArtistName(),
                     track.getThumbnailId()
             );

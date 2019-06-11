@@ -4,9 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
-import tokyo.tkw.thinmp.music.Album;
-
-public class AlbumContentProvider extends MusicContentProvider<Album> {
+public class AlbumContentProvider extends MediaStoreAudioAlbumsProvider {
     private String mAlbumId;
 
     public AlbumContentProvider(Context context, String albumId) {
@@ -18,21 +16,18 @@ public class AlbumContentProvider extends MusicContentProvider<Album> {
     @Override
     Cursor createCursor() {
         return mContext.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
                 new String[]{
-                        MediaStore.Audio.Media.ALBUM_ID,
-                        MediaStore.Audio.Media.ALBUM,
-                        MediaStore.Audio.Media.ARTIST_ID,
-                        MediaStore.Audio.Media.ARTIST
+                        MediaStore.Audio.Albums._ID,
+                        MediaStore.Audio.Albums.ALBUM,
+                        MediaStore.Audio.Albums.ARTIST,
+                        MediaStore.Audio.Albums.ALBUM_ART
                 },
-                MediaStore.Audio.Media.ALBUM_ID + " = " + mAlbumId + " AND " + MediaStore.Audio.Media.IS_MUSIC + " = 1",
-                null,
+                MediaStore.Audio.Albums._ID + " = ?",
+                new String[]{
+                        mAlbumId
+                },
                 null
         );
-    }
-
-    @Override
-    Album fetch() {
-        return getAlbum();
     }
 }

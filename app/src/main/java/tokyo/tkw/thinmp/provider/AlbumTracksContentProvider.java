@@ -4,9 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
-import tokyo.tkw.thinmp.music.Track;
-
-public class AlbumTracksContentProvider extends MusicContentProvider<Track> {
+public class AlbumTracksContentProvider extends MediaStoreAudioMediaProvider {
     private String mAlbumId;
 
     public AlbumTracksContentProvider(Context context, String albumId) {
@@ -28,14 +26,11 @@ public class AlbumTracksContentProvider extends MusicContentProvider<Track> {
                         MediaStore.Audio.Media.ALBUM,
                         MediaStore.Audio.Media.DURATION
                 },
-                MediaStore.Audio.Media.ALBUM_ID + " = " + mAlbumId + " AND " + MediaStore.Audio.Media.IS_MUSIC + " = 1",
-                null,
+                MediaStore.Audio.Media.ALBUM_ID + " = ? AND " + MediaStore.Audio.Media.IS_MUSIC + " = 1",
+                new String[]{
+                        mAlbumId
+                },
                 MediaStore.Audio.Media._ID + " ASC"
         );
-    }
-
-    @Override
-    Track fetch() {
-        return getTrack();
     }
 }
