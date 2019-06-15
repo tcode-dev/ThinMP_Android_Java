@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.annimon.stream.IntStream;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.realm.PlaylistRealm;
+import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
 public class PlaylistRegister extends Fragment {
     private Realm mRealm;
@@ -41,10 +44,9 @@ public class PlaylistRegister extends Fragment {
      * @param track
      */
     public void create(String name, Track track) {
-        String trackId = track.getId();
-        List<String> trackIdList = new ArrayList<>();
-        trackIdList.add(trackId);
-        create(name, trackIdList);
+        ArrayList<Track> trackList = new ArrayList<>();
+        trackList.add(track);
+        create(name, trackList);
     }
 
     /**
@@ -54,53 +56,74 @@ public class PlaylistRegister extends Fragment {
      * @param album
      */
     public void create(String name, Album album) {
-        List<String> trackIdList = album.getTrackIdList();
+        ArrayList<Track> trackList = album.getTrackList();
 
-        create(name, trackIdList);
+        create(name, trackList);
     }
 
-    public void create(String name, List<String> trackIdList) {
+    public void create(String name, ArrayList<Track> trackList) {
         init();
 
-        Number maxId = mRealm.where(Playlist.class).max("id");
-        int playlistId = (maxId != null) ? maxId.intValue() + 1 : 1;
-
-        Number maxOrder = mRealm.where(Playlist.class).max("order");
-        int nextOrder = (maxOrder != null) ? maxOrder.intValue() + 1 : 1;
+        int playlistId = createNextPlaylistId();
+        int nextOrder = createNextPlaylistOrder();
 
         beginTransaction();
 
-        Playlist playlist = mRealm.createObject(Playlist.class, playlistId);
-        playlist.setName(name);
-        playlist.setOrder(nextOrder);
-        List<PlaylistTrack> playlistTracks = new ArrayList<>();
-
-        for (String trackId : trackIdList) {
-            PlaylistTrack playlistTrack = new PlaylistTrack();
-            playlistTrack.setPlaylistId(playlistId);
-            playlistTrack.setTrackId(trackId);
-            playlistTracks.add(playlistTrack);
-        }
-
-        playlist.getTracks().addAll(playlistTracks);
+        PlaylistRealm playlist = mRealm.createObject(PlaylistRealm.class, playlistId);
+        playlist.set(name, createPlaylistTrackRealmList(playlistId, trackList), nextOrder);
 
         commitTransaction();
     }
 
     public void add(int playlistId, Track track) {
-        String trackId = track.getId();
-
         init();
 
-        Playlist playlist = mRealm.where(Playlist.class).equalTo("id", playlistId).findFirst();
+        PlaylistRealm playlist =
+                mRealm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
+
+        int nextOrder = createNextPlaylistTrackOrder();
 
         beginTransaction();
 
-        PlaylistTrack playlistTrack = new PlaylistTrack();
-        playlistTrack.setPlaylistId(playlistId);
-        playlistTrack.setTrackId(trackId);
-        playlist.getTracks().add(playlistTrack);
+        PlaylistTrackRealm realm = new PlaylistTrackRealm();
+        realm.set(playlistId, track, nextOrder);
+        playlist.getTracks().add(realm);
 
         commitTransaction();
+    }
+
+    private ArrayList<PlaylistTrackRealm> createPlaylistTrackRealmList(int playlistId,
+                                                                   ArrayList<Track> trackList) {
+        return (ArrayList<PlaylistTrackRealm>) IntStream.range(0, trackList.size()).mapToObj(i -> {
+            Track track = trackList.get(i);
+            int playlistTrackRealmId = createNextPlaylistTrackId();
+            PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class, playlistTrackRealmId);
+            realm.set(playlistId, track, i);
+            return realm;
+        }).toList();
+    }
+
+    private int createNextPlaylistId() {
+        Number max = mRealm.where(PlaylistRealm.class).max(PlaylistRealm.ID);
+        return createNextInt(max);
+    }
+
+    private int createNextPlaylistOrder() {
+        Number max = mRealm.where(PlaylistRealm.class).max(PlaylistRealm.ORDER);
+        return createNextInt(max);
+    }
+
+    private int createNextPlaylistTrackId() {
+        Number max = mRealm.where(PlaylistTrackRealm.class).max(PlaylistRealm.ID);
+        return createNextInt(max);
+    }
+
+    private int createNextPlaylistTrackOrder() {
+        Number max = mRealm.where(PlaylistTrackRealm.class).max(PlaylistTrackRealm.ORDER);
+        return createNextInt(max);
+    }
+
+    private int createNextInt(Number num) {
+        return (num != null) ? num.intValue() + 1 : 1;
     }
 }

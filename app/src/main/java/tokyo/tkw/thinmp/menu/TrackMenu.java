@@ -19,6 +19,7 @@ import tokyo.tkw.thinmp.music.Track;
 public class TrackMenu {
     private Context mContext;
     private View mView;
+    private Track mTrack;
     private String mTrackId;
     private String mDefaultPlaylistName;
 
@@ -54,6 +55,7 @@ public class TrackMenu {
     public TrackMenu(Context context, View view, Track track) {
         mContext = context;
         mView = view;
+        mTrack = track;
         mTrackId = track.getId();
         mDefaultPlaylistName = track.getTitle();
     }
@@ -76,7 +78,7 @@ public class TrackMenu {
     private void playlist() {
         // データの受け渡し
         Bundle bundle = new Bundle();
-        bundle.putString("trackId", mTrackId);
+        bundle.putSerializable("track", mTrack);
         bundle.putString("defaultPlaylistName", mDefaultPlaylistName);
 
         FragmentActivity activity = (FragmentActivity) mContext;

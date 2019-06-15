@@ -9,17 +9,17 @@ import java.util.Map;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.favorite.FavoriteArtist;
+import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
-public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<FavoriteArtist,
+public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<FavoriteArtistRealm,
         ArtistViewHolder> {
     private Map<String, Artist> mArtistMap;
     private FavoriteArtistListListener mListener;
 
-    public FavoriteArtistListAdapter(OrderedRealmCollection<FavoriteArtist> favoriteList,
+    public FavoriteArtistListAdapter(OrderedRealmCollection<FavoriteArtistRealm> favoriteList,
                                      Map<String, Artist> artistMap,
                                      FavoriteArtistListListener listener) {
         super(favoriteList, true);
@@ -38,7 +38,7 @@ public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<Favorite
 
     @Override
     public void onBindViewHolder(ArtistViewHolder holder, int position) {
-        FavoriteArtist favorite = getItem(position);
+        FavoriteArtistRealm favorite = getItem(position);
         Artist artist = mArtistMap.get(favorite.getArtistId());
 
         GlideUtil.bitmap(artist.getThumbnailIdList(), holder.thumbnail);

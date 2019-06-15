@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.adapter.LibraryAdapter;
-import tokyo.tkw.thinmp.music.MusicList;
 import tokyo.tkw.thinmp.provider.AlbumsContentProvider;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
-
-        MusicList.setInstance(this);
 
         setMenu();
         setList();

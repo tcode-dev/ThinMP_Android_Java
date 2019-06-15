@@ -5,6 +5,7 @@ import com.annimon.stream.IntStream;
 import java.util.List;
 
 import io.realm.Realm;
+import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.util.ActivityUtil;
 
 public class FavoriteArtistRegister {
@@ -44,18 +45,18 @@ public class FavoriteArtistRegister {
         mRealm.commitTransaction();
     }
 
-    private FavoriteArtist getArtist(String artistId) {
-        return mRealm.where(FavoriteArtist.class).equalTo("artistId", artistId).findFirst();
+    private FavoriteArtistRealm getArtist(String artistId) {
+        return mRealm.where(FavoriteArtistRealm.class).equalTo("artistId", artistId).findFirst();
     }
 
     private boolean update(String artistId) {
-        FavoriteArtist favorite = getArtist(artistId);
+        FavoriteArtistRealm favorite = getArtist(artistId);
 
         beginTransaction();
 
         boolean isFavorite;
         if (favorite == null) {
-            mRealm.createObject(FavoriteArtist.class, nextId()).setArtistId(artistId);
+            mRealm.createObject(FavoriteArtistRealm.class, nextId()).setArtistId(artistId);
             isFavorite = true;
         } else {
             favorite.deleteFromRealm();
@@ -75,15 +76,15 @@ public class FavoriteArtistRegister {
     private void allUpdate(List list) {
         beginTransaction();
 
-        mRealm.delete(FavoriteArtist.class);
+        mRealm.delete(FavoriteArtistRealm.class);
 
-        IntStream.range(0, list.size()).forEach(i -> mRealm.createObject(FavoriteArtist.class, i + 1).setArtistId(list.get(i).toString()));
+        IntStream.range(0, list.size()).forEach(i -> mRealm.createObject(FavoriteArtistRealm.class, i + 1).setArtistId(list.get(i).toString()));
 
         commitTransaction();
     }
 
     private int nextId() {
-        Number maxId = mRealm.where(FavoriteArtist.class).max("id");
+        Number maxId = mRealm.where(FavoriteArtistRealm.class).max("id");
 
         return (maxId != null) ? maxId.intValue() + 1 : 1;
     }

@@ -19,7 +19,7 @@ import java.util.Map;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistEditAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteArtist;
+import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.music.Artist;
@@ -34,11 +34,11 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
 
         RecyclerView view = findViewById(R.id.favoriteList);
 
-        RealmResults<FavoriteArtist> realmResults = FavoriteArtistList.getFavoriteList();
-        ArrayList<FavoriteArtist> favoriteList =
-                (ArrayList<FavoriteArtist>) Stream.of(realmResults).toList();
+        RealmResults<FavoriteArtistRealm> realmResults = FavoriteArtistList.getFavoriteList();
+        ArrayList<FavoriteArtistRealm> favoriteList =
+                (ArrayList<FavoriteArtistRealm>) Stream.of(realmResults).toList();
         ArrayList<String> artistIdList =
-                (ArrayList<String>) Stream.of(favoriteList).map(FavoriteArtist::getArtistId).collect(Collectors.toList());
+                (ArrayList<String>) Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
         ArtistsContentProvider artistsContentProvider = new ArtistsContentProvider(this,
                 artistIdList);
         Map<String, Artist> artistMap =
@@ -79,7 +79,7 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 List<String> artistIdList =
-                        Stream.of(favoriteList).map(FavoriteArtist::getArtistId).collect(Collectors.toList());
+                        Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
                 FavoriteArtistRegister.update(artistIdList);
                 finish();
             }

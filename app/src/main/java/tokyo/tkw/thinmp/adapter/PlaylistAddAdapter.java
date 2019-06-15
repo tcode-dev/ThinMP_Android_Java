@@ -7,15 +7,24 @@ import android.view.ViewGroup;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.listener.PlaylistClickListener;
+import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
-public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, ImageRowViewHolder> {
-    public PlaylistsAdapter(OrderedRealmCollection<PlaylistRealm> playlists) {
+public class PlaylistAddAdapter extends RealmRecyclerViewAdapter<PlaylistRealm,
+        ImageRowViewHolder> {
+    private Track mTrack;
+    private Runnable mCallback;
+
+    public PlaylistAddAdapter(OrderedRealmCollection<PlaylistRealm> playlists, Track track,
+                              Runnable callback) {
         super(playlists, true);
+
+        mTrack = track;
+        mCallback = callback;
     }
 
     @Override
@@ -30,13 +39,15 @@ public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, Im
     public void onBindViewHolder(ImageRowViewHolder holder, int position) {
         PlaylistRealm playlistRealm = getItem(position);
         int playlistId = playlistRealm.getId();
-        String name = playlistRealm.getName();
         PlaylistTrackRealm playlistTrackRealm = playlistRealm.getTracks().first();
 
         GlideUtil.bitmap(playlistTrackRealm.getThumbnailId(), holder.thumbnail);
-        holder.primaryText.setText(name);
+        holder.primaryText.setText(playlistRealm.getName());
 
-        // プレイリスト一覧画面の場合
-        holder.itemView.setOnClickListener(new PlaylistClickListener(playlistId));
+        holder.itemView.setOnClickListener(v -> {
+            PlaylistRegister playlistRegister = new PlaylistRegister();
+            playlistRegister.add(playlistId, mTrack);
+            mCallback.run();
+        });
     }
 }

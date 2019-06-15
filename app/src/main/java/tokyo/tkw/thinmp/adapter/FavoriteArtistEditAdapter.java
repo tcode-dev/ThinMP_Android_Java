@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.favorite.FavoriteArtist;
+import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
 public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
-    private ArrayList<FavoriteArtist> mFavoriteList;
+    private ArrayList<FavoriteArtistRealm> mFavoriteList;
     private Map<String, Artist> mArtistMap;
 
-    public FavoriteArtistEditAdapter(ArrayList<FavoriteArtist> favoriteList,
+    public FavoriteArtistEditAdapter(ArrayList<FavoriteArtistRealm> favoriteList,
                                      Map<String, Artist> artistMap) {
         mFavoriteList = favoriteList;
         mArtistMap = artistMap;
@@ -35,7 +35,7 @@ public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHo
 
     @Override
     public void onBindViewHolder(ArtistViewHolder holder, int position) {
-        FavoriteArtist favorite = mFavoriteList.get(position);
+        FavoriteArtistRealm favorite = mFavoriteList.get(position);
         Artist artist = mArtistMap.get(favorite.getArtistId());
         String title = artist.getName();
 

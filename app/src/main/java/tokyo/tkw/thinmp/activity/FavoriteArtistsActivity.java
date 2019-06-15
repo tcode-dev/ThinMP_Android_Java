@@ -19,7 +19,7 @@ import java.util.Map;
 import io.realm.OrderedRealmCollection;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistListAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteArtist;
+import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.provider.ArtistsContentProvider;
@@ -36,12 +36,12 @@ public class FavoriteArtistsActivity extends AppCompatActivity {
 
     private void initList() {
         RecyclerView favoriteListView = findViewById(R.id.list);
-        OrderedRealmCollection<FavoriteArtist> realmResults = FavoriteArtistList.getFavoriteList();
+        OrderedRealmCollection<FavoriteArtistRealm> realmResults = FavoriteArtistList.getFavoriteList();
 
-        ArrayList<FavoriteArtist> favoriteList =
-                (ArrayList<FavoriteArtist>) Stream.of(realmResults).toList();
+        ArrayList<FavoriteArtistRealm> favoriteList =
+                (ArrayList<FavoriteArtistRealm>) Stream.of(realmResults).toList();
         ArrayList<String> artistIdList =
-                (ArrayList<String>) Stream.of(favoriteList).map(FavoriteArtist::getArtistId).collect(Collectors.toList());
+                (ArrayList<String>) Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
         ArtistsContentProvider artistsContentProvider = new ArtistsContentProvider(this,
                 artistIdList);
         Map<String, Artist> artistMap =

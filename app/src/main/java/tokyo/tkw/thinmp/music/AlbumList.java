@@ -13,19 +13,19 @@ public class AlbumList {
     public void add(Track track) {
         String albumId = track.getAlbumId();
 
-        if (!mMap.containsKey(albumId)) {
-            Album album = new Album(
-                    albumId,
-                    track.getAlbumName(),
-                    track.getArtistName(),
-                    track.getThumbnailId()
-            );
-            mMap.put(albumId, album);
-            mAlbumList.add(album);
-        }
+//        if (!mMap.containsKey(albumId)) {
+//            Album album = new Album(
+//                    albumId,
+//                    track.getAlbumName(),
+//                    track.getArtistName(),
+//                    track.getThumbnailId()
+//            );
+//            mMap.put(albumId, album);
+//            mAlbumList.add(album);
+//        }
 
         Album album = mMap.get(albumId);
-        album.addTrackId(track.getId());
+//        album.addTrackId(track.getId());
 
         mMap.put(albumId, album);
     }

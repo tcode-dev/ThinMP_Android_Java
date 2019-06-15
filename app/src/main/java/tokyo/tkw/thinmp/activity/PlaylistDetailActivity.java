@@ -7,15 +7,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDetailAdapter;
-import tokyo.tkw.thinmp.music.MusicList;
-import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.playlist.PlaylistTrack;
+import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
 public class PlaylistDetailActivity extends AppCompatActivity {
 
@@ -24,31 +19,19 @@ public class PlaylistDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
 
-        int playlistId = getIntent().getIntExtra("playlistId", 0);
+        int playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
         RecyclerView view = findViewById(R.id.main);
         LinearLayoutManager layout = new LinearLayoutManager(this);
         view.setLayoutManager(layout);
+        PlaylistTrack playlistTrack = new PlaylistTrack(this, playlistId);
 
-        Realm.init(this);
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<PlaylistTrack> playlistTracks = realm.where(PlaylistTrack.class).equalTo("playlistId", playlistId).findAll();
-        PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(playlistTracks);
+        PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(playlistTrack.getRealmResults()
+                , playlistTrack.getTrackMap());
         view.setAdapter(adapter);
 
         // 区切り線の描画
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 this, new LinearLayoutManager(this).getOrientation());
         view.addItemDecoration(dividerItemDecoration);
-    }
-
-    private ArrayList<Track> getTrackList(RealmResults<PlaylistTrack> playlistTracks) {
-        ArrayList<Track> trackList = new ArrayList<Track>();
-
-        for (PlaylistTrack playlistTrack : playlistTracks) {
-            Track track = MusicList.getTrack(playlistTrack.getTrackId());
-            trackList.add(track);
-        }
-
-        return trackList;
     }
 }

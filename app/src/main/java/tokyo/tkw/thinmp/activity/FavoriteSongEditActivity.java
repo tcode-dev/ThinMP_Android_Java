@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongEditAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteSong;
+import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 import tokyo.tkw.thinmp.favorite.FavoriteSongList;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 
@@ -30,7 +30,7 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
         RecyclerView view = findViewById(R.id.favoriteList);
 
         FavoriteSongList favoriteSongList = new FavoriteSongList(this);
-        ArrayList<FavoriteSong> favoriteList = favoriteSongList.getList();
+        ArrayList<FavoriteSongRealm> favoriteList = favoriteSongList.getList();
         FavoriteSongEditAdapter adapter = new FavoriteSongEditAdapter(favoriteList,
                 favoriteSongList.getTrackMap());
 
@@ -68,7 +68,7 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<String> trackIdList =
-                        (ArrayList<String>) Stream.of(favoriteList).map(FavoriteSong::getTrackId).collect(Collectors.toList());
+                        (ArrayList<String>) Stream.of(favoriteList).map(FavoriteSongRealm::getTrackId).collect(Collectors.toList());
                 FavoriteSongRegister.update(trackIdList);
                 finish();
             }

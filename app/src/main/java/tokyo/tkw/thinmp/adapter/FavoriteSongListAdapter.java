@@ -9,17 +9,17 @@ import java.util.Map;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.favorite.FavoriteSong;
+import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
-public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSong,
+public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSongRealm,
         TrackViewHolder> {
     private Map<String, Track> mTrackMap;
     private OnFavoriteListItemClickListener mListener;
 
-    public FavoriteSongListAdapter(OrderedRealmCollection<FavoriteSong> favoriteList,
+    public FavoriteSongListAdapter(OrderedRealmCollection<FavoriteSongRealm> favoriteList,
                                    Map<String, Track> trackMap,
                                    OnFavoriteListItemClickListener listener) {
         super(favoriteList, true);
@@ -38,7 +38,7 @@ public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSo
 
     @Override
     public void onBindViewHolder(TrackViewHolder holder, int position) {
-        FavoriteSong favorite = getItem(position);
+        FavoriteSongRealm favorite = getItem(position);
         Track track = mTrackMap.get(favorite.getTrackId());
         String title = track.getTitle();
 

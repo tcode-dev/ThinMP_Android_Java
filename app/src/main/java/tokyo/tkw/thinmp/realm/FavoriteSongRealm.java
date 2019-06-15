@@ -1,9 +1,9 @@
-package tokyo.tkw.thinmp.favorite;
+package tokyo.tkw.thinmp.realm;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class FavoriteSong extends RealmObject {
+public class FavoriteSongRealm extends RealmObject {
     @PrimaryKey
     private int id;
     private String trackId;

@@ -17,14 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.PlaylistsAdapter;
-import tokyo.tkw.thinmp.music.MusicList;
+import tokyo.tkw.thinmp.adapter.PlaylistAddAdapter;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
+import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
 public class PlaylistDialogFragment extends DialogFragment {
     private AlertDialog mDialog;
+    private Track mTrack;
     private View mAddPlaylist;
     private View mCreatePlaylist;
     private Button mOkButton;
@@ -35,7 +35,8 @@ public class PlaylistDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_playlist_dialog, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_playlist_dialog,
+                null);
         builder.setView(view);
 
         mDialog = builder.create();
@@ -48,15 +49,15 @@ public class PlaylistDialogFragment extends DialogFragment {
         // データ取り出し
         Bundle bundle = getArguments();
         String defaultPlaylistName = bundle.getString("defaultPlaylistName");
-        String trackId = bundle.getString("trackId");
+        mTrack = (Track) bundle.getSerializable("track");
 
         mEditText.setText(defaultPlaylistName);
 
-        setViewPlaylist(view, trackId);
+        setViewPlaylist(view, mTrack.getId());
 
         mAddPlaylist.setOnClickListener(addPlaylistListener());
 
-        mOkButton.setOnClickListener(okListener(trackId));
+        mOkButton.setOnClickListener(okListener(mTrack));
 
         mCancelButton.setOnClickListener(cancelListener());
 
@@ -91,8 +92,9 @@ public class PlaylistDialogFragment extends DialogFragment {
 
         Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<Playlist> playlists = realm.where(Playlist.class).findAll().sort("order");
-        PlaylistsAdapter adapter = new PlaylistsAdapter(context, playlists, trackId, callback);
+        RealmResults<PlaylistRealm> playlists = realm.where(PlaylistRealm.class).findAll().sort(
+                "order");
+        PlaylistAddAdapter adapter = new PlaylistAddAdapter(playlists, mTrack, callback);
         playlistView.setAdapter(adapter);
 
         // 区切り線の描画
@@ -104,10 +106,9 @@ public class PlaylistDialogFragment extends DialogFragment {
     /**
      * プレイリスト登録
      *
-     * @param trackId
+     * @param track
      */
-    private void addPlaylist(String trackId) {
-        Track track = MusicList.getTrack(trackId);
+    private void addPlaylist(Track track) {
         PlaylistRegister playlistRegister = new PlaylistRegister();
         playlistRegister.create(mEditText.getText().toString(), track);
     }
@@ -118,27 +119,19 @@ public class PlaylistDialogFragment extends DialogFragment {
      * @return
      */
     private View.OnClickListener addPlaylistListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCreatePlaylist();
-            }
-        };
+        return v -> showCreatePlaylist();
     }
 
     /**
      * OKボタンクリック時のイベント
      *
-     * @param trackId
+     * @param track
      * @return
      */
-    private View.OnClickListener okListener(String trackId) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addPlaylist(trackId);
-                mDialog.dismiss();
-            }
+    private View.OnClickListener okListener(Track track) {
+        return v -> {
+            addPlaylist(track);
+            mDialog.dismiss();
         };
     }
 
@@ -148,11 +141,6 @@ public class PlaylistDialogFragment extends DialogFragment {
      * @return
      */
     private View.OnClickListener cancelListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddPlaylist();
-            }
-        };
+        return v -> showAddPlaylist();
     }
 }

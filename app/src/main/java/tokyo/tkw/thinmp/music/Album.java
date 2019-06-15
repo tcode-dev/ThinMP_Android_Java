@@ -1,18 +1,23 @@
 package tokyo.tkw.thinmp.music;
 
+import android.content.Context;
+
 import java.util.ArrayList;
+
+import tokyo.tkw.thinmp.provider.AlbumTracksContentProvider;
 
 /**
  * アルバム情報
  */
 public class Album extends Music {
+    private Context mContext;
     private String id;
     private String name;
     private String artistName;
     private String thumbnailId;
-    private ArrayList<String> trackIdList = new ArrayList<>();
 
-    public Album(String id, String name, String artistName, String thumbnailId) {
+    public Album(Context context, String id, String name, String artistName, String thumbnailId) {
+        this.mContext = context;
         this.id = id;
         this.name = name;
         this.artistName = artistName;
@@ -35,11 +40,9 @@ public class Album extends Music {
         return thumbnailId;
     }
 
-    public ArrayList<String> getTrackIdList() {
-        return trackIdList;
-    }
+    public ArrayList<Track> getTrackList() {
+        AlbumTracksContentProvider provider = new AlbumTracksContentProvider(mContext, id);
 
-    public void addTrackId(String id) {
-        trackIdList.add(id);
+        return provider.getList();
     }
 }

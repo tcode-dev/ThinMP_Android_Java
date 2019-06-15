@@ -1,46 +1,28 @@
 package tokyo.tkw.thinmp.playlist;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import android.content.Context;
 
-public class Playlist extends RealmObject {
-    @PrimaryKey
-    private int id;
-    private String name;
-    private int order;
-    private RealmList<PlaylistTrack> tracks;
+import io.realm.Realm;
+import io.realm.RealmResults;
+import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
-    public RealmList<PlaylistTrack> getTracks() {
-        return tracks;
+public class Playlist {
+    private Context mContext;
+    private RealmResults<PlaylistRealm> mRealmResults;
+
+    public Playlist(Context context) {
+        mContext = context;
+        mRealmResults = findAll();
     }
 
-    public void setTracks(RealmList<PlaylistTrack> tracks) {
-        this.tracks = tracks;
+    public RealmResults<PlaylistRealm> getRealmResults() {
+        return mRealmResults;
     }
 
-    public int getId() {
-        return id;
-    }
+    private RealmResults<PlaylistRealm> findAll() {
+        Realm.init(mContext);
+        Realm realm = Realm.getDefaultInstance();
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
+        return realm.where(PlaylistRealm.class).findAll().sort("order");
     }
 }
-
