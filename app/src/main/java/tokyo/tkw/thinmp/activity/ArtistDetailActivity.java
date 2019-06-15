@@ -22,11 +22,10 @@ public class ArtistDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_detail);
 
-        String artistId = getIntent().getStringExtra("artistId");
+        String artistId = getIntent().getStringExtra(Artist.ARTIST_ID);
 
         // artist取得
-        ArtistContentProvider artistContentProvider = new ArtistContentProvider(this, artistId);
-        Artist artist = artistContentProvider.get();
+        Artist artist = Artist.createInstance(this, artistId);
 
         // 背景画像
         ImageView backgroundView = findViewById(R.id.background);
@@ -51,19 +50,15 @@ public class ArtistDetailActivity extends AppCompatActivity {
         controller.setSpanCount(2);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
 
-        ArtistAlbumsContentProvider artistAlbumsContentProvider =
-                new ArtistAlbumsContentProvider(this, artistId);
-        ArtistTracksContentProvider artistTracksContentProvider =
-                new ArtistTracksContentProvider(this, artistId);
         ArtistDetailController.Data data = new ArtistDetailController.Data();
         data.albums = getResources().getString(R.string.albums);
-        data.albumList = artistAlbumsContentProvider.getList();
+        data.albumList = artist.getAlbumList();
         data.songs = getResources().getString(R.string.songs);
-        data.trackList = artistTracksContentProvider.getList();
+        data.trackList = artist.getTrackList();
         data.titleSpanSize = 2;
         data.albumListSpanSize = 1;
         data.trackListSpanSize = 2;
 
-        controller.setData(data, this);
+        controller.setData(data);
     }
 }

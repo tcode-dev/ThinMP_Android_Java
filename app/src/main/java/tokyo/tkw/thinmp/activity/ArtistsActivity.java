@@ -32,7 +32,7 @@ public class ArtistsActivity extends AppCompatActivity {
         ArtistsController.Data data = new ArtistsController.Data();
         data.title = getResources().getString(R.string.artists);
         data.artistList = allArtistsContentProvider.getList();
-        controller.setData(data, this);
+        controller.setData(data);
 
         // 区切り線の描画
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(

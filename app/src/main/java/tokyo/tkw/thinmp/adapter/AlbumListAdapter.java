@@ -41,7 +41,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListViewHolder> 
         holder.albumName.setText(album.getName());
         holder.artistName.setText(album.getArtistName());
 
-        holder.itemView.setOnClickListener(new AlbumClickListener(mContext, album.getId()));
+        holder.itemView.setOnClickListener(new AlbumClickListener(album.getId()));
     }
 
     @Override

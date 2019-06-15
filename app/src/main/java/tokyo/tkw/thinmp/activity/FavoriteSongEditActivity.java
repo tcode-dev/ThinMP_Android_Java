@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongEditAdapter;
-import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 import tokyo.tkw.thinmp.favorite.FavoriteSongList;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
+import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
 public class FavoriteSongEditActivity extends AppCompatActivity {
 
@@ -34,7 +34,26 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
         FavoriteSongEditAdapter adapter = new FavoriteSongEditAdapter(favoriteList,
                 favoriteSongList.getTrackMap());
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onSimpleCallback(adapter,
+                favoriteList));
+
+        itemTouchHelper.attachToRecyclerView(view);
+
+        findViewById(R.id.apply).setOnClickListener(onApplyClickListener(favoriteList));
+        findViewById(R.id.cancel).setOnClickListener(onCancelClickListener());
+
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        view.setLayoutManager(layout);
+        view.setAdapter(adapter);
+        // 区切り線の描画
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                this, new LinearLayoutManager(this).getOrientation());
+        view.addItemDecoration(dividerItemDecoration);
+    }
+
+    private ItemTouchHelper.SimpleCallback onSimpleCallback(FavoriteSongEditAdapter adapter,
+                                                            ArrayList<FavoriteSongRealm> favoriteList) {
+        return new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
                 ItemTouchHelper.LEFT
         ) {
@@ -60,33 +79,19 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
                 favoriteList.remove(fromPos);
                 adapter.notifyItemRemoved(fromPos);
             }
-        });
+        };
+    }
 
-        itemTouchHelper.attachToRecyclerView(view);
+    private View.OnClickListener onApplyClickListener(ArrayList<FavoriteSongRealm> favoriteList) {
+        return v -> {
+            ArrayList<String> trackIdList =
+                    (ArrayList<String>) Stream.of(favoriteList).map(FavoriteSongRealm::getTrackId).collect(Collectors.toList());
+            FavoriteSongRegister.update(trackIdList);
+            finish();
+        };
+    }
 
-        findViewById(R.id.apply).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<String> trackIdList =
-                        (ArrayList<String>) Stream.of(favoriteList).map(FavoriteSongRealm::getTrackId).collect(Collectors.toList());
-                FavoriteSongRegister.update(trackIdList);
-                finish();
-            }
-        });
-
-        findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-        view.setLayoutManager(layout);
-        view.setAdapter(adapter);
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                this, new LinearLayoutManager(this).getOrientation());
-        view.addItemDecoration(dividerItemDecoration);
+    private View.OnClickListener onCancelClickListener() {
+        return v -> finish();
     }
 }

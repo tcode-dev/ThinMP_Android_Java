@@ -52,8 +52,8 @@ public class TrackMenu {
         }
     };
 
-    public TrackMenu(Context context, View view, Track track) {
-        mContext = context;
+    public TrackMenu(View view, Track track) {
+        mContext = view.getContext();
         mView = view;
         mTrack = track;
         mTrackId = track.getId();

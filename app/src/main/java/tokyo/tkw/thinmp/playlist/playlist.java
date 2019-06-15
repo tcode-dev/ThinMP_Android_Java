@@ -7,6 +7,8 @@ import io.realm.RealmResults;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
 public class Playlist {
+    public static final String PLAYLIST_ID = "playlistId";
+
     private Context mContext;
     private RealmResults<PlaylistRealm> mRealmResults;
 

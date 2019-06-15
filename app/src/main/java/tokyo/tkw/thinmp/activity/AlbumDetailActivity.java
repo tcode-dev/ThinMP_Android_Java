@@ -19,7 +19,6 @@ import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
-import tokyo.tkw.thinmp.provider.AlbumTracksContentProvider;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
@@ -31,10 +30,12 @@ public class AlbumDetailActivity extends AppCompatActivity implements AlbumTrack
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
 
-        String albumId = getIntent().getStringExtra("albumId");
+        String albumId = getIntent().getStringExtra(Album.ALBUM_ID);
 
-        AlbumContentProvider albumContentProvider = new AlbumContentProvider(this, albumId);
-        Album album = albumContentProvider.get();
+        Album album = Album.createInstance(this, albumId);
+
+        // 曲一覧
+        mTrackList = album.getTrackList();
 
         // サムネイル
         ImageView thumbnailView = findViewById(R.id.thumbnail);
@@ -47,11 +48,6 @@ public class AlbumDetailActivity extends AppCompatActivity implements AlbumTrack
         // アーティスト名
         ResponsiveTextView subTitleView = findViewById(R.id.subTitle);
         subTitleView.setText(album.getArtistName());
-
-        // 曲一覧
-        AlbumTracksContentProvider albumTracksContentProvider =
-                new AlbumTracksContentProvider(this, albumId);
-        mTrackList = albumTracksContentProvider.getList();
 
         AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(mTrackList, this);
         LinearLayoutManager layout = new LinearLayoutManager(this);
@@ -75,7 +71,7 @@ public class AlbumDetailActivity extends AppCompatActivity implements AlbumTrack
 
     @Override
     public void onClickMenu(View view, Track track) {
-        TrackMenu trackMenu = new TrackMenu(this, view, track);
+        TrackMenu trackMenu = new TrackMenu(view, track);
         trackMenu.show();
     }
 }

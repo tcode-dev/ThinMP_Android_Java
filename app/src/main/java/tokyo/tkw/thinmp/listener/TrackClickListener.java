@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.listener;
 
-import android.content.Context;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,24 +12,18 @@ import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
 import tokyo.tkw.thinmp.music.Track;
 
 public class TrackClickListener implements View.OnClickListener {
-    private Context mContext;
     private ArrayList<Track> mTrackList;
     private int mPosition;
 
-    public TrackClickListener(Context context, ArrayList<Track> trackList, int position) {
-        mContext = context;
+    public TrackClickListener(ArrayList<Track> trackList, int position) {
         mTrackList = trackList;
         mPosition = position;
     }
 
     @Override
-    public void onClick(View view) {
-        start();
-    }
-
-    private void start() {
+    public void onClick(View v) {
         Fragment fragment =
-                ((AppCompatActivity) mContext).getSupportFragmentManager().findFragmentById(R.id.includeMiniPlayer);
+                ((AppCompatActivity) v.getContext()).getSupportFragmentManager().findFragmentById(R.id.includeMiniPlayer);
         if (fragment instanceof MiniPlayerFragment) {
             ((MiniPlayerFragment) fragment).start(mTrackList, mPosition);
         }

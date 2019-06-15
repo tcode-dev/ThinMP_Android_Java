@@ -36,7 +36,7 @@ public class FavoriteSongsActivity extends AppCompatActivity {
         FavoriteSongListAdapter adapter =
                 new FavoriteSongListAdapter(favoriteSongList.getRealmResults(),
                         favoriteSongList.getTrackMap(),
-                        favoriteListItemClickListener(this));
+                        favoriteListItemClickListener());
         favoriteListView.setAdapter(adapter);
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
@@ -59,7 +59,7 @@ public class FavoriteSongsActivity extends AppCompatActivity {
         };
     }
 
-    private FavoriteSongListAdapter.OnFavoriteListItemClickListener favoriteListItemClickListener(Context context) {
+    private FavoriteSongListAdapter.OnFavoriteListItemClickListener favoriteListItemClickListener() {
         return new FavoriteSongListAdapter.OnFavoriteListItemClickListener() {
 
             @Override
@@ -75,7 +75,7 @@ public class FavoriteSongsActivity extends AppCompatActivity {
 
             @Override
             public void onClickMenu(View view, Track track) {
-                TrackMenu trackMenu = new TrackMenu(context, view, track);
+                TrackMenu trackMenu = new TrackMenu(view, track);
                 trackMenu.show();
             }
         };

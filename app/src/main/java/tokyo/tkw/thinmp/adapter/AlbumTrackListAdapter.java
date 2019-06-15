@@ -18,14 +18,17 @@ public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListVi
     private ArrayList<Track> mTrackList;
     private OnTrackListItemClickListener mListener;
 
-    public AlbumTrackListAdapter(@NonNull ArrayList<Track> trackList, OnTrackListItemClickListener listener) {
+    public AlbumTrackListAdapter(@NonNull ArrayList<Track> trackList,
+                                 OnTrackListItemClickListener listener) {
         mTrackList = trackList;
         mListener = listener;
     }
 
     @Override
     public AlbumTrackListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_track_list_item, parent, false);
+        View view =
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.album_track_list_item,
+                        parent, false);
 
         return new AlbumTrackListViewHolder(view);
     }

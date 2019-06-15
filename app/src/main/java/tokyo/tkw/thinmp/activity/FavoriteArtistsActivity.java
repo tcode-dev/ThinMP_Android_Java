@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,10 +18,10 @@ import java.util.Map;
 import io.realm.OrderedRealmCollection;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistListAdapter;
-import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.provider.ArtistsContentProvider;
+import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
 public class FavoriteArtistsActivity extends AppCompatActivity {
     @Override
@@ -36,7 +35,8 @@ public class FavoriteArtistsActivity extends AppCompatActivity {
 
     private void initList() {
         RecyclerView favoriteListView = findViewById(R.id.list);
-        OrderedRealmCollection<FavoriteArtistRealm> realmResults = FavoriteArtistList.getFavoriteList();
+        OrderedRealmCollection<FavoriteArtistRealm> realmResults =
+                FavoriteArtistList.getFavoriteList();
 
         ArrayList<FavoriteArtistRealm> favoriteList =
                 (ArrayList<FavoriteArtistRealm>) Stream.of(realmResults).toList();
@@ -48,7 +48,7 @@ public class FavoriteArtistsActivity extends AppCompatActivity {
                 Stream.of(artistsContentProvider.getList()).collect(Collectors.toMap(artist -> artist.getId(), artist -> artist));
         FavoriteArtistListAdapter adapter =
                 new FavoriteArtistListAdapter(realmResults, artistMap,
-                        favoriteArtistListListener(this));
+                        favoriteArtistListListener());
         favoriteListView.setAdapter(adapter);
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
@@ -61,27 +61,21 @@ public class FavoriteArtistsActivity extends AppCompatActivity {
     }
 
     private void initEdit() {
-        findViewById(R.id.edit).setOnClickListener(editClickListener(this));
+        findViewById(R.id.edit).setOnClickListener(editClickListener());
     }
 
-    private FavoriteArtistListAdapter.FavoriteArtistListListener favoriteArtistListListener(Context context) {
-        return new FavoriteArtistListAdapter.FavoriteArtistListListener() {
-            @Override
-            public void onClick(String artistId) {
-                Intent intent = new Intent(context, ArtistDetailActivity.class);
-                intent.putExtra("artistId", artistId);
-                startActivity(intent);
-            }
+    private FavoriteArtistListAdapter.FavoriteArtistListListener favoriteArtistListListener() {
+        return artistId -> {
+            Intent intent = new Intent(this, ArtistDetailActivity.class);
+            intent.putExtra(Artist.ARTIST_ID, artistId);
+            startActivity(intent);
         };
     }
 
-    private View.OnClickListener editClickListener(Context context) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, FavoriteArtistEditActivity.class);
-                startActivity(intent);
-            }
+    private View.OnClickListener editClickListener() {
+        return v -> {
+            Intent intent = new Intent(this, FavoriteArtistEditActivity.class);
+            startActivity(intent);
         };
     }
 }

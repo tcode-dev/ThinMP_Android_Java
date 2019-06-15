@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -37,7 +36,7 @@ public class TracksActivity extends AppCompatActivity {
         mTrackList = allTracksContentProvider.getList();
 
         TrackListAdapter adapter = new TrackListAdapter(mTrackList,
-                trackListItemClickListener(this));
+                trackListItemClickListener());
         LinearLayoutManager layout = new LinearLayoutManager(this);
         listView.setLayoutManager(layout);
         listView.setAdapter(adapter);
@@ -48,7 +47,7 @@ public class TracksActivity extends AppCompatActivity {
         listView.addItemDecoration(dividerItemDecoration);
     }
 
-    private TrackListAdapter.OnTrackListItemClickListener trackListItemClickListener(Context context) {
+    private TrackListAdapter.OnTrackListItemClickListener trackListItemClickListener() {
         return new TrackListAdapter.OnTrackListItemClickListener() {
 
             @Override
@@ -62,7 +61,7 @@ public class TracksActivity extends AppCompatActivity {
 
             @Override
             public void onClickMenu(View view, Track track) {
-                TrackMenu trackMenu = new TrackMenu(context, view, track);
+                TrackMenu trackMenu = new TrackMenu(view, track);
                 trackMenu.show();
             }
         };

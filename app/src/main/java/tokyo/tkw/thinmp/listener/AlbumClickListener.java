@@ -1,25 +1,24 @@
 package tokyo.tkw.thinmp.listener;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
 import tokyo.tkw.thinmp.activity.AlbumDetailActivity;
+import tokyo.tkw.thinmp.music.Album;
 
 public class AlbumClickListener implements View.OnClickListener {
-    private Context mContext;
     private String mAlbumId;
 
-    public AlbumClickListener(Context context, String albumId) {
-        mContext = context;
+    public AlbumClickListener(String albumId) {
         mAlbumId = albumId;
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(mContext, AlbumDetailActivity.class);
-        intent.putExtra("albumId", mAlbumId);
-        mContext.startActivity(intent);
+        Context context = v.getContext();
+        Intent intent = new Intent(context, AlbumDetailActivity.class);
+        intent.putExtra(Album.ALBUM_ID, mAlbumId);
+        context.startActivity(intent);
     }
 }

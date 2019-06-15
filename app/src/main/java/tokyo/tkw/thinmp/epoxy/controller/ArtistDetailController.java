@@ -1,9 +1,7 @@
 package tokyo.tkw.thinmp.epoxy.controller;
 
-import android.content.Context;
-
 import com.airbnb.epoxy.AutoModel;
-import com.airbnb.epoxy.Typed2EpoxyController;
+import com.airbnb.epoxy.TypedEpoxyController;
 import com.annimon.stream.IntStream;
 
 import java.util.ArrayList;
@@ -17,8 +15,7 @@ import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
 
-public class ArtistDetailController extends Typed2EpoxyController<ArtistDetailController.Data,
-        Context> {
+public class ArtistDetailController extends TypedEpoxyController<ArtistDetailController.Data> {
     @AutoModel
     HeaderModel_ headerModel;
     @AutoModel
@@ -27,7 +24,7 @@ public class ArtistDetailController extends Typed2EpoxyController<ArtistDetailCo
     TrackListItemModel_ trackListItemModel;
 
     @Override
-    protected void buildModels(Data data, Context context) {
+    protected void buildModels(Data data) {
         new HeaderModel_()
                 .id("albums")
                 .title(data.albums)
@@ -39,7 +36,7 @@ public class ArtistDetailController extends Typed2EpoxyController<ArtistDetailCo
                     .id(album.getId())
                     .albumName(album.getName())
                     .thumbnailId(album.getThumbnailId())
-                    .clickListener(new AlbumClickListener(context, album.getId()))
+                    .clickListener(new AlbumClickListener(album.getId()))
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> data.albumListSpanSize)
                     .addTo(this);
         }
@@ -57,7 +54,7 @@ public class ArtistDetailController extends Typed2EpoxyController<ArtistDetailCo
                     .trackName(track.getTitle())
                     .thumbnailId(track.getThumbnailId())
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> data.trackListSpanSize)
-                    .clickListener(new TrackClickListener(context, data.trackList, i))
+                    .clickListener(new TrackClickListener(data.trackList, i))
                     .addTo(this);
         });
     }

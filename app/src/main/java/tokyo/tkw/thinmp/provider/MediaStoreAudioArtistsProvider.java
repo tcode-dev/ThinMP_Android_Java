@@ -27,7 +27,7 @@ public abstract class MediaStoreAudioArtistsProvider extends MediaStoreAudioProv
     }
 
     private Artist getArtist() {
-        return new Artist(getId(), getArtistName());
+        return new Artist(mContext, getId(), getArtistName());
     }
 
     @Override
