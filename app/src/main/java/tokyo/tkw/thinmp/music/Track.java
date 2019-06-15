@@ -1,10 +1,13 @@
 package tokyo.tkw.thinmp.music;
 
 import android.net.Uri;
+import android.provider.MediaStore;
 
 import java.io.Serializable;
 
 import tokyo.tkw.thinmp.util.TimeUtil;
+
+import static android.net.Uri.parse;
 
 /**
  * 曲
@@ -20,10 +23,9 @@ public class Track extends Music implements Serializable {
     private String thumbnailId;
     private int duration;
 
-    public Track(String id, String title, Uri uri, String artistId, String artistName, String albumId, String albumName, int duration) {
+    public Track(String id, String title, String artistId, String artistName, String albumId, String albumName, int duration) {
         this.id = id;
         this.title = title;
-        this.uri = uri;
         this.artistId = artistId;
         this.artistName = artistName;
         this.albumId = albumId;
@@ -38,10 +40,6 @@ public class Track extends Music implements Serializable {
 
     public String getTitle() {
         return title;
-    }
-
-    public Uri getUri() {
-        return uri;
     }
 
     public String getArtistId() {
@@ -70,5 +68,9 @@ public class Track extends Music implements Serializable {
 
     public String getDurationTime() {
         return TimeUtil.secondToTime(getDurationSecond());
+    }
+
+    public Uri getUri() {
+        return parse(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + id);
     }
 }

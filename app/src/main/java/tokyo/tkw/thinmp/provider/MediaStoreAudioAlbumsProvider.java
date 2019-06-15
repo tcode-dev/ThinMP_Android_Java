@@ -31,7 +31,7 @@ public abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvi
     }
 
     protected Album getAlbum() {
-        return new Album(mContext, getId(), getAlbumName(), getArtistName(), getThumbnailId());
+        return new Album(getId(), getAlbumName(), getArtistName(), getThumbnailId());
     }
 
     @Override

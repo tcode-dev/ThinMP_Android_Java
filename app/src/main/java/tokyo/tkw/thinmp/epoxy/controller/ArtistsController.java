@@ -3,7 +3,7 @@ package tokyo.tkw.thinmp.epoxy.controller;
 import com.airbnb.epoxy.AutoModel;
 import com.airbnb.epoxy.TypedEpoxyController;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.epoxy.model.ArtistListItemModel_;
 import tokyo.tkw.thinmp.epoxy.model.HeaderModel_;
@@ -32,6 +32,6 @@ public class ArtistsController extends TypedEpoxyController<ArtistsController.Da
 
     public static class Data {
         public String title;
-        public List<Artist> artistList;
+        public ArrayList<Artist> artistList;
     }
 }

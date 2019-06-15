@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistsController;
-import tokyo.tkw.thinmp.provider.AllArtistsContentProvider;
+import tokyo.tkw.thinmp.music.ArtistList;
 
 public class ArtistsActivity extends AppCompatActivity {
 
@@ -28,10 +28,10 @@ public class ArtistsActivity extends AppCompatActivity {
         listView.setLayoutManager(layout);
         listView.setAdapter(controller.getAdapter());
 
-        AllArtistsContentProvider allArtistsContentProvider = new AllArtistsContentProvider(this);
+        ArtistList artistList = new ArtistList(this);
         ArtistsController.Data data = new ArtistsController.Data();
         data.title = getResources().getString(R.string.artists);
-        data.artistList = allArtistsContentProvider.getList();
+        data.artistList = artistList.getAllArtistList();
         controller.setData(data);
 
         // 区切り線の描画

@@ -9,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistDetailController;
+import tokyo.tkw.thinmp.music.AlbumList;
 import tokyo.tkw.thinmp.music.Artist;
-import tokyo.tkw.thinmp.provider.ArtistAlbumsContentProvider;
-import tokyo.tkw.thinmp.provider.ArtistContentProvider;
-import tokyo.tkw.thinmp.provider.ArtistTracksContentProvider;
+import tokyo.tkw.thinmp.music.TrackList;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
@@ -50,11 +49,14 @@ public class ArtistDetailActivity extends AppCompatActivity {
         controller.setSpanCount(2);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
 
+        AlbumList albumList = new AlbumList(this);
+        TrackList trackList = new TrackList(this);
+
         ArtistDetailController.Data data = new ArtistDetailController.Data();
         data.albums = getResources().getString(R.string.albums);
-        data.albumList = artist.getAlbumList();
+        data.albumList = albumList.getArtistAlbumList(artistId);
         data.songs = getResources().getString(R.string.songs);
-        data.trackList = artist.getTrackList();
+        data.trackList = trackList.getArtistTrackList(artistId);
         data.titleSpanSize = 2;
         data.albumListSpanSize = 1;
         data.trackListSpanSize = 2;
