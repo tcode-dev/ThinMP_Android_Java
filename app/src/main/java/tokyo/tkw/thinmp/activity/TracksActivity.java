@@ -30,7 +30,7 @@ public class TracksActivity extends AppCompatActivity {
     }
 
     private void initList() {
-        RecyclerView listView = findViewById(R.id.main);
+        RecyclerView listView = findViewById(R.id.list);
 
         AllTracksContentProvider allTracksContentProvider = new AllTracksContentProvider(this);
         mTrackList = allTracksContentProvider.getList();
