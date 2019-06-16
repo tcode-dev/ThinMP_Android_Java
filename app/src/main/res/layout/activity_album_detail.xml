@@ -79,7 +79,8 @@
                         app:layout_constraintEnd_toEndOf="@+id/thumbnail"
                         app:layout_constraintStart_toStartOf="@+id/thumbnail"
                         app:textColor="#000000"
-                        app:textSize="20" />
+                        app:textSize="20"
+                        app:textAlignCenter="true" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/subTitle"
@@ -93,7 +94,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/thumbnail"
                         app:textColor="#5C5C5C"
-                        app:textSize="16" />
+                        app:textSize="16"
+                        app:textAlignCenter="true" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

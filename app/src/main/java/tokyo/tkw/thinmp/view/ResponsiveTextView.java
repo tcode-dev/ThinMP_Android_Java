@@ -26,10 +26,12 @@ public class ResponsiveTextView extends View {
     private static final int DEFAULT_TEXT_SIZE = 24;
     private static final int DEFAULT_OFFSET_X = 0;
     private static final int DEFAULT_OFFSET_Y = 0;
+    private static final boolean DEFAULT_IS_TEXT_ALIGN_CENTER = false;
     private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
     private float mCollapseScale;
     private float mOffsetX;
     private float mOffsetY;
+    private boolean mIsTextAlignCenter;
     private TextPaint mTextPaint;
     private String mText;
     private float mAscent;
@@ -63,6 +65,9 @@ public class ResponsiveTextView extends View {
         String textColor =
                 responsiveTextViewTypedArray.getString(R.styleable.ResponsiveTextView_textColor);
 
+        mIsTextAlignCenter =
+                responsiveTextViewTypedArray.getBoolean(R.styleable.ResponsiveTextView_textAlignCenter, DEFAULT_IS_TEXT_ALIGN_CENTER);
+
         responsiveTextViewTypedArray.recycle();
 
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
@@ -85,8 +90,9 @@ public class ResponsiveTextView extends View {
         final CharSequence text = (currentWidth <= canvasWidth) ? mText :
                 TextUtils.ellipsize(mText, mTextPaint, canvasWidth * (1 + (1 - scale)),
                         TextUtils.TruncateAt.END);
-        float offsetX = (canvasWidth <= currentWidth) ? mScrollRate * mOffsetX :
-                (mScrollRate * mOffsetX) + ((canvasWidth - currentWidth) / 2);
+        float offsetX = (mIsTextAlignCenter && (currentWidth < canvasWidth)) ?
+                mScrollRate * mOffsetX + ((canvasWidth - currentWidth) / 2) :
+                mScrollRate * mOffsetX;
         float offsetY = mScrollRate * mOffsetY;
 
         canvas.scale(scale, scale);
