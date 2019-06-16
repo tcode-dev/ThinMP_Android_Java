@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.adapter.LibraryAdapter;
-import tokyo.tkw.thinmp.provider.AlbumsContentProvider;
+import tokyo.tkw.thinmp.provider.AllAlbumsContentProvider;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1;
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setList() {
         RecyclerView list = findViewById(R.id.list);
-        AlbumsContentProvider albumsContentProvider = new AlbumsContentProvider(this);
-        AlbumListAdapter adapter = new AlbumListAdapter(this, albumsContentProvider.getList());
+        AllAlbumsContentProvider allAlbumsContentProvider = new AllAlbumsContentProvider(this);
+        AlbumListAdapter adapter = new AlbumListAdapter(this, allAlbumsContentProvider.getList());
         GridLayoutManager layout = new GridLayoutManager(this, 2);
 
         list.setLayoutManager(layout);

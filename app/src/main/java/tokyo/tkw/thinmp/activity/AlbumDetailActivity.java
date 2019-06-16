@@ -18,7 +18,7 @@ import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
 import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.music.TrackList;
+import tokyo.tkw.thinmp.music.TrackCollection;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
@@ -32,11 +32,13 @@ public class AlbumDetailActivity extends AppCompatActivity implements AlbumTrack
 
         String albumId = getIntent().getStringExtra(Album.ALBUM_ID);
 
+        // アルバム
         Album album = Album.createInstance(this, albumId);
 
         // 曲一覧
-        TrackList trackList = new TrackList(this);
-        mTrackList = trackList.getAlbumTrackList(albumId);
+        TrackCollection trackCollection = TrackCollection.createAlbumTrackCollectionInstance(this
+                , albumId);
+        mTrackList = trackCollection.getList();
 
         // サムネイル
         ImageView thumbnailView = findViewById(R.id.thumbnail);

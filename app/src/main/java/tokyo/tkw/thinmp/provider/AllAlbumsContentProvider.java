@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
-public class AlbumsContentProvider extends MediaStoreAudioAlbumsProvider {
-    public AlbumsContentProvider(Context context) {
+public class AllAlbumsContentProvider extends MediaStoreAudioAlbumsProvider {
+    public AllAlbumsContentProvider(Context context) {
         super(context);
     }
 

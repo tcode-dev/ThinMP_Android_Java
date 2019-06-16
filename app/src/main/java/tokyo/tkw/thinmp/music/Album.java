@@ -23,7 +23,7 @@ public class Album extends Music {
     }
 
     /**
-     * ContentProviderからalbumを取得
+     * 指定されたアルバムを取得
      *
      * @param context
      * @param id

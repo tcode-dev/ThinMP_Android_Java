@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import io.realm.Realm;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.music.TrackList;
+import tokyo.tkw.thinmp.music.TrackCollection;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
@@ -57,9 +57,9 @@ public class PlaylistRegister extends Fragment {
      * @param album
      */
     public void create(String name, Album album) {
-        TrackList trackList = new TrackList(getContext());
+        TrackCollection trackCollection = TrackCollection.createAlbumTrackCollectionInstance(getContext(), album.getId());
 
-        create(name, trackList.getAlbumTrackList(album.getId()));
+        create(name, trackCollection.getList());
     }
 
     public void create(String name, ArrayList<Track> trackList) {

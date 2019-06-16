@@ -7,11 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistDetailController;
-import tokyo.tkw.thinmp.music.AlbumList;
+import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.music.AlbumCollection;
 import tokyo.tkw.thinmp.music.Artist;
-import tokyo.tkw.thinmp.music.TrackList;
+import tokyo.tkw.thinmp.music.TrackCollection;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
@@ -26,13 +29,19 @@ public class ArtistDetailActivity extends AppCompatActivity {
         // artist取得
         Artist artist = Artist.createInstance(this, artistId);
 
+        AlbumCollection albumCollection = AlbumCollection.createArtistAlbumCollectionInstance(this, artistId);
+        ArrayList<Album> artistAlbumList = albumCollection.getList();
+        String thumbnailId = albumCollection.getThumbnailId();
+
+        TrackCollection trackCollection = TrackCollection.createArtistTrackCollectionInstance(this, artistId);
+
         // 背景画像
         ImageView backgroundView = findViewById(R.id.background);
-        GlideUtil.bitmap(artist.getThumbnailIdList(), backgroundView, GlideUtil.ARTIST_RESOURCE_ID);
+        GlideUtil.bitmap(thumbnailId, backgroundView, GlideUtil.ARTIST_RESOURCE_ID);
 
         // サムネイル
         ImageView thumbnailView = findViewById(R.id.thumbnail);
-        GlideUtil.bitmap(artist.getThumbnailIdList(), thumbnailView, GlideUtil.ARTIST_RESOURCE_ID);
+        GlideUtil.bitmap(thumbnailId, thumbnailView, GlideUtil.ARTIST_RESOURCE_ID);
 
         // タイトル
         ResponsiveTextView titleView = findViewById(R.id.title);
@@ -49,14 +58,11 @@ public class ArtistDetailActivity extends AppCompatActivity {
         controller.setSpanCount(2);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
 
-        AlbumList albumList = new AlbumList(this);
-        TrackList trackList = new TrackList(this);
-
         ArtistDetailController.Data data = new ArtistDetailController.Data();
         data.albums = getResources().getString(R.string.albums);
-        data.albumList = albumList.getArtistAlbumList(artistId);
+        data.albumList = artistAlbumList;
         data.songs = getResources().getString(R.string.songs);
-        data.trackList = trackList.getArtistTrackList(artistId);
+        data.trackList = trackCollection.getList();
         data.titleSpanSize = 2;
         data.albumListSpanSize = 1;
         data.trackListSpanSize = 2;
