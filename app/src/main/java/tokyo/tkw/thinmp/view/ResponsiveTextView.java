@@ -41,8 +41,8 @@ public class ResponsiveTextView extends View {
         TypedArray responsiveTypedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.Responsive);
 
-        mCollapseScale = 1 - responsiveTypedArray.getFloat(R.styleable.Responsive_collapseScale, DEFAULT_COLLAPSE_SCALE);
-
+        mCollapseScale = 1 - responsiveTypedArray.getFloat(R.styleable.Responsive_collapseScale,
+                DEFAULT_COLLAPSE_SCALE);
 
         mOffsetX = ViewUtil.dpToDimensionPx(context,
                 responsiveTypedArray.getInt(R.styleable.Responsive_collapseOffsetX,
@@ -79,20 +79,20 @@ public class ResponsiveTextView extends View {
         super.draw(canvas);
 
         float scale = 1 - (mScrollRate * mCollapseScale);
-        float offsetX = mScrollRate * mOffsetX;
-        float offsetY = mScrollRate * mOffsetY;
-        int canvasWidth = canvas.getWidth();
+        int canvasWidth = getWidth();
         int textWidth = (int) Layout.getDesiredWidth(mText, mTextPaint);
         int currentWidth = (int) ((float) textWidth * scale);
         final CharSequence text = (currentWidth <= canvasWidth) ? mText :
                 TextUtils.ellipsize(mText, mTextPaint, canvasWidth * (1 + (1 - scale)),
                         TextUtils.TruncateAt.END);
+        float offsetX = (canvasWidth <= currentWidth) ? mScrollRate * mOffsetX :
+                (mScrollRate * mOffsetX) + ((canvasWidth - currentWidth) / 2);
+        float offsetY = mScrollRate * mOffsetY;
 
         canvas.scale(scale, scale);
         canvas.drawText(text, 0, text.length(), 0, mAscent, mTextPaint);
-
-        this.setTranslationX(offsetX);
-        this.setTranslationY(offsetY);
+        setTranslationX(offsetX);
+        setTranslationY(offsetY);
     }
 
     @Override
