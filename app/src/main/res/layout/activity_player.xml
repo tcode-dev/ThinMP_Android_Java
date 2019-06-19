@@ -49,7 +49,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <tokyo.tkw.thinmp.view.SquareImageView
-                    android:id="@+id/thumbnail"
+                    android:id="@+id/albumArt"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginTop="60dp"
@@ -82,7 +82,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.521"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
+                    app:layout_constraintTop_toBottomOf="@+id/albumArt" />
 
                 <TextView
                     android:id="@+id/artistName"

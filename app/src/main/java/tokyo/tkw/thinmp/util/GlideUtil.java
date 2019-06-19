@@ -26,24 +26,24 @@ public class GlideUtil {
     public static final int ARTIST_RESOURCE_ID = R.drawable.artist;
     private static final int DEFAULT_RESOURCE_ID = ALBUM_RESOURCE_ID;
 
-    public static void bitmap(String thumbnailId, ImageView view) {
-        bitmap(thumbnailId, view, DEFAULT_RESOURCE_ID);
+    public static void bitmap(String albumArtId, ImageView view) {
+        bitmap(albumArtId, view, DEFAULT_RESOURCE_ID);
     }
 
-    public static void bitmap(String thumbnailId, ImageView view, int resourceId) {
-        ArrayList<String> thumbnailIdList = new ArrayList<String>() {{
-            add(thumbnailId);
+    public static void bitmap(String albumArtId, ImageView view, int resourceId) {
+        ArrayList<String> albumArtIdList = new ArrayList<String>() {{
+            add(albumArtId);
         }};
-        bitmap(thumbnailIdList, view, resourceId);
+        bitmap(albumArtIdList, view, resourceId);
     }
 
-    public static void bitmap(ArrayList<String> thumbnailIdList, ImageView view) {
-        bitmap(thumbnailIdList, view, DEFAULT_RESOURCE_ID);
+    public static void bitmap(ArrayList<String> albumArtIdList, ImageView view) {
+        bitmap(albumArtIdList, view, DEFAULT_RESOURCE_ID);
     }
 
-    public static void bitmap(ArrayList<String> thumbnailIdList, ImageView view,
+    public static void bitmap(ArrayList<String> albumArtIdList, ImageView view,
                               int resourceId) {
-        DoGlide glide = new DoGlide(thumbnailIdList, view, resourceId);
+        DoGlide glide = new DoGlide(albumArtIdList, view, resourceId);
         glide.exec();
     }
 
@@ -56,9 +56,9 @@ public class GlideUtil {
         private ImageView mView;
         private int mResourceId;
 
-        public DoGlide(ArrayList<String> thumbnailIdList, ImageView view,
+        public DoGlide(ArrayList<String> albumArtIdList, ImageView view,
                        int resourceId) {
-            mIterator = thumbnailIdList.iterator();
+            mIterator = albumArtIdList.iterator();
             mView = view;
             mResourceId = resourceId;
         }

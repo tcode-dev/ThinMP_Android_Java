@@ -20,7 +20,7 @@ import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 @EpoxyModelClass(layout = R.layout.panel)
 public abstract class AlbumListItemModel extends EpoxyModelWithHolder<AlbumListItemModel.Holder> {
     @EpoxyAttribute
-    String thumbnailId;
+    String albumArtId;
     @EpoxyAttribute
     String albumName;
     @EpoxyAttribute(DoNotHash)
@@ -29,19 +29,19 @@ public abstract class AlbumListItemModel extends EpoxyModelWithHolder<AlbumListI
     @Override
     public void bind(@NonNull Holder holder) {
         holder.parent.setOnClickListener(clickListener);
-        GlideUtil.bitmap(thumbnailId, holder.thumbnail);
+        GlideUtil.bitmap(albumArtId, holder.albumArt);
         holder.albumName.setText(albumName);
     }
 
     static class Holder extends EpoxyHolder {
         View parent;
-        ImageView thumbnail;
+        ImageView albumArt;
         TextView albumName;
 
         @Override
         protected void bindView(@NonNull View itemView) {
             parent = itemView;
-            thumbnail = itemView.findViewById(R.id.thumbnail);
+            albumArt = itemView.findViewById(R.id.albumArt);
             albumName = itemView.findViewById(R.id.primaryText);
         }
     }

@@ -7,7 +7,7 @@
     android:layout_marginEnd="20dp">
 
     <tokyo.tkw.thinmp.view.SquareImageView
-        android:id="@+id/thumbnail"
+        android:id="@+id/albumArt"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -20,7 +20,7 @@
         android:singleLine="true"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
+        app:layout_constraintTop_toBottomOf="@+id/albumArt" />
 
     <TextView
         android:id="@+id/secondaryText"

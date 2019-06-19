@@ -77,7 +77,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         Track track = mTrackList.get(trackPosition);
         String title = track.getTitle();
 
-        GlideUtil.bitmap(track.getThumbnailId(), trackViewHolder.thumbnail);
+        GlideUtil.bitmap(track.getAlbumArtId(), trackViewHolder.albumArt);
         trackViewHolder.track.setText(title);
         trackViewHolder.artist.setText(track.getArtistName());
 

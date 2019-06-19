@@ -44,7 +44,7 @@ public class PlaylistTrackRealm extends RealmObject {
         return order;
     }
 
-    public String getThumbnailId() {
+    public String getAlbumArtId() {
         return albumId;
     }
 }

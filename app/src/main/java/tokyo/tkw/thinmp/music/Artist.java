@@ -42,7 +42,7 @@ public class Artist extends Music {
         return name;
     }
 
-    public ArrayList<String> getThumbnailIdList() {
+    public ArrayList<String> getAlbumArtIdList() {
         return albumIdList;
     }
 }

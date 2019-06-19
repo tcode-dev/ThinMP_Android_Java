@@ -51,13 +51,13 @@ public class AlbumCollection {
     }
 
     /**
-     * ThumbnailIdを取得
+     * AlbumArtIdを取得
      *
      * @return
      */
-    public String getThumbnailId() {
+    public String getAlbumArtId() {
         return Stream.of(mAlbumList)
-                .map(album -> album.getThumbnailId())
+                .map(album -> album.getAlbumArtId())
                 .withoutNulls()
                 .findFirst()
                 .orElse(null);

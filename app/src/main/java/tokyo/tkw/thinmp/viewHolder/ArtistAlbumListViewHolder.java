@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 
 public class ArtistAlbumListViewHolder extends RecyclerView.ViewHolder {
-    public ImageView thumbnail;
+    public ImageView albumArt;
     public TextView albumName;
 
 
     public ArtistAlbumListViewHolder(View view) {
         super(view);
 
-        thumbnail = view.findViewById(R.id.thumbnail);
+        albumArt = view.findViewById(R.id.albumArt);
         albumName = view.findViewById(R.id.primaryText);
     }
 }

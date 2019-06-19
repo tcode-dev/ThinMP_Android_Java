@@ -34,7 +34,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailCon
             new AlbumListItemModel_()
                     .id(album.getId())
                     .albumName(album.getName())
-                    .thumbnailId(album.getThumbnailId())
+                    .albumArtId(album.getAlbumArtId())
                     .clickListener(new AlbumClickListener(album.getId()))
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> data.albumListSpanSize)
                     .addTo(this);
@@ -51,7 +51,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailCon
             new TrackListItemModel_()
                     .id(track.getId())
                     .trackName(track.getTitle())
-                    .thumbnailId(track.getThumbnailId())
+                    .albumArtId(track.getAlbumArtId())
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> data.trackListSpanSize)
                     .clickListener(new TrackClickListener(data.trackList, i))
                     .addTo(this);

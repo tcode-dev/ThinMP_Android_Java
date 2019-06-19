@@ -6,7 +6,7 @@
     android:background="@drawable/border_bottom">
 
     <ImageView
-        android:id="@+id/thumbnail"
+        android:id="@+id/albumArt"
         android:layout_width="54dp"
         android:layout_height="54dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +27,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/menu"
-        app:layout_constraintStart_toEndOf="@+id/thumbnail"
+        app:layout_constraintStart_toEndOf="@+id/albumArt"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView

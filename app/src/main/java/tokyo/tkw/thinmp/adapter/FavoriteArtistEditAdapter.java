@@ -39,7 +39,7 @@ public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHo
         Artist artist = mArtistMap.get(favorite.getArtistId());
         String title = artist.getName();
 
-        GlideUtil.bitmap(artist.getThumbnailIdList(), holder.thumbnail);
+        GlideUtil.bitmap(artist.getAlbumArtIdList(), holder.albumArt);
         holder.artistName.setText(title);
     }
 

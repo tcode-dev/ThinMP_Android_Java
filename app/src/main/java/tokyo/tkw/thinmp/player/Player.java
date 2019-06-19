@@ -33,7 +33,7 @@ public class Player {
     public ObservableField<Integer> durationSecond = new ObservableField<>();
     public ObservableField<Integer> currentSecond = new ObservableField<>();
     public ObservableBoolean isPlaying = new ObservableBoolean();
-    public ObservableField<Bitmap> thumbnail = new ObservableField<>();
+    public ObservableField<Bitmap> albumArt = new ObservableField<>();
     public ObservableField<Bitmap> background = new ObservableField<>();
     public ObservableBoolean isRepeatOff = new ObservableBoolean();
     public ObservableBoolean isRepeatOne = new ObservableBoolean();
@@ -99,9 +99,9 @@ public class Player {
         // 再生中
         this.isPlaying.set(state.isPlaying());
         // 背景画像
-        GlideUtil.bitmap(track.getThumbnailId(), this.mBinding.background);
-        // サムネイル
-        GlideUtil.bitmap(track.getThumbnailId(), this.mBinding.thumbnail);
+        GlideUtil.bitmap(track.getAlbumArtId(), this.mBinding.background);
+        // アルバムアート
+        GlideUtil.bitmap(track.getAlbumArtId(), this.mBinding.albumArt);
         // リピート
         setRepeat(state.getRepeat());
         // シャッフル

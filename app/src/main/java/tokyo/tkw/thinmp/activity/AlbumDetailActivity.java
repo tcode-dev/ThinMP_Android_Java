@@ -40,9 +40,9 @@ public class AlbumDetailActivity extends AppCompatActivity implements AlbumTrack
                 , albumId);
         mTrackList = trackCollection.getList();
 
-        // サムネイル
-        ImageView thumbnailView = findViewById(R.id.thumbnail);
-        GlideUtil.bitmap(album.getThumbnailId(), thumbnailView);
+        // アルバムアート
+        ImageView albumArtView = findViewById(R.id.albumArt);
+        GlideUtil.bitmap(album.getAlbumArtId(), albumArtView);
 
         // アルバム名
         ResponsiveTextView titleView = findViewById(R.id.title);

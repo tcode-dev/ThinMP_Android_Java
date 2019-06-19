@@ -7,7 +7,7 @@
     android:layout_marginBottom="20dp">
 
     <tokyo.tkw.thinmp.view.SquareImageView
-        android:id="@+id/thumbnail"
+        android:id="@+id/albumArt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/thumbnail"
-        app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
+        app:layout_constraintStart_toStartOf="@+id/albumArt"
+        app:layout_constraintTop_toBottomOf="@+id/albumArt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

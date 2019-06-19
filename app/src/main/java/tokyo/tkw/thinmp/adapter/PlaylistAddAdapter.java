@@ -41,7 +41,7 @@ public class PlaylistAddAdapter extends RealmRecyclerViewAdapter<PlaylistRealm,
         int playlistId = playlistRealm.getId();
         PlaylistTrackRealm playlistTrackRealm = playlistRealm.getTracks().first();
 
-        GlideUtil.bitmap(playlistTrackRealm.getThumbnailId(), holder.thumbnail);
+        GlideUtil.bitmap(playlistTrackRealm.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(playlistRealm.getName());
 
         holder.itemView.setOnClickListener(v -> {

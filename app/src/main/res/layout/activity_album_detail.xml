@@ -48,7 +48,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <ImageView
-                        android:id="@+id/thumbnail"
+                        android:id="@+id/albumArt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -63,8 +63,8 @@
                         android:layout_height="200dp"
                         android:background="@drawable/bg_gradation"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
-                        app:layout_constraintStart_toStartOf="@+id/thumbnail" />
+                        app:layout_constraintEnd_toEndOf="@+id/albumArt"
+                        app:layout_constraintStart_toStartOf="@+id/albumArt" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/title"
@@ -76,8 +76,8 @@
                         app:collapseOffsetY="8"
                         app:collapseScale="0.8"
                         app:layout_constraintBottom_toTopOf="@+id/subTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
-                        app:layout_constraintStart_toStartOf="@+id/thumbnail"
+                        app:layout_constraintEnd_toEndOf="@+id/albumArt"
+                        app:layout_constraintStart_toStartOf="@+id/albumArt"
                         app:textColor="#000000"
                         app:textSize="20"
                         app:textAlignCenter="true" />
@@ -92,7 +92,7 @@
                         app:collapseScale="0.8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/thumbnail"
+                        app:layout_constraintStart_toStartOf="@+id/albumArt"
                         app:textColor="#5C5C5C"
                         app:textSize="16"
                         app:textAlignCenter="true" />

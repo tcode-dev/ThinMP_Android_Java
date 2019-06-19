@@ -26,7 +26,7 @@ public class MiniPlayer {
     public ObservableBoolean isActive = new ObservableBoolean();
     public ObservableBoolean isPlaying = new ObservableBoolean();
     public ObservableField<String> trackName = new ObservableField<>();
-    public ObservableField<Bitmap> thumbnail = new ObservableField<>();
+    public ObservableField<Bitmap> albumArt = new ObservableField<>();
 
     private FragmentMiniPlayerBinding mBinding;
     private OnMiniPlayerListener mListener;
@@ -76,7 +76,7 @@ public class MiniPlayer {
      */
     private void changeTrack(Track track) {
         this.trackName.set(track.getTitle());
-        GlideUtil.bitmap(track.getThumbnailId(), this.mBinding.thumbnail);
+        GlideUtil.bitmap(track.getAlbumArtId(), this.mBinding.albumArt);
         this.mDurationMSecond = track.getDurationSecond() * 1000;
     }
 

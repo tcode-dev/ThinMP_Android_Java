@@ -31,17 +31,17 @@ public class ArtistDetailActivity extends AppCompatActivity {
 
         AlbumCollection albumCollection = AlbumCollection.createArtistAlbumCollectionInstance(this, artistId);
         ArrayList<Album> artistAlbumList = albumCollection.getList();
-        String thumbnailId = albumCollection.getThumbnailId();
+        String albumArtId = albumCollection.getAlbumArtId();
 
         TrackCollection trackCollection = TrackCollection.createArtistTrackCollectionInstance(this, artistId);
 
         // 背景画像
         ImageView backgroundView = findViewById(R.id.background);
-        GlideUtil.bitmap(thumbnailId, backgroundView, GlideUtil.ARTIST_RESOURCE_ID);
+        GlideUtil.bitmap(albumArtId, backgroundView, GlideUtil.ARTIST_RESOURCE_ID);
 
-        // サムネイル
-        ImageView thumbnailView = findViewById(R.id.thumbnail);
-        GlideUtil.bitmap(thumbnailId, thumbnailView, GlideUtil.ARTIST_RESOURCE_ID);
+        // アルバムアート
+        ImageView albumArtView = findViewById(R.id.albumArt);
+        GlideUtil.bitmap(albumArtId, albumArtView, GlideUtil.ARTIST_RESOURCE_ID);
 
         // タイトル
         ResponsiveTextView titleView = findViewById(R.id.title);

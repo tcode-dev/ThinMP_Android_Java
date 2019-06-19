@@ -37,7 +37,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListViewHolder> 
     public void onBindViewHolder(AlbumListViewHolder holder, int position) {
         Album album = mAlbumList.get(position);
 
-        GlideUtil.bitmap(album.getThumbnailId(), holder.thumbnail);
+        GlideUtil.bitmap(album.getAlbumArtId(), holder.albumArt);
         holder.albumName.setText(album.getName());
         holder.artistName.setText(album.getArtistName());
 

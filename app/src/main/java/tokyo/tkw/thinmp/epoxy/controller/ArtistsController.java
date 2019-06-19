@@ -24,7 +24,7 @@ public class ArtistsController extends TypedEpoxyController<ArtistsController.Da
             new ArtistListItemModel_()
                     .id(artist.getId())
                     .artistName(artist.getName())
-                    .thumbnailIdList(artist.getThumbnailIdList())
+                    .albumArtIdList(artist.getAlbumArtIdList())
                     .clickListener(new ArtistClickListener(artist.getId()))
                     .addTo(this);
         }

@@ -20,7 +20,7 @@ public class Track extends Music implements Serializable {
     private String artistName;
     private String albumId;
     private String albumName;
-    private String thumbnailId;
+    private String albumArtId;
     private int duration;
 
     public Track(String id, String title, String artistId, String artistName, String albumId, String albumName, int duration) {
@@ -30,7 +30,7 @@ public class Track extends Music implements Serializable {
         this.artistName = artistName;
         this.albumId = albumId;
         this.albumName = albumName;
-        this.thumbnailId = albumId;
+        this.albumArtId = albumId;
         this.duration = duration;
     }
 
@@ -58,8 +58,8 @@ public class Track extends Music implements Serializable {
         return albumName;
     }
 
-    public String getThumbnailId() {
-        return thumbnailId;
+    public String getAlbumArtId() {
+        return albumArtId;
     }
 
     public int getDurationSecond() {

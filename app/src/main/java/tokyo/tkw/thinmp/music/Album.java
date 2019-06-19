@@ -13,13 +13,13 @@ public class Album extends Music {
     private String id;
     private String name;
     private String artistName;
-    private String thumbnailId;
+    private String albumArtId;
 
-    public Album(String id, String name, String artistName, String thumbnailId) {
+    public Album(String id, String name, String artistName, String albumArtId) {
         this.id = id;
         this.name = name;
         this.artistName = artistName;
-        this.thumbnailId = thumbnailId;
+        this.albumArtId = albumArtId;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Album extends Music {
         return artistName;
     }
 
-    public String getThumbnailId() {
-        return thumbnailId;
+    public String getAlbumArtId() {
+        return albumArtId;
     }
 }

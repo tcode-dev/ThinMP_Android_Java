@@ -6,7 +6,7 @@
     android:paddingBottom="10dp">
 
     <tokyo.tkw.thinmp.view.CircleImageView
-        android:id="@+id/thumbnail"
+        android:id="@+id/albumArt"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:scaleType="centerCrop" />

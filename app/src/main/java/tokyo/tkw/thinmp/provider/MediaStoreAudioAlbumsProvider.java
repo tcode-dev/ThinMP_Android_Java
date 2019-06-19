@@ -26,12 +26,12 @@ public abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvi
         return mCursor.getInt(mCursor.getColumnIndex(MediaStore.Audio.Albums.NUMBER_OF_SONGS));
     }
 
-    protected String getThumbnailId() {
+    protected String getAlbumArtId() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART)) != null ? getId() : null;
     }
 
     protected Album getAlbum() {
-        return new Album(getId(), getAlbumName(), getArtistName(), getThumbnailId());
+        return new Album(getId(), getAlbumName(), getArtistName(), getAlbumArtId());
     }
 
     @Override

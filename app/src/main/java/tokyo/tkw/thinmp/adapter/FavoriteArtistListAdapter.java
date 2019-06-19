@@ -41,7 +41,7 @@ public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<Favorite
         FavoriteArtistRealm favorite = getItem(position);
         Artist artist = mArtistMap.get(favorite.getArtistId());
 
-        GlideUtil.bitmap(artist.getThumbnailIdList(), holder.thumbnail);
+        GlideUtil.bitmap(artist.getAlbumArtIdList(), holder.albumArt);
         holder.artistName.setText(artist.getName());
 
         holder.itemView.setOnClickListener(onClickListener(artist.getId()));

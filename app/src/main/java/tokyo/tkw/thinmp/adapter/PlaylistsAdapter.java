@@ -33,7 +33,7 @@ public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, Im
         String name = playlistRealm.getName();
         PlaylistTrackRealm playlistTrackRealm = playlistRealm.getTracks().first();
 
-        GlideUtil.bitmap(playlistTrackRealm.getThumbnailId(), holder.thumbnail);
+        GlideUtil.bitmap(playlistTrackRealm.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(name);
 
         // プレイリスト一覧画面の場合
