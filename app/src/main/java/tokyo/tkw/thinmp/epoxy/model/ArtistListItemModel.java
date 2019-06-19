@@ -22,7 +22,7 @@ import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 @EpoxyModelClass(layout = R.layout.artist_list_item)
 public abstract class ArtistListItemModel extends EpoxyModelWithHolder<ArtistListItemModel.Holder> {
     @EpoxyAttribute
-    ArrayList<String> albumArtIdList;
+    String albumArtId;
     @EpoxyAttribute
     String artistName;
     @EpoxyAttribute(DoNotHash)
@@ -31,7 +31,7 @@ public abstract class ArtistListItemModel extends EpoxyModelWithHolder<ArtistLis
     @Override
     public void bind(@NonNull Holder holder) {
         holder.parent.setOnClickListener(clickListener);
-        GlideUtil.bitmap(albumArtIdList, holder.albumArt);
+        GlideUtil.bitmap(albumArtId, holder.albumArt);
         holder.artistName.setText(artistName);
     }
 
