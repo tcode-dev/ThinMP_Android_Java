@@ -6,13 +6,11 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
-import tokyo.tkw.thinmp.util.ActivityUtil;
 
 public class FavoriteSongRegister {
     private Realm mRealm;
 
     public FavoriteSongRegister() {
-        Realm.init(ActivityUtil.getContext());
         mRealm = Realm.getDefaultInstance();
     }
 

@@ -8,12 +8,12 @@ import android.os.IBinder;
 
 import java.util.ArrayList;
 
+import tokyo.tkw.thinmp.MyApplication;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.music.PlayingList;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.ConfigProvider;
-import tokyo.tkw.thinmp.util.ActivityUtil;
 
 public class MusicService extends Service {
     public static final int REPEAT_OFF = 0;
@@ -28,10 +28,22 @@ public class MusicService extends Service {
     private ArrayList<Track> mOriginalList;
     private PlayingList mPlayingList;
     private OnMusicServiceListener mListener;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        ConfigProvider configProvider = new ConfigProvider(this);
+
+        mRepeat = configProvider.getRepeat();
+        mShuffle = configProvider.getShuffle();
+    }
+
     /**
      * 再生が終わったあとの処理
      */
-    private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
+    private MediaPlayer.OnCompletionListener onCompletionListener =
+            new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
             onFinished();
@@ -47,13 +59,6 @@ public class MusicService extends Service {
             start();
         }
     };
-
-    public MusicService() {
-        ConfigProvider configProvider = new ConfigProvider(ActivityUtil.getContext());
-
-        mRepeat = configProvider.getRepeat();
-        mShuffle = configProvider.getShuffle();
-    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -94,7 +99,7 @@ public class MusicService extends Service {
         destroy();
 
         Track track = mPlayingList.getTrack();
-        mMediaPlayer = MediaPlayer.create(ActivityUtil.getContext(), track.getUri());
+        mMediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
         mMediaPlayer.start();
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
 
@@ -149,7 +154,7 @@ public class MusicService extends Service {
         }
 
         // 設定を保存
-        ConfigProvider configProvider = new ConfigProvider(ActivityUtil.getContext());
+        ConfigProvider configProvider = new ConfigProvider(getBaseContext());
         configProvider.setRepeat(mRepeat);
 
         return mRepeat;
@@ -181,10 +186,11 @@ public class MusicService extends Service {
      */
     public boolean shuffle() {
         mShuffle = !mShuffle;
-        mPlayingList = mShuffle ? mPlayingList.getShufflePlayingList() : new PlayingList(mOriginalList, mPlayingList.getCurrentPosition());
+        mPlayingList = mShuffle ? mPlayingList.getShufflePlayingList() :
+                new PlayingList(mOriginalList, mPlayingList.getCurrentPosition());
 
         // 設定を保存
-        ConfigProvider configProvider = new ConfigProvider(ActivityUtil.getContext());
+        ConfigProvider configProvider = new ConfigProvider(getBaseContext());
         configProvider.setShuffle(mShuffle);
 
         return mShuffle;
@@ -213,7 +219,7 @@ public class MusicService extends Service {
         destroy();
 
         Track track = mPlayingList.getTrack();
-        mMediaPlayer = MediaPlayer.create(ActivityUtil.getContext(), track.getUri());
+        mMediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
 
         onChangeTrack(track);
@@ -260,7 +266,7 @@ public class MusicService extends Service {
 
         mPlayingList.next();
         Track track = mPlayingList.getTrack();
-        mMediaPlayer = MediaPlayer.create(ActivityUtil.getContext(), track.getUri());
+        mMediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
 
         onChangeTrack(track);
@@ -341,7 +347,9 @@ public class MusicService extends Service {
     public MusicState getState() {
         Track track = mPlayingList.getTrack();
 
-        return new MusicState(mMediaPlayer.isPlaying(), getCurrentPosition(), hasPrev(), hasNext(), getRepeat(), getShuffle(), FavoriteSongRegister.exists(track.getId()), FavoriteArtistRegister.exists(track.getArtistId()));
+        return new MusicState(mMediaPlayer.isPlaying(), getCurrentPosition(), hasPrev(),
+                hasNext(), getRepeat(), getShuffle(), FavoriteSongRegister.exists(track.getId()),
+                FavoriteArtistRegister.exists(track.getArtistId()));
     }
 
     /**
