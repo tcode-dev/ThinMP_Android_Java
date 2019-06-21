@@ -51,9 +51,8 @@ public class FavoriteSongList {
     }
 
     private RealmResults<FavoriteSongRealm> findAll() {
-        Realm.init(mContext);
         Realm realm = Realm.getDefaultInstance();
 
-        return realm.where(FavoriteSongRealm.class).findAll().sort("id");
+        return realm.where(FavoriteSongRealm.class).findAll().sort(FavoriteSongRealm.ID);
     }
 }

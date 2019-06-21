@@ -1,13 +1,10 @@
 package tokyo.tkw.thinmp.realm;
 
-import com.annimon.stream.IntStream;
-
 import java.util.ArrayList;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import tokyo.tkw.thinmp.music.Track;
 
 public class PlaylistRealm extends RealmObject {
     public static final String ID = "id";
