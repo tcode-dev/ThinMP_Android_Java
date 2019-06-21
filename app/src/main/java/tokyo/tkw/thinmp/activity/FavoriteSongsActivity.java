@@ -7,7 +7,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,11 +40,6 @@ public class FavoriteSongsActivity extends AppCompatActivity {
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
         favoriteListView.setLayoutManager(layout);
-
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                this, new LinearLayoutManager(this).getOrientation());
-        favoriteListView.addItemDecoration(dividerItemDecoration);
     }
 
     private void initEdit() {

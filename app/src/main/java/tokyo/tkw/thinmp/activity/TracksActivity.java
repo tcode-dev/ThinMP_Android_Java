@@ -5,7 +5,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,11 +39,6 @@ public class TracksActivity extends AppCompatActivity {
         LinearLayoutManager layout = new LinearLayoutManager(this);
         listView.setLayoutManager(layout);
         listView.setAdapter(adapter);
-
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                this, new LinearLayoutManager(this).getOrientation());
-        listView.addItemDecoration(dividerItemDecoration);
     }
 
     private TrackListAdapter.OnTrackListItemClickListener trackListItemClickListener() {

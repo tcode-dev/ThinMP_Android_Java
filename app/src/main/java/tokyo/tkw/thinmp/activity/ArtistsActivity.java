@@ -3,7 +3,6 @@ package tokyo.tkw.thinmp.activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +38,8 @@ public class ArtistsActivity extends AppCompatActivity {
         ArtistAlbumArtContentProvider artistAlbumArtContentProvider =
                 new ArtistAlbumArtContentProvider(this);
         ArrayList<ArtistAlbumArt> artistAlbumArtList = artistAlbumArtContentProvider.getList();
-        Map<String, String> artistAlbumArtMap = Stream.of(artistAlbumArtList).distinctBy(artistAlbumArt -> artistAlbumArt.artistId).collect(Collectors.toMap(artistAlbumArt -> artistAlbumArt.artistId, artistAlbumArt -> artistAlbumArt.albumArtId));
+        Map<String, String> artistAlbumArtMap =
+                Stream.of(artistAlbumArtList).distinctBy(artistAlbumArt -> artistAlbumArt.artistId).collect(Collectors.toMap(artistAlbumArt -> artistAlbumArt.artistId, artistAlbumArt -> artistAlbumArt.albumArtId));
 
         ArtistCollection artistCollection =
                 ArtistCollection.createAllArtistCollectionInstance(this);
@@ -48,10 +48,5 @@ public class ArtistsActivity extends AppCompatActivity {
         data.artistList = artistCollection.getList();
         data.artistAlbumArtMap = artistAlbumArtMap;
         controller.setData(data);
-
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                this, new LinearLayoutManager(this).getOrientation());
-        listView.addItemDecoration(dividerItemDecoration);
     }
 }

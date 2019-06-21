@@ -3,7 +3,6 @@ package tokyo.tkw.thinmp.activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,10 +27,5 @@ public class PlaylistDetailActivity extends AppCompatActivity {
         PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(playlistTrack.getRealmResults()
                 , playlistTrack.getTrackMap());
         view.setAdapter(adapter);
-
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                this, new LinearLayoutManager(this).getOrientation());
-        view.addItemDecoration(dividerItemDecoration);
     }
 }

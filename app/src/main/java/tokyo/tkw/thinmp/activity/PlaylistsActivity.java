@@ -26,13 +26,8 @@ public class PlaylistsActivity extends AppCompatActivity {
         LinearLayoutManager layout = new LinearLayoutManager(this);
         playlistView.setLayoutManager(layout);
 
-        Playlist playlist = new Playlist(this);
+        Playlist playlist = new Playlist();
         PlaylistsAdapter adapter = new PlaylistsAdapter(playlist.getRealmResults());
         playlistView.setAdapter(adapter);
-
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                this, new LinearLayoutManager(this).getOrientation());
-        playlistView.addItemDecoration(dividerItemDecoration);
     }
 }
