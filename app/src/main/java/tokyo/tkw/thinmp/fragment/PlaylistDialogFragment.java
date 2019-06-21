@@ -10,7 +10,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -95,11 +94,6 @@ public class PlaylistDialogFragment extends DialogFragment {
                 PlaylistRealm.ORDER);
         PlaylistAddAdapter adapter = new PlaylistAddAdapter(playlists, mTrack, callback);
         playlistView.setAdapter(adapter);
-
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                context, new LinearLayoutManager(context).getOrientation());
-        playlistView.addItemDecoration(dividerItemDecoration);
     }
 
     /**

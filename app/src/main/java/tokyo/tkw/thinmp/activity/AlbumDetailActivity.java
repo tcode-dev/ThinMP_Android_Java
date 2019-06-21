@@ -6,7 +6,6 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,11 +56,6 @@ public class AlbumDetailActivity extends AppCompatActivity implements AlbumTrack
         RecyclerView listView = findViewById(R.id.list);
         listView.setLayoutManager(layout);
         listView.setAdapter(adapter);
-
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                this, new LinearLayoutManager(this).getOrientation());
-        listView.addItemDecoration(dividerItemDecoration);
     }
 
     @Override
