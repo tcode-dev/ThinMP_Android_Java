@@ -1,10 +1,8 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,18 +12,16 @@ import com.annimon.stream.Stream;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistEditAdapter;
-import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
-import tokyo.tkw.thinmp.music.Artist;
-import tokyo.tkw.thinmp.provider.ArtistsContentProvider;
+import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
 public class FavoriteArtistEditActivity extends AppCompatActivity {
+    private ArrayList<FavoriteArtistRealm> mFavoriteList;
+    private FavoriteArtistEditAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +30,29 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
 
         RecyclerView view = findViewById(R.id.favoriteList);
 
-        RealmResults<FavoriteArtistRealm> realmResults = FavoriteArtistList.getFavoriteList();
-        ArrayList<FavoriteArtistRealm> favoriteList =
-                (ArrayList<FavoriteArtistRealm>) Stream.of(realmResults).toList();
-        ArrayList<String> artistIdList =
-                (ArrayList<String>) Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
-        ArtistsContentProvider artistsContentProvider = new ArtistsContentProvider(this,
-                artistIdList);
-        Map<String, Artist> artistMap =
-                Stream.of(artistsContentProvider.getList()).collect(Collectors.toMap(artist -> artist.getId(), artist -> artist));
-        FavoriteArtistEditAdapter adapter = new FavoriteArtistEditAdapter(favoriteList, artistMap);
+        FavoriteArtistList favoriteArtistList = new FavoriteArtistList(this);
+        mFavoriteList = favoriteArtistList.getFavoriteArtistRealmList();
+        mAdapter = new FavoriteArtistEditAdapter(mFavoriteList, favoriteArtistList.getArtistMap());
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onItemTouchHelperSimpleCallback());
+        itemTouchHelper.attachToRecyclerView(view);
+
+        findViewById(R.id.apply).setOnClickListener(v -> {
+            List<String> artistIdList =
+                    Stream.of(mFavoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
+            FavoriteArtistRegister.update(artistIdList);
+            finish();
+        });
+
+        findViewById(R.id.cancel).setOnClickListener(v -> finish());
+
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        view.setLayoutManager(layout);
+        view.setAdapter(mAdapter);
+    }
+
+    private ItemTouchHelper.SimpleCallback onItemTouchHelperSimpleCallback() {
+        return new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
                 ItemTouchHelper.LEFT
         ) {
@@ -57,9 +64,9 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
                 final int toPos = target.getAdapterPosition();
 
                 // viewの並び替え
-                adapter.notifyItemMoved(fromPos, toPos);
+                mAdapter.notifyItemMoved(fromPos, toPos);
                 // dataの並び替え
-                favoriteList.add(toPos, favoriteList.remove(fromPos));
+                mFavoriteList.add(toPos, mFavoriteList.remove(fromPos));
 
                 return true;
             }
@@ -68,36 +75,9 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
-                favoriteList.remove(fromPos);
-                adapter.notifyItemRemoved(fromPos);
+                mFavoriteList.remove(fromPos);
+                mAdapter.notifyItemRemoved(fromPos);
             }
-        });
-
-        itemTouchHelper.attachToRecyclerView(view);
-
-        findViewById(R.id.apply).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<String> artistIdList =
-                        Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
-                FavoriteArtistRegister.update(artistIdList);
-                finish();
-            }
-        });
-
-        findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-        view.setLayoutManager(layout);
-        view.setAdapter(adapter);
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                this, new LinearLayoutManager(this).getOrientation());
-        view.addItemDecoration(dividerItemDecoration);
+        };
     }
 }

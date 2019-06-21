@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +20,8 @@ import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
 public class FavoriteSongEditActivity extends AppCompatActivity {
+    FavoriteSongEditAdapter mAdapter;
+    ArrayList<FavoriteSongRealm> mFavoriteList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,29 +31,21 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
         RecyclerView view = findViewById(R.id.favoriteList);
 
         FavoriteSongList favoriteSongList = new FavoriteSongList(this);
-        ArrayList<FavoriteSongRealm> favoriteList = favoriteSongList.getList();
-        FavoriteSongEditAdapter adapter = new FavoriteSongEditAdapter(favoriteList,
-                favoriteSongList.getTrackMap());
+        mFavoriteList = favoriteSongList.getList();
+        mAdapter = new FavoriteSongEditAdapter(mFavoriteList, favoriteSongList.getTrackMap());
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onSimpleCallback(adapter,
-                favoriteList));
-
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onSimpleCallback());
         itemTouchHelper.attachToRecyclerView(view);
 
-        findViewById(R.id.apply).setOnClickListener(onApplyClickListener(favoriteList));
+        findViewById(R.id.apply).setOnClickListener(onApplyClickListener());
         findViewById(R.id.cancel).setOnClickListener(onCancelClickListener());
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
         view.setLayoutManager(layout);
-        view.setAdapter(adapter);
-        // 区切り線の描画
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                this, new LinearLayoutManager(this).getOrientation());
-        view.addItemDecoration(dividerItemDecoration);
+        view.setAdapter(mAdapter);
     }
 
-    private ItemTouchHelper.SimpleCallback onSimpleCallback(FavoriteSongEditAdapter adapter,
-                                                            ArrayList<FavoriteSongRealm> favoriteList) {
+    private ItemTouchHelper.SimpleCallback onSimpleCallback() {
         return new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
                 ItemTouchHelper.LEFT
@@ -65,9 +58,9 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
                 final int toPos = target.getAdapterPosition();
 
                 // viewの並び替え
-                adapter.notifyItemMoved(fromPos, toPos);
+                mAdapter.notifyItemMoved(fromPos, toPos);
                 // dataの並び替え
-                favoriteList.add(toPos, favoriteList.remove(fromPos));
+                mFavoriteList.add(toPos, mFavoriteList.remove(fromPos));
 
                 return true;
             }
@@ -76,16 +69,18 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
-                favoriteList.remove(fromPos);
-                adapter.notifyItemRemoved(fromPos);
+                mFavoriteList.remove(fromPos);
+                mAdapter.notifyItemRemoved(fromPos);
             }
         };
     }
 
-    private View.OnClickListener onApplyClickListener(ArrayList<FavoriteSongRealm> favoriteList) {
+    private View.OnClickListener onApplyClickListener() {
         return v -> {
             ArrayList<String> trackIdList =
-                    (ArrayList<String>) Stream.of(favoriteList).map(FavoriteSongRealm::getTrackId).collect(Collectors.toList());
+                    (ArrayList<String>) Stream.of(mFavoriteList)
+                            .map(FavoriteSongRealm::getTrackId)
+                            .collect(Collectors.toList());
             FavoriteSongRegister.update(trackIdList);
             finish();
         };
