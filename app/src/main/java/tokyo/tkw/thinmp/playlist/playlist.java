@@ -9,11 +9,9 @@ import tokyo.tkw.thinmp.realm.PlaylistRealm;
 public class Playlist {
     public static final String PLAYLIST_ID = "playlistId";
 
-    private Context mContext;
     private RealmResults<PlaylistRealm> mRealmResults;
 
-    public Playlist(Context context) {
-        mContext = context;
+    public Playlist() {
         mRealmResults = findAll();
     }
 
@@ -22,9 +20,8 @@ public class Playlist {
     }
 
     private RealmResults<PlaylistRealm> findAll() {
-        Realm.init(mContext);
         Realm realm = Realm.getDefaultInstance();
 
-        return realm.where(PlaylistRealm.class).findAll().sort("order");
+        return realm.where(PlaylistRealm.class).findAll().sort(PlaylistRealm.ORDER);
     }
 }

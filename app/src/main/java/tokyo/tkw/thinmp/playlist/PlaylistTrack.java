@@ -49,7 +49,6 @@ public class PlaylistTrack {
     }
 
     private RealmResults<PlaylistTrackRealm> findAll() {
-        Realm.init(mContext);
         Realm realm = Realm.getDefaultInstance();
         return realm.where(PlaylistTrackRealm.class).equalTo(PlaylistTrackRealm.PLAYLIST_ID, mPlaylistId).findAll();
     }

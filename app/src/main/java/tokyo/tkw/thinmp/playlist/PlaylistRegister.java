@@ -26,7 +26,6 @@ public class PlaylistRegister extends Fragment {
     }
 
     private void init() {
-        Realm.init(getActivity());
         mRealm = Realm.getDefaultInstance();
     }
 

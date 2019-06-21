@@ -90,10 +90,9 @@ public class PlaylistDialogFragment extends DialogFragment {
         LinearLayoutManager layout = new LinearLayoutManager(context);
         playlistView.setLayoutManager(layout);
 
-        Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
         RealmResults<PlaylistRealm> playlists = realm.where(PlaylistRealm.class).findAll().sort(
-                "order");
+                PlaylistRealm.ORDER);
         PlaylistAddAdapter adapter = new PlaylistAddAdapter(playlists, mTrack, callback);
         playlistView.setAdapter(adapter);
 
