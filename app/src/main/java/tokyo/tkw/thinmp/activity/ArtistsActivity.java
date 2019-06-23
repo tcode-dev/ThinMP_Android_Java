@@ -35,18 +35,12 @@ public class ArtistsActivity extends AppCompatActivity {
         listView.setLayoutManager(layout);
         listView.setAdapter(controller.getAdapter());
 
-        ArtistAlbumArtContentProvider artistAlbumArtContentProvider =
-                new ArtistAlbumArtContentProvider(this);
-        ArrayList<ArtistAlbumArt> artistAlbumArtList = artistAlbumArtContentProvider.getList();
-        Map<String, String> artistAlbumArtMap =
-                Stream.of(artistAlbumArtList).distinctBy(artistAlbumArt -> artistAlbumArt.artistId).collect(Collectors.toMap(artistAlbumArt -> artistAlbumArt.artistId, artistAlbumArt -> artistAlbumArt.albumArtId));
-
         ArtistCollection artistCollection =
                 ArtistCollection.createAllArtistCollectionInstance(this);
         ArtistsController.Data data = new ArtistsController.Data();
         data.title = getResources().getString(R.string.artists);
         data.artistList = artistCollection.getList();
-        data.artistAlbumArtMap = artistAlbumArtMap;
+        data.artistAlbumArtMap = artistCollection.getArtistAlbumArtMap();
         controller.setData(data);
     }
 }
