@@ -1,6 +1,9 @@
 package tokyo.tkw.thinmp.player;
 
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SeekBar;
@@ -114,6 +117,7 @@ public class Player {
         this.isFavoriteArtist.set(state.isFavoriteArtist());
         // seekbar
         this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+        this.mBinding.next.setColorFilter(0xff000000, PorterDuff.Mode.SRC_IN);
     }
 
     public void start() {

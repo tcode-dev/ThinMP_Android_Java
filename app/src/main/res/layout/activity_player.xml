@@ -180,14 +180,14 @@
 
                         <ImageButton
                             android:id="@+id/prev"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@null"
                             android:onClick="@{player::onClickPrev}"
                             android:onLongClick="@{player::onLongClickPrev}"
                             android:onTouch="@{player::onTouchPrev}"
                             android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/prev_ultra_violet" />
+                            app:srcCompat="@drawable/icon_prev" />
 
                     </FrameLayout>
 
@@ -200,23 +200,23 @@
 
                         <ImageButton
                             android:id="@+id/play"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@null"
                             android:onClick="@{player::onClickPlay}"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isPlaying ? View.GONE : View.VISIBLE}"
-                            app:srcCompat="@drawable/play_ultra_violet" />
+                            app:srcCompat="@drawable/icon_play" />
 
                         <ImageButton
                             android:id="@+id/pause"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@null"
                             android:onClick="@{player::onClickPause}"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isPlaying ? View.VISIBLE : View.GONE}"
-                            app:srcCompat="@drawable/pause_ultra_violet" />
+                            app:srcCompat="@drawable/icon_pause" />
 
                     </FrameLayout>
 
@@ -233,14 +233,14 @@
 
                         <ImageButton
                             android:id="@+id/next"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@null"
                             android:onClick="@{player::onClickNext}"
                             android:onLongClick="@{player::onLongClickNext}"
                             android:onTouch="@{player::onTouchNext}"
                             android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/next_ultra_violet" />
+                            app:srcCompat="@drawable/icon_next" />
 
                     </FrameLayout>
 
@@ -275,11 +275,12 @@
                             android:onClick="@{player::onClickRepeat}"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isRepeatOff ? View.VISIBLE : View.GONE}"
+                            android:alpha="0.5"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/repeat_off_ultra_violet" />
+                            app:srcCompat="@drawable/icon_repeat" />
 
                         <ImageButton
                             android:id="@+id/repeatAll"
@@ -297,7 +298,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/repeat_all_ultra_violet" />
+                            app:srcCompat="@drawable/icon_repeat" />
 
                         <ImageButton
                             android:id="@+id/repeatOne"
@@ -311,7 +312,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/repeat_one_ultra_violet" />
+                            app:srcCompat="@drawable/icon_repeat_one" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -336,7 +337,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/shuffle_on_ultra_violet" />
+                            app:srcCompat="@drawable/icon_shuffle" />
 
                         <ImageButton
                             android:id="@+id/shuffleOff"
@@ -350,7 +351,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/shuffle_off_ultra_violet" />
+                            app:srcCompat="@drawable/icon_shuffle" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -373,7 +374,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/favorite_song_on_ultra_violet" />
+                            app:srcCompat="@drawable/icon_star_on" />
 
                         <ImageButton
                             android:id="@+id/favoriteSongOff"
@@ -387,7 +388,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/favorite_song_off_ultra_violet" />
+                            app:srcCompat="@drawable/icon_star_off" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -410,7 +411,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/favorite_artist_on_ultra_violet" />
+                            app:srcCompat="@drawable/icon_artist_on" />
 
                         <ImageButton
                             android:id="@+id/favoriteArtistOff"
@@ -424,7 +425,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/favorite_artist_off_ultra_violet" />
+                            app:srcCompat="@drawable/icon_artist_off" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -443,7 +444,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/playlist_ultra_violet" />
+                            app:srcCompat="@drawable/icon_playlist" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
