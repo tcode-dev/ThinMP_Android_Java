@@ -22,10 +22,11 @@ import tokyo.tkw.thinmp.util.TimeUtil;
  * 再生中の画面
  */
 public class Player {
-    private final int DECREMENT_MS = 3000;
-    private final int INCREMENT_MS = 3000;
-    private final long KEY_PRESS_INTERVAL_MS = 100L;
-    private final long KEY_PRESS_DELAY_MS = 0;
+    private static final int DECREMENT_MS = 3000;
+    private static final int INCREMENT_MS = 3000;
+    private static final long KEY_PRESS_INTERVAL_MS = 100L;
+    private static final long KEY_PRESS_DELAY_MS = 0;
+
     public ObservableField<String> trackName = new ObservableField<>();
     public ObservableField<String> artistName = new ObservableField<>();
     public ObservableField<String> currentTime = new ObservableField<>();
@@ -51,7 +52,8 @@ public class Player {
     private Track mTrack;
     private int mDurationMSecond;
     private MusicState mMusicState;
-    private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+    private SeekBar.OnSeekBarChangeListener seekBarChangeListener =
+            new SeekBar.OnSeekBarChangeListener() {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -405,6 +407,7 @@ public class Player {
 
     /**
      * setRepeat
+     *
      * @param repeat
      */
     private void setRepeat(int repeat) {
