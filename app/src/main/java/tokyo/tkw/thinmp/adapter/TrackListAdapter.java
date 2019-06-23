@@ -93,7 +93,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     private void bindTrackViewHolder(RecyclerView.ViewHolder holder, int position) {
-        int trackPosition = position - HEADER_COUNT;
+        int trackPosition = position;
         TrackViewHolder trackViewHolder = (TrackViewHolder) holder;
         Track track = mTrackList.get(trackPosition);
         String title = track.getTitle();
