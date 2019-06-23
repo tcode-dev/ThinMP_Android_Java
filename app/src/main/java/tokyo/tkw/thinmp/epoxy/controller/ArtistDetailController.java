@@ -2,7 +2,7 @@ package tokyo.tkw.thinmp.epoxy.controller;
 
 import com.airbnb.epoxy.AutoModel;
 import com.airbnb.epoxy.TypedEpoxyController;
-import com.annimon.stream.IntStream;
+import com.annimon.stream.Stream;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import tokyo.tkw.thinmp.epoxy.model.AlbumListItemModel_;
 import tokyo.tkw.thinmp.epoxy.model.HeaderModel_;
 import tokyo.tkw.thinmp.epoxy.model.TrackListItemModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
-import tokyo.tkw.thinmp.listener.TrackClickListener;
+import tokyo.tkw.thinmp.listener.EpoxyTrackClickListener;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
 
@@ -30,7 +30,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailCon
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> data.titleSpanSize)
                 .addTo(this);
 
-        for (Album album : data.albumList) {
+        Stream.of(data.albumList).forEachIndexed((i, album) -> {
             new AlbumListItemModel_()
                     .id(album.getId())
                     .albumName(album.getName())
@@ -38,7 +38,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailCon
                     .clickListener(new AlbumClickListener(album.getId()))
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> data.albumListSpanSize)
                     .addTo(this);
-        }
+        });
 
         new HeaderModel_()
                 .id("tracks")
@@ -46,14 +46,13 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailCon
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> data.titleSpanSize)
                 .addTo(this);
 
-        IntStream.range(0, data.trackList.size()).forEach(i -> {
-            Track track = data.trackList.get(i);
+        Stream.of(data.trackList).forEachIndexed((i, track) -> {
             new TrackListItemModel_()
                     .id(track.getId())
                     .trackName(track.getTitle())
                     .albumArtId(track.getAlbumArtId())
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> data.trackListSpanSize)
-                    .clickListener(new TrackClickListener(data.trackList, i))
+                    .clickListener(new EpoxyTrackClickListener(data.trackList, i))
                     .addTo(this);
         });
     }

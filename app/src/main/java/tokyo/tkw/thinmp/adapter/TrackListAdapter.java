@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.listener.ITrackClickListener;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TitleViewHolder;
@@ -18,32 +19,52 @@ import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int VIEW_TYPE_TITLE = 1;
     private final static int VIEW_TYPE_TRACK = 2;
-    private OnTrackListItemClickListener mListener;
-    private int mItemCount;
-
+    private final static int HEADER_COUNT = 1;
     private ArrayList<Track> mTrackList;
+    private ITrackClickListener mListener;
+    private int mItemCount;
+    private RecyclerView mRecycler;
 
     public TrackListAdapter(@NonNull ArrayList<Track> trackList,
-                            OnTrackListItemClickListener listener) {
+                            ITrackClickListener listener) {
         mTrackList = trackList;
         mListener = listener;
-        mItemCount = mTrackList.size() + 1;
+        mItemCount = mTrackList.size() + HEADER_COUNT;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        mRecycler = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+
+        mRecycler = null;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case VIEW_TYPE_TITLE: return createTitleViewHolder(parent, viewType);
-            case VIEW_TYPE_TRACK: return createTrackViewHolder(parent, viewType);
-            default: throw new RuntimeException();
+            case VIEW_TYPE_TITLE:
+                return createTitleViewHolder(parent);
+            case VIEW_TYPE_TRACK:
+                return createTrackViewHolder(parent);
+            default:
+                throw new RuntimeException();
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
-            case VIEW_TYPE_TRACK: bindTrackViewHolder(holder, position--);
-            default: break;
+            case VIEW_TYPE_TRACK:
+                bindTrackViewHolder(holder, position - HEADER_COUNT);
+            default:
+                break;
         }
     }
 
@@ -54,17 +75,17 @@ public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        return position == 0 ? VIEW_TYPE_TITLE: VIEW_TYPE_TRACK;
+        return position == 0 ? VIEW_TYPE_TITLE : VIEW_TYPE_TRACK;
     }
 
-    private TitleViewHolder createTitleViewHolder(ViewGroup parent, int viewType) {
+    private TitleViewHolder createTitleViewHolder(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.title, parent,
                 false);
 
         return new TitleViewHolder(view);
     }
 
-    private TrackViewHolder createTrackViewHolder(ViewGroup parent, int viewType) {
+    private TrackViewHolder createTrackViewHolder(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_row, parent,
                 false);
 
@@ -72,7 +93,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     private void bindTrackViewHolder(RecyclerView.ViewHolder holder, int position) {
-        int trackPosition = position - 1;
+        int trackPosition = position - HEADER_COUNT;
         TrackViewHolder trackViewHolder = (TrackViewHolder) holder;
         Track track = mTrackList.get(trackPosition);
         String title = track.getTitle();
@@ -81,35 +102,23 @@ public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         trackViewHolder.track.setText(title);
         trackViewHolder.artist.setText(track.getArtistName());
 
-        trackViewHolder.itemView.setOnClickListener(listItemClickListener(trackPosition));
-        trackViewHolder.menu.setOnClickListener(openMenuButtonClickListener(track));
+        trackViewHolder.itemView.setOnClickListener(onClickTrack());
+        trackViewHolder.menu.setOnClickListener(onClickMenu());
     }
 
-    /**
-     * listitemをクリックしたときのイベント
-     *
-     * @param position
-     * @return
-     */
-    private View.OnClickListener listItemClickListener(int position) {
-        return view -> mListener.onClickItem(position);
+    private int getTrackListInPosition(View view) {
+        return mRecycler.getChildAdapterPosition(view) - HEADER_COUNT;
     }
 
-    /**
-     * メニューオープンのイベント
-     *
-     * @return
-     */
-    public View.OnClickListener openMenuButtonClickListener(Track track) {
-        return view -> mListener.onClickMenu(view, track);
+    private View.OnClickListener onClickTrack() {
+        return view -> {
+            mListener.onClickTrack(view, getTrackListInPosition(view));
+        };
     }
 
-    /**
-     * interface
-     */
-    public interface OnTrackListItemClickListener {
-        void onClickItem(int position);
-
-        void onClickMenu(View view, Track track);
+    private View.OnClickListener onClickMenu() {
+        return view -> {
+            mListener.onClickMenu(view, getTrackListInPosition((View) view.getParent()));
+        };
     }
 }

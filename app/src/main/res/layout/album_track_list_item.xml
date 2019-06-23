@@ -5,31 +5,24 @@
     android:layout_height="wrap_content"
     android:background="@drawable/border_bottom"
     android:baselineAligned="true"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="#5C5C5C"
+        android:textSize="16sp"
+        android:textStyle="normal" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textColor="#5C5C5C"
-            android:textSize="16sp"
-            android:textStyle="normal" />
-
-        <ImageView
-            android:id="@+id/menu"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:srcCompat="@drawable/open_menu" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/menu"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:srcCompat="@drawable/open_menu" />
 
 </LinearLayout>

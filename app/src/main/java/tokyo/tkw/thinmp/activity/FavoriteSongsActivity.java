@@ -14,6 +14,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongListAdapter;
 import tokyo.tkw.thinmp.favorite.FavoriteSongList;
 import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
+import tokyo.tkw.thinmp.listener.FavoriteSongClickListener;
 import tokyo.tkw.thinmp.menu.TrackMenu;
 import tokyo.tkw.thinmp.music.Track;
 
@@ -35,7 +36,7 @@ public class FavoriteSongsActivity extends AppCompatActivity {
         FavoriteSongListAdapter adapter =
                 new FavoriteSongListAdapter(favoriteSongList.getRealmResults(),
                         favoriteSongList.getTrackMap(),
-                        favoriteListItemClickListener());
+                        new FavoriteSongClickListener());
         favoriteListView.setAdapter(adapter);
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
@@ -50,28 +51,6 @@ public class FavoriteSongsActivity extends AppCompatActivity {
         return v -> {
             Intent intent = new Intent(context, FavoriteSongEditActivity.class);
             context.startActivity(intent);
-        };
-    }
-
-    private FavoriteSongListAdapter.OnFavoriteListItemClickListener favoriteListItemClickListener() {
-        return new FavoriteSongListAdapter.OnFavoriteListItemClickListener() {
-
-            @Override
-            public void onClickItem(int position) {
-                Fragment fragment =
-                        getSupportFragmentManager().findFragmentById(R.id.includeMiniPlayer);
-                if (fragment instanceof MiniPlayerFragment) {
-                    FavoriteSongList favoriteSongList = new FavoriteSongList(getBaseContext());
-                    ((MiniPlayerFragment) fragment).start(favoriteSongList.getTrackList(),
-                            position);
-                }
-            }
-
-            @Override
-            public void onClickMenu(View view, Track track) {
-                TrackMenu trackMenu = new TrackMenu(view, track);
-                trackMenu.show();
-            }
         };
     }
 }

@@ -19,18 +19,55 @@ import tokyo.tkw.thinmp.music.Track;
 public class TrackMenu {
     private Context mContext;
     private View mView;
-    private Track mTrack;
     private String mTrackId;
-    private String mDefaultPlaylistName;
+
+    public TrackMenu(View view, String trackId) {
+        mContext = view.getContext();
+        mView = view;
+        mTrackId = trackId;
+    }
+
+    /**
+     * メニューを生成して表示する
+     */
+    public void show() {
+        int hiddenFavorite = FavoriteSongRegister.exists(mTrackId) ? R.id.add_favorite :
+                R.id.del_favorite;
+        PopupMenu popupMenu = new PopupMenu(mContext, mView);
+        popupMenu.getMenuInflater().inflate(R.menu.track_popup_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(createMenuItemClickListener());
+        popupMenu.getMenu().findItem(hiddenFavorite).setVisible(false);
+        popupMenu.show();
+    }
+
+    /**
+     * プレイリスト登録
+     */
+    private void playlist() {
+        // データの受け渡し
+        Bundle bundle = new Bundle();
+        bundle.putString(Track.TRACK_ID, mTrackId);
+
+        FragmentActivity activity = (FragmentActivity) mContext;
+        PlaylistDialogFragment playlistDialogFragment = new PlaylistDialogFragment();
+        playlistDialogFragment.setArguments(bundle);
+        playlistDialogFragment.show(activity.getSupportFragmentManager(), "PlaylistDialogFragment");
+    }
+
+    /**
+     * お気に入り登録
+     */
+    private void favorite() {
+        FavoriteSongRegister.set(mTrackId);
+    }
 
     /**
      * メニューのイベント
      *
      * @return
      */
-    private PopupMenu.OnMenuItemClickListener onMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
+    private PopupMenu.OnMenuItemClickListener createMenuItemClickListener() {
+        return item -> {
             switch (item.getItemId()) {
                 case R.id.playlist:
                     playlist();
@@ -49,48 +86,6 @@ public class TrackMenu {
             }
 
             return false;
-        }
-    };
-
-    public TrackMenu(View view, Track track) {
-        mContext = view.getContext();
-        mView = view;
-        mTrack = track;
-        mTrackId = track.getId();
-        mDefaultPlaylistName = track.getTitle();
-    }
-
-    /**
-     * メニューを生成して表示する
-     */
-    public void show() {
-        int hiddenFavorite = FavoriteSongRegister.exists(mTrackId) ? R.id.add_favorite : R.id.del_favorite;
-        PopupMenu popupMenu = new PopupMenu(mContext, mView);
-        popupMenu.getMenuInflater().inflate(R.menu.track_popup_menu, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(onMenuItemClickListener);
-        popupMenu.getMenu().findItem(hiddenFavorite).setVisible(false);
-        popupMenu.show();
-    }
-
-    /**
-     * プレイリスト登録
-     */
-    private void playlist() {
-        // データの受け渡し
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("track", mTrack);
-        bundle.putString("defaultPlaylistName", mDefaultPlaylistName);
-
-        FragmentActivity activity = (FragmentActivity) mContext;
-        PlaylistDialogFragment playlistDialogFragment = new PlaylistDialogFragment();
-        playlistDialogFragment.setArguments(bundle);
-        playlistDialogFragment.show(activity.getSupportFragmentManager(), "PlaylistDialogFragment");
-    }
-
-    /**
-     * お気に入り登録
-     */
-    private void favorite() {
-        FavoriteSongRegister.set(mTrackId);
+        };
     }
 }

@@ -4,28 +4,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.Map;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
+import tokyo.tkw.thinmp.listener.ITrackClickListener;
 import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSongRealm,
         TrackViewHolder> {
     private Map<String, Track> mTrackMap;
-    private OnFavoriteListItemClickListener mListener;
+    private ITrackClickListener mListener;
+    private RecyclerView mRecycler;
 
     public FavoriteSongListAdapter(OrderedRealmCollection<FavoriteSongRealm> favoriteList,
                                    Map<String, Track> trackMap,
-                                   OnFavoriteListItemClickListener listener) {
+                                   ITrackClickListener listener) {
         super(favoriteList, true);
 
         mTrackMap = trackMap;
         mListener = listener;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        mRecycler = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+
+        mRecycler = null;
     }
 
     @Override
@@ -46,39 +64,19 @@ public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSo
         holder.track.setText(title);
         holder.artist.setText(track.getArtistName());
 
-        holder.itemView.setOnClickListener(onClickListener(position));
-        holder.menu.setOnClickListener(openMenuButtonClickListener(track));
+        holder.itemView.setOnClickListener(onClickTrack());
+        holder.menu.setOnClickListener(onClickMenu());
     }
 
-    private View.OnClickListener onClickListener(int position) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onClickItem(position);
-            }
+    private View.OnClickListener onClickTrack() {
+        return view -> {
+            mListener.onClickTrack(view, mRecycler.getChildAdapterPosition(view));
         };
     }
 
-    /**
-     * メニューオープンのイベント
-     *
-     * @return
-     */
-    public View.OnClickListener openMenuButtonClickListener(Track track) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onClickMenu(view, track);
-            }
+    private View.OnClickListener onClickMenu() {
+        return view -> {
+            mListener.onClickMenu(view, mRecycler.getChildAdapterPosition((View) view.getParent()));
         };
-    }
-
-    /**
-     * interface
-     */
-    public interface OnFavoriteListItemClickListener {
-        void onClickItem(int position);
-
-        void onClickMenu(View view, Track track);
     }
 }

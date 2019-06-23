@@ -47,8 +47,12 @@ public class PlaylistDialogFragment extends DialogFragment {
 
         // データ取り出し
         Bundle bundle = getArguments();
-        String defaultPlaylistName = bundle.getString("defaultPlaylistName");
-        mTrack = (Track) bundle.getSerializable("track");
+
+        String trackId = bundle.getString(Track.TRACK_ID);
+
+        mTrack = Track.createInstance(getContext(), trackId);
+
+        String defaultPlaylistName = mTrack.getTitle();
 
         mEditText.setText(defaultPlaylistName);
 

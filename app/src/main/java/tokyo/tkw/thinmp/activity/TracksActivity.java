@@ -1,10 +1,8 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,8 +10,7 @@ import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.TrackListAdapter;
-import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
-import tokyo.tkw.thinmp.menu.TrackMenu;
+import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.AllTracksContentProvider;
 
@@ -35,29 +32,9 @@ public class TracksActivity extends AppCompatActivity {
         mTrackList = allTracksContentProvider.getList();
 
         TrackListAdapter adapter = new TrackListAdapter(mTrackList,
-                trackListItemClickListener());
+                new TrackClickListener(mTrackList));
         LinearLayoutManager layout = new LinearLayoutManager(this);
         listView.setLayoutManager(layout);
         listView.setAdapter(adapter);
-    }
-
-    private TrackListAdapter.OnTrackListItemClickListener trackListItemClickListener() {
-        return new TrackListAdapter.OnTrackListItemClickListener() {
-
-            @Override
-            public void onClickItem(int position) {
-                Fragment fragment =
-                        getSupportFragmentManager().findFragmentById(R.id.includeMiniPlayer);
-                if (fragment instanceof MiniPlayerFragment) {
-                    ((MiniPlayerFragment) fragment).start(mTrackList, position);
-                }
-            }
-
-            @Override
-            public void onClickMenu(View view, Track track) {
-                TrackMenu trackMenu = new TrackMenu(view, track);
-                trackMenu.show();
-            }
-        };
     }
 }
