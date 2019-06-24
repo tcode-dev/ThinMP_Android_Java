@@ -20,20 +20,30 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:text="@string/favorite_artists"
-                android:textColor="#000000"
-                android:textSize="30sp" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fitsSystemWindows="true"
+                    android:text="@string/favorite_artists"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/edit"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit"
+                    android:textColor="#A0A0A0" />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
