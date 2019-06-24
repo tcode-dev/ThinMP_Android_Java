@@ -1,5 +1,6 @@
 package tokyo.tkw.thinmp.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
@@ -15,19 +16,21 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import tokyo.tkw.thinmp.R;
 
 import static android.net.Uri.parse;
 
 public class GlideUtil {
+    private static final int RADIUS_DP = 8;
+    private static int RADIUS_PX;
     public static final int ALBUM_RESOURCE_ID = R.drawable.default_album_art;
     public static final int ARTIST_RESOURCE_ID = R.drawable.default_artist_art;
     private static final int DEFAULT_RESOURCE_ID = ALBUM_RESOURCE_ID;
     private static final String ALBUM_ART_URL = "content://media/external/audio/albumart/";
-    private static final int RADIUS = 10;
+
+    public static void init(Context context) {
+        RADIUS_PX = (int) ViewUtil.dpToDimensionPx(context, RADIUS_DP);
+    }
 
     public static void bitmap(String albumArtId, ImageView view) {
         bitmap(albumArtId, view, DEFAULT_RESOURCE_ID);
@@ -45,7 +48,7 @@ public class GlideUtil {
         Glide.with(view)
                 .asBitmap()
                 .load(createUri(albumArtId))
-                .transform(new FitCenter(), new RoundedCorners(RADIUS))
+                .transform(new FitCenter(), new RoundedCorners(RADIUS_PX))
                 .listener(new RequestListener<Bitmap>() {
                     Handler handler = new Handler();
 
@@ -72,7 +75,7 @@ public class GlideUtil {
         Glide.with(view)
                 .asBitmap()
                 .load(resourceId)
-                .transform(new FitCenter(), new RoundedCorners(RADIUS))
+                .transform(new FitCenter(), new RoundedCorners(RADIUS_PX))
                 .into(view);
     }
 

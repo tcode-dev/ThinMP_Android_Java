@@ -14,6 +14,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.adapter.LibraryAdapter;
 import tokyo.tkw.thinmp.provider.AllAlbumsContentProvider;
+import tokyo.tkw.thinmp.util.GlideUtil;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
 
+        GlideUtil.init(this);
         setMenu();
         setList();
     }
