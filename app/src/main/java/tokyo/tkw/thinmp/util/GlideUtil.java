@@ -35,17 +35,36 @@ public class GlideUtil {
 
     public static void bitmap(String albumArtId, ImageView view, int resourceId) {
         if (albumArtId != null) {
-            albumArt(albumArtId, view);
+            albumArt(albumArtId, view, resourceId);
         } else {
             drawable(view, resourceId);
         }
     }
 
-    private static void albumArt(String albumArtId, ImageView view) {
+    private static void albumArt(String albumArtId, ImageView view, int resourceId) {
         Glide.with(view)
                 .asBitmap()
                 .load(createUri(albumArtId))
                 .transform(new FitCenter(), new RoundedCorners(RADIUS))
+                .listener(new RequestListener<Bitmap>() {
+                    Handler handler = new Handler();
+
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model,
+                                                Target<Bitmap> target,
+                                                boolean isFirstResource) {
+                        handler.post(() -> drawable(view, resourceId));
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, Object model,
+                                                   Target<Bitmap> target,
+                                                   DataSource dataSource,
+                                                   boolean isFirstResource) {
+                        return false;
+                    }
+                })
                 .into(view);
     }
 
