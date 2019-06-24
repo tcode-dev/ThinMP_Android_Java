@@ -14,7 +14,7 @@ public class Artist extends Music {
 
     private String id;
     private String name;
-    private ArrayList<String> albumIdList = new ArrayList<>();
+    private String albumArtId;
 
     public Artist(String id, String name) {
         this.id = id;
@@ -42,7 +42,11 @@ public class Artist extends Music {
         return name;
     }
 
-    public ArrayList<String> getAlbumArtIdList() {
-        return albumIdList;
+    public String getAlbumArtId() {
+        return albumArtId;
+    }
+
+    public void setAlbumArtId(String albumArtId) {
+        this.albumArtId = albumArtId;
     }
 }

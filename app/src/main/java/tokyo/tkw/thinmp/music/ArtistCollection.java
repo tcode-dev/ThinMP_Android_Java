@@ -8,8 +8,8 @@ import com.annimon.stream.Stream;
 import java.util.ArrayList;
 import java.util.Map;
 
+import tokyo.tkw.thinmp.provider.AllArtistAlbumArtContentProvider;
 import tokyo.tkw.thinmp.provider.AllArtistsContentProvider;
-import tokyo.tkw.thinmp.provider.ArtistAlbumArtContentProvider;
 
 public class ArtistCollection {
     private Context mContext;
@@ -29,22 +29,18 @@ public class ArtistCollection {
         return new ArtistCollection(context, provider.getList());
     }
 
-    public ArrayList<ArtistAlbumArt> getArtistAlbumArtList() {
-        ArtistAlbumArtContentProvider artistAlbumArtContentProvider =
-                new ArtistAlbumArtContentProvider(mContext);
-        return artistAlbumArtContentProvider.getList();
+    public ArrayList<Album> getAllArtistAlbumArtList() {
+        AllArtistAlbumArtContentProvider provider = new AllArtistAlbumArtContentProvider(mContext);
+        return provider.getList();
     }
 
-    public Map<String, String> getArtistAlbumArtMap() {
-        return getArtistAlbumArtMap(getArtistAlbumArtList());
+    public Map<String, String> getAllArtistAlbumArtMap() {
+        return toArtistAlbumArtMap(getAllArtistAlbumArtList());
     }
 
-    public Map<String, String> getArtistAlbumArtMap(ArrayList<ArtistAlbumArt> artistAlbumArtList) {
-        return Stream.of(artistAlbumArtList)
-                .distinctBy(artistAlbumArt -> artistAlbumArt.artistId)
-                .collect(Collectors.toMap(
-                        artistAlbumArt -> artistAlbumArt.artistId,
-                        artistAlbumArt -> artistAlbumArt.albumArtId
-                ));
+    public Map<String, String> toArtistAlbumArtMap(ArrayList<Album> artistAlbumList) {
+        return Stream.of(artistAlbumList)
+                .distinctBy(Album::getArtistId)
+                .collect(Collectors.toMap(Album::getArtistId, Album::getAlbumArtId));
     }
 }

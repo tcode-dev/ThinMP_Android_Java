@@ -67,6 +67,10 @@ public class Track extends Music implements Serializable {
         return albumArtId;
     }
 
+    public void setAlbumArtId(String albumArtId) {
+        this.albumArtId = albumArtId;
+    }
+
     public int getDurationSecond() {
         return TimeUtil.millisecondToSecond(duration);
     }

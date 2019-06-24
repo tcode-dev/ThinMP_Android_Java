@@ -18,11 +18,14 @@ import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
     private ArrayList<FavoriteArtistRealm> mFavoriteList;
     private Map<String, Artist> mArtistMap;
+    private Map<String, String> mArtistAlbumArtMap;
 
     public FavoriteArtistEditAdapter(ArrayList<FavoriteArtistRealm> favoriteList,
-                                     Map<String, Artist> artistMap) {
+                                     Map<String, Artist> artistMap,
+                                     Map<String, String> artistAlbumArtMap) {
         mFavoriteList = favoriteList;
         mArtistMap = artistMap;
+        mArtistAlbumArtMap = artistAlbumArtMap;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHo
         Artist artist = mArtistMap.get(favorite.getArtistId());
         String title = artist.getName();
 
-        GlideUtil.bitmap(artist.getAlbumArtIdList(), holder.albumArt);
+        GlideUtil.bitmap(mArtistAlbumArtMap.get(artist.getId()), holder.albumArt, GlideUtil.ARTIST_RESOURCE_ID);
         holder.artistName.setText(title);
     }
 

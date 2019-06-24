@@ -4,10 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
+import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.ArtistAlbumArt;
 
-public class ArtistAlbumArtContentProvider extends MediaStoreAudioProvider<ArtistAlbumArt> {
-    public ArtistAlbumArtContentProvider(Context context) {
+public class AllArtistAlbumArtContentProvider extends MediaStoreAudioAlbumsProvider {
+    public AllArtistAlbumArtContentProvider(Context context) {
         super(context);
     }
 
@@ -16,8 +17,11 @@ public class ArtistAlbumArtContentProvider extends MediaStoreAudioProvider<Artis
         return mContext.getContentResolver().query(
                 MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
                 new String[]{
+                        MediaStore.Audio.Albums._ID,
+                        MediaStore.Audio.Albums.ALBUM,
                         MediaStore.Audio.Media.ARTIST_ID,
-                        MediaStore.Audio.Albums._ID
+                        MediaStore.Audio.Albums.ARTIST,
+                        MediaStore.Audio.Albums.ALBUM_ART
                 },
                 MediaStore.Audio.Albums.ALBUM_ART + " IS NOT NULL",
                 null,
@@ -25,20 +29,8 @@ public class ArtistAlbumArtContentProvider extends MediaStoreAudioProvider<Artis
         );
     }
 
-    private String getArtistId() {
-        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID));
-    }
-
-    private String getAlbumArtId() {
-        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums._ID));
-    }
-
-    private ArtistAlbumArt getArtistAlbumArt() {
-        return new ArtistAlbumArt(getArtistId(), getAlbumArtId());
-    }
-
     @Override
-    ArtistAlbumArt fetch() {
-        return getArtistAlbumArt();
+    Album fetch() {
+        return getAlbum();
     }
 }

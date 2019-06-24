@@ -4,9 +4,19 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
-public class AllAlbumsContentProvider extends MediaStoreAudioAlbumsProvider {
-    public AllAlbumsContentProvider(Context context) {
+import java.util.ArrayList;
+
+import tokyo.tkw.thinmp.music.Album;
+
+public class ArtistsAlbumArtContentProvider extends MediaStoreAudioAlbumsProvider {
+    private String[] mArtistIdList;
+    private String mPlaceholders;
+
+    public ArtistsAlbumArtContentProvider(Context context, ArrayList<String> artistIdList) {
         super(context);
+
+        mArtistIdList = toStringArray(artistIdList);
+        mPlaceholders = makePlaceholders(artistIdList.size());
     }
 
     @Override
@@ -20,9 +30,14 @@ public class AllAlbumsContentProvider extends MediaStoreAudioAlbumsProvider {
                         MediaStore.Audio.Albums.ARTIST,
                         MediaStore.Audio.Albums.ALBUM_ART
                 },
-                null,
-                null,
+                MediaStore.Audio.Media.ARTIST_ID + " IN (" + mPlaceholders + ") AND " + MediaStore.Audio.Albums.ALBUM_ART + " IS NOT NULL",
+                mArtistIdList,
                 MediaStore.Audio.Albums.ALBUM + " ASC"
         );
+    }
+
+    @Override
+    Album fetch() {
+        return getAlbum();
     }
 }

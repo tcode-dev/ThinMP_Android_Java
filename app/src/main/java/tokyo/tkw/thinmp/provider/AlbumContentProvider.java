@@ -20,6 +20,7 @@ public class AlbumContentProvider extends MediaStoreAudioAlbumsProvider {
                 new String[]{
                         MediaStore.Audio.Albums._ID,
                         MediaStore.Audio.Albums.ALBUM,
+                        MediaStore.Audio.Media.ARTIST_ID,
                         MediaStore.Audio.Albums.ARTIST,
                         MediaStore.Audio.Albums.ALBUM_ART
                 },

@@ -18,6 +18,10 @@ public abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvi
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM));
     }
 
+    protected String getArtistId() {
+        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID));
+    }
+
     protected String getArtistName() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums.ARTIST));
     }
@@ -31,7 +35,7 @@ public abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvi
     }
 
     protected Album getAlbum() {
-        return new Album(getId(), getAlbumName(), getArtistName(), getAlbumArtId());
+        return new Album(getId(), getAlbumName(), getArtistId(), getArtistName(), getAlbumArtId());
     }
 
     @Override

@@ -32,7 +32,10 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
 
         FavoriteArtistList favoriteArtistList = new FavoriteArtistList(this);
         mFavoriteList = favoriteArtistList.getFavoriteArtistRealmList();
-        mAdapter = new FavoriteArtistEditAdapter(mFavoriteList, favoriteArtistList.getArtistMap());
+        mAdapter = new FavoriteArtistEditAdapter(
+                mFavoriteList,
+                favoriteArtistList.getArtistMap(),
+                favoriteArtistList.getArtistAlbumArtMap());
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onItemTouchHelperSimpleCallback());
         itemTouchHelper.attachToRecyclerView(view);

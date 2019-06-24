@@ -30,6 +30,7 @@ public class FavoriteArtistsActivity extends AppCompatActivity {
         FavoriteArtistListAdapter adapter =
                 new FavoriteArtistListAdapter(favoriteArtistList.getRealmResults(),
                         favoriteArtistList.getArtistMap(),
+                        favoriteArtistList.getArtistAlbumArtMap(),
                         favoriteArtistListListener());
         favoriteListView.setAdapter(adapter);
 

@@ -6,17 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
-
-import java.util.ArrayList;
-import java.util.Map;
-
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistsController;
-import tokyo.tkw.thinmp.music.ArtistAlbumArt;
 import tokyo.tkw.thinmp.music.ArtistCollection;
-import tokyo.tkw.thinmp.provider.ArtistAlbumArtContentProvider;
 
 public class ArtistsActivity extends AppCompatActivity {
 
@@ -40,7 +32,7 @@ public class ArtistsActivity extends AppCompatActivity {
         ArtistsController.Data data = new ArtistsController.Data();
         data.title = getResources().getString(R.string.artists);
         data.artistList = artistCollection.getList();
-        data.artistAlbumArtMap = artistCollection.getArtistAlbumArtMap();
+        data.artistAlbumArtMap = artistCollection.getAllArtistAlbumArtMap();
         controller.setData(data);
     }
 }

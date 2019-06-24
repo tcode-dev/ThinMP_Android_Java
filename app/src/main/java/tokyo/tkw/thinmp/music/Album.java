@@ -12,12 +12,14 @@ public class Album extends Music {
 
     private String id;
     private String name;
+    private String artistId;
     private String artistName;
     private String albumArtId;
 
-    public Album(String id, String name, String artistName, String albumArtId) {
+    public Album(String id, String name, String artistId, String artistName, String albumArtId) {
         this.id = id;
         this.name = name;
+        this.artistId = artistId;
         this.artistName = artistName;
         this.albumArtId = albumArtId;
     }
@@ -41,6 +43,10 @@ public class Album extends Music {
 
     public String getName() {
         return name;
+    }
+
+    public String getArtistId() {
+        return artistId;
     }
 
     public String getArtistName() {

@@ -31,7 +31,7 @@ public abstract class ArtistListItemModel extends EpoxyModelWithHolder<ArtistLis
     @Override
     public void bind(@NonNull Holder holder) {
         holder.parent.setOnClickListener(clickListener);
-        GlideUtil.bitmap(albumArtId, holder.albumArt);
+        GlideUtil.bitmap(albumArtId, holder.albumArt, GlideUtil.ARTIST_RESOURCE_ID);
         holder.artistName.setText(artistName);
     }
 
