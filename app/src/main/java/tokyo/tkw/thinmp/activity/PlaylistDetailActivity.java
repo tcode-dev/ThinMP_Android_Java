@@ -19,7 +19,7 @@ public class PlaylistDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_playlist_detail);
 
         int playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
-        RecyclerView view = findViewById(R.id.main);
+        RecyclerView view = findViewById(R.id.list);
         LinearLayoutManager layout = new LinearLayoutManager(this);
         view.setLayoutManager(layout);
         PlaylistTrack playlistTrack = new PlaylistTrack(this, playlistId);

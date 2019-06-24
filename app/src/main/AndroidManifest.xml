@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activity.PlaylistsActivity" />
+        <activity android:name=".activity.PlaylistsEditActivity" />
         <activity android:name=".activity.FavoriteSongsActivity" />
         <activity android:name=".activity.FavoriteArtistsActivity" />
         <activity android:name=".activity.TracksActivity" />

@@ -1,6 +1,9 @@
 package tokyo.tkw.thinmp.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +21,7 @@ public class PlaylistsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_playlists);
 
         initList();
+        initEdit();
     }
 
     private void initList() {
@@ -28,5 +32,16 @@ public class PlaylistsActivity extends AppCompatActivity {
         Playlist playlist = new Playlist();
         PlaylistsAdapter adapter = new PlaylistsAdapter(playlist.getRealmResults());
         playlistView.setAdapter(adapter);
+    }
+
+    private void initEdit() {
+        findViewById(R.id.edit).setOnClickListener(editClickListener(this));
+    }
+
+    private View.OnClickListener editClickListener(Context context) {
+        return v -> {
+            Intent intent = new Intent(context, PlaylistsEditActivity.class);
+            context.startActivity(intent);
+        };
     }
 }
