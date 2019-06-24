@@ -28,7 +28,7 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_artist_edit);
 
-        RecyclerView view = findViewById(R.id.favoriteList);
+        RecyclerView view = findViewById(R.id.list);
 
         FavoriteArtistList favoriteArtistList = new FavoriteArtistList(this);
         mFavoriteList = favoriteArtistList.getFavoriteArtistRealmList();
