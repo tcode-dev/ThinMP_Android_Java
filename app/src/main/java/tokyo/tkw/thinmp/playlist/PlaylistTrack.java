@@ -29,6 +29,10 @@ public class PlaylistTrack {
         return mRealmResults;
     }
 
+    public ArrayList<PlaylistTrackRealm> getList() {
+        return (ArrayList<PlaylistTrackRealm>) Stream.of(mRealmResults).toList();
+    }
+
     public ArrayList<Track> getTrackList() {
         ArrayList<String> trackIdList =
                 (ArrayList<String>) Stream.of(mRealmResults).map(PlaylistTrackRealm::getTrackId).collect(Collectors.toList());
@@ -50,6 +54,7 @@ public class PlaylistTrack {
 
     private RealmResults<PlaylistTrackRealm> findAll() {
         Realm realm = Realm.getDefaultInstance();
-        return realm.where(PlaylistTrackRealm.class).equalTo(PlaylistTrackRealm.PLAYLIST_ID, mPlaylistId).findAll();
+        return realm.where(PlaylistTrackRealm.class).equalTo(PlaylistTrackRealm.PLAYLIST_ID,
+                mPlaylistId).findAll();
     }
 }

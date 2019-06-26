@@ -5,26 +5,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Map;
 
-import io.realm.OrderedRealmCollection;
-import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
-public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrackRealm,
-        TrackViewHolder> {
+public class PlaylistDetailEditAdapter extends RecyclerView.Adapter<TrackViewHolder> {
+    private ArrayList<PlaylistTrackRealm> mList;
     private Map<String, Track> mTrackMap;
+    private int mItemCount;
 
-    public PlaylistDetailAdapter(OrderedRealmCollection<PlaylistTrackRealm> playlistTrackRealms,
-                                 Map<String, Track> trackMap) {
-        super(playlistTrackRealms, true);
-
+    public PlaylistDetailEditAdapter(ArrayList<PlaylistTrackRealm> list,
+                                     Map<String, Track> trackMap) {
+        mList = list;
         mTrackMap = trackMap;
+        mItemCount = list.size();
     }
 
     @NonNull
@@ -38,13 +39,17 @@ public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrac
 
     @Override
     public void onBindViewHolder(@NonNull TrackViewHolder holder, int position) {
-        PlaylistTrackRealm playlistTrackRealm = getItem(position);
-
-        Track track = mTrackMap.get(playlistTrackRealm.getTrackId());
+        PlaylistTrackRealm realm = mList.get(position);
+        Track track = mTrackMap.get(realm.getTrackId());
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
         holder.track.setText(track.getTitle());
         holder.artist.setText(track.getArtistName());
+    }
+
+    @Override
+    public int getItemCount() {
+        return mItemCount;
     }
 }
 
