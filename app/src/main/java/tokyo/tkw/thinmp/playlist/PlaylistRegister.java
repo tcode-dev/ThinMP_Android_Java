@@ -56,7 +56,8 @@ public class PlaylistRegister extends Fragment {
      * @param album
      */
     public void create(String name, Album album) {
-        TrackCollection trackCollection = TrackCollection.createAlbumTrackCollectionInstance(getContext(), album.getId());
+        TrackCollection trackCollection =
+                TrackCollection.createAlbumTrackCollectionInstance(getContext(), album.getId());
 
         create(name, trackCollection.getList());
     }
@@ -81,11 +82,13 @@ public class PlaylistRegister extends Fragment {
         PlaylistRealm playlist =
                 mRealm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
 
-        int nextOrder = createNextPlaylistTrackOrder();
+        int nextOrder = createNextPlaylistTrackOrder(playlistId);
 
         beginTransaction();
 
-        PlaylistTrackRealm realm = new PlaylistTrackRealm();
+        int playlistTrackRealmId = createNextPlaylistTrackId();
+        PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class,
+                playlistTrackRealmId);
         realm.set(playlistId, track, nextOrder);
         playlist.getTracks().add(realm);
 
@@ -93,11 +96,12 @@ public class PlaylistRegister extends Fragment {
     }
 
     private ArrayList<PlaylistTrackRealm> createPlaylistTrackRealmList(int playlistId,
-                                                                   ArrayList<Track> trackList) {
+                                                                       ArrayList<Track> trackList) {
         return (ArrayList<PlaylistTrackRealm>) IntStream.range(0, trackList.size()).mapToObj(i -> {
             Track track = trackList.get(i);
             int playlistTrackRealmId = createNextPlaylistTrackId();
-            PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class, playlistTrackRealmId);
+            PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class,
+                    playlistTrackRealmId);
             realm.set(playlistId, track, i);
             return realm;
         }).toList();
@@ -114,12 +118,15 @@ public class PlaylistRegister extends Fragment {
     }
 
     private int createNextPlaylistTrackId() {
-        Number max = mRealm.where(PlaylistTrackRealm.class).max(PlaylistRealm.ID);
+        Number max = mRealm.where(PlaylistTrackRealm.class).max(PlaylistTrackRealm.ID);
         return createNextInt(max);
     }
 
-    private int createNextPlaylistTrackOrder() {
-        Number max = mRealm.where(PlaylistTrackRealm.class).max(PlaylistTrackRealm.ORDER);
+    private int createNextPlaylistTrackOrder(int playlistId) {
+        Number max =
+                mRealm.where(PlaylistTrackRealm.class).equalTo(PlaylistTrackRealm.PLAYLIST_ID,
+                        playlistId).max(PlaylistTrackRealm.ORDER);
+
         return createNextInt(max);
     }
 
