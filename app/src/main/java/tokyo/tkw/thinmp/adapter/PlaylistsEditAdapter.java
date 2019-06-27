@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import io.realm.RealmList;
+import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.PlaylistClickListener;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
@@ -16,10 +19,10 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
 public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolder> {
-    private ArrayList<PlaylistRealm>  mPlaylistList;
+    private RealmList<PlaylistRealm> mList;
 
-    public PlaylistsEditAdapter(ArrayList<PlaylistRealm> playlistList) {
-        mPlaylistList = playlistList;
+    public PlaylistsEditAdapter(RealmList<PlaylistRealm> list) {
+        mList = list;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
 
     @Override
     public void onBindViewHolder(ImageRowViewHolder holder, int position) {
-        PlaylistRealm playlistRealm = mPlaylistList.get(position);
+        PlaylistRealm playlistRealm = mList.get(position);
         int playlistId = playlistRealm.getId();
         String name = playlistRealm.getName();
         PlaylistTrackRealm playlistTrackRealm = playlistRealm.getTracks().first();
@@ -45,6 +48,6 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
 
     @Override
     public int getItemCount() {
-        return mPlaylistList.size();
+        return mList.size();
     }
 }

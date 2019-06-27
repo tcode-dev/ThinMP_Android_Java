@@ -7,16 +7,19 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.annimon.stream.Stream;
 
+import io.realm.RealmList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistsEditAdapter;
 import tokyo.tkw.thinmp.playlist.Playlist;
+import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
 public class PlaylistsEditActivity extends AppCompatActivity {
-    private ArrayList<PlaylistRealm> mPlaylistList;
     private PlaylistsEditAdapter mAdapter;
+    private RealmList<PlaylistRealm> mList;
+    private PlaylistRegister mPlaylistRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,26 +29,37 @@ public class PlaylistsEditActivity extends AppCompatActivity {
         RecyclerView view = findViewById(R.id.list);
 
         Playlist playlist = new Playlist();
-        mPlaylistList = playlist.getList();
-        mAdapter = new PlaylistsEditAdapter(mPlaylistList);
+        mList = playlist.getRealmList();
+        mAdapter = new PlaylistsEditAdapter(mList);
+        mPlaylistRegister = new PlaylistRegister();
+
         view.setAdapter(mAdapter);
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        view.setLayoutManager(layout);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onItemTouchHelperSimpleCallback());
         itemTouchHelper.attachToRecyclerView(view);
 
+        setApply();
+        setCancel();
+
+        mPlaylistRegister.beginTransaction();
+    }
+    private void setApply() {
         findViewById(R.id.apply).setOnClickListener(v -> {
-//            List<String> artistIdList =
-//                    Stream.of(mPlaylistList).map(PlaylistRealm::getId).collect(Collectors
-//                    .toList());
-//            PlaylistRegister.update(artistIdList);
+            Stream.of(mList).forEachIndexed((i, realm) -> {
+                realm.setOrder(i + 1);
+            });
+            mPlaylistRegister.commitTransaction();
             finish();
         });
+    }
 
-        findViewById(R.id.cancel).setOnClickListener(v -> finish());
-
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-        view.setLayoutManager(layout);
-        view.setAdapter(mAdapter);
+    private void setCancel() {
+        findViewById(R.id.cancel).setOnClickListener(v -> {
+            mPlaylistRegister.cancelTransaction();
+            finish();
+        });
     }
 
     private ItemTouchHelper.SimpleCallback onItemTouchHelperSimpleCallback() {
@@ -63,7 +77,7 @@ public class PlaylistsEditActivity extends AppCompatActivity {
                 // viewの並び替え
                 mAdapter.notifyItemMoved(fromPos, toPos);
                 // dataの並び替え
-                mPlaylistList.add(toPos, mPlaylistList.remove(fromPos));
+                mList.add(toPos, mList.remove(fromPos));
 
                 return true;
             }
@@ -72,7 +86,8 @@ public class PlaylistsEditActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
-                mPlaylistList.remove(fromPos);
+                mList.get(fromPos).deleteFromRealm();
+                mList.remove(fromPos);
                 mAdapter.notifyItemRemoved(fromPos);
             }
         };
