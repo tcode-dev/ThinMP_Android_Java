@@ -17,10 +17,9 @@ import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
 public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolder> {
     private ArrayList<PlaylistRealm>  mPlaylistList;
-    private int mItemCount;
+
     public PlaylistsEditAdapter(ArrayList<PlaylistRealm> playlistList) {
         mPlaylistList = playlistList;
-        mItemCount = playlistList.size();
     }
 
     @Override
@@ -46,6 +45,6 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
 
     @Override
     public int getItemCount() {
-        return mItemCount;
+        return mPlaylistList.size();
     }
 }

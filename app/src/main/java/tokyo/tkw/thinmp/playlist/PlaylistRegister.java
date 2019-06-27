@@ -1,40 +1,36 @@
 package tokyo.tkw.thinmp.playlist;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.annimon.stream.IntStream;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.music.TrackCollection;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
-public class PlaylistRegister extends Fragment {
+public class PlaylistRegister {
     private Realm mRealm;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-    }
-
-    private void init() {
+    public PlaylistRegister() {
         mRealm = Realm.getDefaultInstance();
     }
 
-    private void beginTransaction() {
+    public void beginTransaction() {
         mRealm.beginTransaction();
     }
 
-    private void commitTransaction() {
+    public void commitTransaction() {
         mRealm.commitTransaction();
+    }
+
+    public void cancelTransaction() {
+        mRealm.cancelTransaction();
     }
 
     /**
@@ -49,22 +45,7 @@ public class PlaylistRegister extends Fragment {
         create(name, trackList);
     }
 
-    /**
-     * アルバムの曲を登録
-     *
-     * @param name
-     * @param album
-     */
-    public void create(String name, Album album) {
-        TrackCollection trackCollection =
-                TrackCollection.createAlbumTrackCollectionInstance(getContext(), album.getId());
-
-        create(name, trackCollection.getList());
-    }
-
     public void create(String name, ArrayList<Track> trackList) {
-        init();
-
         int playlistId = createNextPlaylistId();
         int nextOrder = createNextPlaylistOrder();
 
@@ -77,8 +58,6 @@ public class PlaylistRegister extends Fragment {
     }
 
     public void add(int playlistId, Track track) {
-        init();
-
         PlaylistRealm playlist =
                 mRealm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
 
@@ -93,6 +72,15 @@ public class PlaylistRegister extends Fragment {
         playlist.getTracks().add(realm);
 
         commitTransaction();
+    }
+
+    public void update(int playlistId, List<Integer> trackIdList) {
+        RealmResults realmResults =
+                mRealm.where(PlaylistTrackRealm.class).equalTo(PlaylistTrackRealm.PLAYLIST_ID,
+                playlistId).findAll();
+
+        beginTransaction();
+        realmResults.deleteAllFromRealm();
     }
 
     private ArrayList<PlaylistTrackRealm> createPlaylistTrackRealmList(int playlistId,

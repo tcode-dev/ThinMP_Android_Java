@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import java.util.Map;
 
 import io.realm.OrderedRealmCollection;
+import io.realm.RealmList;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.music.Track;
@@ -20,7 +21,7 @@ public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrac
         TrackViewHolder> {
     private Map<String, Track> mTrackMap;
 
-    public PlaylistDetailAdapter(OrderedRealmCollection<PlaylistTrackRealm> playlistTrackRealms,
+    public PlaylistDetailAdapter(RealmList<PlaylistTrackRealm> playlistTrackRealms,
                                  Map<String, Track> trackMap) {
         super(playlistTrackRealms, true);
 

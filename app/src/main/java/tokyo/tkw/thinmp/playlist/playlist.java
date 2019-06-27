@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
+import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
 public class Playlist {
     public static final String PLAYLIST_ID = "playlistId";

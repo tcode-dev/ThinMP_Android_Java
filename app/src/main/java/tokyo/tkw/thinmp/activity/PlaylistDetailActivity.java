@@ -13,6 +13,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDetailAdapter;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.PlaylistTrack;
+import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
 public class PlaylistDetailActivity extends AppCompatActivity {
@@ -33,9 +34,10 @@ public class PlaylistDetailActivity extends AppCompatActivity {
         LinearLayoutManager layout = new LinearLayoutManager(this);
         view.setLayoutManager(layout);
 
+        PlaylistRealm playlistRealm = PlaylistRealm.createInstance(mPlaylistId);
         PlaylistTrack playlistTrack = new PlaylistTrack(this, mPlaylistId);
 
-        PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(playlistTrack.getRealmResults()
+        PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(playlistRealm.getTracks()
                 , playlistTrack.getTrackMap());
         view.setAdapter(adapter);
     }

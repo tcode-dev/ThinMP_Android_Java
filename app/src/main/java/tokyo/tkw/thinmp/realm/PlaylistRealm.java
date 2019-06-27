@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.realm;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -55,6 +56,10 @@ public class PlaylistRealm extends RealmObject {
         this.order = order;
     }
 
+    public static PlaylistRealm createInstance(int playlistId) {
+        Realm realm = Realm.getDefaultInstance();
 
+        return realm.where(PlaylistRealm.class).equalTo(ID, playlistId).findFirst();
+    }
 }
 
