@@ -32,22 +32,27 @@ public class FavoriteSongList {
     }
 
     public ArrayList<Track> getTrackList() {
-        ArrayList<String> trackIdList =
-                (ArrayList<String>) Stream.of(mRealmResults).map(FavoriteSongRealm::getTrackId).collect(Collectors.toList());
+        ArrayList<String> trackIdList = (ArrayList<String>) Stream.of(mRealmResults)
+                .map(FavoriteSongRealm::getTrackId)
+                .collect(Collectors.toList());
 
-        TracksContentProvider tracksContentProvider = new TracksContentProvider(mContext,
-                trackIdList);
+        TracksContentProvider provider = new TracksContentProvider(mContext, trackIdList);
 
-        return tracksContentProvider.getList();
+        ArrayList<Track> trackList = provider.getList();
+
+        Map<String, Track> trackMap = toTrackMap(trackList);
+
+        return (ArrayList<Track>) Stream.of(trackIdList)
+                .map(trackMap::get)
+                .collect(Collectors.toList());
     }
 
     public Map<String, Track> getTrackMap() {
-        return getTrackMap(getTrackList());
+        return toTrackMap(getTrackList());
     }
 
-    public Map<String, Track> getTrackMap(ArrayList<Track> trackList) {
-        return Stream.of(trackList).collect(Collectors.toMap(track -> track.getId(),
-                track -> track));
+    private Map<String, Track> toTrackMap(ArrayList<Track> trackList) {
+        return Stream.of(trackList).collect(Collectors.toMap(Track::getId, track -> track));
     }
 
     private RealmResults<FavoriteSongRealm> findAll() {
