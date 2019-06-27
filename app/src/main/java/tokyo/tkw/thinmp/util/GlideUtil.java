@@ -21,7 +21,7 @@ import tokyo.tkw.thinmp.R;
 import static android.net.Uri.parse;
 
 public class GlideUtil {
-    private static final int RADIUS_DP = 8;
+    private static final int RADIUS_DP = 4;
     private static int RADIUS_PX;
     public static final int ALBUM_RESOURCE_ID = R.drawable.default_album_art;
     public static final int ARTIST_RESOURCE_ID = R.drawable.default_artist_art;
