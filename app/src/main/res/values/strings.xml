@@ -9,6 +9,7 @@
     <string name="favorite_songs">Favorite Songs</string>
     <string name="playlists">Playlists</string>
     <string name="playlist">Playlist</string>
+    <string name="recent_activity">Recent Activity</string>
 
     <string name="edit">EDIT</string>
     <string name="ok">OK</string>
