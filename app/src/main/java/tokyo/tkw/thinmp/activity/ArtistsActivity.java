@@ -17,15 +17,9 @@ public class ArtistsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artists);
 
-        initList();
-    }
-
-    private void initList() {
         RecyclerView listView = findViewById(R.id.list);
-        LinearLayoutManager layout = new LinearLayoutManager(this);
+
         ArtistsController controller = new ArtistsController();
-        listView.setLayoutManager(layout);
-        listView.setAdapter(controller.getAdapter());
 
         ArtistCollection artistCollection =
                 ArtistCollection.createAllArtistCollectionInstance(this);
@@ -34,5 +28,9 @@ public class ArtistsActivity extends AppCompatActivity {
         data.artistList = artistCollection.getList();
         data.artistAlbumArtMap = artistCollection.getAllArtistAlbumArtMap();
         controller.setData(data);
+
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        listView.setLayoutManager(layout);
+        listView.setAdapter(controller.getAdapter());
     }
 }

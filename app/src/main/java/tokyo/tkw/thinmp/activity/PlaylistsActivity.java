@@ -20,25 +20,19 @@ public class PlaylistsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlists);
 
-        initList();
-        initEdit();
-    }
-
-    private void initList() {
         RecyclerView playlistView = findViewById(R.id.list);
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-        playlistView.setLayoutManager(layout);
 
         Playlist playlist = new Playlist();
         PlaylistsAdapter adapter = new PlaylistsAdapter(playlist.getRealmResults());
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+
+        playlistView.setLayoutManager(layout);
         playlistView.setAdapter(adapter);
+
+        findViewById(R.id.edit).setOnClickListener(createEditClickListener(this));
     }
 
-    private void initEdit() {
-        findViewById(R.id.edit).setOnClickListener(editClickListener(this));
-    }
-
-    private View.OnClickListener editClickListener(Context context) {
+    private View.OnClickListener createEditClickListener(Context context) {
         return v -> {
             Intent intent = new Intent(context, PlaylistsEditActivity.class);
             context.startActivity(intent);

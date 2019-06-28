@@ -24,6 +24,8 @@ public class AlbumDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
 
+        RecyclerView listView = findViewById(R.id.list);
+
         String albumId = getIntent().getStringExtra(Album.ALBUM_ID);
 
         // アルバム
@@ -48,8 +50,9 @@ public class AlbumDetailActivity extends AppCompatActivity {
 
         AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(trackList,
                 new TrackClickListener(trackList));
+
         LinearLayoutManager layout = new LinearLayoutManager(this);
-        RecyclerView listView = findViewById(R.id.list);
+
         listView.setLayoutManager(layout);
         listView.setAdapter(adapter);
     }

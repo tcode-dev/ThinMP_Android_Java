@@ -42,6 +42,7 @@ public class PlaylistsEditActivity extends AppCompatActivity {
         findViewById(R.id.cancel).setOnClickListener(createCancelClickListener());
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
+
         view.setLayoutManager(layout);
         view.setAdapter(mAdapter);
 

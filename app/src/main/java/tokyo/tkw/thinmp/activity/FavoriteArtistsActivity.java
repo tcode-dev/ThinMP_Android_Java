@@ -19,11 +19,6 @@ public class FavoriteArtistsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_artists);
 
-        initList();
-        initEdit();
-    }
-
-    private void initList() {
         RecyclerView favoriteListView = findViewById(R.id.list);
 
         FavoriteArtistList favoriteArtistList = new FavoriteArtistList(this);
@@ -31,18 +26,16 @@ public class FavoriteArtistsActivity extends AppCompatActivity {
                 new FavoriteArtistListAdapter(favoriteArtistList.getRealmResults(),
                         favoriteArtistList.getArtistMap(),
                         favoriteArtistList.getArtistAlbumArtMap(),
-                        favoriteArtistListListener());
-        favoriteListView.setAdapter(adapter);
+                        createFavoriteArtistListListener());
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
         favoriteListView.setLayoutManager(layout);
+        favoriteListView.setAdapter(adapter);
+
+        findViewById(R.id.edit).setOnClickListener(createEditClickListener());
     }
 
-    private void initEdit() {
-        findViewById(R.id.edit).setOnClickListener(editClickListener());
-    }
-
-    private FavoriteArtistListAdapter.FavoriteArtistListListener favoriteArtistListListener() {
+    private FavoriteArtistListAdapter.FavoriteArtistListListener createFavoriteArtistListListener() {
         return artistId -> {
             Intent intent = new Intent(this, ArtistDetailActivity.class);
             intent.putExtra(Artist.ARTIST_ID, artistId);
@@ -50,7 +43,7 @@ public class FavoriteArtistsActivity extends AppCompatActivity {
         };
     }
 
-    private View.OnClickListener editClickListener() {
+    private View.OnClickListener createEditClickListener() {
         return v -> {
             Intent intent = new Intent(this, FavoriteArtistEditActivity.class);
             startActivity(intent);

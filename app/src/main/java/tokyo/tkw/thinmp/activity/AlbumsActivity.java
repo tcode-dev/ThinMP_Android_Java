@@ -22,6 +22,7 @@ public class AlbumsActivity extends AppCompatActivity {
         AlbumCollection albumCollection = AlbumCollection.createAllAlbumCollectionInstance(this);
         AlbumListAdapter adapter = new AlbumListAdapter(albumCollection.getList());
         GridLayoutManager layout = new GridLayoutManager(this, 2);
+
         listView.setLayoutManager(layout);
         listView.setAdapter(adapter);
     }

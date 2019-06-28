@@ -33,33 +33,27 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
 
-        setMenu();
-        setList();
-    }
-
-    private void setMenu() {
-        LibraryAdapter adapter = new LibraryAdapter(this,
+        LibraryAdapter libraryAdapter = new LibraryAdapter(this,
                 getResources().getStringArray(R.array.library_menu), MENU_LINK_LIST);
-        LinearLayoutManager layout = new LinearLayoutManager(this);
+        LinearLayoutManager libraryLayout = new LinearLayoutManager(this);
         RecyclerView menuView = findViewById(R.id.libraryMenu);
 
-        menuView.setLayoutManager(layout);
-        menuView.setAdapter(adapter);
+        menuView.setLayoutManager(libraryLayout);
+        menuView.setAdapter(libraryAdapter);
 
         // 区切り線の描画
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 this, new LinearLayoutManager(this).getOrientation());
         menuView.addItemDecoration(dividerItemDecoration);
-    }
 
-    private void setList() {
         RecyclerView list = findViewById(R.id.list);
         AllAlbumsContentProvider allAlbumsContentProvider = new AllAlbumsContentProvider(this);
-        AlbumListAdapter adapter = new AlbumListAdapter(allAlbumsContentProvider.getList());
-        GridLayoutManager layout = new GridLayoutManager(this, 2);
+        AlbumListAdapter albumListAdapter =
+                new AlbumListAdapter(allAlbumsContentProvider.getList());
+        GridLayoutManager albumLayout = new GridLayoutManager(this, 2);
 
-        list.setLayoutManager(layout);
-        list.setAdapter(adapter);
+        list.setLayoutManager(albumLayout);
+        list.setAdapter(albumListAdapter);
     }
 
     /**

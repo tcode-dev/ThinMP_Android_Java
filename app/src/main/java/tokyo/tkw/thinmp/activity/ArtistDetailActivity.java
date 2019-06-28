@@ -29,11 +29,13 @@ public class ArtistDetailActivity extends AppCompatActivity {
         // artist取得
         Artist artist = Artist.createInstance(this, artistId);
 
-        AlbumCollection albumCollection = AlbumCollection.createArtistAlbumCollectionInstance(this, artistId);
+        AlbumCollection albumCollection =
+                AlbumCollection.createArtistAlbumCollectionInstance(this, artistId);
         ArrayList<Album> artistAlbumList = albumCollection.getList();
         String albumArtId = albumCollection.getAlbumArtId();
 
-        TrackCollection trackCollection = TrackCollection.createArtistTrackCollectionInstance(this, artistId);
+        TrackCollection trackCollection =
+                TrackCollection.createArtistTrackCollectionInstance(this, artistId);
 
         // 背景画像
         ImageView backgroundView = findViewById(R.id.background);
