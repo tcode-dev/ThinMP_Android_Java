@@ -1,6 +1,7 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -29,41 +30,43 @@ public class PlaylistsEditActivity extends AppCompatActivity {
         RecyclerView view = findViewById(R.id.list);
 
         Playlist playlist = new Playlist();
+
         mList = playlist.getRealmList();
         mAdapter = new PlaylistsEditAdapter(mList);
         mPlaylistRegister = new PlaylistRegister();
 
-        view.setAdapter(mAdapter);
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-        view.setLayoutManager(layout);
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onItemTouchHelperSimpleCallback());
+        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(view);
 
-        setApply();
-        setCancel();
+        findViewById(R.id.apply).setOnClickListener(createApplyClickListener());
+        findViewById(R.id.cancel).setOnClickListener(createCancelClickListener());
+
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        view.setLayoutManager(layout);
+        view.setAdapter(mAdapter);
 
         mPlaylistRegister.beginTransaction();
     }
-    private void setApply() {
-        findViewById(R.id.apply).setOnClickListener(v -> {
+
+    private View.OnClickListener createApplyClickListener() {
+        return v -> {
             Stream.of(mList).forEachIndexed((i, realm) -> {
                 realm.setOrder(i + 1);
             });
             mPlaylistRegister.commitTransaction();
             finish();
-        });
+        };
     }
 
-    private void setCancel() {
-        findViewById(R.id.cancel).setOnClickListener(v -> {
+    private View.OnClickListener createCancelClickListener() {
+        return v -> {
             mPlaylistRegister.cancelTransaction();
             finish();
-        });
+        };
     }
 
-    private ItemTouchHelper.SimpleCallback onItemTouchHelperSimpleCallback() {
-        return new ItemTouchHelper.SimpleCallback(
+    private ItemTouchHelper createItemTouchHelper() {
+        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
                 ItemTouchHelper.LEFT
         ) {
@@ -76,6 +79,7 @@ public class PlaylistsEditActivity extends AppCompatActivity {
 
                 // viewの並び替え
                 mAdapter.notifyItemMoved(fromPos, toPos);
+
                 // dataの並び替え
                 mList.add(toPos, mList.remove(fromPos));
 
@@ -86,10 +90,11 @@ public class PlaylistsEditActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
+                // 削除
                 mList.get(fromPos).deleteFromRealm();
                 mList.remove(fromPos);
                 mAdapter.notifyItemRemoved(fromPos);
             }
-        };
+        });
     }
 }

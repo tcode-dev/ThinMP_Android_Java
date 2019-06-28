@@ -1,6 +1,7 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -37,25 +38,34 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
                 favoriteArtistList.getArtistMap(),
                 favoriteArtistList.getArtistAlbumArtMap());
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onItemTouchHelperSimpleCallback());
+        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(view);
 
-        findViewById(R.id.apply).setOnClickListener(v -> {
-            List<String> artistIdList =
-                    Stream.of(mFavoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
-            FavoriteArtistRegister.update(artistIdList);
-            finish();
-        });
-
-        findViewById(R.id.cancel).setOnClickListener(v -> finish());
+        findViewById(R.id.apply).setOnClickListener(createApplyClickListener());
+        findViewById(R.id.cancel).setOnClickListener(createCancelClickListener());
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
         view.setLayoutManager(layout);
         view.setAdapter(mAdapter);
     }
 
-    private ItemTouchHelper.SimpleCallback onItemTouchHelperSimpleCallback() {
-        return new ItemTouchHelper.SimpleCallback(
+    private View.OnClickListener createApplyClickListener() {
+        return v -> {
+            List<String> artistIdList =
+                    Stream.of(mFavoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
+            FavoriteArtistRegister.update(artistIdList);
+            finish();
+        };
+    }
+
+    private View.OnClickListener createCancelClickListener() {
+        return v -> {
+            finish();
+        };
+    }
+
+    private ItemTouchHelper createItemTouchHelper() {
+        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
                 ItemTouchHelper.LEFT
         ) {
@@ -68,6 +78,7 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
 
                 // viewの並び替え
                 mAdapter.notifyItemMoved(fromPos, toPos);
+
                 // dataの並び替え
                 mFavoriteList.add(toPos, mFavoriteList.remove(fromPos));
 
@@ -78,9 +89,10 @@ public class FavoriteArtistEditActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
+                // 削除
                 mFavoriteList.remove(fromPos);
                 mAdapter.notifyItemRemoved(fromPos);
             }
-        };
+        });
     }
 }

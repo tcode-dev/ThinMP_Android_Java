@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.adapter;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,9 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.AlbumListViewHolder;
 
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListViewHolder> {
-    private Activity mContext;
     private ArrayList<Album> mAlbumList;
 
-    public AlbumListAdapter(@NonNull Activity context, @NonNull ArrayList<Album> albumList) {
-        mContext = context;
+    public AlbumListAdapter(@NonNull ArrayList<Album> albumList) {
         mAlbumList = albumList;
     }
 

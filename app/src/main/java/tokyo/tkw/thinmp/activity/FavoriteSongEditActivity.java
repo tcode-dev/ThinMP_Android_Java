@@ -34,19 +34,34 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
         mFavoriteList = favoriteSongList.getList();
         mAdapter = new FavoriteSongEditAdapter(mFavoriteList, favoriteSongList.getTrackMap());
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onSimpleCallback());
+        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(view);
 
-        findViewById(R.id.apply).setOnClickListener(onApplyClickListener());
-        findViewById(R.id.cancel).setOnClickListener(onCancelClickListener());
+        findViewById(R.id.apply).setOnClickListener(createApplyClickListener());
+        findViewById(R.id.cancel).setOnClickListener(createCancelClickListener());
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
         view.setLayoutManager(layout);
         view.setAdapter(mAdapter);
     }
 
-    private ItemTouchHelper.SimpleCallback onSimpleCallback() {
-        return new ItemTouchHelper.SimpleCallback(
+    private View.OnClickListener createApplyClickListener() {
+        return v -> {
+            ArrayList<String> trackIdList =
+                    (ArrayList<String>) Stream.of(mFavoriteList)
+                            .map(FavoriteSongRealm::getTrackId)
+                            .collect(Collectors.toList());
+            FavoriteSongRegister.update(trackIdList);
+            finish();
+        };
+    }
+
+    private View.OnClickListener createCancelClickListener() {
+        return v -> finish();
+    }
+
+    private ItemTouchHelper createItemTouchHelper() {
+        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
                 ItemTouchHelper.LEFT
         ) {
@@ -59,6 +74,7 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
 
                 // viewの並び替え
                 mAdapter.notifyItemMoved(fromPos, toPos);
+
                 // dataの並び替え
                 mFavoriteList.add(toPos, mFavoriteList.remove(fromPos));
 
@@ -69,24 +85,10 @@ public class FavoriteSongEditActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
+                // 削除
                 mFavoriteList.remove(fromPos);
                 mAdapter.notifyItemRemoved(fromPos);
             }
-        };
-    }
-
-    private View.OnClickListener onApplyClickListener() {
-        return v -> {
-            ArrayList<String> trackIdList =
-                    (ArrayList<String>) Stream.of(mFavoriteList)
-                            .map(FavoriteSongRealm::getTrackId)
-                            .collect(Collectors.toList());
-            FavoriteSongRegister.update(trackIdList);
-            finish();
-        };
-    }
-
-    private View.OnClickListener onCancelClickListener() {
-        return v -> finish();
+        });
     }
 }

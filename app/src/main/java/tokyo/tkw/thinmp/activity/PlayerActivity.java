@@ -21,106 +21,21 @@ public class PlayerActivity extends AppCompatActivity {
     private MusicService mMusicService;
     private Player mPlayer;
     private boolean mBound = false;
-    /**
-     * MusicServiceのListener
-     */
-    private MusicService.OnMusicServiceListener musicServiceListener = new MusicService.OnMusicServiceListener() {
-        @Override
-        public void onChangeTrack(Track track) {
-            updatePlayer();
-        }
-
-        @Override
-        public void onStarted() {
-            mPlayer.start();
-        }
-
-        @Override
-        public void onFinished() {
-            mPlayer.finish();
-        }
-    };
-    /**
-     * Playerのinterface
-     */
-    private Player.OnPlayerListener mPlayerListener = new Player.OnPlayerListener() {
-        @Override
-        public void onPlay() {
-            mMusicService.play();
-        }
-
-        @Override
-        public void onPause() {
-            mMusicService.pause();
-        }
-
-        @Override
-        public void onPrev() {
-            if (mMusicService.isPlaying()) {
-                mMusicService.playPrev();
-            } else {
-                mMusicService.prev();
-            }
-        }
-
-        @Override
-        public void onNext() {
-            if (mMusicService.isPlaying()) {
-                mMusicService.playNext();
-            } else {
-                mMusicService.next();
-            }
-        }
-
-        @Override
-        public int onRepeat() {
-            return mMusicService.repeat();
-        }
-
-        @Override
-        public boolean onShuffle() {
-            return mMusicService.shuffle();
-        }
-
-        @Override
-        public int onGetCurrentPosition() {
-            return mMusicService.getCurrentPosition();
-        }
-
-        @Override
-        public void onSeekTo(int msec) {
-            mMusicService.seekTo(msec);
-        }
-    };
-    /**
-     * ServiceConnection
-     */
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
-            mMusicService = binder.getService();
-            mMusicService.setListener(musicServiceListener);
-            setPlayer();
-            mBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBound = false;
-        }
-    };
+    private MusicService.OnMusicServiceListener musicServiceListener;
+    private Player.OnPlayerListener mPlayerListener;
+    private ServiceConnection mConnection;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        musicServiceListener = createMusicService();
+        mPlayerListener = createPlayerListener();
+        mConnection = createServiceConnection();
+
         bindMusicService();
     }
 
-    /**
-     * onResume
-     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -150,11 +65,98 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * setPlayer
-     */
+    private MusicService.OnMusicServiceListener createMusicService() {
+        return new MusicService.OnMusicServiceListener() {
+            @Override
+            public void onChangeTrack(Track track) {
+                updatePlayer();
+            }
+
+            @Override
+            public void onStarted() {
+                mPlayer.start();
+            }
+
+            @Override
+            public void onFinished() {
+                mPlayer.finish();
+            }
+        };
+    }
+
+    private Player.OnPlayerListener createPlayerListener() {
+        return new Player.OnPlayerListener() {
+            @Override
+            public void onPlay() {
+                mMusicService.play();
+            }
+
+            @Override
+            public void onPause() {
+                mMusicService.pause();
+            }
+
+            @Override
+            public void onPrev() {
+                if (mMusicService.isPlaying()) {
+                    mMusicService.playPrev();
+                } else {
+                    mMusicService.prev();
+                }
+            }
+
+            @Override
+            public void onNext() {
+                if (mMusicService.isPlaying()) {
+                    mMusicService.playNext();
+                } else {
+                    mMusicService.next();
+                }
+            }
+
+            @Override
+            public int onRepeat() {
+                return mMusicService.repeat();
+            }
+
+            @Override
+            public boolean onShuffle() {
+                return mMusicService.shuffle();
+            }
+
+            @Override
+            public int onGetCurrentPosition() {
+                return mMusicService.getCurrentPosition();
+            }
+
+            @Override
+            public void onSeekTo(int msec) {
+                mMusicService.seekTo(msec);
+            }
+        };
+    }
+
+    private ServiceConnection createServiceConnection() {
+        return new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
+                mMusicService = binder.getService();
+                mMusicService.setListener(musicServiceListener);
+                setPlayer();
+                mBound = true;
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                mBound = false;
+            }
+        };
+    }
+
     private void setPlayer() {
-        ActivityPlayerBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_player);
+        ActivityPlayerBinding mBinding = DataBindingUtil.setContentView(this,
+                R.layout.activity_player);
         mPlayer = new Player(mBinding, mPlayerListener);
 
         mBinding.setPlayer(mPlayer);
@@ -169,17 +171,11 @@ public class PlayerActivity extends AppCompatActivity {
         mPlayer.update(mMusicService.getTrack(), mMusicService.getState());
     }
 
-    /**
-     * bindMusicService
-     */
     private void bindMusicService() {
         Intent intent = new Intent(this, MusicService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
 
-    /**
-     * unbindMusicService
-     */
     private void unbindMusicService() {
         unbindService(mConnection);
     }

@@ -1,6 +1,7 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -25,13 +26,11 @@ public class PlaylistDetailEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail_edit);
 
+        RecyclerView view = findViewById(R.id.list);
+
         int playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
 
         mPlaylistRegister = new PlaylistRegister();
-
-        RecyclerView view = findViewById(R.id.list);
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-        view.setLayoutManager(layout);
 
         PlaylistRealm playlistRealm = PlaylistRealm.createInstance(playlistId);
         PlaylistTrack playlistTrack = new PlaylistTrack(this, playlistId);
@@ -39,26 +38,36 @@ public class PlaylistDetailEditActivity extends AppCompatActivity {
         mList = playlistRealm.getTracks();
 
         mAdapter = new PlaylistDetailEditAdapter(mList, playlistTrack.getTrackMap());
-        view.setAdapter(mAdapter);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(onItemTouchHelperSimpleCallback());
+        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(view);
 
-        findViewById(R.id.apply).setOnClickListener(v -> {
-            mPlaylistRegister.commitTransaction();
-            finish();
-        });
+        findViewById(R.id.apply).setOnClickListener(createApplyClickListener());
+        findViewById(R.id.cancel).setOnClickListener(createCancelClickListener());
 
-        findViewById(R.id.cancel).setOnClickListener(v -> {
-            mPlaylistRegister.cancelTransaction();
-            finish();
-        });
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        view.setLayoutManager(layout);
+        view.setAdapter(mAdapter);
 
         mPlaylistRegister.beginTransaction();
     }
 
-    private ItemTouchHelper.SimpleCallback onItemTouchHelperSimpleCallback() {
-        return new ItemTouchHelper.SimpleCallback(
+    private View.OnClickListener createApplyClickListener() {
+        return v -> {
+            mPlaylistRegister.commitTransaction();
+            finish();
+        };
+    }
+
+    private View.OnClickListener createCancelClickListener() {
+        return v -> {
+            mPlaylistRegister.cancelTransaction();
+            finish();
+        };
+    }
+
+    private ItemTouchHelper createItemTouchHelper() {
+        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
                 ItemTouchHelper.LEFT
         ) {
@@ -71,8 +80,10 @@ public class PlaylistDetailEditActivity extends AppCompatActivity {
 
                 // viewの並び替え
                 mAdapter.notifyItemMoved(fromPos, toPos);
+
                 // dataの並び替え
                 mList.add(toPos, mList.remove(fromPos));
+
                 return true;
             }
 
@@ -80,9 +91,10 @@ public class PlaylistDetailEditActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
+                // 削除
                 mList.remove(fromPos);
                 mAdapter.notifyItemRemoved(fromPos);
             }
-        };
+        });
     }
 }
