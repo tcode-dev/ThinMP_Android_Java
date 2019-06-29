@@ -139,8 +139,8 @@
                         android:paddingEnd="0dp"
                         android:progress="@{safeUnbox(player.currentSecond)}"
                         android:progressBackgroundTint="#E1D5ED"
-                        android:progressTint="#BE88EF"
-                        android:thumbTint="#BE88EF"
+                        android:progressTint="@color/colorAccent"
+                        android:thumbTint="@color/colorAccent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/durationTime"
                         app:layout_constraintStart_toEndOf="@+id/currentTime"
@@ -178,7 +178,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/playToggle"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/prev"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -198,7 +198,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent">
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/play"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -208,7 +208,7 @@
                             android:visibility="@{player.isPlaying ? View.GONE : View.VISIBLE}"
                             app:srcCompat="@drawable/icon_play" />
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/pause"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -231,7 +231,7 @@
                         app:layout_constraintStart_toEndOf="@+id/playToggle"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/next"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -263,7 +263,7 @@
                         android:layout_marginStart="8dp"
                         app:layout_constraintStart_toStartOf="parent">
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/repeatOff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -282,7 +282,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/icon_repeat" />
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/repeatAll"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -300,7 +300,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/icon_repeat" />
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/repeatOne"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -325,7 +325,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/favoriteSong"
                         app:layout_constraintStart_toEndOf="@+id/repeat">
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/shuffleOn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -339,7 +339,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/icon_shuffle" />
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/shuffleOff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -362,7 +362,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent">
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteSongOn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -376,7 +376,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/icon_star_on" />
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteSongOff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -399,7 +399,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/playlist"
                         app:layout_constraintStart_toEndOf="@+id/favoriteSong">
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteArtistOn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -413,7 +413,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/icon_artist_on" />
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteArtistOff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -435,7 +435,7 @@
                         android:layout_height="40dp"
                         app:layout_constraintEnd_toEndOf="parent">
 
-                        <ImageButton
+                        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@null"

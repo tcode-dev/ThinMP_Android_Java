@@ -117,7 +117,6 @@ public class Player {
         this.isFavoriteArtist.set(state.isFavoriteArtist());
         // seekbar
         this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
-        this.mBinding.next.setColorFilter(0xff000000, PorterDuff.Mode.SRC_IN);
     }
 
     public void start() {

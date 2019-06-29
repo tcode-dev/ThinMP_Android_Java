@@ -49,7 +49,7 @@
             android:layout_height="70dp"
             app:layout_constraintEnd_toStartOf="@+id/next">
 
-            <ImageButton
+            <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                 android:id="@+id/play"
                 android:layout_width="50dp"
                 android:layout_height="70dp"
@@ -61,9 +61,9 @@
                 android:paddingTop="30dp"
                 android:scaleType="centerCrop"
                 android:visibility="@{miniPlayer.isPlaying ? View.GONE : View.VISIBLE}"
-                app:srcCompat="@drawable/play2" />
+                app:srcCompat="@drawable/icon_play_2" />
 
-            <ImageButton
+            <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                 android:id="@+id/pause"
                 android:layout_width="50dp"
                 android:layout_height="70dp"
@@ -75,11 +75,11 @@
                 android:paddingTop="30dp"
                 android:scaleType="centerCrop"
                 android:visibility="@{miniPlayer.isPlaying ? View.VISIBLE : View.GONE}"
-                app:srcCompat="@drawable/pause2" />
+                app:srcCompat="@drawable/icon_pause_2" />
 
         </FrameLayout>
 
-        <ImageButton
+        <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
             android:id="@+id/next"
             android:layout_width="50dp"
             android:layout_height="70dp"
@@ -93,7 +93,7 @@
             android:paddingTop="30dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/next2" />
+            app:srcCompat="@drawable/icon_next_2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
