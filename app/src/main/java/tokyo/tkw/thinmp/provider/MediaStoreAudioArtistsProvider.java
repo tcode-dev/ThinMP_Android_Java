@@ -8,6 +8,12 @@ import tokyo.tkw.thinmp.music.Artist;
 public abstract class MediaStoreAudioArtistsProvider extends MediaStoreAudioProvider<Artist> {
     public MediaStoreAudioArtistsProvider(Context context) {
         super(context);
+
+        uri = MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI;
+        projection = new String[]{
+                MediaStore.Audio.Artists._ID,
+                MediaStore.Audio.Artists.ARTIST
+        };
     }
 
     private String getId() {

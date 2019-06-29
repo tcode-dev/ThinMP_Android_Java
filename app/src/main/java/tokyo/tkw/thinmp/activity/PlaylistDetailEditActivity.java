@@ -3,7 +3,6 @@ package tokyo.tkw.thinmp.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +15,7 @@ import tokyo.tkw.thinmp.playlist.PlaylistTrack;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
-public class PlaylistDetailEditActivity extends AppCompatActivity {
+public class PlaylistDetailEditActivity extends BaseActivity {
     public RealmList<PlaylistTrackRealm> mList;
     public PlaylistDetailEditAdapter mAdapter;
     private PlaylistRegister mPlaylistRegister;

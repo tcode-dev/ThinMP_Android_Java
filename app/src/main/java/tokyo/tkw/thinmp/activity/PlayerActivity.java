@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import tokyo.tkw.thinmp.R;
@@ -17,7 +16,7 @@ import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.player.MusicService;
 import tokyo.tkw.thinmp.player.Player;
 
-public class PlayerActivity extends AppCompatActivity {
+public class PlayerActivity extends BaseActivity {
     private MusicService mMusicService;
     private Player mPlayer;
     private boolean mBound = false;

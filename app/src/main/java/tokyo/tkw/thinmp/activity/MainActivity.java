@@ -1,10 +1,7 @@
 package tokyo.tkw.thinmp.activity;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,8 +12,7 @@ import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.adapter.LibraryAdapter;
 import tokyo.tkw.thinmp.provider.AllAlbumsContentProvider;
 
-public class MainActivity extends AppCompatActivity {
-    private static final int PERMISSION_CODE = 1;
+public class MainActivity extends BaseActivity {
     private static final Class<?>[] MENU_LINK_LIST = {
             ArtistsActivity.class,
             AlbumsActivity.class,
@@ -54,23 +50,5 @@ public class MainActivity extends AppCompatActivity {
 
         list.setLayoutManager(albumLayout);
         list.setAdapter(albumListAdapter);
-    }
-
-    /**
-     * ユーザーにパーミッション権限を要求した承認結果を受け取る
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_CODE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    recreate();
-                }
-
-                return;
-            }
-        }
     }
 }

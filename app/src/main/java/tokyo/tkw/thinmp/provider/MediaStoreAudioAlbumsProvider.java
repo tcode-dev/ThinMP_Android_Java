@@ -8,6 +8,15 @@ import tokyo.tkw.thinmp.music.Album;
 public abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvider<Album> {
     public MediaStoreAudioAlbumsProvider(Context context) {
         super(context);
+
+        uri = MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI;
+        projection = new String[]{
+                MediaStore.Audio.Albums._ID,
+                MediaStore.Audio.Albums.ALBUM,
+                MediaStore.Audio.Media.ARTIST_ID,
+                MediaStore.Audio.Albums.ARTIST,
+                MediaStore.Audio.Albums.ALBUM_ART
+        };
     }
 
     private String getId() {

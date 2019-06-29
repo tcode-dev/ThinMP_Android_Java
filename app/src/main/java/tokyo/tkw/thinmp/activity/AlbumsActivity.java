@@ -2,7 +2,6 @@ package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,8 +9,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.music.AlbumCollection;
 
-public class AlbumsActivity extends AppCompatActivity {
-
+public class AlbumsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -3,7 +3,6 @@ package tokyo.tkw.thinmp.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +18,7 @@ import tokyo.tkw.thinmp.favorite.FavoriteSongList;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
-public class FavoriteSongEditActivity extends AppCompatActivity {
+public class FavoriteSongEditActivity extends BaseActivity {
     FavoriteSongEditAdapter mAdapter;
     ArrayList<FavoriteSongRealm> mFavoriteList;
 

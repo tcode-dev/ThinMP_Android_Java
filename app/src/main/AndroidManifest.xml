@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.PlaylistDetailEditActivity" />
         <activity android:name=".activity.PlaylistsActivity" />
         <activity android:name=".activity.PlaylistsEditActivity" />

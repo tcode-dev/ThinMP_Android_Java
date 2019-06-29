@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +12,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistsAdapter;
 import tokyo.tkw.thinmp.playlist.Playlist;
 
-public class PlaylistsActivity extends AppCompatActivity {
+public class PlaylistsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

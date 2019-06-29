@@ -2,7 +2,6 @@ package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,7 +13,7 @@ import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.AllTracksContentProvider;
 
-public class TracksActivity extends AppCompatActivity {
+public class TracksActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

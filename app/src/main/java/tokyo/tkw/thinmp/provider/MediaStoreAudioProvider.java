@@ -1,14 +1,9 @@
 package tokyo.tkw.thinmp.provider;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.text.TextUtils;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.IntStream;
@@ -16,18 +11,24 @@ import com.annimon.stream.IntStream;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.music.Music;
+import tokyo.tkw.thinmp.permission.Permission;
 
 public abstract class MediaStoreAudioProvider<T extends Music> {
-    private final int PERMISSION_CODE = 1;
-    protected Context mContext;
-    protected Cursor mCursor;
 
-    abstract Cursor createCursor();
+    protected Context mContext;
+    private Permission mPermission;
+    protected Cursor mCursor;
+    protected Uri uri;
+    protected String[] projection;
+    protected String selection;
+    protected String[] selectionArgs;
+    protected String sortOrder;
 
     abstract T fetch();
 
     public MediaStoreAudioProvider(Context context) {
         mContext = context;
+        mPermission = Permission.createInstance(context);
     }
 
     public T get() {
@@ -39,6 +40,7 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
     }
 
     public ArrayList<T> getList() {
+
         init();
 
         ArrayList<T> list = fetchAll();
@@ -46,27 +48,6 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
         destroy();
 
         return list;
-    }
-
-    protected String[] toStringArray(ArrayList<String> list) {
-        return list.toArray(new String[list.size()]);
-    }
-
-    protected String makePlaceholders(int size) {
-        return TextUtils.join(",",
-                IntStream.range(0, size).boxed().map((i) -> "?").collect(Collectors.toList()));
-    }
-
-    private void init() {
-        if (isAllowed()) {
-            mCursor = createCursor();
-        } else {
-            requestPermissions();
-        }
-    }
-
-    private boolean hasCursor() {
-        return mCursor != null;
     }
 
     private ArrayList<T> fetchAll() {
@@ -81,16 +62,34 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
         return list;
     }
 
-    private boolean isAllowed() {
-        int permission = ContextCompat.checkSelfPermission(mContext,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
-
-        return permission == PackageManager.PERMISSION_GRANTED;
+    String[] toStringArray(ArrayList<String> list) {
+        return list.toArray(new String[list.size()]);
     }
 
-    private void requestPermissions() {
-        ActivityCompat.requestPermissions((Activity) mContext,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
+    String makePlaceholders(int size) {
+        return TextUtils.join(",",
+                IntStream.range(0, size).boxed().map((i) -> "?").collect(Collectors.toList()));
+    }
+
+    public void init() {
+        if (mPermission.isAllowed()) {
+            mCursor = createCursor();
+        } else {
+            mPermission.requestPermissions();
+        }
+    }
+
+    private boolean hasCursor() {
+        return mCursor != null;
+    }
+
+    public Cursor createCursor() {
+        return mContext.getContentResolver().query(
+                uri,
+                projection,
+                selection,
+                selectionArgs,
+                sortOrder);
     }
 
     private void destroy() {
