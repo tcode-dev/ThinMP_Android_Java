@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +20,8 @@ public class PlaylistDetailEditActivity extends BaseActivity {
     public RealmList<PlaylistTrackRealm> mList;
     public PlaylistDetailEditAdapter mAdapter;
     private PlaylistRegister mPlaylistRegister;
+    private EditText mPlaylistName;
+    private PlaylistRealm mPlaylistRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +32,14 @@ public class PlaylistDetailEditActivity extends BaseActivity {
 
         int playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
 
-        mPlaylistRegister = new PlaylistRegister();
+        mPlaylistName = findViewById(R.id.playlistName);
 
-        PlaylistRealm playlistRealm = PlaylistRealm.createInstance(playlistId);
+        mPlaylistRegister = new PlaylistRegister();
+        mPlaylistRealm = PlaylistRealm.createInstance(playlistId);
         PlaylistTrack playlistTrack = new PlaylistTrack(this, playlistId);
 
-        mList = playlistRealm.getTracks();
+        mPlaylistName.setText(mPlaylistRealm.getName());
+        mList = mPlaylistRealm.getTracks();
 
         mAdapter = new PlaylistDetailEditAdapter(mList, playlistTrack.getTrackMap());
 
@@ -53,6 +58,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
 
     private View.OnClickListener createApplyClickListener() {
         return v -> {
+            mPlaylistRealm.setName(mPlaylistName.getText().toString());
             mPlaylistRegister.commitTransaction();
             finish();
         };
