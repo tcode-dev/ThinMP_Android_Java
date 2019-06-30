@@ -67,10 +67,10 @@
 
                     <tokyo.tkw.thinmp.view.ResponsiveCircleImageView
                         android:id="@+id/albumArt"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="15dp"
                         android:scaleType="centerCrop"
                         app:collapseOffsetX="10"
                         app:collapseOffsetY="16"
@@ -138,8 +138,8 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:nestedScrollingEnabled="true"
-                android:paddingLeft="20dp"
                 android:scrollbars="vertical" />
 
         </tokyo.tkw.thinmp.view.ExactlyNestedScrollView>
