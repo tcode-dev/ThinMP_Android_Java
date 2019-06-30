@@ -63,13 +63,6 @@ public class PlaylistDetailEditActivity extends BaseActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        mPlaylistRegister.cancelTransaction();
-
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     public void onBackPressed() {
         mPlaylistRegister.cancelTransaction();
 

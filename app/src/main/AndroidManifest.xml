@@ -15,17 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.PlaylistDetailEditActivity" />
-        <activity android:name=".activity.PlaylistsActivity" />
-        <activity android:name=".activity.PlaylistsEditActivity" />
-        <activity android:name=".activity.FavoriteSongsActivity" />
-        <activity android:name=".activity.FavoriteArtistsActivity" />
-        <activity android:name=".activity.TracksActivity" />
-        <activity android:name=".activity.AlbumsActivity" />
-        <activity android:name=".activity.ArtistsActivity" />
+
         <activity
             android:name=".activity.MainActivity"
             android:label="ThinMP"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,18 +27,54 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AlbumDetailActivity" />
-        <activity android:name=".activity.ArtistDetailActivity" />
-        <activity android:name=".activity.PlaylistDetailActivity" />
-        <activity android:name=".activity.PlayerActivity" />
-        <activity android:name=".activity.FavoriteSongEditActivity" />
+        <activity
+            android:name=".activity.ArtistsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AlbumsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TracksActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FavoriteArtistsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FavoriteSongsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PlaylistsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ArtistDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AlbumDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PlayerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FavoriteSongEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FavoriteArtistEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PlaylistsEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PlaylistDetailEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PlaylistDetailActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".player.MusicService"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activity.FavoriteArtistEditActivity" />
     </application>
 
 </manifest>
