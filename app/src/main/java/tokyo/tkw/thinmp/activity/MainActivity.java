@@ -29,6 +29,11 @@ public class MainActivity extends BaseActivity {
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         LibraryAdapter libraryAdapter = new LibraryAdapter(this,
                 getResources().getStringArray(R.array.library_menu), MENU_LINK_LIST);
         LinearLayoutManager libraryLayout = new LinearLayoutManager(this);

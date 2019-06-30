@@ -11,12 +11,9 @@ import com.annimon.stream.IntStream;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.music.Music;
-import tokyo.tkw.thinmp.permission.Permission;
 
 public abstract class MediaStoreAudioProvider<T extends Music> {
-
     protected Context mContext;
-    private Permission mPermission;
     protected Cursor mCursor;
     protected Uri uri;
     protected String[] projection;
@@ -28,7 +25,6 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
 
     public MediaStoreAudioProvider(Context context) {
         mContext = context;
-        mPermission = Permission.createInstance(context);
     }
 
     public T get() {
@@ -40,7 +36,6 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
     }
 
     public ArrayList<T> getList() {
-
         init();
 
         ArrayList<T> list = fetchAll();
@@ -63,7 +58,7 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
     }
 
     String[] toStringArray(ArrayList<String> list) {
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     String makePlaceholders(int size) {
@@ -72,18 +67,14 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
     }
 
     public void init() {
-        if (mPermission.isAllowed()) {
-            mCursor = createCursor();
-        } else {
-            mPermission.requestPermissions();
-        }
+        mCursor = createCursor();
     }
 
     private boolean hasCursor() {
         return mCursor != null;
     }
 
-    public Cursor createCursor() {
+    private Cursor createCursor() {
         return mContext.getContentResolver().query(
                 uri,
                 projection,

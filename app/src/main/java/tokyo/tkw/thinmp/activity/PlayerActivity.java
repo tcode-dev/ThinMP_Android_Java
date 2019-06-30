@@ -28,6 +28,11 @@ public class PlayerActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         musicServiceListener = createMusicService();
         mPlayerListener = createPlayerListener();
         mConnection = createServiceConnection();

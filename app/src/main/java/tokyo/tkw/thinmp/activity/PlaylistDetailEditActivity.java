@@ -26,8 +26,14 @@ public class PlaylistDetailEditActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_playlist_detail_edit);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         RecyclerView view = findViewById(R.id.list);
 
         int playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
@@ -55,7 +61,6 @@ public class PlaylistDetailEditActivity extends BaseActivity {
 
         mPlaylistRegister.beginTransaction();
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

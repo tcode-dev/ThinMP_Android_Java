@@ -10,11 +10,18 @@ import tokyo.tkw.thinmp.epoxy.controller.ArtistsController;
 import tokyo.tkw.thinmp.music.ArtistCollection;
 
 public class ArtistsActivity extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_artists);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         RecyclerView listView = findViewById(R.id.list);
 
         ArtistsController controller = new ArtistsController();

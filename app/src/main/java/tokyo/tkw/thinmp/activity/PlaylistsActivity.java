@@ -17,8 +17,14 @@ public class PlaylistsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_playlists);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         RecyclerView playlistView = findViewById(R.id.list);
 
         Playlist playlist = new Playlist();

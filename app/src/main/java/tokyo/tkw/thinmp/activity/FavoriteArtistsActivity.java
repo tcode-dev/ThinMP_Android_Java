@@ -13,11 +13,18 @@ import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
 import tokyo.tkw.thinmp.music.Artist;
 
 public class FavoriteArtistsActivity extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_favorite_artists);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         RecyclerView favoriteListView = findViewById(R.id.list);
 
         FavoriteArtistList favoriteArtistList = new FavoriteArtistList(this);

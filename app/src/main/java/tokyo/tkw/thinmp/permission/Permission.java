@@ -20,7 +20,7 @@ public class Permission {
         return new Permission(context);
     }
 
-    public boolean isAllowed() {
+    public boolean hasSelfPermissions() {
         int permission = ContextCompat.checkSelfPermission(mContext,
                 Manifest.permission.READ_EXTERNAL_STORAGE);
 

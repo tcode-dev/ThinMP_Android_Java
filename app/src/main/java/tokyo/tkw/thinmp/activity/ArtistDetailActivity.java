@@ -18,11 +18,18 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class ArtistDetailActivity extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_artist_detail);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         String artistId = getIntent().getStringExtra(Artist.ARTIST_ID);
 
         // artist取得

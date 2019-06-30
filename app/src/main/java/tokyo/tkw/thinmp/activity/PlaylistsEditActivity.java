@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.activity;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 
@@ -25,8 +24,14 @@ public class PlaylistsEditActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_playlists_edit);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         RecyclerView view = findViewById(R.id.list);
 
         Playlist playlist = new Playlist();
@@ -48,7 +53,6 @@ public class PlaylistsEditActivity extends BaseActivity {
 
         mPlaylistRegister.beginTransaction();
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

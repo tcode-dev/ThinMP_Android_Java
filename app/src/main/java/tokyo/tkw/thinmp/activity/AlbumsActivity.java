@@ -10,11 +10,18 @@ import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.music.AlbumCollection;
 
 public class AlbumsActivity extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_albums);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         RecyclerView listView = findViewById(R.id.list);
 
         AlbumCollection albumCollection = AlbumCollection.createAllAlbumCollectionInstance(this);

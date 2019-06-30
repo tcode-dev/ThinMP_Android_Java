@@ -18,8 +18,14 @@ public class TracksActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_tracks);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         RecyclerView listView = findViewById(R.id.list);
 
         AllTracksContentProvider allTracksContentProvider = new AllTracksContentProvider(this);

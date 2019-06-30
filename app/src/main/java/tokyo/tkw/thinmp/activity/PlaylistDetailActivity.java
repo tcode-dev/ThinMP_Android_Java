@@ -22,8 +22,14 @@ public class PlaylistDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_playlist_detail);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         mPlaylistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
 
         RecyclerView view = findViewById(R.id.list);

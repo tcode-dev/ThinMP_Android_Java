@@ -18,12 +18,19 @@ import tokyo.tkw.thinmp.music.TrackCollection;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
-public class AlbumDetailActivity extends AppCompatActivity {
+public class AlbumDetailActivity extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_album_detail);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         RecyclerView listView = findViewById(R.id.list);
 
         String albumId = getIntent().getStringExtra(Album.ALBUM_ID);

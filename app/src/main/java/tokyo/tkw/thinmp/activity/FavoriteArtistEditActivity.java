@@ -26,8 +26,14 @@ public class FavoriteArtistEditActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_favorite_artist_edit);
 
+        initWithPermissionCheck();
+    }
+
+    @Override
+    protected void init() {
         RecyclerView view = findViewById(R.id.list);
 
         FavoriteArtistList favoriteArtistList = new FavoriteArtistList(this);
