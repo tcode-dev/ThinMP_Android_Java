@@ -102,4 +102,10 @@ public class PlaylistDetailEditActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        mPlaylistRegister.cancelTransaction();
+        super.onBackPressed();
+    }
 }
