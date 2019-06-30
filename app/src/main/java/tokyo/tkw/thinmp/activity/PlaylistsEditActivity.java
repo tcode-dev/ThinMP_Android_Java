@@ -1,5 +1,6 @@
 package tokyo.tkw.thinmp.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 
@@ -46,6 +47,21 @@ public class PlaylistsEditActivity extends BaseActivity {
         view.setAdapter(mAdapter);
 
         mPlaylistRegister.beginTransaction();
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        mPlaylistRegister.cancelTransaction();
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mPlaylistRegister.cancelTransaction();
+
+        super.onBackPressed();
     }
 
     private View.OnClickListener createApplyClickListener() {
@@ -96,11 +112,5 @@ public class PlaylistsEditActivity extends BaseActivity {
                 mAdapter.notifyItemRemoved(fromPos);
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        mPlaylistRegister.cancelTransaction();
-        super.onBackPressed();
     }
 }

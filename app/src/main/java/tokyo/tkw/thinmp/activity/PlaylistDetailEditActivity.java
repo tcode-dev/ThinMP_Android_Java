@@ -56,6 +56,21 @@ public class PlaylistDetailEditActivity extends BaseActivity {
         mPlaylistRegister.beginTransaction();
     }
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        mPlaylistRegister.cancelTransaction();
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mPlaylistRegister.cancelTransaction();
+
+        super.onBackPressed();
+    }
+
     private View.OnClickListener createApplyClickListener() {
         return v -> {
             mPlaylistRealm.setName(mPlaylistName.getText().toString());
@@ -101,11 +116,5 @@ public class PlaylistDetailEditActivity extends BaseActivity {
                 mAdapter.notifyItemRemoved(fromPos);
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        mPlaylistRegister.cancelTransaction();
-        super.onBackPressed();
     }
 }
