@@ -8,12 +8,11 @@ import android.os.IBinder;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.MyApplication;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.music.PlayingList;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.ConfigProvider;
+import tokyo.tkw.thinmp.config.Config;
 
 public class MusicService extends Service {
     public static final int REPEAT_OFF = 0;
@@ -33,10 +32,10 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        ConfigProvider configProvider = new ConfigProvider(this);
+        Config config = new Config(this);
 
-        mRepeat = configProvider.getRepeat();
-        mShuffle = configProvider.getShuffle();
+        mRepeat = config.getRepeat();
+        mShuffle = config.getShuffle();
     }
 
     /**
@@ -154,8 +153,8 @@ public class MusicService extends Service {
         }
 
         // 設定を保存
-        ConfigProvider configProvider = new ConfigProvider(getBaseContext());
-        configProvider.setRepeat(mRepeat);
+        Config config = new Config(getBaseContext());
+        config.setRepeat(mRepeat);
 
         return mRepeat;
     }
@@ -190,8 +189,8 @@ public class MusicService extends Service {
                 new PlayingList(mOriginalList, mPlayingList.getCurrentPosition());
 
         // 設定を保存
-        ConfigProvider configProvider = new ConfigProvider(getBaseContext());
-        configProvider.setShuffle(mShuffle);
+        Config config = new Config(getBaseContext());
+        config.setShuffle(mShuffle);
 
         return mShuffle;
     }

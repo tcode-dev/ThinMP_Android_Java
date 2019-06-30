@@ -1,17 +1,17 @@
-package tokyo.tkw.thinmp.provider;
+package tokyo.tkw.thinmp.config;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public class ConfigProvider {
-    private final String KEY_REPEAT = "repeat";
-    private final String KEY_SHUFFLE = "shuffle";
-    private final int DEFAULT_VALUE_REPEAT = 0;
-    private final boolean DEFAULT_VALUE_SHUFFLE = false;
+public class Config {
+    private static final String KEY_REPEAT = "repeat";
+    private static final String KEY_SHUFFLE = "shuffle";
+    private static final int DEFAULT_VALUE_REPEAT = 0;
+    private static final boolean DEFAULT_VALUE_SHUFFLE = false;
     private SharedPreferences mSharedPreferences;
 
-    public ConfigProvider(Context context) {
+    public Config(Context context) {
         this.mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
