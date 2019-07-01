@@ -17,16 +17,16 @@ import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 public class PlaylistTrack {
     private Context mContext;
     private int mPlaylistId;
-    private RealmList<PlaylistTrackRealm> mRealmList;
+    private RealmList<PlaylistTrackRealm> mTrackRealmList;
 
     public PlaylistTrack(Context context, int playlistId) {
         mContext = context;
         mPlaylistId = playlistId;
-        mRealmList = getRealmList();
+        mTrackRealmList = getTrackRealmList();
     }
 
-    public ArrayList<Track> getTrackList() {
-        Map<String, Track> trackMap = toTrackMap(getList());
+    public ArrayList<Track> getSortedTrackList() {
+        Map<String, Track> trackMap = toTrackMap(getTrackList());
 
         return (ArrayList<Track>) Stream.of(getTrackIdList())
                 .map(trackMap::get)
@@ -34,11 +34,11 @@ public class PlaylistTrack {
     }
 
     public Map<String, Track> getTrackMap() {
-        return toTrackMap(getList());
+        return toTrackMap(getTrackList());
     }
 
     private ArrayList<String> getTrackIdList() {
-        return (ArrayList<String>) Stream.of(mRealmList)
+        return (ArrayList<String>) Stream.of(mTrackRealmList)
                 .map(PlaylistTrackRealm::getTrackId)
                 .collect(Collectors.toList());
     }
@@ -47,22 +47,15 @@ public class PlaylistTrack {
         return Stream.of(trackList).collect(Collectors.toMap(Track::getId, track -> track));
     }
 
-    private RealmList<PlaylistTrackRealm> getRealmList() {
+    private RealmList<PlaylistTrackRealm> getTrackRealmList() {
         PlaylistRealm playlistRealm = PlaylistRealm.createInstance(mPlaylistId);
 
         return playlistRealm.getTracks();
     }
 
-    private ArrayList<Track> getList() {
+    private ArrayList<Track> getTrackList() {
         TrackContentProvider provider = new TrackContentProvider(mContext);
 
         return provider.findById(getTrackIdList());
-    }
-
-    public ArrayList<String> getAlbumArtIdList() {
-        return (ArrayList<String>) Stream.of(mRealmList)
-                .map(PlaylistTrackRealm::getAlbumArtId)
-                .distinct()
-                .collect(Collectors.toList());
     }
 }

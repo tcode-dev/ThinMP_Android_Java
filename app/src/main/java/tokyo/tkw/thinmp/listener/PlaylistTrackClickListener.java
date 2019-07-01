@@ -18,6 +18,6 @@ public class PlaylistTrackClickListener extends BaseTrackClickListener {
     public ArrayList<Track> getTrackList(Context context) {
         PlaylistTrack playlistTrack = new PlaylistTrack(context, mPlaylistId);
 
-        return playlistTrack.getTrackList();
+        return playlistTrack.getSortedTrackList();
     }
 }

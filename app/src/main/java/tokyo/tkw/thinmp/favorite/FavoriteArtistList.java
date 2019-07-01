@@ -50,7 +50,7 @@ public class FavoriteArtistList {
         return toArtistAlbumArtMap(getArtistsAlbumArtList());
     }
 
-    public ArrayList<Album> getArtistsAlbumArtList() {
+    private ArrayList<Album> getArtistsAlbumArtList() {
         AlbumArtContentProvider provider = new AlbumArtContentProvider(mContext);
 
         return provider.findByArtist(toArtistIdList(getFavoriteArtistRealmList()));
@@ -62,7 +62,7 @@ public class FavoriteArtistList {
                 .collect(Collectors.toList());
     }
 
-    public Map<String, String> toArtistAlbumArtMap(ArrayList<Album> artistAlbumList) {
+    private Map<String, String> toArtistAlbumArtMap(ArrayList<Album> artistAlbumList) {
         return Stream.of(artistAlbumList)
                 .distinctBy(Album::getArtistId)
                 .collect(Collectors.toMap(Album::getArtistId, Album::getAlbumArtId));

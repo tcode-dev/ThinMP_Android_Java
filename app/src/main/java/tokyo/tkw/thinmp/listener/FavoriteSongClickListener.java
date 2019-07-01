@@ -12,6 +12,6 @@ public class FavoriteSongClickListener extends BaseTrackClickListener {
     public ArrayList<Track> getTrackList(Context context) {
         FavoriteSongList favoriteSongList = new FavoriteSongList(context);
 
-        return favoriteSongList.getTrackList();
+        return favoriteSongList.getSortedTrackList();
     }
 }
