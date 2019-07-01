@@ -5,8 +5,8 @@ import android.provider.MediaStore;
 
 import tokyo.tkw.thinmp.music.Artist;
 
-public abstract class MediaStoreAudioArtistsProvider extends MediaStoreAudioProvider<Artist> {
-    public MediaStoreAudioArtistsProvider(Context context) {
+abstract class MediaStoreAudioArtistsProvider extends MediaStoreAudioProvider<Artist> {
+    MediaStoreAudioArtistsProvider(Context context) {
         super(context);
 
         uri = MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI;
@@ -24,11 +24,11 @@ public abstract class MediaStoreAudioArtistsProvider extends MediaStoreAudioProv
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Artists.ARTIST));
     }
 
-    protected String getNumberOfAlbums() {
+    private String getNumberOfAlbums() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Artists.NUMBER_OF_ALBUMS));
     }
 
-    protected String getNumberOfTracks() {
+    private String getNumberOfTracks() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Artists.NUMBER_OF_TRACKS));
     }
 

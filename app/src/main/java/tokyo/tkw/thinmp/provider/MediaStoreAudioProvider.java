@@ -66,7 +66,7 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
                 IntStream.range(0, size).boxed().map((i) -> "?").collect(Collectors.toList()));
     }
 
-    public void init() {
+    private void init() {
         mCursor = createCursor();
     }
 

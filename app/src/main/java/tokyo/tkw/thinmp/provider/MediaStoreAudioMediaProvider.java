@@ -5,8 +5,8 @@ import android.provider.MediaStore;
 
 import tokyo.tkw.thinmp.music.Track;
 
-public abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvider<Track> {
-    public MediaStoreAudioMediaProvider(Context context) {
+abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvider<Track> {
+    MediaStoreAudioMediaProvider(Context context) {
         super(context);
 
         uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -25,31 +25,31 @@ public abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvid
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media._ID));
     }
 
-    protected String getTitle() {
+    private String getTitle() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
     }
 
-    protected String getArtistId() {
+    private String getArtistId() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID));
     }
 
-    protected String getArtistName() {
+    private String getArtistName() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
     }
 
-    protected String getAlbumId() {
+    private String getAlbumId() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
     }
 
-    protected String getAlbumName() {
+    private String getAlbumName() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
     }
 
-    protected int getDuration() {
+    private int getDuration() {
         return mCursor.getInt(mCursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
     }
 
-    protected Track getTrack() {
+    private Track getTrack() {
         return new Track(getId(), getTitle(), getArtistId(), getArtistName(),
                 getAlbumId(), getAlbumName(), getDuration());
     }

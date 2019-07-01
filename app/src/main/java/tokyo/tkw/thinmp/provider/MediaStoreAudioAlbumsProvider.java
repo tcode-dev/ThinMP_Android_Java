@@ -5,8 +5,8 @@ import android.provider.MediaStore;
 
 import tokyo.tkw.thinmp.music.Album;
 
-public abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvider<Album> {
-    public MediaStoreAudioAlbumsProvider(Context context) {
+abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvider<Album> {
+    MediaStoreAudioAlbumsProvider(Context context) {
         super(context);
 
         uri = MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI;
@@ -23,27 +23,27 @@ public abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvi
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums._ID));
     }
 
-    protected String getAlbumName() {
+    private String getAlbumName() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM));
     }
 
-    protected String getArtistId() {
+    private String getArtistId() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID));
     }
 
-    protected String getArtistName() {
+    private String getArtistName() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums.ARTIST));
     }
 
-    protected int getNumSongs() {
+    private int getNumSongs() {
         return mCursor.getInt(mCursor.getColumnIndex(MediaStore.Audio.Albums.NUMBER_OF_SONGS));
     }
 
-    protected String getAlbumArtId() {
+    private String getAlbumArtId() {
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART)) != null ? getId() : null;
     }
 
-    protected Album getAlbum() {
+    private Album getAlbum() {
         return new Album(getId(), getAlbumName(), getArtistId(), getArtistName(), getAlbumArtId());
     }
 
