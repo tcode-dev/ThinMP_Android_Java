@@ -28,24 +28,22 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
     }
 
     protected T get() {
-        ArrayList<T> list = getList();
+        init();
 
-        if (list.isEmpty()) return null;
+        mCursor.moveToNext();
 
-        return list.get(0);
+        if (!hasCursor()) return null;
+
+        T item = fetch();
+
+        destroy();
+
+        return item;
     }
 
     protected ArrayList<T> getList() {
         init();
 
-        ArrayList<T> list = fetchAll();
-
-        destroy();
-
-        return list;
-    }
-
-    private ArrayList<T> fetchAll() {
         ArrayList<T> list = new ArrayList<>();
 
         if (!hasCursor()) return list;
@@ -53,6 +51,8 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
         while (mCursor.moveToNext()) {
             list.add(fetch());
         }
+
+        destroy();
 
         return list;
     }
