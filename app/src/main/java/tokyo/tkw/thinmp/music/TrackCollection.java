@@ -4,9 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import tokyo.tkw.thinmp.provider.AlbumTracksContentProvider;
-import tokyo.tkw.thinmp.provider.AllTracksContentProvider;
-import tokyo.tkw.thinmp.provider.ArtistTracksContentProvider;
+import tokyo.tkw.thinmp.provider.TrackContentProvider;
 
 public class TrackCollection {
     private ArrayList<Track> mTrackList;
@@ -16,18 +14,23 @@ public class TrackCollection {
     }
 
     public static TrackCollection createAllTrackCollectionInstance(Context context) {
-        AllTracksContentProvider provider = new AllTracksContentProvider(context);
-        return new TrackCollection(provider.getList());
+        TrackContentProvider provider = new TrackContentProvider(context);
+
+        return new TrackCollection(provider.findAll());
     }
 
-    public static TrackCollection createArtistTrackCollectionInstance(Context context, String artistId) {
-        ArtistTracksContentProvider provider = new ArtistTracksContentProvider(context, artistId);
-        return new TrackCollection(provider.getList());
+    public static TrackCollection createArtistTrackCollectionInstance(Context context,
+                                                                      String artistId) {
+        TrackContentProvider provider = new TrackContentProvider(context);
+
+        return new TrackCollection(provider.findByArtist(artistId));
     }
 
-    public static TrackCollection createAlbumTrackCollectionInstance(Context context, String albumId) {
-        AlbumTracksContentProvider provider = new AlbumTracksContentProvider(context, albumId);
-        return new TrackCollection(provider.getList());
+    public static TrackCollection createAlbumTrackCollectionInstance(Context context,
+                                                                     String albumId) {
+        TrackContentProvider provider = new TrackContentProvider(context);
+
+        return new TrackCollection(provider.findByAlbum(albumId));
     }
 
     public ArrayList<Track> getList() {

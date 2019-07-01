@@ -11,7 +11,7 @@ import java.util.Map;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.TracksContentProvider;
+import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
 public class FavoriteSongList {
@@ -36,9 +36,9 @@ public class FavoriteSongList {
                 .map(FavoriteSongRealm::getTrackId)
                 .collect(Collectors.toList());
 
-        TracksContentProvider provider = new TracksContentProvider(mContext, trackIdList);
+        TrackContentProvider provider = new TrackContentProvider(mContext);
 
-        ArrayList<Track> trackList = provider.getList();
+        ArrayList<Track> trackList = provider.findById(trackIdList);
 
         Map<String, Track> trackMap = toTrackMap(trackList);
 

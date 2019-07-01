@@ -29,9 +29,9 @@ public class Artist extends Music {
      * @return
      */
     public static Artist createInstance(Context context, String id) {
-        ArtistContentProvider provider = new ArtistContentProvider(context, id);
+        ArtistContentProvider provider = new ArtistContentProvider(context);
 
-        return provider.get();
+        return provider.findById(id);
     }
 
     public String getId() {

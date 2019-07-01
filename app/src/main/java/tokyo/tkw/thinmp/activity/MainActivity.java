@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.adapter.LibraryAdapter;
-import tokyo.tkw.thinmp.provider.AllAlbumsContentProvider;
+import tokyo.tkw.thinmp.provider.AlbumContentProvider;
 
 public class MainActivity extends BaseActivity {
     private static final Class<?>[] MENU_LINK_LIST = {
@@ -48,9 +48,9 @@ public class MainActivity extends BaseActivity {
         menuView.addItemDecoration(dividerItemDecoration);
 
         RecyclerView list = findViewById(R.id.list);
-        AllAlbumsContentProvider allAlbumsContentProvider = new AllAlbumsContentProvider(this);
+        AlbumContentProvider albumContentProvider = new AlbumContentProvider(this);
         AlbumListAdapter albumListAdapter =
-                new AlbumListAdapter(allAlbumsContentProvider.getList());
+                new AlbumListAdapter(albumContentProvider.findAll());
         GridLayoutManager albumLayout = new GridLayoutManager(this, 2);
 
         list.setLayoutManager(albumLayout);

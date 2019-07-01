@@ -7,8 +7,6 @@ import com.annimon.stream.Stream;
 import java.util.ArrayList;
 
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
-import tokyo.tkw.thinmp.provider.AllAlbumsContentProvider;
-import tokyo.tkw.thinmp.provider.ArtistAlbumsContentProvider;
 
 public class AlbumCollection {
     private ArrayList<Album> mAlbumList;
@@ -24,8 +22,9 @@ public class AlbumCollection {
      * @return
      */
     public static AlbumCollection createAllAlbumCollectionInstance(Context context) {
-        AllAlbumsContentProvider provider = new AllAlbumsContentProvider(context);
-        return new AlbumCollection(provider.getList());
+        AlbumContentProvider provider = new AlbumContentProvider(context);
+
+        return new AlbumCollection(provider.findAll());
     }
 
     /**
@@ -37,8 +36,9 @@ public class AlbumCollection {
      */
     public static AlbumCollection createArtistAlbumCollectionInstance(Context context,
                                                                       String artistId) {
-        ArtistAlbumsContentProvider provider = new ArtistAlbumsContentProvider(context, artistId);
-        return new AlbumCollection(provider.getList());
+        AlbumContentProvider provider = new AlbumContentProvider(context);
+
+        return new AlbumCollection(provider.findByArtist(artistId));
     }
 
     /**

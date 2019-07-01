@@ -32,9 +32,9 @@ public class Album extends Music {
      * @return
      */
     public static Album createInstance(Context context, String id) {
-        AlbumContentProvider provider = new AlbumContentProvider(context, id);
+        AlbumContentProvider provider = new AlbumContentProvider(context);
 
-        return provider.get();
+        return provider.findById(id);
     }
 
     public String getId() {

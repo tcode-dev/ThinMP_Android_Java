@@ -10,7 +10,7 @@ import java.util.Map;
 
 import io.realm.RealmList;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.TracksContentProvider;
+import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
@@ -54,8 +54,15 @@ public class PlaylistTrack {
     }
 
     private ArrayList<Track> getList() {
-        TracksContentProvider provider = new TracksContentProvider(mContext, getTrackIdList());
+        TrackContentProvider provider = new TrackContentProvider(mContext);
 
-        return provider.getList();
+        return provider.findById(getTrackIdList());
+    }
+
+    public ArrayList<String> getAlbumArtIdList() {
+        return (ArrayList<String>) Stream.of(mRealmList)
+                .map(PlaylistTrackRealm::getAlbumArtId)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

@@ -13,21 +13,21 @@ import java.util.ArrayList;
 import tokyo.tkw.thinmp.music.Music;
 
 public abstract class MediaStoreAudioProvider<T extends Music> {
-    protected Context mContext;
-    protected Cursor mCursor;
-    protected Uri uri;
-    protected String[] projection;
-    protected String selection;
-    protected String[] selectionArgs;
-    protected String sortOrder;
+    private Context mContext;
+    Cursor mCursor;
+    Uri uri;
+    String[] projection;
+    String selection;
+    String[] selectionArgs;
+    String sortOrder;
 
     abstract T fetch();
 
-    public MediaStoreAudioProvider(Context context) {
+    MediaStoreAudioProvider(Context context) {
         mContext = context;
     }
 
-    public T get() {
+    protected T get() {
         ArrayList<T> list = getList();
 
         if (list.isEmpty()) return null;
@@ -35,7 +35,7 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
         return list.get(0);
     }
 
-    public ArrayList<T> getList() {
+    protected ArrayList<T> getList() {
         init();
 
         ArrayList<T> list = fetchAll();

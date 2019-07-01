@@ -6,8 +6,6 @@ import android.provider.MediaStore;
 
 import java.io.Serializable;
 
-import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
-import tokyo.tkw.thinmp.provider.AlbumContentProvider;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.util.TimeUtil;
 
@@ -28,7 +26,8 @@ public class Track extends Music implements Serializable {
     private String albumArtId;
     private int duration;
 
-    public Track(String id, String title, String artistId, String artistName, String albumId, String albumName, int duration) {
+    public Track(String id, String title, String artistId, String artistName, String albumId,
+                 String albumName, int duration) {
         this.id = id;
         this.title = title;
         this.artistId = artistId;
@@ -91,8 +90,8 @@ public class Track extends Music implements Serializable {
      * @return
      */
     public static Track createInstance(Context context, String id) {
-        TrackContentProvider provider = new TrackContentProvider(context, id);
+        TrackContentProvider provider = new TrackContentProvider(context);
 
-        return provider.get();
+        return provider.findById(id);
     }
 }

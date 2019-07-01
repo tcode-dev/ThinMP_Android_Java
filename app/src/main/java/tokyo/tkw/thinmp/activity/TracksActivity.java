@@ -11,7 +11,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.TrackListAdapter;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.provider.AllTracksContentProvider;
+import tokyo.tkw.thinmp.music.TrackCollection;
 
 public class TracksActivity extends BaseActivity {
 
@@ -28,8 +28,8 @@ public class TracksActivity extends BaseActivity {
     protected void init() {
         RecyclerView listView = findViewById(R.id.list);
 
-        AllTracksContentProvider allTracksContentProvider = new AllTracksContentProvider(this);
-        ArrayList<Track> trackList = allTracksContentProvider.getList();
+        TrackCollection trackCollection = TrackCollection.createAllTrackCollectionInstance(this);
+        ArrayList<Track> trackList = trackCollection.getList();
 
         TrackListAdapter adapter = new TrackListAdapter(trackList,
                 new TrackClickListener(trackList));

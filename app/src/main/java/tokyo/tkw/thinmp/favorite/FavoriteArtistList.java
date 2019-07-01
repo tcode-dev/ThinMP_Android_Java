@@ -12,8 +12,8 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Artist;
-import tokyo.tkw.thinmp.provider.ArtistsAlbumArtContentProvider;
-import tokyo.tkw.thinmp.provider.ArtistsContentProvider;
+import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
+import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
 public class FavoriteArtistList {
@@ -34,10 +34,9 @@ public class FavoriteArtistList {
     }
 
     public Map<String, Artist> getArtistMap() {
-        ArtistsContentProvider artistsContentProvider = new ArtistsContentProvider(mContext,
-                toArtistIdList(getFavoriteArtistRealmList()));
+        ArtistContentProvider provider = new ArtistContentProvider(mContext);
 
-        return Stream.of(artistsContentProvider.getList())
+        return Stream.of(provider.findById(toArtistIdList(getFavoriteArtistRealmList())))
                 .collect(Collectors.toMap(Artist::getId, artist -> artist));
     }
 
@@ -52,9 +51,9 @@ public class FavoriteArtistList {
     }
 
     public ArrayList<Album> getArtistsAlbumArtList() {
-        ArtistsAlbumArtContentProvider provider = new ArtistsAlbumArtContentProvider(mContext,
-                toArtistIdList(getFavoriteArtistRealmList()));
-        return provider.getList();
+        AlbumArtContentProvider provider = new AlbumArtContentProvider(mContext);
+
+        return provider.findByArtist(toArtistIdList(getFavoriteArtistRealmList()));
     }
 
     private ArrayList<String> toArtistIdList(ArrayList<FavoriteArtistRealm> favoriteArtistRealmList) {

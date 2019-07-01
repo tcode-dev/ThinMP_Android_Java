@@ -8,8 +8,8 @@ import com.annimon.stream.Stream;
 import java.util.ArrayList;
 import java.util.Map;
 
-import tokyo.tkw.thinmp.provider.AllArtistAlbumArtContentProvider;
-import tokyo.tkw.thinmp.provider.AllArtistsContentProvider;
+import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
+import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 
 public class ArtistCollection {
     private Context mContext;
@@ -25,13 +25,15 @@ public class ArtistCollection {
     }
 
     public static ArtistCollection createAllArtistCollectionInstance(Context context) {
-        AllArtistsContentProvider provider = new AllArtistsContentProvider(context);
-        return new ArtistCollection(context, provider.getList());
+        ArtistContentProvider provider = new ArtistContentProvider(context);
+
+        return new ArtistCollection(context, provider.findAll());
     }
 
     public ArrayList<Album> getAllArtistAlbumArtList() {
-        AllArtistAlbumArtContentProvider provider = new AllArtistAlbumArtContentProvider(mContext);
-        return provider.getList();
+        AlbumArtContentProvider provider = new AlbumArtContentProvider(mContext);
+
+        return provider.findAll();
     }
 
     public Map<String, String> getAllArtistAlbumArtMap() {
