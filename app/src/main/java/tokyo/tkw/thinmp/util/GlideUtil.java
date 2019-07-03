@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
+import com.annimon.stream.Optional;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -34,6 +35,14 @@ public class GlideUtil {
 
     public static void bitmap(String albumArtId, ImageView view) {
         bitmap(albumArtId, view, DEFAULT_RESOURCE_ID);
+    }
+
+    public static void bitmap(Optional<String> albumArtIdOpt, ImageView view) {
+        albumArtIdOpt.ifPresentOrElse((albumArtId) -> {
+            bitmap(albumArtId, view, DEFAULT_RESOURCE_ID);
+        }, () -> {
+            drawable(view, DEFAULT_RESOURCE_ID);
+        });
     }
 
     public static void bitmap(String albumArtId, ImageView view, int resourceId) {

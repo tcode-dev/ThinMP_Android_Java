@@ -34,7 +34,7 @@ public class PlaylistsEditActivity extends BaseActivity {
     protected void init() {
         RecyclerView view = findViewById(R.id.list);
 
-        Playlist playlist = new Playlist();
+        Playlist playlist = new Playlist(this);
 
         mList = playlist.getRealmList();
         mAdapter = new PlaylistsEditAdapter(mList);

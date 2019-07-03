@@ -9,6 +9,7 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.IntStream;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.music.Music;
 
@@ -57,7 +58,7 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
         return list;
     }
 
-    String[] toStringArray(ArrayList<String> list) {
+    String[] toStringArray(List<String> list) {
         return list.toArray(new String[0]);
     }
 

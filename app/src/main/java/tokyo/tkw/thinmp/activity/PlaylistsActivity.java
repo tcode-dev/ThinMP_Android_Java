@@ -27,8 +27,8 @@ public class PlaylistsActivity extends BaseActivity {
     protected void init() {
         RecyclerView playlistView = findViewById(R.id.list);
 
-        Playlist playlist = new Playlist();
-        PlaylistsAdapter adapter = new PlaylistsAdapter(playlist.getRealmResults());
+        Playlist playlist = new Playlist(this);
+        PlaylistsAdapter adapter = new PlaylistsAdapter(playlist.getRealmResults(), playlist.getAlbumArtMap());
         LinearLayoutManager layout = new LinearLayoutManager(this);
 
         playlistView.setLayoutManager(layout);
