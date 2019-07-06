@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.TrackListAdapter;
@@ -29,7 +30,7 @@ public class TracksActivity extends BaseActivity {
         RecyclerView listView = findViewById(R.id.list);
 
         TrackCollection trackCollection = TrackCollection.createAllTrackCollectionInstance(this);
-        ArrayList<Track> trackList = trackCollection.getList();
+        List<Track> trackList = trackCollection.getList();
 
         TrackListAdapter adapter = new TrackListAdapter(trackList,
                 new TrackClickListener(trackList));

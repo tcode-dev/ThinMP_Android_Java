@@ -5,7 +5,7 @@ import android.content.Context;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import io.realm.Realm;
@@ -29,8 +29,8 @@ public class FavoriteArtistList {
         return mRealmResults;
     }
 
-    public ArrayList<FavoriteArtistRealm> getFavoriteArtistRealmList() {
-        return (ArrayList<FavoriteArtistRealm>) Stream.of(mRealmResults).toList();
+    public List<FavoriteArtistRealm> getFavoriteArtistRealmList() {
+        return Stream.of(mRealmResults).toList();
     }
 
     public Map<String, Artist> getArtistMap() {
@@ -50,19 +50,19 @@ public class FavoriteArtistList {
         return toArtistAlbumArtMap(getArtistsAlbumArtList());
     }
 
-    private ArrayList<Album> getArtistsAlbumArtList() {
+    private List<Album> getArtistsAlbumArtList() {
         AlbumArtContentProvider provider = new AlbumArtContentProvider(mContext);
 
         return provider.findByArtist(toArtistIdList(getFavoriteArtistRealmList()));
     }
 
-    private ArrayList<String> toArtistIdList(ArrayList<FavoriteArtistRealm> favoriteArtistRealmList) {
-        return (ArrayList<String>) Stream.of(favoriteArtistRealmList)
+    private List<String> toArtistIdList(List<FavoriteArtistRealm> favoriteArtistRealmList) {
+        return Stream.of(favoriteArtistRealmList)
                 .map(FavoriteArtistRealm::getArtistId)
                 .collect(Collectors.toList());
     }
 
-    private Map<String, String> toArtistAlbumArtMap(ArrayList<Album> artistAlbumList) {
+    private Map<String, String> toArtistAlbumArtMap(List<Album> artistAlbumList) {
         return Stream.of(artistAlbumList)
                 .distinctBy(Album::getArtistId)
                 .collect(Collectors.toMap(Album::getArtistId, Album::getAlbumArtId));

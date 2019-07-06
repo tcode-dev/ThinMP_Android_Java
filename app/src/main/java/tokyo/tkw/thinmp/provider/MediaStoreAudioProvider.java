@@ -42,10 +42,10 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
         return item;
     }
 
-    protected ArrayList<T> getList() {
+    protected List<T> getList() {
         init();
 
-        ArrayList<T> list = new ArrayList<>();
+        List<T> list = new ArrayList<>();
 
         if (!hasCursor()) return list;
 

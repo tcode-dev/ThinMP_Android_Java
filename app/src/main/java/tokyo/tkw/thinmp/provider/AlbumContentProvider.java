@@ -3,7 +3,6 @@ package tokyo.tkw.thinmp.provider;
 import android.content.Context;
 import android.provider.MediaStore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tokyo.tkw.thinmp.music.Album;
@@ -21,7 +20,7 @@ public class AlbumContentProvider extends MediaStoreAudioAlbumsProvider {
         return get();
     }
 
-    public ArrayList<Album> findByArtist(String artistId) {
+    public List<Album> findByArtist(String artistId) {
         selection = MediaStore.Audio.Media.ARTIST_ID + " = ?";
         selectionArgs = new String[]{artistId};
         sortOrder = MediaStore.Audio.Albums.ALBUM + " ASC";
@@ -29,7 +28,7 @@ public class AlbumContentProvider extends MediaStoreAudioAlbumsProvider {
         return getList();
     }
 
-    public ArrayList<Album> findAll() {
+    public List<Album> findAll() {
         selection = null;
         selectionArgs = null;
         sortOrder = MediaStore.Audio.Albums.ALBUM + " ASC";

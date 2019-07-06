@@ -11,6 +11,7 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongEditAdapter;
@@ -20,7 +21,7 @@ import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
 public class FavoriteSongEditActivity extends BaseActivity {
     FavoriteSongEditAdapter mAdapter;
-    ArrayList<FavoriteSongRealm> mFavoriteList;
+    List<FavoriteSongRealm> mFavoriteList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

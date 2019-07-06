@@ -5,7 +5,7 @@ import android.content.Context;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
@@ -13,14 +13,14 @@ import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 
 public class ArtistCollection {
     private Context mContext;
-    private ArrayList<Artist> mArtistList;
+    private List<Artist> mArtistList;
 
-    public ArtistCollection(Context context, ArrayList<Artist> artistList) {
+    public ArtistCollection(Context context, List<Artist> artistList) {
         mContext = context;
         mArtistList = artistList;
     }
 
-    public ArrayList<Artist> getList() {
+    public List<Artist> getList() {
         return mArtistList;
     }
 
@@ -30,7 +30,7 @@ public class ArtistCollection {
         return new ArtistCollection(context, provider.findAll());
     }
 
-    public ArrayList<Album> getAllArtistAlbumArtList() {
+    public List<Album> getAllArtistAlbumArtList() {
         AlbumArtContentProvider provider = new AlbumArtContentProvider(mContext);
 
         return provider.findAll();
@@ -40,7 +40,7 @@ public class ArtistCollection {
         return toArtistAlbumArtMap(getAllArtistAlbumArtList());
     }
 
-    public Map<String, String> toArtistAlbumArtMap(ArrayList<Album> artistAlbumList) {
+    public Map<String, String> toArtistAlbumArtMap(List<Album> artistAlbumList) {
         return Stream.of(artistAlbumList)
                 .distinctBy(Album::getArtistId)
                 .collect(Collectors.toMap(Album::getArtistId, Album::getAlbumArtId));

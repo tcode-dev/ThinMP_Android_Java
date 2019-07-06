@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistDetailController;
@@ -37,7 +37,7 @@ public class ArtistDetailActivity extends BaseActivity {
 
         AlbumCollection albumCollection =
                 AlbumCollection.createArtistAlbumCollectionInstance(this, artistId);
-        ArrayList<Album> artistAlbumList = albumCollection.getList();
+        List<Album> artistAlbumList = albumCollection.getList();
         String albumArtId = albumCollection.getAlbumArtId();
 
         TrackCollection trackCollection =

@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import tokyo.tkw.thinmp.R;
@@ -16,11 +16,11 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
 public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
-    private ArrayList<FavoriteArtistRealm> mFavoriteList;
+    private List<FavoriteArtistRealm> mFavoriteList;
     private Map<String, Artist> mArtistMap;
     private Map<String, String> mArtistAlbumArtMap;
 
-    public FavoriteArtistEditAdapter(ArrayList<FavoriteArtistRealm> favoriteList,
+    public FavoriteArtistEditAdapter(List<FavoriteArtistRealm> favoriteList,
                                      Map<String, Artist> artistMap,
                                      Map<String, String> artistAlbumArtMap) {
         mFavoriteList = favoriteList;
@@ -42,7 +42,8 @@ public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHo
         Artist artist = mArtistMap.get(favorite.getArtistId());
         String title = artist.getName();
 
-        GlideUtil.bitmap(mArtistAlbumArtMap.get(artist.getId()), holder.albumArt, GlideUtil.ARTIST_RESOURCE_ID);
+        GlideUtil.bitmap(mArtistAlbumArtMap.get(artist.getId()), holder.albumArt,
+                GlideUtil.ARTIST_RESOURCE_ID);
         holder.artistName.setText(title);
     }
 

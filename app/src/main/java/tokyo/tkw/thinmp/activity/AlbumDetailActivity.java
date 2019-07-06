@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumTrackListAdapter;
@@ -40,7 +40,7 @@ public class AlbumDetailActivity extends BaseActivity {
         // 曲一覧
         TrackCollection trackCollection = TrackCollection.createAlbumTrackCollectionInstance(this
                 , albumId);
-        ArrayList<Track> trackList = trackCollection.getList();
+        List<Track> trackList = trackCollection.getList();
 
         // アルバムアート
         ImageView albumArtView = findViewById(R.id.albumArt);

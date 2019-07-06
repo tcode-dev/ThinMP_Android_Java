@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
@@ -16,9 +16,9 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.AlbumListViewHolder;
 
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListViewHolder> {
-    private ArrayList<Album> mAlbumList;
+    private List<Album> mAlbumList;
 
-    public AlbumListAdapter(@NonNull ArrayList<Album> albumList) {
+    public AlbumListAdapter(@NonNull List<Album> albumList) {
         mAlbumList = albumList;
     }
 

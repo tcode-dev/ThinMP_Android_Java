@@ -2,14 +2,14 @@ package tokyo.tkw.thinmp.music;
 
 import android.content.Context;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 
 public class TrackCollection {
-    private ArrayList<Track> mTrackList;
+    private List<Track> mTrackList;
 
-    private TrackCollection(ArrayList<Track> trackList) {
+    private TrackCollection(List<Track> trackList) {
         mTrackList = trackList;
     }
 
@@ -33,7 +33,7 @@ public class TrackCollection {
         return new TrackCollection(provider.findByAlbum(albumId));
     }
 
-    public ArrayList<Track> getList() {
+    public List<Track> getList() {
         return mTrackList;
     }
 }

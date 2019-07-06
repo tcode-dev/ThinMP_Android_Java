@@ -20,7 +20,7 @@ import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
 public class FavoriteArtistEditActivity extends BaseActivity {
-    private ArrayList<FavoriteArtistRealm> mFavoriteList;
+    private List<FavoriteArtistRealm> mFavoriteList;
     private FavoriteArtistEditAdapter mAdapter;
 
     @Override

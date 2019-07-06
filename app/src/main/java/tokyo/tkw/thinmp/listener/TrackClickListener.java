@@ -2,19 +2,19 @@ package tokyo.tkw.thinmp.listener;
 
 import android.content.Context;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.music.Track;
 
 public class TrackClickListener extends BaseTrackClickListener {
-    private ArrayList<Track> mTrackList;
+    private List<Track> mTrackList;
 
-    public TrackClickListener(ArrayList<Track> trackList) {
+    public TrackClickListener(List<Track> trackList) {
         mTrackList = trackList;
     }
 
     @Override
-    public ArrayList<Track> getTrackList(Context context) {
+    public List<Track> getTrackList(Context context) {
         return mTrackList;
     }
 }

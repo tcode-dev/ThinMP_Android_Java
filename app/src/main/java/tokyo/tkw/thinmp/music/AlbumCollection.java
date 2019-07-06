@@ -4,14 +4,14 @@ import android.content.Context;
 
 import com.annimon.stream.Stream;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
 
 public class AlbumCollection {
-    private ArrayList<Album> mAlbumList;
+    private List<Album> mAlbumList;
 
-    private AlbumCollection(ArrayList<Album> albumList) {
+    private AlbumCollection(List<Album> albumList) {
         mAlbumList = albumList;
     }
 
@@ -46,7 +46,7 @@ public class AlbumCollection {
      *
      * @return
      */
-    public ArrayList<Album> getList() {
+    public List<Album> getList() {
         return mAlbumList;
     }
 

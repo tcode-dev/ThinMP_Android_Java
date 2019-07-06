@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.ITrackClickListener;
@@ -15,12 +15,11 @@ import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
 
 public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListViewHolder> {
-    private ArrayList<Track> mTrackList;
+    private List<Track> mTrackList;
     private ITrackClickListener mListener;
     private RecyclerView mRecycler;
 
-    public AlbumTrackListAdapter(@NonNull ArrayList<Track> trackList,
-                                 ITrackClickListener listener) {
+    public AlbumTrackListAdapter(@NonNull List<Track> trackList, ITrackClickListener listener) {
         mTrackList = trackList;
         mListener = listener;
     }

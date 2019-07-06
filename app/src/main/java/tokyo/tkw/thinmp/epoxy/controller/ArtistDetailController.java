@@ -5,6 +5,7 @@ import com.airbnb.epoxy.TypedEpoxyController;
 import com.annimon.stream.Stream;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.epoxy.model.AlbumListItemModel_;
 import tokyo.tkw.thinmp.epoxy.model.HeaderModel_;
@@ -59,9 +60,9 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailCon
 
     public static class Data {
         public String albums;
-        public ArrayList<Album> albumList;
+        public List<Album> albumList;
         public String songs;
-        public ArrayList<Track> trackList;
+        public List<Track> trackList;
         public int titleSpanSize;
         public int albumListSpanSize;
         public int trackListSpanSize;

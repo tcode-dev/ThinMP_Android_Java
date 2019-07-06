@@ -3,7 +3,7 @@ package tokyo.tkw.thinmp.provider;
 import android.content.Context;
 import android.provider.MediaStore;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.music.Track;
 
@@ -20,7 +20,7 @@ public class TrackContentProvider extends MediaStoreAudioMediaProvider {
         return get();
     }
 
-    public ArrayList<Track> findById(ArrayList<String> trackIdList) {
+    public List<Track> findById(List<String> trackIdList) {
         selection =
                 MediaStore.Audio.Media._ID + " IN (" + makePlaceholders(trackIdList.size()) + ") " +
                         "AND " + MediaStore.Audio.Media.IS_MUSIC + " = 1";
@@ -30,7 +30,7 @@ public class TrackContentProvider extends MediaStoreAudioMediaProvider {
         return getList();
     }
 
-    public ArrayList<Track> findByArtist(String artistId) {
+    public List<Track> findByArtist(String artistId) {
         selection =
                 MediaStore.Audio.Media.ARTIST_ID + " = ? AND " + MediaStore.Audio.Media.IS_MUSIC + " = 1";
         selectionArgs = new String[]{artistId};
@@ -39,7 +39,7 @@ public class TrackContentProvider extends MediaStoreAudioMediaProvider {
         return getList();
     }
 
-    public ArrayList<Track> findByAlbum(String albumId) {
+    public List<Track> findByAlbum(String albumId) {
         selection =
                 MediaStore.Audio.Media.ALBUM_ID + " = ? AND " + MediaStore.Audio.Media.IS_MUSIC + " = 1";
         selectionArgs = new String[]{albumId};
@@ -48,7 +48,7 @@ public class TrackContentProvider extends MediaStoreAudioMediaProvider {
         return getList();
     }
 
-    public ArrayList<Track> findAll() {
+    public List<Track> findAll() {
         selection = MediaStore.Audio.Media.IS_MUSIC + " = 1";
         selectionArgs = null;
         sortOrder = MediaStore.Audio.Media.ARTIST + " ASC, "

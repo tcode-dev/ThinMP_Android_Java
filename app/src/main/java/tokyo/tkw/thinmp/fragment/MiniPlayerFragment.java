@@ -15,7 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.PlayerActivity;
@@ -35,7 +35,8 @@ public class MiniPlayerFragment extends Fragment {
     /**
      * MiniPlayerのListener
      */
-    private MiniPlayer.OnMiniPlayerListener mMiniPlayerListener = new MiniPlayer.OnMiniPlayerListener() {
+    private MiniPlayer.OnMiniPlayerListener mMiniPlayerListener =
+            new MiniPlayer.OnMiniPlayerListener() {
         /**
          * 再生画面へ遷移
          */
@@ -102,7 +103,8 @@ public class MiniPlayerFragment extends Fragment {
     /**
      * MusicServiceのListener
      */
-    private MusicService.OnMusicServiceListener musicServiceListener = new MusicService.OnMusicServiceListener() {
+    private MusicService.OnMusicServiceListener musicServiceListener =
+            new MusicService.OnMusicServiceListener() {
         @Override
         public void onChangeTrack(Track track) {
             update(track);
@@ -161,7 +163,8 @@ public class MiniPlayerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentMiniPlayerBinding mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_mini_player, container, false);
+        FragmentMiniPlayerBinding mBinding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_mini_player, container, false);
         mMiniPlayer = new MiniPlayer(mBinding, mMiniPlayerListener);
 
         mBinding.setMiniPlayer(mMiniPlayer);
@@ -222,7 +225,7 @@ public class MiniPlayerFragment extends Fragment {
      * @param trackList
      * @param position
      */
-    public void start(ArrayList<Track> trackList, int position) {
+    public void start(List<Track> trackList, int position) {
         mMusicService.setPlayingList(trackList, position);
         mMusicService.start();
         update();

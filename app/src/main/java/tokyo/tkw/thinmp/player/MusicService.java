@@ -6,13 +6,13 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import tokyo.tkw.thinmp.config.Config;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.music.PlayingList;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.config.Config;
 
 public class MusicService extends Service {
     public static final int REPEAT_OFF = 0;
@@ -24,7 +24,7 @@ public class MusicService extends Service {
     private int mRepeat;
     private boolean mShuffle;
     private MediaPlayer mMediaPlayer;
-    private ArrayList<Track> mOriginalList;
+    private List<Track> mOriginalList;
     private PlayingList mPlayingList;
     private OnMusicServiceListener mListener;
 
@@ -43,21 +43,21 @@ public class MusicService extends Service {
      */
     private MediaPlayer.OnCompletionListener onCompletionListener =
             new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-            onFinished();
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    onFinished();
 
-            if (!hasNext()) {
-                return;
-            }
+                    if (!hasNext()) {
+                        return;
+                    }
 
-            if (mRepeat != REPEAT_ONE) {
-                mPlayingList.next();
-            }
+                    if (mRepeat != REPEAT_ONE) {
+                        mPlayingList.next();
+                    }
 
-            start();
-        }
-    };
+                    start();
+                }
+            };
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -70,7 +70,7 @@ public class MusicService extends Service {
      * @param playList
      * @param position
      */
-    public void setPlayingList(ArrayList<Track> playList, int position) {
+    public void setPlayingList(List<Track> playList, int position) {
         mOriginalList = playList;
         mPlayingList = new PlayingList(playList, position);
     }
@@ -185,8 +185,11 @@ public class MusicService extends Service {
      */
     public boolean shuffle() {
         mShuffle = !mShuffle;
-        mPlayingList = mShuffle ? mPlayingList.getShufflePlayingList() :
-                new PlayingList(mOriginalList, mPlayingList.getCurrentPosition());
+        if (mShuffle) {
+            mPlayingList.shuffle();
+        } else {
+            mPlayingList.undo();
+        }
 
         // 設定を保存
         Config config = new Config(getBaseContext());

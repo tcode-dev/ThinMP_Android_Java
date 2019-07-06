@@ -1,7 +1,11 @@
 package tokyo.tkw.thinmp.music;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * 再生中の曲リスト
@@ -10,12 +14,15 @@ public class PlayingList {
     // 最後の曲のインデックス
     private static int mLastIndex;
     // 再生曲リスト
-    private ArrayList<Track> mPlayingList;
+    private List<Track> mPlayingList;
+    // シャッフル後に戻すためのバックアップ
+    private List<Track> mOriginalList;
     // 現在位置
     private int mCurrentPosition;
 
-    public PlayingList(ArrayList<Track> playingList, int position) {
+    public PlayingList(List<Track> playingList, int position) {
         mPlayingList = playingList;
+        mOriginalList = Stream.of(playingList).toList();
         mCurrentPosition = position;
         mLastIndex = playingList.size() - 1;
     }
@@ -81,13 +88,22 @@ public class PlayingList {
     /**
      * プレイリストをシャッフルする
      */
-    public PlayingList getShufflePlayingList() {
+    public void shuffle() {
         Track currentTrack = getTrack();
-        ArrayList<Track> playingList = (ArrayList<Track>) mPlayingList.clone();
+
+        List<Track> playingList = Stream.of(mOriginalList).toList();
         playingList.remove(currentTrack);
         Collections.shuffle(playingList);
         playingList.add(0, currentTrack);
 
-        return new PlayingList(playingList, 0);
+        mPlayingList = playingList;
+        mCurrentPosition = 0;
+    }
+
+    /**
+     * プレイリストを元の順に戻す
+     */
+    public void undo() {
+        mPlayingList = Stream.of(mOriginalList).collect(Collectors.toList());
     }
 }

@@ -4,7 +4,7 @@ import com.airbnb.epoxy.AutoModel;
 import com.airbnb.epoxy.TypedEpoxyController;
 import com.annimon.stream.Stream;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import tokyo.tkw.thinmp.epoxy.model.ArtistListItemModel_;
@@ -34,7 +34,7 @@ public class ArtistsController extends TypedEpoxyController<ArtistsController.Da
 
     public static class Data {
         public String title;
-        public ArrayList<Artist> artistList;
+        public List<Artist> artistList;
         public Map<String, String> artistAlbumArtMap;
     }
 }

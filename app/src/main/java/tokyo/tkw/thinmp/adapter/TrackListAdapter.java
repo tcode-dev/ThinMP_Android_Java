@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.ITrackClickListener;
@@ -20,13 +20,12 @@ public class TrackListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final static int VIEW_TYPE_TITLE = 1;
     private final static int VIEW_TYPE_TRACK = 2;
     private final static int HEADER_COUNT = 1;
-    private ArrayList<Track> mTrackList;
+    private List<Track> mTrackList;
     private ITrackClickListener mListener;
     private int mItemCount;
     private RecyclerView mRecycler;
 
-    public TrackListAdapter(@NonNull ArrayList<Track> trackList,
-                            ITrackClickListener listener) {
+    public TrackListAdapter(@NonNull List<Track> trackList, ITrackClickListener listener) {
         mTrackList = trackList;
         mListener = listener;
         mItemCount = mTrackList.size() + HEADER_COUNT;
