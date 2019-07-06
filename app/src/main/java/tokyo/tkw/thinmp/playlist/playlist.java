@@ -17,10 +17,6 @@ import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
-/**
- * PlaylistRealmの一覧を取得
- * PlaylistRealmの一覧をlistに変換
- */
 public class Playlist {
     public static final String PLAYLIST_ID = "playlistId";
 
@@ -64,7 +60,7 @@ public class Playlist {
     private List<Album> getAlbumList() {
         AlbumArtContentProvider provider = new AlbumArtContentProvider(mContext);
 
-        return provider.findByAlbum(toAlbumIdList());
+        return provider.findById(toAlbumIdList());
     }
 
     private List<String> getAlbumArtList() {

@@ -4,56 +4,161 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".activity.PlaylistDetailActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
+            android:layout_height="330dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <LinearLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@+id/toolbar">
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
                     android:fitsSystemWindows="true"
-                    android:text="@string/playlist"
-                    android:textColor="#000000"
-                    android:textSize="30sp" />
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-                <Button
-                    android:id="@+id/edit"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/edit"
-                    android:textColor="#A0A0A0" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/frameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/albumArt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/gradation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:background="@drawable/bg_gradation"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/albumArt"
+                        app:layout_constraintStart_toStartOf="@+id/albumArt" />
+
+                    <tokyo.tkw.thinmp.view.ResponsiveTextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="2dp"
+                        app:collapseOffsetY="8"
+                        app:collapseScale="0.8"
+                        app:layout_constraintBottom_toTopOf="@+id/subTitle"
+                        app:layout_constraintEnd_toEndOf="@+id/albumArt"
+                        app:layout_constraintStart_toStartOf="@+id/albumArt"
+                        app:textAlignCenter="true"
+                        app:textColor="#000000"
+                        app:textSize="20" />
+
+                    <tokyo.tkw.thinmp.view.ResponsiveTextView
+                        android:id="@+id/subTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/playlist"
+                        app:collapseScale="0.8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/albumArt"
+                        app:textAlignCenter="true"
+                        app:textColor="#5C5C5C"
+                        app:textSize="16" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin">
+
+                    <tokyo.tkw.thinmp.view.BackImageButtonView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@null"
+                        android:padding="10dp"
+
+                        android:scaleType="centerInside"
+                        android:src="@drawable/back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/edit"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/edit"
+                        android:textColor="#5C5C5C"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <tokyo.tkw.thinmp.view.ExactlyNestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:context=".activity.ScrollingActivity"
+            tools:showIn="@layout/activity_album_detail">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="true"
+                android:paddingStart="20dp"
                 android:scrollbars="vertical" />
 
-        </LinearLayout>
+        </tokyo.tkw.thinmp.view.ExactlyNestedScrollView>
 
-    </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <fragment
         android:id="@+id/includeMiniPlayer"

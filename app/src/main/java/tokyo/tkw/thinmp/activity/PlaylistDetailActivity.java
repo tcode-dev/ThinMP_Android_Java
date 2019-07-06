@@ -4,20 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDetailAdapter;
+import tokyo.tkw.thinmp.dto.PlaylistDetailActivityDto;
 import tokyo.tkw.thinmp.listener.PlaylistTrackClickListener;
+import tokyo.tkw.thinmp.logic.PlaylistDetailActivityLogic;
 import tokyo.tkw.thinmp.playlist.Playlist;
-import tokyo.tkw.thinmp.playlist.PlaylistTrack;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
+import tokyo.tkw.thinmp.util.GlideUtil;
+import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class PlaylistDetailActivity extends BaseActivity {
-    private int mPlaylistId;
+    private int playlistId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,28 +34,54 @@ public class PlaylistDetailActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        mPlaylistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
+        playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
 
-        RecyclerView view = findViewById(R.id.list);
+        // view
+        RecyclerView listView = findViewById(R.id.list);
+        ImageView albumArtView = findViewById(R.id.albumArt);
+        ResponsiveTextView titleView = findViewById(R.id.title);
+        ResponsiveTextView subTitleView = findViewById(R.id.subTitle);
+        Button editView = findViewById(R.id.edit);
 
-        PlaylistRealm playlistRealm = PlaylistRealm.createInstance(mPlaylistId);
-        PlaylistTrack playlistTrack = new PlaylistTrack(this, mPlaylistId);
+        // logic
+        PlaylistDetailActivityLogic logic = PlaylistDetailActivityLogic.createInstance(
+                this,
+                playlistId
+        );
 
-        PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(playlistRealm.getTracks(),
-                playlistTrack.getTrackMap(), new PlaylistTrackClickListener(mPlaylistId));
-        view.setAdapter(adapter);
+        // dto
+        PlaylistDetailActivityDto dto = logic.createDto();
 
-        findViewById(R.id.edit).setOnClickListener(createEditClickListener());
+        // アルバムアート
+        GlideUtil.bitmap(dto.albumArt, albumArtView);
 
+        // プレイリスト名
+        titleView.setText(dto.playlistName);
+
+        // playlist文字列
+        subTitleView.setText(dto.typeName);
+
+        // adapter
+        PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(
+                dto.playlistTrackRealms,
+                dto.trackMap,
+                new PlaylistTrackClickListener(playlistId)
+        );
+        listView.setAdapter(adapter);
+
+        // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
-        view.setLayoutManager(layout);
+        listView.setLayoutManager(layout);
+
+        // event
+        editView.setOnClickListener(createEditClickListener());
     }
 
     private View.OnClickListener createEditClickListener() {
         return view -> {
             Context context = view.getContext();
             Intent intent = new Intent(context, PlaylistDetailEditActivity.class);
-            intent.putExtra(Playlist.PLAYLIST_ID, mPlaylistId);
+            intent.putExtra(Playlist.PLAYLIST_ID, playlistId);
             context.startActivity(intent);
         };
     }

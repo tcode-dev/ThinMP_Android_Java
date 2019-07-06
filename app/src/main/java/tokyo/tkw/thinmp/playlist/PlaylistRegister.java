@@ -61,14 +61,12 @@ public class PlaylistRegister {
         PlaylistRealm playlist =
                 mRealm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
 
-        int nextOrder = createNextPlaylistTrackOrder(playlistId);
-
         beginTransaction();
 
         int playlistTrackRealmId = createNextPlaylistTrackId();
         PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class,
                 playlistTrackRealmId);
-        realm.set(playlistId, track, nextOrder);
+        realm.set(playlistId, track);
         playlist.getTracks().add(realm);
 
         commitTransaction();
@@ -90,7 +88,7 @@ public class PlaylistRegister {
             int playlistTrackRealmId = createNextPlaylistTrackId();
             PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class,
                     playlistTrackRealmId);
-            realm.set(playlistId, track, i);
+            realm.set(playlistId, track);
             return realm;
         }).toList();
     }
@@ -107,14 +105,6 @@ public class PlaylistRegister {
 
     private int createNextPlaylistTrackId() {
         Number max = mRealm.where(PlaylistTrackRealm.class).max(PlaylistTrackRealm.ID);
-        return createNextInt(max);
-    }
-
-    private int createNextPlaylistTrackOrder(int playlistId) {
-        Number max =
-                mRealm.where(PlaylistTrackRealm.class).equalTo(PlaylistTrackRealm.PLAYLIST_ID,
-                        playlistId).max(PlaylistTrackRealm.ORDER);
-
         return createNextInt(max);
     }
 
