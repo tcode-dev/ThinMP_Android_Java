@@ -8,17 +8,20 @@
 
     <ImageView
         android:id="@+id/albumArt"
-        android:layout_width="58dp"
-        android:layout_height="58dp" />
+        android:layout_width="54dp"
+        android:layout_height="54dp" />
 
     <TextView
         android:id="@+id/primaryText"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:textSize="18sp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textStyle="normal" />
 
 </LinearLayout>
