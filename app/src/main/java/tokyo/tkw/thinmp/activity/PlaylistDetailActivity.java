@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDetailAdapter;
-import tokyo.tkw.thinmp.dto.PlaylistDetailActivityDto;
+import tokyo.tkw.thinmp.dto.PlaylistDetailDto;
 import tokyo.tkw.thinmp.listener.PlaylistTrackClickListener;
-import tokyo.tkw.thinmp.logic.PlaylistDetailActivityLogic;
+import tokyo.tkw.thinmp.logic.PlaylistDetailLogic;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
@@ -44,16 +44,13 @@ public class PlaylistDetailActivity extends BaseActivity {
         Button editView = findViewById(R.id.edit);
 
         // logic
-        PlaylistDetailActivityLogic logic = PlaylistDetailActivityLogic.createInstance(
-                this,
-                playlistId
-        );
+        PlaylistDetailLogic logic = PlaylistDetailLogic.createInstance(this, playlistId);
 
         // dto
-        PlaylistDetailActivityDto dto = logic.createDto();
+        PlaylistDetailDto dto = logic.createDto();
 
         // アルバムアート
-        GlideUtil.bitmap(dto.albumArt, albumArtView);
+        GlideUtil.bitmap(dto.albumArtId, albumArtView);
 
         // プレイリスト名
         titleView.setText(dto.playlistName);

@@ -40,7 +40,7 @@ public class PlaylistTrack {
         return toTrackMap(mTrackList);
     }
 
-    public String getFirstTrackAlbumArt() {
+    public String getFirstTrackAlbumArtId() {
         Map<String, String> albumArtMap = toAlbumArtMap();
 
         Optional<String> TrackIdOpt = Stream.of(toTrackIdList()).filter(albumArtMap::containsKey).findFirst();
