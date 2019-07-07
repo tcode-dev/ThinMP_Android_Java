@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
@@ -25,20 +26,24 @@ public class PlaylistsActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        RecyclerView playlistView = findViewById(R.id.list);
+        RecyclerView listView = findViewById(R.id.list);
+        Button editView = findViewById(R.id.edit);
 
         Playlist playlist = new Playlist(this);
-        PlaylistsAdapter adapter = new PlaylistsAdapter(playlist.getRealmResults(), playlist.getAlbumArtMap());
-        LinearLayoutManager layout = new LinearLayoutManager(this);
+        PlaylistsAdapter adapter = new PlaylistsAdapter(playlist.getRealmResults(),
+                playlist.getAlbumArtMap());
+        GridLayoutManager layout = new GridLayoutManager(this, 2);
 
-        playlistView.setLayoutManager(layout);
-        playlistView.setAdapter(adapter);
+        listView.setLayoutManager(layout);
+        listView.setAdapter(adapter);
 
-        findViewById(R.id.edit).setOnClickListener(createEditClickListener(this));
+        // event
+        editView.setOnClickListener(createEditClickListener());
     }
 
-    private View.OnClickListener createEditClickListener(Context context) {
-        return v -> {
+    private View.OnClickListener createEditClickListener() {
+        return view -> {
+            Context context = view.getContext();
             Intent intent = new Intent(context, PlaylistsEditActivity.class);
             context.startActivity(intent);
         };
