@@ -6,11 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.realm.RealmList;
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.PlaylistClickListener;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
@@ -38,7 +34,7 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
         PlaylistRealm playlistRealm = mList.get(position);
         int playlistId = playlistRealm.getId();
         String name = playlistRealm.getName();
-        PlaylistTrackRealm playlistTrackRealm = playlistRealm.getTracks().first();
+        PlaylistTrackRealm playlistTrackRealm = playlistRealm.getTrackRealmList().first();
 
         GlideUtil.bitmap(playlistTrackRealm.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(name);

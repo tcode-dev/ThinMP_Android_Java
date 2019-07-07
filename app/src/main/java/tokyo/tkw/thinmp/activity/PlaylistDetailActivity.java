@@ -34,6 +34,7 @@ public class PlaylistDetailActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        // playlistId
         playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
 
         // view
@@ -60,7 +61,7 @@ public class PlaylistDetailActivity extends BaseActivity {
 
         // adapter
         PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(
-                dto.playlistTrackRealms,
+                dto.trackRealmList,
                 dto.trackMap,
                 new PlaylistTrackClickListener(playlistId)
         );

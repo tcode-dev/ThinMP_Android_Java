@@ -24,7 +24,7 @@ public class PlaylistRealm extends RealmObject {
         this.tracks.addAll(trackList);
     }
 
-    public RealmList<PlaylistTrackRealm> getTracks() {
+    public RealmList<PlaylistTrackRealm> getTrackRealmList() {
         return tracks;
     }
 

@@ -79,7 +79,7 @@ public class PlaylistTrack {
     private RealmList<PlaylistTrackRealm> getTrackRealmList() {
         PlaylistRealm playlistRealm = PlaylistRealm.createInstance(mPlaylistId);
 
-        return playlistRealm.getTracks();
+        return playlistRealm.getTrackRealmList();
     }
 
     private List<Track> getTrackList() {

@@ -6,11 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
-import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.music.TrackCollection;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
@@ -67,7 +64,7 @@ public class PlaylistRegister {
         PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class,
                 playlistTrackRealmId);
         realm.set(playlistId, track);
-        playlist.getTracks().add(realm);
+        playlist.getTrackRealmList().add(realm);
 
         commitTransaction();
     }

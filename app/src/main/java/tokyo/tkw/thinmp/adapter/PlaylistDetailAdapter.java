@@ -20,30 +20,31 @@ import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrackRealm,
         TrackViewHolder> {
-    private Map<String, Track> mTrackMap;
-    private ITrackClickListener mListener;
-    private RecyclerView mRecycler;
+    private Map<String, Track> trackMap;
+    private ITrackClickListener trackClickListener;
+    private RecyclerView recyclerView;
 
-    public PlaylistDetailAdapter(RealmList<PlaylistTrackRealm> playlistTrackRealms,
-                                 Map<String, Track> trackMap, ITrackClickListener listener) {
-        super(playlistTrackRealms, true);
+    public PlaylistDetailAdapter(RealmList<PlaylistTrackRealm> trackRealmList,
+                                 Map<String, Track> trackMap,
+                                 ITrackClickListener trackClickListener) {
+        super(trackRealmList, true);
 
-        mTrackMap = trackMap;
-        mListener = listener;
+        this.trackMap = trackMap;
+        this.trackClickListener = trackClickListener;
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
 
-        mRecycler = recyclerView;
+        this.recyclerView = recyclerView;
     }
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
 
-        mRecycler = null;
+        this.recyclerView = null;
     }
 
     @NonNull
@@ -59,7 +60,7 @@ public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrac
     public void onBindViewHolder(@NonNull TrackViewHolder holder, int position) {
         PlaylistTrackRealm playlistTrackRealm = getItem(position);
 
-        Track track = mTrackMap.get(playlistTrackRealm.getTrackId());
+        Track track = trackMap.get(playlistTrackRealm.getTrackId());
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
         holder.track.setText(track.getTitle());
@@ -71,13 +72,14 @@ public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrac
 
     private View.OnClickListener createClickTrackListener() {
         return view -> {
-            mListener.onClickTrack(view, mRecycler.getChildAdapterPosition(view));
+            trackClickListener.onClickTrack(view, recyclerView.getChildAdapterPosition(view));
         };
     }
 
     private View.OnClickListener createClickMenuListener() {
         return view -> {
-            mListener.onClickMenu(view, mRecycler.getChildAdapterPosition((View) view.getParent()));
+            trackClickListener.onClickMenu(view,
+                    recyclerView.getChildAdapterPosition((View) view.getParent()));
         };
     }
 }

@@ -51,7 +51,7 @@ public class Playlist {
 
     private List<String> toAlbumIdList() {
         return Stream.of(mRealmResults)
-                .flatMap(playlistRealm -> Stream.of(playlistRealm.getTracks()))
+                .flatMap(playlistRealm -> Stream.of(playlistRealm.getTrackRealmList()))
                 .map(PlaylistTrackRealm::getAlbumArtId)
                 .distinct()
                 .collect(Collectors.toList());
@@ -72,7 +72,7 @@ public class Playlist {
 
         return Stream.of(mRealmResults)
                 .collect(Collectors.toMap(PlaylistRealm::getId,
-                        playlistRealm -> Stream.of(playlistRealm.getTracks())
+                        playlistRealm -> Stream.of(playlistRealm.getTrackRealmList())
                         .map(PlaylistTrackRealm::getAlbumArtId)
                         .filter(albumArtList::contains)
                         .findFirst()));

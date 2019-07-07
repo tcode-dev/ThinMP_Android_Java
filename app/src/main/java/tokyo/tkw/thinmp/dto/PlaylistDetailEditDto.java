@@ -4,12 +4,12 @@ import java.util.Map;
 
 import io.realm.RealmList;
 import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
-public class PlaylistDetailDto {
+public class PlaylistDetailEditDto {
     public String playlistName;
-    public String typeName;
-    public String albumArtId;
     public RealmList<PlaylistTrackRealm> trackRealmList;
     public Map<String, Track> trackMap;
+    public PlaylistRealm playlistRealm;
 }
