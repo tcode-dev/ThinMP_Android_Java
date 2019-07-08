@@ -1,0 +1,26 @@
+package tokyo.tkw.thinmp.realm;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class ShortcutRealm extends RealmObject {
+    public static final String ID = "id";
+    public static final String ITEM_ID = "itemId";
+    public static final String TYPE = "type";
+
+    public static final int TYPE_ARTIST = 1;
+    public static final int TYPE_ALBUM = 2;
+    public static final int TYPE_PLAYLIST = 3;
+
+    @PrimaryKey
+    private int id;
+    // artist_id or album_id or playlist_id
+    private String itemId;
+    private int type;
+
+    public void set(String itemId, int type) {
+        this.itemId = itemId;
+        this.type = type;
+    }
+}
+

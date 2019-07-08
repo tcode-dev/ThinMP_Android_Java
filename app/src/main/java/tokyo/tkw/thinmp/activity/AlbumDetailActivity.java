@@ -6,14 +6,13 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumTrackListAdapter;
+import tokyo.tkw.thinmp.dto.AlbumDetailDto;
+import tokyo.tkw.thinmp.listener.AlbumMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
+import tokyo.tkw.thinmp.logic.AlbumDetailLogic;
 import tokyo.tkw.thinmp.music.Album;
-import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.music.TrackCollection;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
@@ -30,36 +29,43 @@ public class AlbumDetailActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        RecyclerView listView = findViewById(R.id.list);
-
+        // albumId
         String albumId = getIntent().getStringExtra(Album.ALBUM_ID);
 
-        // アルバム
-        Album album = Album.createInstance(this, albumId);
-
-        // 曲一覧
-        TrackCollection trackCollection = TrackCollection.createAlbumTrackCollectionInstance(this
-                , albumId);
-        List<Track> trackList = trackCollection.getList();
-
-        // アルバムアート
+        // view
+        RecyclerView listView = findViewById(R.id.list);
         ImageView albumArtView = findViewById(R.id.albumArt);
-        GlideUtil.bitmap(album.getAlbumArtId(), albumArtView);
+        ResponsiveTextView titleView = findViewById(R.id.title);
+        ResponsiveTextView subTitleView = findViewById(R.id.subTitle);
+        ImageView menuView = findViewById(R.id.menu);
+
+        // logic
+        AlbumDetailLogic logic = AlbumDetailLogic.createInstance(this, albumId);
+
+        // dto
+        AlbumDetailDto dto = logic.createDto();
 
         // アルバム名
-        ResponsiveTextView titleView = findViewById(R.id.title);
-        titleView.setText(album.getName());
+        titleView.setText(dto.albumName);
 
         // アーティスト名
-        ResponsiveTextView subTitleView = findViewById(R.id.subTitle);
-        subTitleView.setText(album.getArtistName());
+        subTitleView.setText(dto.artistName);
 
-        AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(trackList,
-                new TrackClickListener(trackList));
+        // アルバムアート
+        GlideUtil.bitmap(dto.albumArtId, albumArtView);
 
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-
-        listView.setLayoutManager(layout);
+        // adapter
+        AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(
+                dto.trackList,
+                new TrackClickListener(dto.trackList)
+        );
         listView.setAdapter(adapter);
+
+        // layout
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        listView.setLayoutManager(layout);
+
+        // event
+        menuView.setOnClickListener(new AlbumMenuClickListener(albumId));
     }
 }

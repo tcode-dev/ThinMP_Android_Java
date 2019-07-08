@@ -10,16 +10,19 @@
     <string name="playlists">Playlists</string>
     <string name="playlist">Playlist</string>
     <string name="recent_activity">Recent Activity</string>
+    <string name="shortcut">Shortcut</string>
 
-    <string name="edit">EDIT</string>
+    <string name="edit">Edit</string>
     <string name="ok">OK</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel">Cancel</string>
     <string name="add_favorite_artist">Add Favorite Artist</string>
     <string name="add_favorite_song">Add Favorite Song</string>
     <string name="remove_favorite_song">Remove Favorite Song</string>
     <string name="add_playlist">Add Playlist</string>
     <string name="create_playlist">playlistを作成</string>
     <string name="create_playlist_label">プレイリスト名を入力</string>
+    <string name="add_shortcut">Shortcutに追加</string>
+    <string name="remove_shortcut">Shortcutから削除</string>
 
     <string-array name="library_menu">
         <item>@string/artists</item>

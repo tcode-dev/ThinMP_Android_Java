@@ -24,11 +24,11 @@ public abstract class AlbumListItemModel extends EpoxyModelWithHolder<AlbumListI
     @EpoxyAttribute
     String albumName;
     @EpoxyAttribute(DoNotHash)
-    OnClickListener clickListener;
+    OnClickListener albumClickListener;
 
     @Override
     public void bind(@NonNull Holder holder) {
-        holder.parent.setOnClickListener(clickListener);
+        holder.parent.setOnClickListener(albumClickListener);
         GlideUtil.bitmap(albumArtId, holder.albumArt);
         holder.albumName.setText(albumName);
     }
