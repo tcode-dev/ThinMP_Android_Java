@@ -5,7 +5,6 @@ import com.airbnb.epoxy.TypedEpoxyController;
 import com.annimon.stream.Stream;
 
 import java.util.List;
-import java.util.Map;
 
 import tokyo.tkw.thinmp.epoxy.model.ArtistListItemModel_;
 import tokyo.tkw.thinmp.epoxy.model.HeaderModel_;
@@ -26,7 +25,7 @@ public class ArtistsController extends TypedEpoxyController<ArtistsController.Da
             new ArtistListItemModel_()
                     .id(artist.getId())
                     .artistName(artist.getName())
-                    .albumArtId(data.artistAlbumArtMap.get(artist.getId()))
+                    .albumArtId(artist.getAlbumArtId())
                     .clickListener(new ArtistClickListener(artist.getId()))
                     .addTo(this);
         });
@@ -35,6 +34,5 @@ public class ArtistsController extends TypedEpoxyController<ArtistsController.Da
     public static class Data {
         public String title;
         public List<Artist> artistList;
-        public Map<String, String> artistAlbumArtMap;
     }
 }

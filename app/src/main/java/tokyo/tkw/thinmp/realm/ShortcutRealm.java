@@ -4,6 +4,9 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class ShortcutRealm extends RealmObject {
+    public static final String ARTIST = "artist";
+    public static final String ALBUM = "album";
+    public static final String PLAYLIST = "playlist";
     public static final String ID = "id";
     public static final String ITEM_ID = "itemId";
     public static final String TYPE = "type";
@@ -21,6 +24,18 @@ public class ShortcutRealm extends RealmObject {
     public void set(String itemId, int type) {
         this.itemId = itemId;
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public int getType() {
+        return type;
     }
 }
 

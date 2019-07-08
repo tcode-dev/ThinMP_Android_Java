@@ -42,6 +42,20 @@ public class AlbumCollection {
     }
 
     /**
+     * 指定されたアルバムを取得
+     *
+     * @param context
+     * @param albumIdList
+     * @return
+     */
+    public static AlbumCollection createAlbumCollectionInstance(Context context,
+                                                                List<String> albumIdList) {
+        AlbumContentProvider provider = new AlbumContentProvider(context);
+
+        return new AlbumCollection(provider.findById(albumIdList));
+    }
+
+    /**
      * getList
      *
      * @return
@@ -57,7 +71,7 @@ public class AlbumCollection {
      */
     public String getAlbumArtId() {
         return Stream.of(mAlbumList)
-                .map(album -> album.getAlbumArtId())
+                .map(Album::getAlbumArtId)
                 .withoutNulls()
                 .findFirst()
                 .orElse(null);

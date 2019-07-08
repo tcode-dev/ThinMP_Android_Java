@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.adapter.LibraryAdapter;
+import tokyo.tkw.thinmp.adapter.ShortcutListAdapter;
 import tokyo.tkw.thinmp.dto.MainDto;
 import tokyo.tkw.thinmp.logic.MainLogic;
 
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity {
     protected void init() {
         // view
         RecyclerView menuView = findViewById(R.id.libraryMenu);
+        RecyclerView shortcutList = findViewById(R.id.shortcutList);
         RecyclerView list = findViewById(R.id.list);
 
         // logic
@@ -65,5 +67,13 @@ public class MainActivity extends BaseActivity {
         // albumLayout
         GridLayoutManager albumLayout = new GridLayoutManager(this, 2);
         list.setLayoutManager(albumLayout);
+
+        // shortcutListAdapter
+        ShortcutListAdapter shortcutListAdapter = new ShortcutListAdapter(dto.shortcutList);
+        shortcutList.setAdapter(shortcutListAdapter);
+
+        // shortcutLayout
+        GridLayoutManager shortcutLayout = new GridLayoutManager(this, 2);
+        shortcutList.setLayoutManager(shortcutLayout);
     }
 }

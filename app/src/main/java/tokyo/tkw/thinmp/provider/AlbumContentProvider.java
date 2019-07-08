@@ -20,6 +20,15 @@ public class AlbumContentProvider extends MediaStoreAudioAlbumsProvider {
         return get();
     }
 
+    public List<Album> findById(List<String> albumIdList) {
+        selection =
+                MediaStore.Audio.Albums._ID + " IN (" + makePlaceholders(albumIdList.size()) + ")";
+        selectionArgs = toStringArray(albumIdList);
+        sortOrder = null;
+
+        return getList();
+    }
+
     public List<Album> findByArtist(String artistId) {
         selection = MediaStore.Audio.Media.ARTIST_ID + " = ?";
         selectionArgs = new String[]{artistId};

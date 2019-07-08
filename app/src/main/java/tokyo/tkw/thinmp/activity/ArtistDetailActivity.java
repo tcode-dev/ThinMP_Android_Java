@@ -10,6 +10,7 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistDetailController;
+import tokyo.tkw.thinmp.listener.ArtistMenuClickListener;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.AlbumCollection;
 import tokyo.tkw.thinmp.music.Artist;
@@ -76,5 +77,8 @@ public class ArtistDetailActivity extends BaseActivity {
         data.trackListSpanSize = 2;
 
         controller.setData(data);
+
+        ImageView menuView = findViewById(R.id.menu);
+        menuView.setOnClickListener(new ArtistMenuClickListener(artistId));
     }
 }

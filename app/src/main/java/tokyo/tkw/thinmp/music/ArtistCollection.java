@@ -12,35 +12,43 @@ import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
 import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 
 public class ArtistCollection {
-    private Context mContext;
-    private List<Artist> mArtistList;
+    private List<Artist> artistList;
+    private Map<String, String> albumArtMap;
 
-    public ArtistCollection(Context context, List<Artist> artistList) {
-        mContext = context;
-        mArtistList = artistList;
+    private ArtistCollection(Context context) {
+        ArtistContentProvider artistContentProvider = new ArtistContentProvider(context);
+        AlbumArtContentProvider albumArtContentProvider = new AlbumArtContentProvider(context);
+        this.artistList = artistContentProvider.findAll();
+        this.albumArtMap = toArtistAlbumArtMap(albumArtContentProvider.findAll());
+    }
+
+    private ArtistCollection(Context context, List<String> artistIdList) {
+        ArtistContentProvider artistContentProvider = new ArtistContentProvider(context);
+        AlbumArtContentProvider albumArtContentProvider = new AlbumArtContentProvider(context);
+        this.artistList = artistContentProvider.findById(artistIdList);
+        this.albumArtMap = toArtistAlbumArtMap(albumArtContentProvider.findByArtist(getArtistIdList()));
     }
 
     public List<Artist> getList() {
-        return mArtistList;
+        return Stream.of(artistList).map(artist -> {
+            artist.setAlbumArtId(albumArtMap.get(artist.getId()));
+            return artist;
+        }).toList();
+    }
+
+    public static ArtistCollection createArtistCollectionInstance(Context context, List<String> artistIdList) {
+        return new ArtistCollection(context, artistIdList);
     }
 
     public static ArtistCollection createAllArtistCollectionInstance(Context context) {
-        ArtistContentProvider provider = new ArtistContentProvider(context);
-
-        return new ArtistCollection(context, provider.findAll());
+        return new ArtistCollection(context);
     }
 
-    public List<Album> getAllArtistAlbumArtList() {
-        AlbumArtContentProvider provider = new AlbumArtContentProvider(mContext);
-
-        return provider.findAll();
+    private List<String> getArtistIdList() {
+        return Stream.of(artistList).map(Artist::getId).toList();
     }
 
-    public Map<String, String> getAllArtistAlbumArtMap() {
-        return toArtistAlbumArtMap(getAllArtistAlbumArtList());
-    }
-
-    public Map<String, String> toArtistAlbumArtMap(List<Album> artistAlbumList) {
+    private Map<String, String> toArtistAlbumArtMap(List<Album> artistAlbumList) {
         return Stream.of(artistAlbumList)
                 .distinctBy(Album::getArtistId)
                 .collect(Collectors.toMap(Album::getArtistId, Album::getAlbumArtId));

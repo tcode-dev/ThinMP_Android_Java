@@ -31,7 +31,6 @@ public class ArtistsActivity extends BaseActivity {
         ArtistsController.Data data = new ArtistsController.Data();
         data.title = getResources().getString(R.string.artists);
         data.artistList = artistCollection.getList();
-        data.artistAlbumArtMap = artistCollection.getAllArtistAlbumArtMap();
         controller.setData(data);
 
         LinearLayoutManager layout = new LinearLayoutManager(this);
