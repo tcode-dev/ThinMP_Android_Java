@@ -31,18 +31,24 @@ public class PlaylistRegister {
     }
 
     /**
-     * 曲を登録
+     * playlistを新規作成
      *
      * @param name
      * @param track
      */
     public void create(String name, Track track) {
-        ArrayList<Track> trackList = new ArrayList<>();
+        List<Track> trackList = new ArrayList<>();
         trackList.add(track);
         create(name, trackList);
     }
 
-    public void create(String name, ArrayList<Track> trackList) {
+    /**
+     * playlistを新規作成
+     *
+     * @param name
+     * @param trackList
+     */
+    public void create(String name, List<Track> trackList) {
         int playlistId = createNextPlaylistId();
         int nextOrder = createNextPlaylistOrder();
 
@@ -69,18 +75,9 @@ public class PlaylistRegister {
         commitTransaction();
     }
 
-    public void update(int playlistId, List<Integer> trackIdList) {
-        RealmResults realmResults =
-                mRealm.where(PlaylistTrackRealm.class).equalTo(PlaylistTrackRealm.PLAYLIST_ID,
-                playlistId).findAll();
-
-        beginTransaction();
-        realmResults.deleteAllFromRealm();
-    }
-
-    private ArrayList<PlaylistTrackRealm> createPlaylistTrackRealmList(int playlistId,
-                                                                       ArrayList<Track> trackList) {
-        return (ArrayList<PlaylistTrackRealm>) IntStream.range(0, trackList.size()).mapToObj(i -> {
+    private List<PlaylistTrackRealm> createPlaylistTrackRealmList(int playlistId,
+                                                                  List<Track> trackList) {
+        return IntStream.range(0, trackList.size()).mapToObj(i -> {
             Track track = trackList.get(i);
             int playlistTrackRealmId = createNextPlaylistTrackId();
             PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class,

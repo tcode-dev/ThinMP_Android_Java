@@ -1,6 +1,6 @@
 package tokyo.tkw.thinmp.realm;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -18,7 +18,7 @@ public class PlaylistRealm extends RealmObject {
     private int order;
     private RealmList<PlaylistTrackRealm> tracks;
 
-    public void set(String name, ArrayList<PlaylistTrackRealm> trackList, int order) {
+    public void set(String name, List<PlaylistTrackRealm> trackList, int order) {
         this.name = name;
         this.order = order;
         this.tracks.addAll(trackList);

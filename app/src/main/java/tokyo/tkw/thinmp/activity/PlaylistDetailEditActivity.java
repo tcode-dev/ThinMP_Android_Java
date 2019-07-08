@@ -20,8 +20,8 @@ import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
 public class PlaylistDetailEditActivity extends BaseActivity {
-    public RealmList<PlaylistTrackRealm> trackRealmList;
-    public PlaylistDetailEditAdapter adapter;
+    private RealmList<PlaylistTrackRealm> trackRealmList;
+    private PlaylistDetailEditAdapter adapter;
     private PlaylistRealm playlistRealm;
     private PlaylistRegister playlistRegister;
     private EditText playlistName;

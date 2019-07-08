@@ -10,7 +10,7 @@ import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 public class FavoriteSongRegister {
     private Realm mRealm;
 
-    public FavoriteSongRegister() {
+    private FavoriteSongRegister() {
         mRealm = Realm.getDefaultInstance();
     }
 
