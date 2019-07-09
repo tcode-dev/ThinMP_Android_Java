@@ -9,68 +9,30 @@ import java.util.List;
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
 
 public class AlbumCollection {
-    private List<Album> mAlbumList;
+    private AlbumContentProvider provider;
 
-    private AlbumCollection(List<Album> albumList) {
-        mAlbumList = albumList;
+    private AlbumCollection(Context context) {
+        provider = new AlbumContentProvider(context);
     }
 
-    /**
-     * すべてのアルバムを取得
-     *
-     * @param context
-     * @return
-     */
-    public static AlbumCollection createAllAlbumCollectionInstance(Context context) {
-        AlbumContentProvider provider = new AlbumContentProvider(context);
-
-        return new AlbumCollection(provider.findAll());
+    public static AlbumCollection createInstance(Context context) {
+        return new AlbumCollection(context);
     }
 
-    /**
-     * アーティストのすべてのアルバムを取得
-     *
-     * @param context
-     * @param artistId
-     * @return
-     */
-    public static AlbumCollection createArtistAlbumCollectionInstance(Context context,
-                                                                      String artistId) {
-        AlbumContentProvider provider = new AlbumContentProvider(context);
-
-        return new AlbumCollection(provider.findByArtist(artistId));
+    public List<Album> findById(List<String> albumIdList) {
+        return provider.findById(albumIdList);
     }
 
-    /**
-     * 指定されたアルバムを取得
-     *
-     * @param context
-     * @param albumIdList
-     * @return
-     */
-    public static AlbumCollection createAlbumCollectionInstance(Context context,
-                                                                List<String> albumIdList) {
-        AlbumContentProvider provider = new AlbumContentProvider(context);
-
-        return new AlbumCollection(provider.findById(albumIdList));
+    public List<Album> findByArtist(String artistId) {
+        return provider.findByArtist(artistId);
     }
 
-    /**
-     * getList
-     *
-     * @return
-     */
-    public List<Album> getList() {
-        return mAlbumList;
+    public List<Album> findAll() {
+        return provider.findAll();
     }
 
-    /**
-     * AlbumArtIdを取得
-     *
-     * @return
-     */
-    public String getAlbumArtId() {
-        return Stream.of(mAlbumList)
+    public String findFirstAlbumArtId(List<Album> albumList) {
+        return Stream.of(albumList)
                 .map(Album::getAlbumArtId)
                 .withoutNulls()
                 .findFirst()

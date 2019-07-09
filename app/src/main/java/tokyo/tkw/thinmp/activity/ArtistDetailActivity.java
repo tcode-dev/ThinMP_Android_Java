@@ -36,10 +36,9 @@ public class ArtistDetailActivity extends BaseActivity {
         // artist取得
         Artist artist = Artist.createInstance(this, artistId);
 
-        AlbumCollection albumCollection =
-                AlbumCollection.createArtistAlbumCollectionInstance(this, artistId);
-        List<Album> artistAlbumList = albumCollection.getList();
-        String albumArtId = albumCollection.getAlbumArtId();
+        AlbumCollection albumCollection = AlbumCollection.createInstance(this);
+        List<Album> artistAlbumList = albumCollection.findByArtist(artistId);
+        String albumArtId = albumCollection.findFirstAlbumArtId(artistAlbumList);
 
         TrackCollection trackCollection =
                 TrackCollection.createArtistTrackCollectionInstance(this, artistId);

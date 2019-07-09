@@ -24,8 +24,8 @@ public class AlbumsActivity extends BaseActivity {
     protected void init() {
         RecyclerView listView = findViewById(R.id.list);
 
-        AlbumCollection albumCollection = AlbumCollection.createAllAlbumCollectionInstance(this);
-        AlbumListAdapter adapter = new AlbumListAdapter(albumCollection.getList());
+        AlbumCollection albumCollection = AlbumCollection.createInstance(this);
+        AlbumListAdapter adapter = new AlbumListAdapter(albumCollection.findAll());
         GridLayoutManager layout = new GridLayoutManager(this, 2);
 
         listView.setLayoutManager(layout);

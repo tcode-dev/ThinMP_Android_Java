@@ -15,6 +15,9 @@ import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.AlbumCollection;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.ArtistCollection;
+import tokyo.tkw.thinmp.playlist.PlaylistCollection;
+import tokyo.tkw.thinmp.playlist.PlaylistTrack;
+import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 
 public class ShortcutCollection {
@@ -29,6 +32,7 @@ public class ShortcutCollection {
     public List<Shortcut> getList() {
         Map<Integer, Shortcut> artistMap = getArtistShortcutMap();
         Map<Integer, Shortcut> albumMap = getAlbumShortcutMap();
+        Map<Integer, Shortcut> playlistMap = getPlaylistShortcutMap();
 
         return Stream.of(realmResults).map(shortcutRealm -> {
             switch (shortcutRealm.getType()) {
@@ -37,6 +41,9 @@ public class ShortcutCollection {
 
                 case ShortcutRealm.TYPE_ALBUM:
                     return albumMap.get(shortcutRealm.getId());
+
+                case ShortcutRealm.TYPE_PLAYLIST:
+                    return playlistMap.get(shortcutRealm.getId());
 
                 default:
                     return null;
@@ -84,12 +91,40 @@ public class ShortcutCollection {
                         }));
     }
 
+    private Map<Integer, Shortcut> getPlaylistShortcutMap() {
+        List<ShortcutRealm> shortcutRealmList = chunkByPlaylist();
+        List<String> playlistIdList = getItemIdList(shortcutRealmList);
+        List<Integer> playlistIds = Stream.of(playlistIdList).map(Integer::parseInt).toList();
+        List<PlaylistRealm> playLists = getPlayList(playlistIds);
+        Map<String, PlaylistRealm> playlistMap = getPlaylistMap(playLists);
+
+        return Stream.of(shortcutRealmList)
+                .collect(Collectors.toMap(
+                        ShortcutRealm::getId,
+                        shortcutRealm -> {
+                            PlaylistRealm playlistRealm =
+                                    playlistMap.get(shortcutRealm.getItemId());
+                            PlaylistTrack playlistTrack = new PlaylistTrack(context,
+                                    playlistRealm.getId());
+                            return new Shortcut(
+                                    shortcutRealm.getId(),
+                                    playlistRealm.getName(),
+                                    ShortcutRealm.PLAYLIST,
+                                    playlistTrack.getFirstTrackAlbumArtId()
+                            );
+                        }));
+    }
+
     private Map<String, Artist> getArtistMap(List<Artist> artistList) {
         return Stream.of(artistList).collect(Collectors.toMap(Artist::getId, artist -> artist));
     }
 
     private Map<String, Album> getAlbumMap(List<Album> albumList) {
         return Stream.of(albumList).collect(Collectors.toMap(Album::getId, album -> album));
+    }
+
+    private Map<String, PlaylistRealm> getPlaylistMap(List<PlaylistRealm> playlists) {
+        return Stream.of(playlists).collect(Collectors.toMap(playlistRealm -> Integer.toString(playlistRealm.getId()), playlistRealm -> playlistRealm));
     }
 
     private List<Artist> getArtistList(List<String> artistIdList) {
@@ -100,10 +135,16 @@ public class ShortcutCollection {
     }
 
     private List<Album> getAlbumList(List<String> albumIdList) {
-        AlbumCollection albumCollection = AlbumCollection.createAlbumCollectionInstance(context,
-                albumIdList);
+        AlbumCollection albumCollection = AlbumCollection.createInstance(context);
 
-        return albumCollection.getList();
+        return albumCollection.findById(albumIdList);
+    }
+
+    private List<PlaylistRealm> getPlayList(List<Integer> playlistIdList) {
+        PlaylistCollection playlistCollection = PlaylistCollection.createInstance(context);
+        RealmResults<PlaylistRealm> realmResults = playlistCollection.findById(playlistIdList);
+
+        return playlistCollection.toList(realmResults);
     }
 
     private List<String> getItemIdList(List<ShortcutRealm> shortcutRealmList) {
@@ -116,6 +157,10 @@ public class ShortcutCollection {
 
     private List<ShortcutRealm> chunkByAlbum() {
         return chunkBy(ShortcutRealm.TYPE_ALBUM);
+    }
+
+    private List<ShortcutRealm> chunkByPlaylist() {
+        return chunkBy(ShortcutRealm.TYPE_PLAYLIST);
     }
 
     private List<ShortcutRealm> chunkBy(int type) {

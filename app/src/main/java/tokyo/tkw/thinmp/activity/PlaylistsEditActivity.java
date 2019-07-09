@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.annimon.stream.Stream;
 
 import io.realm.RealmList;
+import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistsEditAdapter;
-import tokyo.tkw.thinmp.playlist.Playlist;
+import tokyo.tkw.thinmp.playlist.PlaylistCollection;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
@@ -34,9 +35,10 @@ public class PlaylistsEditActivity extends BaseActivity {
     protected void init() {
         RecyclerView view = findViewById(R.id.list);
 
-        Playlist playlist = new Playlist(this);
+        PlaylistCollection playlistCollection = PlaylistCollection.createInstance(this);
 
-        mList = playlist.getRealmList();
+        RealmResults<PlaylistRealm> RealmResults  = playlistCollection.findAll();
+        mList = playlistCollection.toRealmList(RealmResults);
         mAdapter = new PlaylistsEditAdapter(mList);
         mPlaylistRegister = new PlaylistRegister();
 

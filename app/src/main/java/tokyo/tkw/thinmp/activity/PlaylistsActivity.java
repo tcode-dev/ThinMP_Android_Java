@@ -9,9 +9,11 @@ import android.widget.Button;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistsAdapter;
-import tokyo.tkw.thinmp.playlist.Playlist;
+import tokyo.tkw.thinmp.playlist.PlaylistCollection;
+import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
 public class PlaylistsActivity extends BaseActivity {
 
@@ -29,9 +31,10 @@ public class PlaylistsActivity extends BaseActivity {
         RecyclerView listView = findViewById(R.id.list);
         Button editView = findViewById(R.id.edit);
 
-        Playlist playlist = new Playlist(this);
-        PlaylistsAdapter adapter = new PlaylistsAdapter(playlist.getRealmResults(),
-                playlist.getAlbumArtMap());
+        PlaylistCollection playlistCollection = PlaylistCollection.createInstance(this);
+        RealmResults<PlaylistRealm> realmResults = playlistCollection.findAll();
+        PlaylistsAdapter adapter = new PlaylistsAdapter(realmResults,
+                playlistCollection.getAlbumArtMap(realmResults));
         GridLayoutManager layout = new GridLayoutManager(this, 2);
 
         listView.setLayoutManager(layout);

@@ -55,11 +55,5 @@ public class PlaylistRealm extends RealmObject {
     public void setOrder(int order) {
         this.order = order;
     }
-
-    public static PlaylistRealm createInstance(int playlistId) {
-        Realm realm = Realm.getDefaultInstance();
-
-        return realm.where(PlaylistRealm.class).equalTo(ID, playlistId).findFirst();
-    }
 }
 

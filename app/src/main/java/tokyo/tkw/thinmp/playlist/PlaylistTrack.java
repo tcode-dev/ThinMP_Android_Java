@@ -77,7 +77,8 @@ public class PlaylistTrack {
     }
 
     private RealmList<PlaylistTrackRealm> getTrackRealmList() {
-        PlaylistRealm playlistRealm = PlaylistRealm.createInstance(mPlaylistId);
+        PlaylistCollection playlistCollection = PlaylistCollection.createInstance(mContext);
+        PlaylistRealm playlistRealm = playlistCollection.findById(mPlaylistId);
 
         return playlistRealm.getTrackRealmList();
     }

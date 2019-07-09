@@ -17,7 +17,6 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class PlaylistDetailActivity extends BaseActivity {
-    private int playlistId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class PlaylistDetailActivity extends BaseActivity {
     @Override
     protected void init() {
         // playlistId
-        playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
+        int playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
 
         // view
         RecyclerView listView = findViewById(R.id.list);

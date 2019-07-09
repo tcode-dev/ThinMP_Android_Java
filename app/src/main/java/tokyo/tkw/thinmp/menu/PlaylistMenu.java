@@ -7,7 +7,7 @@ import android.widget.PopupMenu;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.PlaylistDetailEditActivity;
-import tokyo.tkw.thinmp.playlist.Playlist;
+import tokyo.tkw.thinmp.playlist.PlaylistCollection;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 
@@ -73,7 +73,7 @@ public class PlaylistMenu {
     private void edit() {
         Context context = view.getContext();
         Intent intent = new Intent(context, PlaylistDetailEditActivity.class);
-        intent.putExtra(Playlist.PLAYLIST_ID, playlistId);
+        intent.putExtra(PlaylistCollection.PLAYLIST_ID, playlistId);
         context.startActivity(intent);
     }
 }
