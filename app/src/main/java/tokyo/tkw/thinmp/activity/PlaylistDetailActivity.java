@@ -1,10 +1,6 @@
 package tokyo.tkw.thinmp.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDetailAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistDetailDto;
+import tokyo.tkw.thinmp.listener.PlaylistMenuClickListener;
 import tokyo.tkw.thinmp.listener.PlaylistTrackClickListener;
 import tokyo.tkw.thinmp.logic.PlaylistDetailLogic;
-import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
@@ -42,7 +38,7 @@ public class PlaylistDetailActivity extends BaseActivity {
         ImageView albumArtView = findViewById(R.id.albumArt);
         ResponsiveTextView titleView = findViewById(R.id.title);
         ResponsiveTextView subTitleView = findViewById(R.id.subTitle);
-        Button editView = findViewById(R.id.edit);
+        ImageView menuView = findViewById(R.id.menu);
 
         // logic
         PlaylistDetailLogic logic = PlaylistDetailLogic.createInstance(this, playlistId);
@@ -72,15 +68,6 @@ public class PlaylistDetailActivity extends BaseActivity {
         listView.setLayoutManager(layout);
 
         // event
-        editView.setOnClickListener(createEditClickListener());
-    }
-
-    private View.OnClickListener createEditClickListener() {
-        return view -> {
-            Context context = view.getContext();
-            Intent intent = new Intent(context, PlaylistDetailEditActivity.class);
-            intent.putExtra(Playlist.PLAYLIST_ID, playlistId);
-            context.startActivity(intent);
-        };
+        menuView.setOnClickListener(new PlaylistMenuClickListener(playlistId));
     }
 }
