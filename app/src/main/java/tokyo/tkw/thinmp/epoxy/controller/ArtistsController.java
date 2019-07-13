@@ -6,22 +6,31 @@ import com.annimon.stream.Stream;
 
 import java.util.List;
 
+import tokyo.tkw.thinmp.dto.ArtistsDto;
 import tokyo.tkw.thinmp.epoxy.model.ArtistListItemModel_;
 import tokyo.tkw.thinmp.epoxy.model.HeaderModel_;
+import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.music.Artist;
 
-public class ArtistsController extends TypedEpoxyController<ArtistsController.Data> {
+public class ArtistsController extends TypedEpoxyController<ArtistsDto> {
     @AutoModel
     HeaderModel_ headerModel;
     @AutoModel
     ArtistListItemModel_ artistListItemModel;
 
     @Override
-    protected void buildModels(Data data) {
-        new HeaderModel_().id("header").title(data.title).addTo(this);
+    protected void buildModels(ArtistsDto dto) {
+        buildHeader(dto.title);
+        buildArtistList(dto.artistList);
+    }
 
-        Stream.of(data.artistList).forEach(artist -> {
+    private void buildHeader(String title) {
+        new PageHeaderModel_().id("header").title(title).addTo(this);
+    }
+
+    private void buildArtistList(List<Artist> artistList) {
+        Stream.of(artistList).forEach(artist -> {
             new ArtistListItemModel_()
                     .id(artist.getId())
                     .artistName(artist.getName())
@@ -29,10 +38,5 @@ public class ArtistsController extends TypedEpoxyController<ArtistsController.Da
                     .clickListener(new ArtistClickListener(artist.getId()))
                     .addTo(this);
         });
-    }
-
-    public static class Data {
-        public String title;
-        public List<Artist> artistList;
     }
 }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistsController;
-import tokyo.tkw.thinmp.music.ArtistCollection;
+import tokyo.tkw.thinmp.logic.ArtistsLogic;
 
 public class ArtistsActivity extends BaseActivity {
 
@@ -22,17 +22,17 @@ public class ArtistsActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        // view
         RecyclerView listView = findViewById(R.id.list);
 
+        // logic
+        ArtistsLogic logic = ArtistsLogic.createInstance(this);
+
+        // controller
         ArtistsController controller = new ArtistsController();
+        controller.setData(logic.createDto());
 
-        ArtistCollection artistCollection =
-                ArtistCollection.createAllArtistCollectionInstance(this);
-        ArtistsController.Data data = new ArtistsController.Data();
-        data.title = getResources().getString(R.string.artists);
-        data.artistList = artistCollection.getList();
-        controller.setData(data);
-
+        // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
         listView.setLayoutManager(layout);
         listView.setAdapter(controller.getAdapter());
