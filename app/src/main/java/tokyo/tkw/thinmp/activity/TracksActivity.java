@@ -5,14 +5,9 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.TrackListAdapter;
-import tokyo.tkw.thinmp.listener.TrackClickListener;
-import tokyo.tkw.thinmp.music.Track;
-import tokyo.tkw.thinmp.music.TrackCollection;
+import tokyo.tkw.thinmp.epoxy.controller.TracksController;
+import tokyo.tkw.thinmp.logic.TracksLogic;
 
 public class TracksActivity extends BaseActivity {
 
@@ -27,17 +22,19 @@ public class TracksActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        // view
         RecyclerView listView = findViewById(R.id.list);
 
-        TrackCollection trackCollection = TrackCollection.createAllTrackCollectionInstance(this);
-        List<Track> trackList = trackCollection.getList();
+        // logic
+        TracksLogic logic = TracksLogic.createInstance(this);
 
-        TrackListAdapter adapter = new TrackListAdapter(trackList,
-                new TrackClickListener(trackList));
+        // controller
+        TracksController controller = new TracksController();
+        controller.setData(logic.createDto());
+        listView.setAdapter(controller.getAdapter());
 
+        // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
-
         listView.setLayoutManager(layout);
-        listView.setAdapter(adapter);
     }
 }

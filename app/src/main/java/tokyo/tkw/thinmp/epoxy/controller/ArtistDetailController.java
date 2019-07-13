@@ -7,8 +7,8 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.dto.ArtistDetailDto;
 import tokyo.tkw.thinmp.epoxy.model.ArtistAlbumModel_;
+import tokyo.tkw.thinmp.epoxy.model.ArtistTrackModel_;
 import tokyo.tkw.thinmp.epoxy.model.SectionHeaderModel_;
-import tokyo.tkw.thinmp.epoxy.model.TrackListItemModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.listener.EpoxyTrackClickListener;
 import tokyo.tkw.thinmp.music.Album;
@@ -54,7 +54,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
 
     private void buildTrackList(List<Track> trackList, int spanSize) {
         Stream.of(trackList).forEachIndexed((i, track) -> {
-            new TrackListItemModel_()
+            new ArtistTrackModel_()
                     .id(i)
                     .trackName(track.getTitle())
                     .albumArtId(track.getAlbumArtId())
