@@ -7,9 +7,9 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainDto;
+import tokyo.tkw.thinmp.epoxy.model.AlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuModel_;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
-import tokyo.tkw.thinmp.epoxy.model.RecentlyAddedModel_;
 import tokyo.tkw.thinmp.epoxy.model.SectionHeaderModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutArtistModel_;
@@ -109,7 +109,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
 
     private void buildRecentlyAdded(List<Album> albumList, int spanSize) {
         Stream.of(albumList).forEachIndexed((i, album) -> {
-            new RecentlyAddedModel_()
+            new AlbumModel_()
                     .id(album.getId())
                     .primaryText(album.getName())
                     .secondaryText(album.getArtistName())

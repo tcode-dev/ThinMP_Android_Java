@@ -7,45 +7,26 @@
     android:background="#ffffff"
     tools:context=".activity.AlbumsActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
+            android:layout_marginStart="20dp"
+            android:clipToPadding="false"
+            android:fitsSystemWindows="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:fitsSystemWindows="true"
-                android:text="@string/albums"
-                android:textColor="#000000"
-                android:textSize="30sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:paddingBottom="20dp"
-                android:scrollbars="vertical" />
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
 
     <fragment
         android:id="@+id/includeMiniPlayer"

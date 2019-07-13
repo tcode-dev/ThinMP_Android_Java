@@ -18,7 +18,7 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
 @EpoxyModelClass(layout = R.layout.panel4)
-public abstract class RecentlyAddedModel extends EpoxyModelWithHolder<RecentlyAddedModel.Holder> {
+public abstract class AlbumModel extends EpoxyModelWithHolder<AlbumModel.Holder> {
     @EpoxyAttribute
     String albumArtId;
     @EpoxyAttribute
