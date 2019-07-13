@@ -1,71 +1,66 @@
 package tokyo.tkw.thinmp.epoxy.controller;
 
-import com.airbnb.epoxy.AutoModel;
 import com.airbnb.epoxy.TypedEpoxyController;
 import com.annimon.stream.Stream;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import tokyo.tkw.thinmp.epoxy.model.AlbumListItemModel_;
-import tokyo.tkw.thinmp.epoxy.model.HeaderModel_;
+import tokyo.tkw.thinmp.dto.ArtistDetailDto;
+import tokyo.tkw.thinmp.epoxy.model.ArtistAlbumModel_;
+import tokyo.tkw.thinmp.epoxy.model.SectionHeaderModel_;
 import tokyo.tkw.thinmp.epoxy.model.TrackListItemModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
-import tokyo.tkw.thinmp.listener.AlbumMenuClickListener;
 import tokyo.tkw.thinmp.listener.EpoxyTrackClickListener;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
 
-public class ArtistDetailController extends TypedEpoxyController<ArtistDetailController.Data> {
-    @AutoModel
-    HeaderModel_ headerModel;
-    @AutoModel
-    AlbumListItemModel_ artistListItemModel;
-    @AutoModel
-    TrackListItemModel_ trackListItemModel;
+public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto> {
 
     @Override
-    protected void buildModels(Data data) {
-        new HeaderModel_()
-                .id("albums")
-                .title(data.albums)
-                .spanSizeOverride((totalSpanCount, position, itemCount) -> data.titleSpanSize)
-                .addTo(this);
+    protected void buildModels(ArtistDetailDto dto) {
+        buildAlbumsHeader(dto.albumsTitle, dto.titleSpanSize);
+        buildAlbumList(dto.albumList, dto.albumListSpanSize);
+        buildSongsHeader(dto.songsTitle, dto.titleSpanSize);
+        buildTrackList(dto.trackList, dto.trackListSpanSize);
+    }
 
-        Stream.of(data.albumList).forEachIndexed((i, album) -> {
-            new AlbumListItemModel_()
-                    .id(album.getId())
+    private void buildAlbumsHeader(String title, int spanSize) {
+        new SectionHeaderModel_()
+                .id("albums")
+                .title(title)
+                .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
+                .addTo(this);
+    }
+
+    private void buildAlbumList(List<Album> albumList, int spanSize) {
+        Stream.of(albumList).forEachIndexed((i, album) -> {
+            new ArtistAlbumModel_()
+                    .id(i)
                     .albumName(album.getName())
                     .albumArtId(album.getAlbumArtId())
                     .albumClickListener(new AlbumClickListener(album.getId()))
-                    .spanSizeOverride((totalSpanCount, position, itemCount) -> data.albumListSpanSize)
-                    .addTo(this);
-        });
-
-        new HeaderModel_()
-                .id("tracks")
-                .title(data.songs)
-                .spanSizeOverride((totalSpanCount, position, itemCount) -> data.titleSpanSize)
-                .addTo(this);
-
-        Stream.of(data.trackList).forEachIndexed((i, track) -> {
-            new TrackListItemModel_()
-                    .id(track.getId())
-                    .trackName(track.getTitle())
-                    .albumArtId(track.getAlbumArtId())
-                    .spanSizeOverride((totalSpanCount, position, itemCount) -> data.trackListSpanSize)
-                    .clickListener(new EpoxyTrackClickListener(data.trackList, i))
+                    .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                     .addTo(this);
         });
     }
 
-    public static class Data {
-        public String albums;
-        public List<Album> albumList;
-        public String songs;
-        public List<Track> trackList;
-        public int titleSpanSize;
-        public int albumListSpanSize;
-        public int trackListSpanSize;
+    private void buildSongsHeader(String title, int spanSize) {
+        new SectionHeaderModel_()
+                .id("tracks")
+                .title(title)
+                .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
+                .addTo(this);
+    }
+
+    private void buildTrackList(List<Track> trackList, int spanSize) {
+        Stream.of(trackList).forEachIndexed((i, track) -> {
+            new TrackListItemModel_()
+                    .id(i)
+                    .trackName(track.getTitle())
+                    .albumArtId(track.getAlbumArtId())
+                    .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
+                    .clickListener(new EpoxyTrackClickListener(trackList, i))
+                    .addTo(this);
+        });
     }
 }
