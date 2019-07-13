@@ -3,6 +3,7 @@ package tokyo.tkw.thinmp.logic;
 import android.content.Context;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainDto;
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
 import tokyo.tkw.thinmp.shortcut.ShortcutCollection;
@@ -25,9 +26,18 @@ public class MainLogic {
     public MainDto createDto() {
         MainDto dto = new MainDto();
 
-        dto.menuLabelList = context.getResources().getStringArray(R.array.library_menu);
+        dto.pageTitle = context.getString(R.string.library);
+        dto.shortcutTitle = context.getString(R.string.shortcut);
+        dto.recentlyAddedTitle = context.getString(R.string.recently_added);
+        dto.menuList = MainMenuEnum.values();
         dto.shortcutList = shortcutCollection.getList();
-        dto.albumList = albumContentProvider.findAll();
+        dto.recentlyAddedList = albumContentProvider.findAll();
+        dto.pageTitleSpanSize = 2;
+        dto.shortcutTitleSpanSize = 2;
+        dto.recentlyAddedTitleSpanSize = 2;
+        dto.mainMenuSpanSize = 2;
+        dto.recentlyAddedListSpanSize = 1;
+        dto.shortcutListSpanSize = 1;
 
         return dto;
     }

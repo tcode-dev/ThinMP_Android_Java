@@ -34,6 +34,11 @@ public class ShortcutCollection {
         Map<Integer, Shortcut> albumMap = getAlbumShortcutMap();
         Map<Integer, Shortcut> playlistMap = getPlaylistShortcutMap();
 
+        return toShortcutList(artistMap, albumMap, playlistMap);
+    }
+
+    private List<Shortcut> toShortcutList(Map<Integer, Shortcut> artistMap, Map<Integer,
+            Shortcut> albumMap, Map<Integer, Shortcut> playlistMap) {
         return Stream.of(realmResults).map(shortcutRealm -> {
             switch (shortcutRealm.getType()) {
                 case ShortcutRealm.TYPE_ARTIST:
@@ -57,13 +62,18 @@ public class ShortcutCollection {
         List<Artist> artistList = getArtistList(artistIdList);
         Map<String, Artist> artistMap = getArtistMap(artistList);
 
+        return toArtistShortcutMap(shortcutRealmList, artistMap);
+    }
+
+    private Map<Integer, Shortcut> toArtistShortcutMap(List<ShortcutRealm> shortcutRealmList,
+                                                       Map<String, Artist> artistMap) {
         return Stream.of(shortcutRealmList)
                 .collect(Collectors.toMap(
                         ShortcutRealm::getId,
                         shortcutRealm -> {
                             Artist artist = artistMap.get(shortcutRealm.getItemId());
                             return new Shortcut(
-                                    shortcutRealm.getId(),
+                                    shortcutRealm.getItemId(),
                                     artist.getName(),
                                     ShortcutRealm.ARTIST,
                                     artist.getAlbumArtId()
@@ -77,13 +87,18 @@ public class ShortcutCollection {
         List<Album> albumList = getAlbumList(albumIdList);
         Map<String, Album> albumMap = getAlbumMap(albumList);
 
+        return toAlbumShortcutMap(shortcutRealmList, albumMap);
+    }
+
+    private Map<Integer, Shortcut> toAlbumShortcutMap(List<ShortcutRealm> shortcutRealmList,
+                                                      Map<String, Album> albumMap) {
         return Stream.of(shortcutRealmList)
                 .collect(Collectors.toMap(
                         ShortcutRealm::getId,
                         shortcutRealm -> {
                             Album album = albumMap.get(shortcutRealm.getItemId());
                             return new Shortcut(
-                                    shortcutRealm.getId(),
+                                    shortcutRealm.getItemId(),
                                     album.getName(),
                                     ShortcutRealm.ALBUM,
                                     album.getAlbumArtId()
@@ -98,6 +113,11 @@ public class ShortcutCollection {
         List<PlaylistRealm> playLists = getPlayList(playlistIds);
         Map<String, PlaylistRealm> playlistMap = getPlaylistMap(playLists);
 
+        return toPlaylistShortcutMap(shortcutRealmList, playlistMap);
+    }
+
+    private Map<Integer, Shortcut> toPlaylistShortcutMap(List<ShortcutRealm> shortcutRealmList,
+                                                         Map<String, PlaylistRealm> playlistMap) {
         return Stream.of(shortcutRealmList)
                 .collect(Collectors.toMap(
                         ShortcutRealm::getId,
@@ -107,7 +127,7 @@ public class ShortcutCollection {
                             PlaylistTrack playlistTrack = new PlaylistTrack(context,
                                     playlistRealm.getId());
                             return new Shortcut(
-                                    shortcutRealm.getId(),
+                                    shortcutRealm.getItemId(),
                                     playlistRealm.getName(),
                                     ShortcutRealm.PLAYLIST,
                                     playlistTrack.getFirstTrackAlbumArtId()
@@ -124,7 +144,10 @@ public class ShortcutCollection {
     }
 
     private Map<String, PlaylistRealm> getPlaylistMap(List<PlaylistRealm> playlists) {
-        return Stream.of(playlists).collect(Collectors.toMap(playlistRealm -> Integer.toString(playlistRealm.getId()), playlistRealm -> playlistRealm));
+        return Stream.of(playlists)
+                .collect(Collectors.toMap(
+                        playlistRealm -> Integer.toString(playlistRealm.getId()),
+                        playlistRealm -> playlistRealm));
     }
 
     private List<Artist> getArtistList(List<String> artistIdList) {

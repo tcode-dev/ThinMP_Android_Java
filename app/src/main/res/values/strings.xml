@@ -9,7 +9,7 @@
     <string name="favorite_songs">Favorite Songs</string>
     <string name="playlists">Playlists</string>
     <string name="playlist">Playlist</string>
-    <string name="recent_activity">Recent Activity</string>
+    <string name="recently_added">Recently Added</string>
     <string name="shortcut">Shortcut</string>
 
     <string name="edit">Edit</string>
@@ -23,13 +23,4 @@
     <string name="create_playlist_label">プレイリスト名を入力</string>
     <string name="add_shortcut">Shortcutに追加</string>
     <string name="remove_shortcut">Shortcutから削除</string>
-
-    <string-array name="library_menu">
-        <item>@string/artists</item>
-        <item>@string/albums</item>
-        <item>@string/songs</item>
-        <item>@string/favorite_artists</item>
-        <item>@string/favorite_songs</item>
-        <item>@string/playlists</item>
-    </string-array>
 </resources>

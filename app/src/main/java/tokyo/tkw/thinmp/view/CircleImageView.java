@@ -21,6 +21,14 @@ public class CircleImageView extends AppCompatImageView {
         this.setClipToOutline(true);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int width = getMeasuredWidth();
+        setMeasuredDimension(width, width);
+    }
+
     public static class CircleOutlineProvider extends ViewOutlineProvider {
 
         @Override
