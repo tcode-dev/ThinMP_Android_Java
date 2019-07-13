@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.epoxy.controller;
 
-import com.airbnb.epoxy.AutoModel;
 import com.airbnb.epoxy.TypedEpoxyController;
 import com.annimon.stream.Stream;
 
@@ -8,8 +7,6 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainDto;
-import tokyo.tkw.thinmp.epoxy.model.ArtistListItemModel_;
-import tokyo.tkw.thinmp.epoxy.model.HeaderModel_;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuModel_;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
 import tokyo.tkw.thinmp.epoxy.model.RecentlyAddedModel_;
@@ -26,10 +23,6 @@ import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.Shortcut;
 
 public class MainController extends TypedEpoxyController<MainDto> {
-    @AutoModel
-    HeaderModel_ headerModel;
-    @AutoModel
-    ArtistListItemModel_ artistListItemModel;
 
     @Override
     protected void buildModels(MainDto dto) {
