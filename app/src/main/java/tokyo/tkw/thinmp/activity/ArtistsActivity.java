@@ -31,10 +31,10 @@ public class ArtistsActivity extends BaseActivity {
         // controller
         ArtistsController controller = new ArtistsController();
         controller.setData(logic.createDto());
+        listView.setAdapter(controller.getAdapter());
 
         // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
         listView.setLayoutManager(layout);
-        listView.setAdapter(controller.getAdapter());
     }
 }
