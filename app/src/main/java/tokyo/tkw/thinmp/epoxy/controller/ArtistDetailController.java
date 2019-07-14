@@ -11,6 +11,7 @@ import tokyo.tkw.thinmp.epoxy.model.ArtistTrackModel_;
 import tokyo.tkw.thinmp.epoxy.model.SectionHeaderModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.listener.EpoxyTrackClickListener;
+import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Track;
 
@@ -59,7 +60,8 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
                     .trackName(track.getTitle())
                     .albumArtId(track.getAlbumArtId())
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
-                    .clickListener(new EpoxyTrackClickListener(trackList, i))
+                    .trackClickListener(new EpoxyTrackClickListener(trackList, i))
+                    .menuClickListener(new TrackMenuClickListener(track.getId()))
                     .addTo(this);
         });
     }

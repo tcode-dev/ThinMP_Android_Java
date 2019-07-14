@@ -26,14 +26,17 @@ public abstract class TrackModel extends EpoxyModelWithHolder<TrackModel.Holder>
     @EpoxyAttribute
     String artistName;
     @EpoxyAttribute(DoNotHash)
-    OnClickListener clickListener;
+    OnClickListener trackClickListener;
+    @EpoxyAttribute(DoNotHash)
+    OnClickListener menuClickListener;
 
     @Override
     public void bind(@NonNull Holder holder) {
         GlideUtil.bitmap(albumArtId, holder.albumArt);
         holder.trackName.setText(trackName);
         holder.artistName.setText(artistName);
-        holder.parent.setOnClickListener(clickListener);
+        holder.parent.setOnClickListener(trackClickListener);
+        holder.menu.setOnClickListener(menuClickListener);
     }
 
     static class Holder extends EpoxyHolder {
@@ -41,6 +44,7 @@ public abstract class TrackModel extends EpoxyModelWithHolder<TrackModel.Holder>
         ImageView albumArt;
         TextView trackName;
         TextView artistName;
+        ImageView menu;
 
         @Override
         protected void bindView(@NonNull View itemView) {
@@ -48,6 +52,7 @@ public abstract class TrackModel extends EpoxyModelWithHolder<TrackModel.Holder>
             albumArt = itemView.findViewById(R.id.albumArt);
             trackName = itemView.findViewById(R.id.primaryText);
             artistName = itemView.findViewById(R.id.secondaryText);
+            menu = itemView.findViewById(R.id.menu);
         }
     }
 }

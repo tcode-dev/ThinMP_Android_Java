@@ -9,6 +9,7 @@ import tokyo.tkw.thinmp.dto.TracksDto;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
 import tokyo.tkw.thinmp.epoxy.model.TrackModel_;
 import tokyo.tkw.thinmp.listener.EpoxyTrackClickListener;
+import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
 import tokyo.tkw.thinmp.music.Track;
 
 public class TracksController extends TypedEpoxyController<TracksDto> {
@@ -33,7 +34,8 @@ public class TracksController extends TypedEpoxyController<TracksDto> {
                     .albumArtId(track.getAlbumArtId())
                     .trackName(track.getTitle())
                     .artistName(track.getArtistName())
-                    .clickListener(new EpoxyTrackClickListener(trackList, i))
+                    .trackClickListener(new EpoxyTrackClickListener(trackList, i))
+                    .menuClickListener(new TrackMenuClickListener(track.getId()))
                     .addTo(this);
         });
     }
