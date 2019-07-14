@@ -26,16 +26,16 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
 
     private void buildAlbumsHeader(String title, int spanSize) {
         new SectionHeaderModel_()
-                .id("albums")
+                .id("albums header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                 .addTo(this);
     }
 
     private void buildAlbumList(List<Album> albumList, int spanSize) {
-        Stream.of(albumList).forEachIndexed((i, album) -> {
+        Stream.of(albumList).forEach(album -> {
             new ArtistAlbumModel_()
-                    .id(i)
+                    .id("album", album.getId())
                     .albumName(album.getName())
                     .albumArtId(album.getAlbumArtId())
                     .albumClickListener(new AlbumClickListener(album.getId()))
@@ -46,7 +46,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
 
     private void buildSongsHeader(String title, int spanSize) {
         new SectionHeaderModel_()
-                .id("tracks")
+                .id("tracks header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                 .addTo(this);
@@ -55,7 +55,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
     private void buildTrackList(List<Track> trackList, int spanSize) {
         Stream.of(trackList).forEachIndexed((i, track) -> {
             new ArtistTrackModel_()
-                    .id(i)
+                    .id("track", track.getId())
                     .trackName(track.getTitle())
                     .albumArtId(track.getAlbumArtId())
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)

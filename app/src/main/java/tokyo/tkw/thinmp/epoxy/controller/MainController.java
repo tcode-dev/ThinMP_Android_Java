@@ -36,7 +36,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
 
     private void buildPageHeader(String title, int spanSize) {
         new PageHeaderModel_()
-                .id("header")
+                .id("page header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                 .addTo(this);
@@ -45,7 +45,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
     private void buildMenu(MainMenuEnum[] menuList, int spanSize) {
         Stream.of(menuList).forEachIndexed((i, menu) -> {
             new MainMenuModel_()
-                    .id(i)
+                    .id("menu", i)
                     .label(menu.label())
                     .clickListener(new MainMenuClickListener(menu.link()))
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
@@ -55,18 +55,18 @@ public class MainController extends TypedEpoxyController<MainDto> {
 
     private void buildShortcutHeader(String title, int spanSize) {
         new SectionHeaderModel_()
-                .id("header")
+                .id("shortcut header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                 .addTo(this);
     }
 
     private void buildShortcut(List<Shortcut> shortcutList, int spanSize) {
-        Stream.of(shortcutList).forEachIndexed((i, shortcut) -> {
+        Stream.of(shortcutList).forEach(shortcut -> {
             switch (shortcut.getType()) {
                 case ShortcutRealm.ARTIST:
                     new ShortcutArtistModel_()
-                            .id(i)
+                            .id("shortcut", shortcut.getId())
                             .name(shortcut.getName())
                             .type(shortcut.getType())
                             .albumArtId(shortcut.getAlbumArtId())
@@ -76,7 +76,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
                     break;
                 case ShortcutRealm.ALBUM:
                     new ShortcutAlbumModel_()
-                            .id(i)
+                            .id("shortcut", shortcut.getId())
                             .name(shortcut.getName())
                             .type(shortcut.getType())
                             .albumArtId(shortcut.getAlbumArtId())
@@ -86,7 +86,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
                     break;
                 case ShortcutRealm.PLAYLIST:
                     new ShortcutPlaylistModel_()
-                            .id(i)
+                            .id("shortcut", shortcut.getId())
                             .name(shortcut.getName())
                             .type(shortcut.getType())
                             .albumArtId(shortcut.getAlbumArtId())
@@ -101,14 +101,14 @@ public class MainController extends TypedEpoxyController<MainDto> {
 
     private void buildRecentlyAddedHeader(String title, int spanSize) {
         new SectionHeaderModel_()
-                .id("header")
+                .id("recently added header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                 .addTo(this);
     }
 
     private void buildRecentlyAdded(List<Album> albumList, int spanSize) {
-        Stream.of(albumList).forEachIndexed((i, album) -> {
+        Stream.of(albumList).forEach(album -> {
             new AlbumModel_()
                     .id(album.getId())
                     .primaryText(album.getName())

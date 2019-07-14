@@ -20,7 +20,10 @@ public class ArtistsController extends TypedEpoxyController<ArtistsDto> {
     }
 
     private void buildHeader(String title) {
-        new PageHeaderModel_().id("header").title(title).addTo(this);
+        new PageHeaderModel_()
+                .id("header")
+                .title(title)
+                .addTo(this);
     }
 
     private void buildArtistList(List<Artist> artistList) {

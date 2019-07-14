@@ -28,9 +28,9 @@ public class AlbumsController extends TypedEpoxyController<AlbumsDto> {
     }
 
     private void buildAlbumList(List<Album> albumList, int spanSize) {
-        Stream.of(albumList).forEachIndexed((i, album) -> {
+        Stream.of(albumList).forEach(album -> {
             new AlbumModel_()
-                    .id(i)
+                    .id(album.getId())
                     .primaryText(album.getName())
                     .secondaryText(album.getArtistName())
                     .albumArtId(album.getAlbumArtId())

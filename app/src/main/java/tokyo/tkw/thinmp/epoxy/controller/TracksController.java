@@ -29,7 +29,7 @@ public class TracksController extends TypedEpoxyController<TracksDto> {
     private void buildTrackList(List<Track> trackList) {
         Stream.of(trackList).forEachIndexed((i, track) -> {
             new TrackModel_()
-                    .id(i)
+                    .id(track.getId())
                     .albumArtId(track.getAlbumArtId())
                     .trackName(track.getTitle())
                     .artistName(track.getArtistName())
