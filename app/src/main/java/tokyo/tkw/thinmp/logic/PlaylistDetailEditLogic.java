@@ -3,7 +3,7 @@ package tokyo.tkw.thinmp.logic;
 import android.content.Context;
 
 import tokyo.tkw.thinmp.dto.PlaylistDetailEditDto;
-import tokyo.tkw.thinmp.playlist.PlaylistCollection;
+import tokyo.tkw.thinmp.playlist.Playlists;
 import tokyo.tkw.thinmp.playlist.PlaylistTrack;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
@@ -12,9 +12,9 @@ public class PlaylistDetailEditLogic {
     private PlaylistTrack playlistTrack;
 
     private PlaylistDetailEditLogic(Context context, int playlistId) {
-        PlaylistCollection playlistCollection = PlaylistCollection.createInstance(context);
+        Playlists playlists = Playlists.createInstance(context);
 
-        playlistRealm = playlistCollection.findById(playlistId);
+        playlistRealm = playlists.findById(playlistId);
         playlistTrack = new PlaylistTrack(context, playlistId);
     }
 

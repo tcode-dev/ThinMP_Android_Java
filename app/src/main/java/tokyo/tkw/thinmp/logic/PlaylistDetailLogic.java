@@ -4,7 +4,7 @@ import android.content.Context;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.PlaylistDetailDto;
-import tokyo.tkw.thinmp.playlist.PlaylistCollection;
+import tokyo.tkw.thinmp.playlist.Playlists;
 import tokyo.tkw.thinmp.playlist.PlaylistTrack;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
@@ -14,10 +14,10 @@ public class PlaylistDetailLogic {
     private PlaylistTrack playlistTrack;
 
     private PlaylistDetailLogic(Context context, int playlistId) {
-        PlaylistCollection playlistCollection = PlaylistCollection.createInstance(context);
+        Playlists playlists = Playlists.createInstance(context);
 
         this.context = context;
-        this.playlistRealm = playlistCollection.findById(playlistId);
+        this.playlistRealm = playlists.findById(playlistId);
         this.playlistTrack = new PlaylistTrack(context, playlistId);
     }
 

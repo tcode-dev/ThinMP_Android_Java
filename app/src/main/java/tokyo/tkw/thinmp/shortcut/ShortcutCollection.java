@@ -15,7 +15,7 @@ import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.AlbumCollection;
 import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.music.ArtistCollection;
-import tokyo.tkw.thinmp.playlist.PlaylistCollection;
+import tokyo.tkw.thinmp.playlist.Playlists;
 import tokyo.tkw.thinmp.playlist.PlaylistTrack;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
@@ -164,10 +164,10 @@ public class ShortcutCollection {
     }
 
     private List<PlaylistRealm> getPlayList(List<Integer> playlistIdList) {
-        PlaylistCollection playlistCollection = PlaylistCollection.createInstance(context);
-        RealmResults<PlaylistRealm> realmResults = playlistCollection.findById(playlistIdList);
+        Playlists playlists = Playlists.createInstance(context);
+        RealmResults<PlaylistRealm> realmResults = playlists.findById(playlistIdList);
 
-        return playlistCollection.toList(realmResults);
+        return playlists.toList(realmResults);
     }
 
     private List<String> getItemIdList(List<ShortcutRealm> shortcutRealmList) {

@@ -17,19 +17,19 @@ import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 
-public class PlaylistCollection {
+public class Playlists {
     public static final String PLAYLIST_ID = "playlistId";
 
     private Context mContext;
     private Realm realm;
 
-    private PlaylistCollection(Context context) {
+    private Playlists(Context context) {
         mContext = context;
         realm = Realm.getDefaultInstance();
     }
 
-    public static PlaylistCollection createInstance(Context context) {
-        return new PlaylistCollection(context);
+    public static Playlists createInstance(Context context) {
+        return new Playlists(context);
     }
 
     public PlaylistRealm findById(int playlistId) {

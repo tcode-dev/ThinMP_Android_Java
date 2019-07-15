@@ -13,7 +13,7 @@ import io.realm.RealmList;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistsEditAdapter;
-import tokyo.tkw.thinmp.playlist.PlaylistCollection;
+import tokyo.tkw.thinmp.playlist.Playlists;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
@@ -35,10 +35,10 @@ public class PlaylistsEditActivity extends BaseActivity {
     protected void init() {
         RecyclerView view = findViewById(R.id.list);
 
-        PlaylistCollection playlistCollection = PlaylistCollection.createInstance(this);
+        Playlists playlists = Playlists.createInstance(this);
 
-        RealmResults<PlaylistRealm> RealmResults  = playlistCollection.findAll();
-        mList = playlistCollection.toRealmList(RealmResults);
+        RealmResults<PlaylistRealm> RealmResults  = playlists.findAll();
+        mList = playlists.toRealmList(RealmResults);
         mAdapter = new PlaylistsEditAdapter(mList);
         mPlaylistRegister = new PlaylistRegister();
 
