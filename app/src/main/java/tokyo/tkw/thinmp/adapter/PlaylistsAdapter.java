@@ -6,26 +6,25 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.annimon.stream.Optional;
-
 import java.util.Map;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.PlaylistClickListener;
+import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
 public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, ImageRowViewHolder> {
-    private Map<Integer, Optional<String>> albumArtMap;
+    private Map<Integer, Playlist> playlistMap;
 
     public PlaylistsAdapter(OrderedRealmCollection<PlaylistRealm> playlists,
-                            Map<Integer, Optional<String>> albumArtMap) {
+                            Map<Integer, Playlist> playlistMap) {
         super(playlists, true);
 
-        this.albumArtMap = albumArtMap;
+        this.playlistMap = playlistMap;
     }
 
     @NonNull
@@ -40,9 +39,10 @@ public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, Im
     public void onBindViewHolder(@NonNull ImageRowViewHolder holder, int position) {
         PlaylistRealm playlistRealm = getItem(position);
         int playlistId = playlistRealm.getId();
-        String name = playlistRealm.getName();
+        Playlist playlist = playlistMap.get(playlistId);
+        String name = playlist.getName();
 
-        GlideUtil.bitmap(albumArtMap.get(playlistId), holder.albumArt);
+        GlideUtil.bitmap(playlist.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(name);
 
         holder.itemView.setOnClickListener(new PlaylistClickListener(playlistId));

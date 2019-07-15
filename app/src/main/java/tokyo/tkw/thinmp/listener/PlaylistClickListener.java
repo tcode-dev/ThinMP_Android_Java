@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import tokyo.tkw.thinmp.activity.PlaylistDetailActivity;
-import tokyo.tkw.thinmp.playlist.Playlists;
+import tokyo.tkw.thinmp.playlist.Playlist;
 
 public class PlaylistClickListener implements View.OnClickListener {
     private int mPlaylistId;
@@ -18,7 +18,7 @@ public class PlaylistClickListener implements View.OnClickListener {
     public void onClick(View v) {
         Context context = v.getContext();
         Intent intent = new Intent(context, PlaylistDetailActivity.class);
-        intent.putExtra(Playlists.PLAYLIST_ID, mPlaylistId);
+        intent.putExtra(Playlist.PLAYLIST_ID, mPlaylistId);
         context.startActivity(intent);
     }
 }

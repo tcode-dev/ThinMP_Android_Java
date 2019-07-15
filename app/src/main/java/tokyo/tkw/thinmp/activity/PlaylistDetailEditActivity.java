@@ -15,6 +15,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDetailEditAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistDetailEditDto;
 import tokyo.tkw.thinmp.logic.PlaylistDetailEditLogic;
+import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
@@ -38,7 +39,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
     @Override
     protected void init() {
         // playlistId
-        int playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
+        int playlistId = getIntent().getIntExtra(Playlist.PLAYLIST_ID, 0);
 
         // view
         playlistName = findViewById(R.id.playlistName);

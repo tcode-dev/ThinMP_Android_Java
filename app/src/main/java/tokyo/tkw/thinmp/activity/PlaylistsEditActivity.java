@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,16 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.annimon.stream.Stream;
 
 import io.realm.RealmList;
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistsEditAdapter;
-import tokyo.tkw.thinmp.playlist.Playlists;
+import tokyo.tkw.thinmp.dto.PlaylistsEditDto;
+import tokyo.tkw.thinmp.logic.PlaylistsEditLogic;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
 public class PlaylistsEditActivity extends BaseActivity {
     private PlaylistsEditAdapter mAdapter;
-    private RealmList<PlaylistRealm> mList;
+    private RealmList<PlaylistRealm> realmList;
     private PlaylistRegister mPlaylistRegister;
 
     @Override
@@ -33,26 +34,38 @@ public class PlaylistsEditActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        RecyclerView view = findViewById(R.id.list);
+        // view
+        RecyclerView listView = findViewById(R.id.list);
+        Button applyView = findViewById(R.id.apply);
+        Button cancelView = findViewById(R.id.cancel);
 
-        Playlists playlists = Playlists.createInstance(this);
+        // logic
+        PlaylistsEditLogic logic = PlaylistsEditLogic.createInstance(this);
 
-        RealmResults<PlaylistRealm> RealmResults  = playlists.findAll();
-        mList = playlists.toRealmList(RealmResults);
-        mAdapter = new PlaylistsEditAdapter(mList);
-        mPlaylistRegister = new PlaylistRegister();
+        // dto
+        PlaylistsEditDto dto = logic.createDto();
 
-        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
-        itemTouchHelper.attachToRecyclerView(view);
+        // プレイリスト一覧
+        realmList = dto.realmList;
 
-        findViewById(R.id.apply).setOnClickListener(createApplyClickListener());
-        findViewById(R.id.cancel).setOnClickListener(createCancelClickListener());
+        // adapter
+        mAdapter = new PlaylistsEditAdapter(realmList, dto.playlistMap);
+        listView.setAdapter(mAdapter);
 
+        // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
+        listView.setLayoutManager(layout);
 
-        view.setLayoutManager(layout);
-        view.setAdapter(mAdapter);
+        // ドラッグとスワイプ
+        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
+        itemTouchHelper.attachToRecyclerView(listView);
 
+        // event
+        applyView.setOnClickListener(createApplyClickListener());
+        cancelView.setOnClickListener(createCancelClickListener());
+
+        // transaction
+        mPlaylistRegister = new PlaylistRegister();
         mPlaylistRegister.beginTransaction();
     }
 
@@ -65,7 +78,7 @@ public class PlaylistsEditActivity extends BaseActivity {
 
     private View.OnClickListener createApplyClickListener() {
         return v -> {
-            Stream.of(mList).forEachIndexed((i, realm) -> {
+            Stream.of(realmList).forEachIndexed((i, realm) -> {
                 realm.setOrder(i + 1);
             });
             mPlaylistRegister.commitTransaction();
@@ -96,7 +109,7 @@ public class PlaylistsEditActivity extends BaseActivity {
                 mAdapter.notifyItemMoved(fromPos, toPos);
 
                 // dataの並び替え
-                mList.add(toPos, mList.remove(fromPos));
+                realmList.add(toPos, realmList.remove(fromPos));
 
                 return true;
             }
@@ -106,8 +119,8 @@ public class PlaylistsEditActivity extends BaseActivity {
                 final int fromPos = viewHolder.getAdapterPosition();
 
                 // 削除
-                mList.get(fromPos).deleteFromRealm();
-                mList.remove(fromPos);
+                realmList.get(fromPos).deleteFromRealm();
+                realmList.remove(fromPos);
                 mAdapter.notifyItemRemoved(fromPos);
             }
         });

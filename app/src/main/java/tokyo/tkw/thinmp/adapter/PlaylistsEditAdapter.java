@@ -6,19 +6,24 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Map;
+
 import io.realm.RealmList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.PlaylistClickListener;
+import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
-import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
 public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolder> {
-    private RealmList<PlaylistRealm> mList;
+    private RealmList<PlaylistRealm> realmList;
+    private Map<Integer, Playlist> playlistMap;
 
-    public PlaylistsEditAdapter(RealmList<PlaylistRealm> list) {
-        mList = list;
+    public PlaylistsEditAdapter(RealmList<PlaylistRealm> realmList,
+                                Map<Integer, Playlist> playlistMap) {
+        this.realmList = realmList;
+        this.playlistMap = playlistMap;
     }
 
     @Override
@@ -31,12 +36,12 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
 
     @Override
     public void onBindViewHolder(ImageRowViewHolder holder, int position) {
-        PlaylistRealm playlistRealm = mList.get(position);
+        PlaylistRealm playlistRealm = realmList.get(position);
         int playlistId = playlistRealm.getId();
-        String name = playlistRealm.getName();
-        PlaylistTrackRealm playlistTrackRealm = playlistRealm.getTrackRealmList().first();
+        Playlist playlist = playlistMap.get(playlistId);
+        String name = playlist.getName();
 
-        GlideUtil.bitmap(playlistTrackRealm.getAlbumArtId(), holder.albumArt);
+        GlideUtil.bitmap(playlist.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(name);
 
         holder.itemView.setOnClickListener(new PlaylistClickListener(playlistId));
@@ -44,6 +49,6 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return realmList.size();
     }
 }

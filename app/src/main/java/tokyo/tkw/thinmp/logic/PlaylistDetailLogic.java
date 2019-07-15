@@ -4,21 +4,15 @@ import android.content.Context;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.PlaylistDetailDto;
-import tokyo.tkw.thinmp.playlist.Playlists;
-import tokyo.tkw.thinmp.playlist.PlaylistTrack;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
+import tokyo.tkw.thinmp.playlist.Playlist;
 
 public class PlaylistDetailLogic {
     private Context context;
-    private PlaylistRealm playlistRealm;
-    private PlaylistTrack playlistTrack;
+    private Playlist playlist;
 
     private PlaylistDetailLogic(Context context, int playlistId) {
-        Playlists playlists = Playlists.createInstance(context);
-
         this.context = context;
-        this.playlistRealm = playlists.findById(playlistId);
-        this.playlistTrack = new PlaylistTrack(context, playlistId);
+        this.playlist = Playlist.createInstance(context, playlistId);
     }
 
     public static PlaylistDetailLogic createInstance(Context context, int playlistId) {
@@ -28,11 +22,11 @@ public class PlaylistDetailLogic {
     public PlaylistDetailDto createDto() {
         PlaylistDetailDto dto = new PlaylistDetailDto();
 
-        dto.playlistName = playlistRealm.getName();
+        dto.playlistName = playlist.getPlaylistRealm().getName();
         dto.typeName = context.getString(R.string.playlist);
-        dto.albumArtId = playlistTrack.getFirstTrackAlbumArtId();
-        dto.trackRealmList = playlistRealm.getTrackRealmList();
-        dto.trackMap = playlistTrack.getTrackMap();
+        dto.albumArtId = playlist.getAlbumArtId();
+        dto.trackRealmList = playlist.getTrackRealmList();
+        dto.trackMap = playlist.getTrackMap();
 
         return dto;
     }

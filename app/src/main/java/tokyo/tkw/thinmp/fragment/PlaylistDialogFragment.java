@@ -13,13 +13,12 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistAddAdapter;
+import tokyo.tkw.thinmp.dto.PlaylistsDto;
+import tokyo.tkw.thinmp.logic.PlaylistsLogic;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
 public class PlaylistDialogFragment extends DialogFragment {
     private AlertDialog mDialog;
@@ -89,15 +88,23 @@ public class PlaylistDialogFragment extends DialogFragment {
             mDialog.dismiss();
         };
 
+        // view
         RecyclerView playlistView = view.findViewById(R.id.playlist);
+
+        // logic
+        PlaylistsLogic logic = PlaylistsLogic.createInstance(view.getContext());
+
+        // dto
+        PlaylistsDto dto = logic.createDto();
+
+        // adapter
+        PlaylistAddAdapter adapter = new PlaylistAddAdapter(dto.realmResults, dto.playlistMap,
+                mTrack, callback);
+        playlistView.setAdapter(adapter);
+
+        // layout
         LinearLayoutManager layout = new LinearLayoutManager(context);
         playlistView.setLayoutManager(layout);
-
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<PlaylistRealm> playlists = realm.where(PlaylistRealm.class).findAll().sort(
-                PlaylistRealm.ORDER);
-        PlaylistAddAdapter adapter = new PlaylistAddAdapter(playlists, mTrack, callback);
-        playlistView.setAdapter(adapter);
     }
 
     /**

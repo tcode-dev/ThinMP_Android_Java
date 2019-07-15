@@ -33,6 +33,24 @@ public class AlbumArtContentProvider extends MediaStoreAudioAlbumsProvider {
         return getList();
     }
 
+    /**
+     * NOTE:uriからテーブル名を取得する方法がわからないので副問合せのテーブル名はハードコーディングする
+     * @param trackIdList
+     * @return
+     */
+    public List<Album> findByTrack(List<String> trackIdList) {
+        selection = MediaStore.Audio.Albums.ALBUM_ART + " IS NOT NULL " +
+                "AND " + MediaStore.Audio.Albums._ID  + " IN (" +
+                    "SELECT " + MediaStore.Audio.Media.ALBUM_ID + " " +
+                    "FROM audio " +
+                    "WHERE " + MediaStore.Audio.Media._ID + " IN ("+ makePlaceholders(trackIdList.size()) + ")" +
+                ")";
+        selectionArgs = toStringArray(trackIdList);
+        sortOrder = null;
+
+        return getList();
+    }
+
     public List<Album> findAll() {
         selection = MediaStore.Audio.Albums.ALBUM_ART + " IS NOT NULL";
         selectionArgs = null;

@@ -9,11 +9,10 @@ import android.widget.Button;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistsAdapter;
-import tokyo.tkw.thinmp.playlist.Playlists;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
+import tokyo.tkw.thinmp.dto.PlaylistsDto;
+import tokyo.tkw.thinmp.logic.PlaylistsLogic;
 
 public class PlaylistsActivity extends BaseActivity {
 
@@ -28,17 +27,23 @@ public class PlaylistsActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        // view
         RecyclerView listView = findViewById(R.id.list);
         Button editView = findViewById(R.id.edit);
 
-        Playlists playlists = Playlists.createInstance(this);
-        RealmResults<PlaylistRealm> realmResults = playlists.findAll();
-        PlaylistsAdapter adapter = new PlaylistsAdapter(realmResults,
-                playlists.getAlbumArtMap(realmResults));
-        GridLayoutManager layout = new GridLayoutManager(this, 2);
+        // logic
+        PlaylistsLogic logic = PlaylistsLogic.createInstance(this);
 
-        listView.setLayoutManager(layout);
+        // dto
+        PlaylistsDto dto = logic.createDto();
+
+        // adapter
+        PlaylistsAdapter adapter = new PlaylistsAdapter(dto.realmResults, dto.playlistMap);
         listView.setAdapter(adapter);
+
+        // layout
+        GridLayoutManager layout = new GridLayoutManager(this, 2);
+        listView.setLayoutManager(layout);
 
         // event
         editView.setOnClickListener(createEditClickListener());
