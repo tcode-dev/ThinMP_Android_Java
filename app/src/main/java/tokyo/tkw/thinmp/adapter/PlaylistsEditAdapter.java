@@ -18,10 +18,10 @@ import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
 public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolder> {
     private RealmList<PlaylistRealm> realmList;
-    private Map<Integer, Playlist> playlistMap;
+    private Map<String, Playlist> playlistMap;
 
     public PlaylistsEditAdapter(RealmList<PlaylistRealm> realmList,
-                                Map<Integer, Playlist> playlistMap) {
+                                Map<String, Playlist> playlistMap) {
         this.realmList = realmList;
         this.playlistMap = playlistMap;
     }
@@ -37,7 +37,7 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
     @Override
     public void onBindViewHolder(ImageRowViewHolder holder, int position) {
         PlaylistRealm playlistRealm = realmList.get(position);
-        int playlistId = playlistRealm.getId();
+        String playlistId = playlistRealm.getId();
         Playlist playlist = playlistMap.get(playlistId);
         String name = playlist.getName();
 

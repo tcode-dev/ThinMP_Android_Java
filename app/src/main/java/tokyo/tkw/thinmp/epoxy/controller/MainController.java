@@ -90,7 +90,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
                             .name(shortcut.getName())
                             .type(shortcut.getType())
                             .albumArtId(shortcut.getAlbumArtId())
-                            .clickListener(new PlaylistClickListener(Integer.parseInt(shortcut.getId())))
+                            .clickListener(new PlaylistClickListener(shortcut.getId()))
                             .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                             .addTo(this);
                     break;

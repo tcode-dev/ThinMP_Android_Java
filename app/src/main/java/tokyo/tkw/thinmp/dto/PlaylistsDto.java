@@ -8,5 +8,5 @@ import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
 public class PlaylistsDto {
     public RealmResults<PlaylistRealm> realmResults;
-    public Map<Integer, Playlist> playlistMap;
+    public Map<String, Playlist> playlistMap;
 }

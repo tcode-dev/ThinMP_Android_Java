@@ -30,7 +30,7 @@ public class PlaylistDetailActivity extends BaseActivity {
     @Override
     protected void init() {
         // playlistId
-        int playlistId = getIntent().getIntExtra(PlaylistTrackRealm.PLAYLIST_ID, 0);
+        String playlistId = getIntent().getStringExtra(PlaylistTrackRealm.PLAYLIST_ID);
 
         // view
         RecyclerView listView = findViewById(R.id.list);

@@ -8,11 +8,11 @@ import tokyo.tkw.thinmp.playlist.Playlist;
 public class PlaylistDetailEditLogic {
     private Playlist playlist;
 
-    private PlaylistDetailEditLogic(Context context, int playlistId) {
+    private PlaylistDetailEditLogic(Context context, String playlistId) {
         playlist = Playlist.createInstance(context, playlistId);
     }
 
-    public static PlaylistDetailEditLogic createInstance(Context context, int playlistId) {
+    public static PlaylistDetailEditLogic createInstance(Context context, String playlistId) {
         return new PlaylistDetailEditLogic(context, playlistId);
     }
 

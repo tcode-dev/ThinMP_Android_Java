@@ -1,6 +1,7 @@
 package tokyo.tkw.thinmp.realm;
 
 import java.util.List;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -13,7 +14,7 @@ public class PlaylistRealm extends RealmObject {
     public static final String ORDER = "order";
     public static final String TRACKS = "tracks";
     @PrimaryKey
-    private int id;
+    private String id;
     private String name;
     private int order;
     private RealmList<PlaylistTrackRealm> tracks;
@@ -32,11 +33,11 @@ public class PlaylistRealm extends RealmObject {
         this.tracks = tracks;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

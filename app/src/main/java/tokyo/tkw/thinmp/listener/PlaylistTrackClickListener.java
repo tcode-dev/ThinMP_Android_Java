@@ -8,9 +8,9 @@ import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.playlist.Playlist;
 
 public class PlaylistTrackClickListener extends BaseTrackClickListener {
-    private int playlistId;
+    private String playlistId;
 
-    public PlaylistTrackClickListener(int playlistId) {
+    public PlaylistTrackClickListener(String playlistId) {
         this.playlistId = playlistId;
     }
 

@@ -39,7 +39,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
     @Override
     protected void init() {
         // playlistId
-        int playlistId = getIntent().getIntExtra(Playlist.PLAYLIST_ID, 0);
+        String playlistId = getIntent().getStringExtra(Playlist.PLAYLIST_ID);
 
         // view
         playlistName = findViewById(R.id.playlistName);

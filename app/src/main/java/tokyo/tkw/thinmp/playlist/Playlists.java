@@ -16,7 +16,7 @@ import tokyo.tkw.thinmp.realm.PlaylistRealm;
 public class Playlists {
     private Context context;
     private Realm realm;
-    private List<Integer> playlistIds;
+    private List<String> playlistIds;
     private RealmResults<PlaylistRealm> realmResults;
     private List<Playlist> playlists;
 
@@ -27,7 +27,7 @@ public class Playlists {
         this.playlistIds = getPlaylistIds();
     }
 
-    private Playlists(Context context, List<Integer> playlistIds) {
+    private Playlists(Context context, List<String> playlistIds) {
         this.context = context;
         this.realm = Realm.getDefaultInstance();
         this.realmResults = findById(playlistIds);
@@ -38,7 +38,7 @@ public class Playlists {
         return new Playlists(context);
     }
 
-    public static Playlists createInstance(Context context, List<Integer> playlistIds) {
+    public static Playlists createInstance(Context context, List<String> playlistIds) {
         return new Playlists(context, playlistIds);
     }
 
@@ -46,16 +46,16 @@ public class Playlists {
         return realmResults;
     }
 
-    private RealmResults<PlaylistRealm> findById(List<Integer> playlistIds) {
+    private RealmResults<PlaylistRealm> findById(List<String> playlistIds) {
         return realm.where(PlaylistRealm.class).in(PlaylistRealm.ID,
-                playlistIds.toArray(new Integer[0])).findAll();
+                playlistIds.toArray(new String[0])).findAll();
     }
 
     private RealmResults<PlaylistRealm> findAll() {
         return realm.where(PlaylistRealm.class).findAll().sort(PlaylistRealm.ORDER);
     }
 
-    private List<Integer> getPlaylistIds() {
+    private List<String> getPlaylistIds() {
         return Stream.of(realmResults).map(PlaylistRealm::getId).toList();
     }
 
@@ -70,7 +70,7 @@ public class Playlists {
         return Stream.of(realmResults).toList();
     }
 
-    public Map<Integer, Playlist> getPlaylistMap() {
+    public Map<String, Playlist> getPlaylistMap() {
         return Stream.of(playlistIds)
                 .collect(Collectors.toMap(
                         playlistId -> playlistId,

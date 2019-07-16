@@ -10,12 +10,12 @@ public class PlaylistDetailLogic {
     private Context context;
     private Playlist playlist;
 
-    private PlaylistDetailLogic(Context context, int playlistId) {
+    private PlaylistDetailLogic(Context context, String playlistId) {
         this.context = context;
         this.playlist = Playlist.createInstance(context, playlistId);
     }
 
-    public static PlaylistDetailLogic createInstance(Context context, int playlistId) {
+    public static PlaylistDetailLogic createInstance(Context context, String playlistId) {
         return new PlaylistDetailLogic(context, playlistId);
     }
 

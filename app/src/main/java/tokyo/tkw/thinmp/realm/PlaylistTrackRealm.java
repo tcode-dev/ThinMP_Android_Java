@@ -9,20 +9,20 @@ public class PlaylistTrackRealm extends RealmObject {
     public static final String PLAYLIST_ID = "playlistId";
     public static final String TRACK_ID = "trackId";
     @PrimaryKey
-    private int id;
-    private int playlistId;
+    private String id;
+    private String playlistId;
     private String trackId;
 
-    public void set(int playlistId, Track track) {
+    public void set(String playlistId, Track track) {
         this.playlistId = playlistId;
         this.trackId = track.getId();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public int getPlaylistId() {
+    public String getPlaylistId() {
         return playlistId;
     }
 

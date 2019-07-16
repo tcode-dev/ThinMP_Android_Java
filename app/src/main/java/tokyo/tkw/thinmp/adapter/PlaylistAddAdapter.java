@@ -18,11 +18,11 @@ import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
 
 public class PlaylistAddAdapter extends RealmRecyclerViewAdapter<PlaylistRealm,
         ImageRowViewHolder> {
-    private Map<Integer, Playlist> playlistMap;
+    private Map<String, Playlist> playlistMap;
     private Track track;
     private Runnable callback;
 
-    public PlaylistAddAdapter(OrderedRealmCollection<PlaylistRealm> playlists, Map<Integer,
+    public PlaylistAddAdapter(OrderedRealmCollection<PlaylistRealm> playlists, Map<String,
             Playlist> playlistMap, Track track, Runnable callback) {
         super(playlists, true);
 
@@ -42,7 +42,7 @@ public class PlaylistAddAdapter extends RealmRecyclerViewAdapter<PlaylistRealm,
     @Override
     public void onBindViewHolder(ImageRowViewHolder holder, int position) {
         PlaylistRealm playlistRealm = getItem(position);
-        int playlistId = playlistRealm.getId();
+        String playlistId = playlistRealm.getId();
         Playlist playlist = playlistMap.get(playlistId);
 
         GlideUtil.bitmap(playlist.getAlbumArtId(), holder.albumArt);

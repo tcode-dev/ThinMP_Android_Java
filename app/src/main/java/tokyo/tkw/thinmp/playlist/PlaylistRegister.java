@@ -4,6 +4,7 @@ import com.annimon.stream.IntStream;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -49,47 +50,39 @@ public class PlaylistRegister {
      * @param trackList
      */
     public void create(String name, List<Track> trackList) {
-        int playlistId = createNextPlaylistId();
         int nextOrder = createNextPlaylistOrder();
 
         beginTransaction();
 
-        PlaylistRealm playlist = mRealm.createObject(PlaylistRealm.class, playlistId);
-        playlist.set(name, createPlaylistTrackRealmList(playlistId, trackList), nextOrder);
+        PlaylistRealm playlist = mRealm.createObject(PlaylistRealm.class, UUID.randomUUID().toString());
+        playlist.set(name, createPlaylistTrackRealmList(playlist.getId(), trackList), nextOrder);
 
         commitTransaction();
     }
 
-    public void add(int playlistId, Track track) {
+    public void add(String playlistId, Track track) {
         PlaylistRealm playlist =
                 mRealm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
 
         beginTransaction();
 
-        int playlistTrackRealmId = createNextPlaylistTrackId();
         PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class,
-                playlistTrackRealmId);
+                UUID.randomUUID().toString());
         realm.set(playlistId, track);
         playlist.getTrackRealmList().add(realm);
 
         commitTransaction();
     }
 
-    private List<PlaylistTrackRealm> createPlaylistTrackRealmList(int playlistId,
+    private List<PlaylistTrackRealm> createPlaylistTrackRealmList(String playlistId,
                                                                   List<Track> trackList) {
         return IntStream.range(0, trackList.size()).mapToObj(i -> {
             Track track = trackList.get(i);
-            int playlistTrackRealmId = createNextPlaylistTrackId();
             PlaylistTrackRealm realm = mRealm.createObject(PlaylistTrackRealm.class,
-                    playlistTrackRealmId);
+                    UUID.randomUUID().toString());
             realm.set(playlistId, track);
             return realm;
         }).toList();
-    }
-
-    private int createNextPlaylistId() {
-        Number max = mRealm.where(PlaylistRealm.class).max(PlaylistRealm.ID);
-        return createNextInt(max);
     }
 
     private int createNextPlaylistOrder() {

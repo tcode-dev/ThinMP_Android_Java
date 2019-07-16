@@ -19,18 +19,18 @@ public class Playlist {
     private RealmList<PlaylistTrackRealm> trackRealmList;
     private PlaylistTrack playlistTrack;
 
-    private Playlist(Context context, int playlistId) {
+    private Playlist(Context context, String playlistId) {
         this.realm = Realm.getDefaultInstance();
         this.playlistRealm = findById(playlistId);
         this.trackRealmList = playlistRealm.getTrackRealmList();
         this.playlistTrack = PlaylistTrack.createInstance(context, trackRealmList);
     }
 
-    public static Playlist createInstance(Context context, int playlistId) {
+    public static Playlist createInstance(Context context, String playlistId) {
         return new Playlist(context, playlistId);
     }
 
-    public Integer getId() {
+    public String getId() {
         return playlistRealm.getId();
     }
 
@@ -58,7 +58,7 @@ public class Playlist {
         return playlistTrack.getSortedTrackList();
     }
 
-    private PlaylistRealm findById(int playlistId) {
+    private PlaylistRealm findById(String playlistId) {
 
         return realm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
     }

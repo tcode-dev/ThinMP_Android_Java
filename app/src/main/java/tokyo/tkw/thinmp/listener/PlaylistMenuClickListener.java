@@ -7,8 +7,8 @@ import tokyo.tkw.thinmp.menu.PlaylistMenu;
 public class PlaylistMenuClickListener implements View.OnClickListener {
     private String playlistId;
 
-    public PlaylistMenuClickListener(int playlistId) {
-        this.playlistId = Integer.toString(playlistId);
+    public PlaylistMenuClickListener(String playlistId) {
+        this.playlistId = playlistId;
     }
 
     @Override

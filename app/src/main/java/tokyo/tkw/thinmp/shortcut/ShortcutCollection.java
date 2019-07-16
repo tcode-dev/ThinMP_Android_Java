@@ -109,8 +109,7 @@ public class ShortcutCollection {
     private Map<Integer, Shortcut> getPlaylistShortcutMap() {
         List<ShortcutRealm> shortcutRealmList = chunkByPlaylist();
         List<String> playlistIdList = getItemIdList(shortcutRealmList);
-        List<Integer> playlistIds = Stream.of(playlistIdList).map(Integer::parseInt).toList();
-        List<PlaylistRealm> playLists = getPlayList(playlistIds);
+        List<PlaylistRealm> playLists = getPlayList(playlistIdList);
         Map<String, PlaylistRealm> playlistMap = getPlaylistMap(playLists);
 
         return toPlaylistShortcutMap(shortcutRealmList, playlistMap);
@@ -146,7 +145,7 @@ public class ShortcutCollection {
     private Map<String, PlaylistRealm> getPlaylistMap(List<PlaylistRealm> playlists) {
         return Stream.of(playlists)
                 .collect(Collectors.toMap(
-                        playlistRealm -> Integer.toString(playlistRealm.getId()),
+                        playlistRealm -> playlistRealm.getId(),
                         playlistRealm -> playlistRealm));
     }
 
@@ -163,7 +162,7 @@ public class ShortcutCollection {
         return albumCollection.findById(albumIdList);
     }
 
-    private List<PlaylistRealm> getPlayList(List<Integer> playlistIdList) {
+    private List<PlaylistRealm> getPlayList(List<String> playlistIdList) {
         Playlists playlists = Playlists.createInstance(context, playlistIdList);
 
         return playlists.getPlaylistRealmList();
