@@ -17,17 +17,14 @@ import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<FavoriteArtistRealm,
         ArtistViewHolder> {
     private Map<String, Artist> mArtistMap;
-    private Map<String, String> mArtistAlbumArtMap;
     private FavoriteArtistListListener mListener;
 
     public FavoriteArtistListAdapter(OrderedRealmCollection<FavoriteArtistRealm> favoriteList,
                                      Map<String, Artist> artistMap,
-                                     Map<String, String> artistAlbumArtMap,
                                      FavoriteArtistListListener listener) {
         super(favoriteList, true);
 
         mArtistMap = artistMap;
-        mArtistAlbumArtMap = artistAlbumArtMap;
         mListener = listener;
     }
 
@@ -44,7 +41,7 @@ public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<Favorite
         FavoriteArtistRealm favorite = getItem(position);
         Artist artist = mArtistMap.get(favorite.getArtistId());
 
-        GlideUtil.bitmap(mArtistAlbumArtMap.get(artist.getId()), holder.albumArt, GlideUtil.ARTIST_RESOURCE_ID);
+        GlideUtil.bitmap(artist.getAlbumArtId(), holder.albumArt, GlideUtil.ARTIST_RESOURCE_ID);
         holder.artistName.setText(artist.getName());
 
         holder.itemView.setOnClickListener(onClickListener(artist.getId()));

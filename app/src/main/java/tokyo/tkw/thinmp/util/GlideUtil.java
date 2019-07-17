@@ -39,13 +39,21 @@ public class GlideUtil {
 
     public static void bitmap(Optional<String> albumArtIdOpt, ImageView view) {
         albumArtIdOpt.ifPresentOrElse((albumArtId) -> {
-            bitmap(albumArtId, view, DEFAULT_RESOURCE_ID);
+            albumArt(albumArtId, view, DEFAULT_RESOURCE_ID);
         }, () -> {
             drawable(view, DEFAULT_RESOURCE_ID);
         });
     }
 
-    public static void bitmap(String albumArtId, ImageView view, int resourceId) {
+    public static void bitmap(Optional<String> albumArtIdOpt, ImageView view, int resourceId) {
+        albumArtIdOpt.ifPresentOrElse((albumArtId) -> {
+            albumArt(albumArtId, view, resourceId);
+        }, () -> {
+            drawable(view, resourceId);
+        });
+    }
+
+    private static void bitmap(String albumArtId, ImageView view, int resourceId) {
         if (albumArtId != null) {
             albumArt(albumArtId, view, resourceId);
         } else {

@@ -11,6 +11,7 @@ import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyHolder;
 import com.airbnb.epoxy.EpoxyModelClass;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
+import com.annimon.stream.Optional;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 @EpoxyModelClass(layout = R.layout.artist_list_item)
 public abstract class ArtistListItemModel extends EpoxyModelWithHolder<ArtistListItemModel.Holder> {
     @EpoxyAttribute
-    String albumArtId;
+    Optional<String> albumArtId;
     @EpoxyAttribute
     String artistName;
     @EpoxyAttribute(DoNotHash)

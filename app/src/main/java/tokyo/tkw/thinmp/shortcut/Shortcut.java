@@ -1,12 +1,14 @@
 package tokyo.tkw.thinmp.shortcut;
 
+import com.annimon.stream.Optional;
+
 public class Shortcut {
     public String id;
     public String name;
     public String type;
-    public String albumArtId;
+    public Optional<String> albumArtId;
 
-    public Shortcut(String id, String name, String type, String albumArtId) {
+    public Shortcut(String id, String name, String type, Optional<String> albumArtId) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -25,7 +27,7 @@ public class Shortcut {
         return type;
     }
 
-    public String getAlbumArtId() {
+    public Optional<String> getAlbumArtId() {
         return albumArtId;
     }
 }

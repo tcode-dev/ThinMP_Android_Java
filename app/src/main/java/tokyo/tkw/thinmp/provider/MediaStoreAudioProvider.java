@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.IntStream;
+import com.annimon.stream.Optional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 import tokyo.tkw.thinmp.music.Music;
 
 public abstract class MediaStoreAudioProvider<T extends Music> {
-    private Context mContext;
+    Context mContext;
     Cursor mCursor;
     Uri uri;
     String[] projection;
@@ -28,14 +29,12 @@ public abstract class MediaStoreAudioProvider<T extends Music> {
         mContext = context;
     }
 
-    protected T get() {
+    protected Optional<T> get() {
         init();
 
-        mCursor.moveToNext();
+        if (!hasCursor()) return Optional.empty();
 
-        if (!hasCursor()) return null;
-
-        T item = fetch();
+        Optional<T> item = mCursor.moveToNext() ? Optional.of(fetch()) : Optional.empty();
 
         destroy();
 

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tokyo.tkw.thinmp.R;
@@ -38,8 +37,7 @@ public class FavoriteArtistEditActivity extends BaseActivity {
 
         FavoriteArtistList favoriteArtistList = new FavoriteArtistList(this);
         mFavoriteList = favoriteArtistList.getFavoriteArtistRealmList();
-        mAdapter = new FavoriteArtistEditAdapter(mFavoriteList, favoriteArtistList.getArtistMap()
-                , favoriteArtistList.getArtistAlbumArtMap());
+        mAdapter = new FavoriteArtistEditAdapter(mFavoriteList, favoriteArtistList.getArtistMap());
 
         ItemTouchHelper itemTouchHelper = createItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(view);

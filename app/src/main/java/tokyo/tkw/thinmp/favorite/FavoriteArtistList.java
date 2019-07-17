@@ -3,6 +3,7 @@ package tokyo.tkw.thinmp.favorite;
 import android.content.Context;
 
 import com.annimon.stream.Collectors;
+import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class FavoriteArtistList {
         return realm.where(FavoriteArtistRealm.class).findAll().sort(FavoriteArtistRealm.ID);
     }
 
-    public Map<String, String> getArtistAlbumArtMap() {
+    public Map<String, Optional<String>> getArtistAlbumArtMap() {
         return toArtistAlbumArtMap(getArtistsAlbumArtList());
     }
 
@@ -62,7 +63,7 @@ public class FavoriteArtistList {
                 .collect(Collectors.toList());
     }
 
-    private Map<String, String> toArtistAlbumArtMap(List<Album> artistAlbumList) {
+    private Map<String, Optional<String>> toArtistAlbumArtMap(List<Album> artistAlbumList) {
         return Stream.of(artistAlbumList)
                 .distinctBy(Album::getArtistId)
                 .collect(Collectors.toMap(Album::getArtistId, Album::getAlbumArtId));

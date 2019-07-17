@@ -55,8 +55,8 @@ class PlaylistTrack {
         return trackMap;
     }
 
-    String getAlbumArtId() {
-        return albumArtId;
+    Optional<String> getAlbumArtId() {
+        return Optional.ofNullable(albumArtId);
     }
 
     private String getFirstTrackAlbumArtId() {

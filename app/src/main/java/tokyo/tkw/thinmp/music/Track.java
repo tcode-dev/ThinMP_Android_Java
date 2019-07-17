@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.annimon.stream.Optional;
+
 import java.io.Serializable;
 
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
@@ -89,7 +91,7 @@ public class Track extends Music implements Serializable {
      * @param id
      * @return
      */
-    public static Track createInstance(Context context, String id) {
+    public static Optional<Track> createInstance(Context context, String id) {
         TrackContentProvider provider = new TrackContentProvider(context);
 
         return provider.findById(id);

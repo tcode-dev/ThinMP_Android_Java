@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyHolder;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
+import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.GlideUtil;
@@ -21,7 +22,7 @@ public abstract class ShortcutModel extends EpoxyModelWithHolder<ShortcutModel.H
     @EpoxyAttribute
     String type;
     @EpoxyAttribute
-    String albumArtId;
+    Optional<String> albumArtId;
     @EpoxyAttribute(DoNotHash)
     View.OnClickListener clickListener;
 

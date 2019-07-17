@@ -3,6 +3,8 @@ package tokyo.tkw.thinmp.provider;
 import android.content.Context;
 import android.provider.MediaStore;
 
+import com.annimon.stream.Optional;
+
 import java.util.List;
 
 import tokyo.tkw.thinmp.music.Artist;
@@ -12,7 +14,7 @@ public class ArtistContentProvider extends MediaStoreAudioArtistsProvider {
         super(context);
     }
 
-    public Artist findById(String artistId) {
+    public Optional<Artist> findById(String artistId) {
         selection = MediaStore.Audio.Media._ID + " = ?";
         selectionArgs = new String[]{artistId};
         sortOrder = null;
@@ -22,8 +24,7 @@ public class ArtistContentProvider extends MediaStoreAudioArtistsProvider {
 
     public List<Artist> findById(List<String> artistIdList) {
         selection =
-                MediaStore.Audio.Artists._ID + " IN (" + makePlaceholders(artistIdList.size()) +
-                        ")";
+                MediaStore.Audio.Artists._ID + " IN (" + makePlaceholders(artistIdList.size()) + ")";
         selectionArgs = toStringArray(artistIdList);
         sortOrder = MediaStore.Audio.Artists.ARTIST + " ASC";
 

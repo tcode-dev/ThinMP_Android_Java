@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.music;
 
 import android.content.Context;
 
+import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 
 import java.util.List;
@@ -31,11 +32,11 @@ public class AlbumCollection {
         return provider.findAll();
     }
 
-    public String findFirstAlbumArtId(List<Album> albumList) {
+    public Optional<String> findFirstAlbumArtId(List<Album> albumList) {
         return Stream.of(albumList)
                 .map(Album::getAlbumArtId)
                 .withoutNulls()
                 .findFirst()
-                .orElse(null);
+                .get();
     }
 }

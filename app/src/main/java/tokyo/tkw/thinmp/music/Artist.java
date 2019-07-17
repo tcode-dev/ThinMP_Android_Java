@@ -2,7 +2,9 @@ package tokyo.tkw.thinmp.music;
 
 import android.content.Context;
 
-import java.util.ArrayList;
+import com.annimon.stream.Optional;
+
+import java.util.List;
 
 import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 
@@ -12,26 +14,26 @@ import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 public class Artist extends Music {
     public static final String ARTIST_ID = "artistId";
 
+    private Context context;
     private String id;
     private String name;
-    private String albumArtId;
 
     public Artist(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    /**
-     * ContentProviderからartistを取得
-     *
-     * @param context
-     * @param id
-     * @return
-     */
-    public static Artist createInstance(Context context, String id) {
+    public Artist(Context context, String id, String name) {
+        this.context = context;
+        this.id = id;
+        this.name = name;
+    }
+
+    public static Optional<Artist> createInstance(Context context, String id) {
         ArtistContentProvider provider = new ArtistContentProvider(context);
 
-        return provider.findById(id);
+        Optional<Artist> artist = provider.findById(id);
+        return artist.isEmpty() ? Optional.empty() : Optional.ofNullable(new Artist(context, artist.get().getId(), artist.get().getName()));
     }
 
     public String getId() {
@@ -42,11 +44,21 @@ public class Artist extends Music {
         return name;
     }
 
-    public String getAlbumArtId() {
-        return albumArtId;
+    public Optional<String> getAlbumArtId() {
+        ArtistAlbumArt artistAlbumArt = ArtistAlbumArt.createInstance(context, id);
+
+        return artistAlbumArt.getAlbumArtId();
     }
 
-    public void setAlbumArtId(String albumArtId) {
-        this.albumArtId = albumArtId;
+    public List<Album> getAlbumList() {
+        ArtistAlbum artistAlbum = ArtistAlbum.createInstance(context, id);
+
+        return artistAlbum.getAlbumList();
+    }
+
+    public List<Track> getTrackList() {
+        ArtistTrack artistTrack = ArtistTrack.createInstance(context, id);
+
+        return artistTrack.getTrackList();
     }
 }

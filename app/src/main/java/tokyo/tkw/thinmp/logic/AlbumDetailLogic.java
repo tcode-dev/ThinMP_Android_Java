@@ -2,12 +2,14 @@ package tokyo.tkw.thinmp.logic;
 
 import android.content.Context;
 
+import com.annimon.stream.Optional;
+
 import tokyo.tkw.thinmp.dto.AlbumDetailDto;
 import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.TrackCollection;
 
 public class AlbumDetailLogic {
-    private Album album;
+    private Optional<Album> album;
     private TrackCollection trackCollection;
 
     private AlbumDetailLogic(Context context, String albumId) {
@@ -22,9 +24,12 @@ public class AlbumDetailLogic {
     public AlbumDetailDto createDto() {
         AlbumDetailDto dto = new AlbumDetailDto();
 
-        dto.albumName = album.getName();
-        dto.artistName = album.getArtistName();
-        dto.albumArtId = album.getAlbumArtId();
+        album.ifPresent(album -> {
+            dto.albumName = album.getName();
+            dto.artistName = album.getArtistName();
+            dto.albumArtId = album.getAlbumArtId();
+        });
+
         dto.trackList = trackCollection.getList();
 
         return dto;

@@ -13,6 +13,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.annimon.stream.Optional;
+
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistAddAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistsDto;
@@ -49,7 +51,13 @@ public class PlaylistDialogFragment extends DialogFragment {
 
         String trackId = bundle.getString(Track.TRACK_ID);
 
-        mTrack = Track.createInstance(getContext(), trackId);
+        Optional<Track> trackOpt = Track.createInstance(getContext(), trackId);
+
+        trackOpt.ifPresentOrElse(track -> {
+            mTrack = track;
+        }, () -> {
+            mDialog.cancel();
+        });
 
         String defaultPlaylistName = mTrack.getTitle();
 

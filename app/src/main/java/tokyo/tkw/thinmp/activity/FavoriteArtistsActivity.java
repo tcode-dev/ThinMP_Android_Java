@@ -31,7 +31,6 @@ public class FavoriteArtistsActivity extends BaseActivity {
         FavoriteArtistListAdapter adapter =
                 new FavoriteArtistListAdapter(favoriteArtistList.getRealmResults(),
                         favoriteArtistList.getArtistMap(),
-                        favoriteArtistList.getArtistAlbumArtMap(),
                         createFavoriteArtistListListener());
 
         LinearLayoutManager layout = new LinearLayoutManager(this);

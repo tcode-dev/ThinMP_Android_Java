@@ -2,6 +2,8 @@ package tokyo.tkw.thinmp.music;
 
 import android.content.Context;
 
+import com.annimon.stream.Optional;
+
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
 
 /**
@@ -31,7 +33,7 @@ public class Album extends Music {
      * @param id
      * @return
      */
-    public static Album createInstance(Context context, String id) {
+    public static Optional<Album> createInstance(Context context, String id) {
         AlbumContentProvider provider = new AlbumContentProvider(context);
 
         return provider.findById(id);
@@ -53,7 +55,7 @@ public class Album extends Music {
         return artistName;
     }
 
-    public String getAlbumArtId() {
-        return albumArtId;
+    public Optional<String> getAlbumArtId() {
+        return Optional.ofNullable(albumArtId);
     }
 }
