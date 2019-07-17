@@ -18,7 +18,6 @@ public class Playlists {
     private Realm realm;
     private List<String> playlistIds;
     private RealmResults<PlaylistRealm> realmResults;
-    private List<Playlist> playlists;
 
     private Playlists(Context context) {
         this.context = context;
