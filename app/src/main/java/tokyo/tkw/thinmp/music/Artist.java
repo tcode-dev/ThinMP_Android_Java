@@ -18,11 +18,6 @@ public class Artist extends Music {
     private String id;
     private String name;
 
-    public Artist(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public Artist(Context context, String id, String name) {
         this.context = context;
         this.id = id;
@@ -32,8 +27,7 @@ public class Artist extends Music {
     public static Optional<Artist> createInstance(Context context, String id) {
         ArtistContentProvider provider = new ArtistContentProvider(context);
 
-        Optional<Artist> artist = provider.findById(id);
-        return artist.isEmpty() ? Optional.empty() : Optional.ofNullable(new Artist(context, artist.get().getId(), artist.get().getName()));
+        return provider.findById(id);
     }
 
     public String getId() {
