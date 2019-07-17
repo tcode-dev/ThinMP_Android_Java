@@ -4,15 +4,15 @@ import android.content.Context;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.ArtistsDto;
-import tokyo.tkw.thinmp.music.ArtistCollection;
+import tokyo.tkw.thinmp.music.Artists;
 
 public class ArtistsLogic {
     private Context context;
-    private ArtistCollection artistCollection;
+    private Artists artists;
 
     private ArtistsLogic(Context context) {
         this.context = context;
-        this.artistCollection = ArtistCollection.createAllArtistCollectionInstance(context);
+        this.artists = Artists.createInstance(context);
     }
 
     public static ArtistsLogic createInstance(Context context) {
@@ -23,7 +23,7 @@ public class ArtistsLogic {
         ArtistsDto dto = new ArtistsDto();
 
         dto.title = context.getResources().getString(R.string.artists);
-        dto.artistList = artistCollection.getList();
+        dto.artistList = artists.getArtistList();
 
         return dto;
     }
