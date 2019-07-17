@@ -3,6 +3,8 @@ package tokyo.tkw.thinmp.provider;
 import android.content.Context;
 import android.provider.MediaStore;
 
+import com.annimon.stream.Optional;
+
 import tokyo.tkw.thinmp.music.Album;
 
 abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvider<Album> {
@@ -39,8 +41,11 @@ abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvider<Alb
         return mCursor.getInt(mCursor.getColumnIndex(MediaStore.Audio.Albums.NUMBER_OF_SONGS));
     }
 
-    private String getAlbumArtId() {
-        return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART)) != null ? getId() : null;
+    private Optional<String> getAlbumArtId() {
+        return Optional
+                .ofNullable(mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART)) != null
+                        ? getId()
+                        : null);
     }
 
     private Album getAlbum() {

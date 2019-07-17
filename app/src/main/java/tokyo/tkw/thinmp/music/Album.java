@@ -16,9 +16,9 @@ public class Album extends Music {
     private String name;
     private String artistId;
     private String artistName;
-    private String albumArtId;
+    private Optional<String> albumArtId;
 
-    public Album(String id, String name, String artistId, String artistName, String albumArtId) {
+    public Album(String id, String name, String artistId, String artistName, Optional<String> albumArtId) {
         this.id = id;
         this.name = name;
         this.artistId = artistId;
@@ -26,13 +26,6 @@ public class Album extends Music {
         this.albumArtId = albumArtId;
     }
 
-    /**
-     * 指定されたアルバムを取得
-     *
-     * @param context
-     * @param id
-     * @return
-     */
     public static Optional<Album> createInstance(Context context, String id) {
         AlbumContentProvider provider = new AlbumContentProvider(context);
 
@@ -56,6 +49,6 @@ public class Album extends Music {
     }
 
     public Optional<String> getAlbumArtId() {
-        return Optional.ofNullable(albumArtId);
+        return albumArtId;
     }
 }
