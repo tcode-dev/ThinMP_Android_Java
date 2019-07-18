@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.music;
+package tokyo.tkw.thinmp.artist;
 
 import android.content.Context;
 

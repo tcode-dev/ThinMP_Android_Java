@@ -7,7 +7,7 @@ import com.annimon.stream.Optional;
 
 import java.util.List;
 
-import tokyo.tkw.thinmp.music.Artist;
+import tokyo.tkw.thinmp.artist.Artist;
 
 public class ArtistContentProvider extends MediaStoreAudioArtistsProvider {
     public ArtistContentProvider(Context context) {

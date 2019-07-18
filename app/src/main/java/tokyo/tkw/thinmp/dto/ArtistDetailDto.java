@@ -4,8 +4,8 @@ import com.annimon.stream.Optional;
 
 import java.util.List;
 
-import tokyo.tkw.thinmp.music.Album;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.album.Album;
+import tokyo.tkw.thinmp.track.Track;
 
 public class ArtistDetailDto {
     public String artistName;

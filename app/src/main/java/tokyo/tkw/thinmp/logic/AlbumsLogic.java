@@ -4,7 +4,7 @@ import android.content.Context;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.AlbumsDto;
-import tokyo.tkw.thinmp.music.Albums;
+import tokyo.tkw.thinmp.album.Albums;
 
 public class AlbumsLogic {
     private Context context;

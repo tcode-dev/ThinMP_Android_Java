@@ -9,7 +9,7 @@ import tokyo.tkw.thinmp.dto.AlbumsDto;
 import tokyo.tkw.thinmp.epoxy.model.AlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 
 public class AlbumsController extends TypedEpoxyController<AlbumsDto> {
 

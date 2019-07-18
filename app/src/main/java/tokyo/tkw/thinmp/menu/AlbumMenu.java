@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 

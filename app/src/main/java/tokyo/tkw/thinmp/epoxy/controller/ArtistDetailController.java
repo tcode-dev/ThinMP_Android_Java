@@ -12,8 +12,8 @@ import tokyo.tkw.thinmp.epoxy.model.SectionHeaderModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.listener.EpoxyTrackClickListener;
 import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
-import tokyo.tkw.thinmp.music.Album;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.album.Album;
+import tokyo.tkw.thinmp.track.Track;
 
 public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto> {
 

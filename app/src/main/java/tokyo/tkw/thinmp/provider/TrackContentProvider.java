@@ -7,7 +7,7 @@ import com.annimon.stream.Optional;
 
 import java.util.List;
 
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 
 public class TrackContentProvider extends MediaStoreAudioMediaProvider {
     public TrackContentProvider(Context context) {

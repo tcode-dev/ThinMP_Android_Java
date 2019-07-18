@@ -3,7 +3,7 @@ package tokyo.tkw.thinmp.dto;
 import java.util.List;
 
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.shortcut.Shortcut;
 
 public class MainDto {

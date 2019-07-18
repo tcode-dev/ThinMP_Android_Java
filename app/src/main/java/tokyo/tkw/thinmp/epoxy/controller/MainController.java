@@ -18,7 +18,7 @@ import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.listener.MainMenuClickListener;
 import tokyo.tkw.thinmp.listener.PlaylistClickListener;
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.Shortcut;
 

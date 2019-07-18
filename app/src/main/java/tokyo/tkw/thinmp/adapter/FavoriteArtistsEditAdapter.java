@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.music.Artist;
+import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;

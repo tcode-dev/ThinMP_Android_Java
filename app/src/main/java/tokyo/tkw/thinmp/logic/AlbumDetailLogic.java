@@ -5,7 +5,7 @@ import android.content.Context;
 import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.dto.AlbumDetailDto;
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 
 public class AlbumDetailLogic {
     private Optional<Album> album;

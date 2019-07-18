@@ -19,7 +19,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistAddAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistsDto;
 import tokyo.tkw.thinmp.logic.PlaylistsLogic;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 
 public class PlaylistDialogFragment extends DialogFragment {

@@ -9,7 +9,7 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.fragment.MiniPlayerFragment;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 
 public class EpoxyTrackClickListener implements View.OnClickListener {
     private List<Track> mTrackList;

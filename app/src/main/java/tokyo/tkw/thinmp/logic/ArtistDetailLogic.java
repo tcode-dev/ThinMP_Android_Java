@@ -6,7 +6,7 @@ import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.ArtistDetailDto;
-import tokyo.tkw.thinmp.music.Artist;
+import tokyo.tkw.thinmp.artist.Artist;
 
 public class ArtistDetailLogic {
     private Context context;

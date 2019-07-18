@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import tokyo.tkw.thinmp.activity.ArtistDetailActivity;
-import tokyo.tkw.thinmp.music.Artist;
+import tokyo.tkw.thinmp.artist.Artist;
 
 public class ArtistClickListener implements View.OnClickListener {
     private String mArtistId;

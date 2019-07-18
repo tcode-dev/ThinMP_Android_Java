@@ -7,7 +7,7 @@ import com.annimon.stream.Optional;
 
 import java.util.List;
 
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 
 public class AlbumArtContentProvider extends MediaStoreAudioAlbumsProvider {
     public AlbumArtContentProvider(Context context) {

@@ -3,7 +3,7 @@ package tokyo.tkw.thinmp.provider;
 import android.content.Context;
 import android.provider.MediaStore;
 
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 
 abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvider<Track> {
     MediaStoreAudioMediaProvider(Context context) {

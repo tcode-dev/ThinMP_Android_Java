@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.player.MusicService;
 import tokyo.tkw.thinmp.player.Player;
 

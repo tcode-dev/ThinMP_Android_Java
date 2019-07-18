@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.music;
+package tokyo.tkw.thinmp.track;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,6 +8,7 @@ import com.annimon.stream.Optional;
 
 import java.io.Serializable;
 
+import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.util.TimeUtil;
 

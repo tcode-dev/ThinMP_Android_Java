@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 
 public class TrackClickListener extends BaseTrackClickListener {
     private List<Track> mTrackList;

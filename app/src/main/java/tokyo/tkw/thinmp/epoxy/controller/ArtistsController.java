@@ -9,7 +9,7 @@ import tokyo.tkw.thinmp.dto.ArtistsDto;
 import tokyo.tkw.thinmp.epoxy.model.ArtistListItemModel_;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
-import tokyo.tkw.thinmp.music.Artist;
+import tokyo.tkw.thinmp.artist.Artist;
 
 public class ArtistsController extends TypedEpoxyController<ArtistsDto> {
 

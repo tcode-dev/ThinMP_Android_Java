@@ -3,9 +3,10 @@ package tokyo.tkw.thinmp.music;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import tokyo.tkw.thinmp.track.Track;
 
 /**
  * 再生中の曲リスト

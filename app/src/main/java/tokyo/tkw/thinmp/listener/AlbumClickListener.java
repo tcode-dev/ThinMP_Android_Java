@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import tokyo.tkw.thinmp.activity.AlbumDetailActivity;
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 
 public class AlbumClickListener implements View.OnClickListener {
     private String mAlbumId;

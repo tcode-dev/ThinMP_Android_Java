@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.music;
+package tokyo.tkw.thinmp.album;
 
 import android.content.Context;
 
@@ -6,6 +6,8 @@ import com.annimon.stream.Optional;
 
 import java.util.List;
 
+import tokyo.tkw.thinmp.music.Music;
+import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 

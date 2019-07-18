@@ -5,7 +5,7 @@ import android.provider.MediaStore;
 
 import com.annimon.stream.Optional;
 
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 
 abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvider<Album> {
     MediaStoreAudioAlbumsProvider(Context context) {

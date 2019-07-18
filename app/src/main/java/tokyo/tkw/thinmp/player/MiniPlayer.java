@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.util.GlideUtil;
 
 /**

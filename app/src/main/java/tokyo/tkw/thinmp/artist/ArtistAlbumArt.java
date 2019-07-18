@@ -1,9 +1,10 @@
-package tokyo.tkw.thinmp.music;
+package tokyo.tkw.thinmp.artist;
 
 import android.content.Context;
 
 import com.annimon.stream.Optional;
 
+import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
 
 public class ArtistAlbumArt {

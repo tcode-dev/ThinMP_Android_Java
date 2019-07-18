@@ -12,7 +12,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistsAdapter;
 import tokyo.tkw.thinmp.dto.FavoriteArtistsDto;
 import tokyo.tkw.thinmp.logic.FavoriteArtistsLogic;
-import tokyo.tkw.thinmp.music.Artist;
+import tokyo.tkw.thinmp.artist.Artist;
 
 public class FavoriteArtistsActivity extends BaseActivity {
 

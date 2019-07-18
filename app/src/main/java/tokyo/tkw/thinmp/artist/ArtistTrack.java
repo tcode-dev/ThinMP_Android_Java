@@ -1,9 +1,10 @@
-package tokyo.tkw.thinmp.music;
+package tokyo.tkw.thinmp.artist;
 
 import android.content.Context;
 
 import java.util.List;
 
+import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 
 class ArtistTrack {

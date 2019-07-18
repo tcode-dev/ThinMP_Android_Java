@@ -12,7 +12,7 @@ import tokyo.tkw.thinmp.dto.AlbumDetailDto;
 import tokyo.tkw.thinmp.listener.AlbumMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.logic.AlbumDetailLogic;
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 

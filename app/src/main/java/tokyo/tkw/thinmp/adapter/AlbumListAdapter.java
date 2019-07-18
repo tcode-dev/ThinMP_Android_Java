@@ -11,7 +11,7 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
-import tokyo.tkw.thinmp.music.Album;
+import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.AlbumListViewHolder;
 

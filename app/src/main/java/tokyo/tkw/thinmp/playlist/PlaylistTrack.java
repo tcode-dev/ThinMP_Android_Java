@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.realm.RealmList;
-import tokyo.tkw.thinmp.music.Album;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.album.Album;
+import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;

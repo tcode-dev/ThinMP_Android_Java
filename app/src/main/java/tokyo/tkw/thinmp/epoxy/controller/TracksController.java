@@ -10,7 +10,7 @@ import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
 import tokyo.tkw.thinmp.epoxy.model.TrackModel_;
 import tokyo.tkw.thinmp.listener.EpoxyTrackClickListener;
 import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 
 public class TracksController extends TypedEpoxyController<TracksDto> {
 

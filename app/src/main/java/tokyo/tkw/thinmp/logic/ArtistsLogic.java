@@ -4,7 +4,7 @@ import android.content.Context;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.ArtistsDto;
-import tokyo.tkw.thinmp.music.Artists;
+import tokyo.tkw.thinmp.artist.Artists;
 
 public class ArtistsLogic {
     private Context context;
