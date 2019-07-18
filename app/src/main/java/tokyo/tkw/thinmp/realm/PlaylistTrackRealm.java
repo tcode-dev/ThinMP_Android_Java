@@ -2,7 +2,7 @@ package tokyo.tkw.thinmp.realm;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 
 public class PlaylistTrackRealm extends RealmObject {
     public static final String ID = "id";

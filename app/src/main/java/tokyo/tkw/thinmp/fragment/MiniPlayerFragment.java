@@ -20,7 +20,7 @@ import java.util.List;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.PlayerActivity;
 import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.player.MiniPlayer;
 import tokyo.tkw.thinmp.player.MusicService;
 

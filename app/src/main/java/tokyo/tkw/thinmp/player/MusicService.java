@@ -12,7 +12,7 @@ import tokyo.tkw.thinmp.config.Config;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.music.PlayingList;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 
 public class MusicService extends Service {
     public static final int REPEAT_OFF = 0;

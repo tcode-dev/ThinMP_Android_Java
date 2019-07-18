@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.List;
 
 import tokyo.tkw.thinmp.favorite.FavoriteSongs;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 
 public class FavoriteSongClickListener extends BaseTrackClickListener {
     @Override

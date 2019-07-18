@@ -2,11 +2,9 @@ package tokyo.tkw.thinmp.favorite;
 
 import com.annimon.stream.IntStream;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
 public class FavoriteSongRegister {

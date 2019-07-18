@@ -11,7 +11,7 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.ITrackClickListener;
-import tokyo.tkw.thinmp.music.Track;
+import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
 
 public class AlbumDetailAdapter extends RecyclerView.Adapter<AlbumTrackListViewHolder> {

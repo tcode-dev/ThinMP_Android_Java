@@ -4,7 +4,7 @@ import android.content.Context;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.TracksDto;
-import tokyo.tkw.thinmp.music.Tracks;
+import tokyo.tkw.thinmp.track.Tracks;
 
 public class TracksLogic {
     private Context context;
