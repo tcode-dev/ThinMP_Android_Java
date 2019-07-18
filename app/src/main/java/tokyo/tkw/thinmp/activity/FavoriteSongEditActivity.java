@@ -15,7 +15,7 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongEditAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteSongList;
+import tokyo.tkw.thinmp.favorite.FavoriteSongs;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
@@ -36,9 +36,9 @@ public class FavoriteSongEditActivity extends BaseActivity {
     protected void init() {
         RecyclerView view = findViewById(R.id.list);
 
-        FavoriteSongList favoriteSongList = new FavoriteSongList(this);
-        mFavoriteList = favoriteSongList.getList();
-        mAdapter = new FavoriteSongEditAdapter(mFavoriteList, favoriteSongList.getTrackMap());
+        FavoriteSongs favoriteSongs = new FavoriteSongs(this);
+        mFavoriteList = favoriteSongs.getList();
+        mAdapter = new FavoriteSongEditAdapter(mFavoriteList, favoriteSongs.getTrackMap());
 
         ItemTouchHelper itemTouchHelper = createItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(view);

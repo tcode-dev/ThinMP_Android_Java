@@ -14,11 +14,11 @@ import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
-public class FavoriteSongList {
+public class FavoriteSongs {
     private Context mContext;
     private RealmResults<FavoriteSongRealm> mRealmResults;
 
-    public FavoriteSongList(Context context) {
+    public FavoriteSongs(Context context) {
         mContext = context;
         mRealmResults = findAll();
     }

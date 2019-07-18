@@ -4,14 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongListAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteSongList;
+import tokyo.tkw.thinmp.dto.FavoriteSongsDto;
 import tokyo.tkw.thinmp.listener.FavoriteSongClickListener;
+import tokyo.tkw.thinmp.logic.FavoriteSongsLogic;
 
 public class FavoriteSongsActivity extends BaseActivity {
 
@@ -26,23 +28,35 @@ public class FavoriteSongsActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        RecyclerView favoriteListView = findViewById(R.id.list);
+        // view
+        RecyclerView listView = findViewById(R.id.list);
+        Button editView = findViewById(R.id.edit);
 
-        FavoriteSongList favoriteSongList = new FavoriteSongList(this);
+        // logic
+        FavoriteSongsLogic logic = FavoriteSongsLogic.createInstance(this);
 
-        FavoriteSongListAdapter adapter =
-                new FavoriteSongListAdapter(favoriteSongList.getRealmResults(),
-                        favoriteSongList.getTrackMap(), new FavoriteSongClickListener());
+        // dto
+        FavoriteSongsDto dto = logic.createDto();
 
+        // adapter
+        FavoriteSongListAdapter adapter = new FavoriteSongListAdapter(
+                dto.realmResults,
+                dto.trackMap,
+                new FavoriteSongClickListener()
+        );
+        listView.setAdapter(adapter);
+
+        // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
-        favoriteListView.setLayoutManager(layout);
-        favoriteListView.setAdapter(adapter);
+        listView.setLayoutManager(layout);
 
-        findViewById(R.id.edit).setOnClickListener(createEditClickListener(this));
+        // event
+        editView.setOnClickListener(createEditClickListener());
     }
 
-    private View.OnClickListener createEditClickListener(Context context) {
-        return v -> {
+    private View.OnClickListener createEditClickListener() {
+        return view -> {
+            Context context = view.getContext();
             Intent intent = new Intent(context, FavoriteSongEditActivity.class);
             context.startActivity(intent);
         };
