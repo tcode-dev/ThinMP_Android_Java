@@ -3,67 +3,55 @@ package tokyo.tkw.thinmp.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import io.realm.RealmList;
-import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.PlaylistDetailEditAdapter;
-import tokyo.tkw.thinmp.dto.PlaylistDetailEditDto;
-import tokyo.tkw.thinmp.logic.PlaylistDetailEditLogic;
-import tokyo.tkw.thinmp.playlist.Playlist;
-import tokyo.tkw.thinmp.playlist.PlaylistRegister;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
-import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
 
-public class PlaylistDetailEditActivity extends BaseActivity {
-    private PlaylistDetailEditAdapter adapter;
-    private RealmList<PlaylistTrackRealm> trackRealmList;
-    private PlaylistRealm playlistRealm;
-    private PlaylistRegister playlistRegister;
-    private EditText playlistName;
+import java.util.List;
+
+import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.adapter.FavoriteArtistEditAdapter;
+import tokyo.tkw.thinmp.dto.FavoriteArtistDto;
+import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
+import tokyo.tkw.thinmp.logic.FavoriteArtistsEditLogic;
+import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
+
+public class FavoriteArtistsEditActivity extends BaseActivity {
+    private FavoriteArtistEditAdapter adapter;
+    private List<FavoriteArtistRealm> favoriteList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_playlist_detail_edit);
+        setContentView(R.layout.activity_favorite_artist_edit);
 
         initWithPermissionCheck();
     }
 
     @Override
     protected void init() {
-        // playlistId
-        String playlistId = getIntent().getStringExtra(Playlist.PLAYLIST_ID);
-
         // view
-        playlistName = findViewById(R.id.playlistName);
         RecyclerView listView = findViewById(R.id.list);
         Button applyView = findViewById(R.id.apply);
         Button cancelView = findViewById(R.id.cancel);
 
         // logic
-        PlaylistDetailEditLogic logic = PlaylistDetailEditLogic.createInstance(this, playlistId);
+        FavoriteArtistsEditLogic logic = FavoriteArtistsEditLogic.createInstance(this);
 
         // dto
-        PlaylistDetailEditDto dto = logic.createDto();
+        FavoriteArtistDto dto = logic.createDto();
 
-        // playlistRealm
-        playlistRealm = dto.playlistRealm;
-
-        // プレイリストの曲一覧
-        trackRealmList = dto.trackRealmList;
-
-        // プレイリスト名
-        playlistName.setText(dto.playlistName);
+        // favoriteList
+        favoriteList = dto.favoriteList;
 
         // adapter
-        adapter = new PlaylistDetailEditAdapter(trackRealmList, dto.trackMap);
+        adapter = new FavoriteArtistEditAdapter(dto.favoriteList, dto.artistMap);
         listView.setAdapter(adapter);
 
         // layout
@@ -77,30 +65,19 @@ public class PlaylistDetailEditActivity extends BaseActivity {
         // event
         applyView.setOnClickListener(createApplyClickListener());
         cancelView.setOnClickListener(createCancelClickListener());
-
-        // transaction
-        playlistRegister = new PlaylistRegister();
-        playlistRegister.beginTransaction();
-    }
-
-    @Override
-    public void onBackPressed() {
-        playlistRegister.cancelTransaction();
-
-        super.onBackPressed();
     }
 
     private View.OnClickListener createApplyClickListener() {
         return v -> {
-            playlistRealm.setName(playlistName.getText().toString());
-            playlistRegister.commitTransaction();
+            List<String> artistIdList =
+                    Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
+            FavoriteArtistRegister.update(artistIdList);
             finish();
         };
     }
 
     private View.OnClickListener createCancelClickListener() {
         return v -> {
-            playlistRegister.cancelTransaction();
             finish();
         };
     }
@@ -112,8 +89,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
         ) {
 
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView,
-                                  @NonNull RecyclerView.ViewHolder viewHolder,
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
                                   @NonNull RecyclerView.ViewHolder target) {
                 final int fromPos = viewHolder.getAdapterPosition();
                 final int toPos = target.getAdapterPosition();
@@ -122,7 +98,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
                 adapter.notifyItemMoved(fromPos, toPos);
 
                 // dataの並び替え
-                trackRealmList.add(toPos, trackRealmList.remove(fromPos));
+                favoriteList.add(toPos, favoriteList.remove(fromPos));
 
                 return true;
             }
@@ -132,7 +108,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
                 final int fromPos = viewHolder.getAdapterPosition();
 
                 // 削除
-                trackRealmList.remove(fromPos);
+                favoriteList.remove(fromPos);
                 adapter.notifyItemRemoved(fromPos);
             }
         });

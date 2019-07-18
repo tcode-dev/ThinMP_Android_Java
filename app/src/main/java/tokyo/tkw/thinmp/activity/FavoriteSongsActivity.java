@@ -57,7 +57,7 @@ public class FavoriteSongsActivity extends BaseActivity {
     private View.OnClickListener createEditClickListener() {
         return view -> {
             Context context = view.getContext();
-            Intent intent = new Intent(context, FavoriteSongEditActivity.class);
+            Intent intent = new Intent(context, FavoriteSongsEditActivity.class);
             context.startActivity(intent);
         };
     }

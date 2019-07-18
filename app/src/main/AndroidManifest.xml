@@ -55,10 +55,10 @@
             android:name=".activity.PlayerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.FavoriteSongEditActivity"
+            android:name=".activity.FavoriteSongsEditActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.FavoriteArtistEditActivity"
+            android:name=".activity.FavoriteArtistsEditActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PlaylistsEditActivity"

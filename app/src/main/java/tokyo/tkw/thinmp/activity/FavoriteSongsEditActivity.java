@@ -15,21 +15,21 @@ import com.annimon.stream.Stream;
 import java.util.List;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.FavoriteArtistEditAdapter;
-import tokyo.tkw.thinmp.dto.FavoriteArtistDto;
-import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
-import tokyo.tkw.thinmp.logic.FavoriteArtistsEditLogic;
-import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
+import tokyo.tkw.thinmp.adapter.FavoriteSongEditAdapter;
+import tokyo.tkw.thinmp.dto.FavoriteSongsEditDto;
+import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
+import tokyo.tkw.thinmp.logic.FavoriteSongsEditLogic;
+import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
-public class FavoriteArtistEditActivity extends BaseActivity {
-    private List<FavoriteArtistRealm> favoriteList;
-    private FavoriteArtistEditAdapter adapter;
+public class FavoriteSongsEditActivity extends BaseActivity {
+    FavoriteSongEditAdapter adapter;
+    List<FavoriteSongRealm> favoriteList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_favorite_artist_edit);
+        setContentView(R.layout.activity_favorite_song_edit);
 
         initWithPermissionCheck();
     }
@@ -42,16 +42,16 @@ public class FavoriteArtistEditActivity extends BaseActivity {
         Button cancelView = findViewById(R.id.cancel);
 
         // logic
-        FavoriteArtistsEditLogic logic = FavoriteArtistsEditLogic.createInstance(this);
+        FavoriteSongsEditLogic logic = FavoriteSongsEditLogic.createInstance(this);
 
         // dto
-        FavoriteArtistDto dto = logic.createDto();
+        FavoriteSongsEditDto dto = logic.createDto();
 
         // favoriteList
         favoriteList = dto.favoriteList;
 
         // adapter
-        adapter = new FavoriteArtistEditAdapter(dto.favoriteList, dto.artistMap);
+        adapter = new FavoriteSongEditAdapter(dto.favoriteList, dto.trackMap);
         listView.setAdapter(adapter);
 
         // layout
@@ -68,18 +68,17 @@ public class FavoriteArtistEditActivity extends BaseActivity {
     }
 
     private View.OnClickListener createApplyClickListener() {
-        return v -> {
-            List<String> artistIdList =
-                    Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
-            FavoriteArtistRegister.update(artistIdList);
+        return view -> {
+            List<String> trackIdList = Stream.of(favoriteList)
+                    .map(FavoriteSongRealm::getTrackId)
+                    .collect(Collectors.toList());
+            FavoriteSongRegister.update(trackIdList);
             finish();
         };
     }
 
     private View.OnClickListener createCancelClickListener() {
-        return v -> {
-            finish();
-        };
+        return view -> finish();
     }
 
     private ItemTouchHelper createItemTouchHelper() {

@@ -63,7 +63,7 @@ public class FavoriteArtistsActivity extends BaseActivity {
 
     private View.OnClickListener createEditClickListener() {
         return v -> {
-            Intent intent = new Intent(this, FavoriteArtistEditActivity.class);
+            Intent intent = new Intent(this, FavoriteArtistsEditActivity.class);
             startActivity(intent);
         };
     }

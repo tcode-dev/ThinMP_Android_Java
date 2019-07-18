@@ -3,8 +3,10 @@ package tokyo.tkw.thinmp.favorite;
 import com.annimon.stream.IntStream;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
+import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
 public class FavoriteSongRegister {
@@ -30,7 +32,7 @@ public class FavoriteSongRegister {
         return favoriteRegister.findFirst(trackId) != null;
     }
 
-    public static void update(ArrayList list) {
+    public static void update(List<String> list) {
         FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
         favoriteRegister.allUpdate(list);
     }
@@ -77,7 +79,7 @@ public class FavoriteSongRegister {
      *
      * @param list
      */
-    private void allUpdate(ArrayList list) {
+    private void allUpdate(List<String> list) {
         beginTransaction();
 
         mRealm.delete(FavoriteSongRealm.class);
