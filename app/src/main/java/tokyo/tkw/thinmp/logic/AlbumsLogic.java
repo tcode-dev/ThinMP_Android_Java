@@ -3,17 +3,16 @@ package tokyo.tkw.thinmp.logic;
 import android.content.Context;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.AlbumListAdapter;
 import tokyo.tkw.thinmp.dto.AlbumsDto;
-import tokyo.tkw.thinmp.music.AlbumCollection;
+import tokyo.tkw.thinmp.music.Albums;
 
 public class AlbumsLogic {
     private Context context;
-    private AlbumCollection albumCollection;
+    private Albums albums;
 
     private AlbumsLogic(Context context) {
         this.context = context;
-        this.albumCollection =  AlbumCollection.createInstance(context);
+        this.albums = Albums.createInstance(context);
     }
 
     public static AlbumsLogic createInstance(Context context) {
@@ -23,8 +22,8 @@ public class AlbumsLogic {
     public AlbumsDto createDto() {
         AlbumsDto dto = new AlbumsDto();
 
-        dto.title =context.getResources().getString(R.string.albums);
-        dto.albumList = albumCollection.findAll();
+        dto.title = context.getResources().getString(R.string.albums);
+        dto.albumList = albums.getAlbumList();
         dto.titleSpanSize = 2;
         dto.albumListSpanSize = 1;
 

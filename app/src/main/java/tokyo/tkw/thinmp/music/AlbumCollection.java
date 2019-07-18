@@ -2,9 +2,6 @@ package tokyo.tkw.thinmp.music;
 
 import android.content.Context;
 
-import com.annimon.stream.Optional;
-import com.annimon.stream.Stream;
-
 import java.util.List;
 
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
@@ -24,19 +21,7 @@ public class AlbumCollection {
         return provider.findById(albumIdList);
     }
 
-    public List<Album> findByArtist(String artistId) {
-        return provider.findByArtist(artistId);
-    }
-
     public List<Album> findAll() {
         return provider.findAll();
-    }
-
-    public Optional<String> findFirstAlbumArtId(List<Album> albumList) {
-        return Stream.of(albumList)
-                .map(Album::getAlbumArtId)
-                .withoutNulls()
-                .findFirst()
-                .get();
     }
 }
