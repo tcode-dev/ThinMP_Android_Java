@@ -6,17 +6,17 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainDto;
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
-import tokyo.tkw.thinmp.shortcut.ShortcutCollection;
+import tokyo.tkw.thinmp.shortcut.Shortcuts;
 
 public class MainLogic {
     private Context context;
     private AlbumContentProvider albumContentProvider;
-    private ShortcutCollection shortcutCollection;
+    private Shortcuts shortcuts;
 
     private MainLogic(Context context) {
         this.context = context;
         this.albumContentProvider = new AlbumContentProvider(context);
-        this.shortcutCollection = new ShortcutCollection(context);
+        this.shortcuts = new Shortcuts(context);
     }
 
     public static MainLogic createInstance(Context context) {
@@ -30,7 +30,7 @@ public class MainLogic {
         dto.shortcutTitle = context.getString(R.string.shortcut);
         dto.recentlyAddedTitle = context.getString(R.string.recently_added);
         dto.menuList = MainMenuEnum.values();
-        dto.shortcutList = shortcutCollection.getList();
+        dto.shortcutList = shortcuts.getList();
         dto.recentlyAddedList = albumContentProvider.findAll();
         dto.pageTitleSpanSize = 2;
         dto.shortcutTitleSpanSize = 2;
