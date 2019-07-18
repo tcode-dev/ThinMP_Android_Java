@@ -3,13 +3,15 @@ package tokyo.tkw.thinmp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistListAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
+import tokyo.tkw.thinmp.dto.FavoriteArtistsDto;
+import tokyo.tkw.thinmp.logic.FavoriteArtistsLogic;
 import tokyo.tkw.thinmp.music.Artist;
 
 public class FavoriteArtistsActivity extends BaseActivity {
@@ -25,19 +27,30 @@ public class FavoriteArtistsActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        // view
         RecyclerView favoriteListView = findViewById(R.id.list);
+        Button editView = findViewById(R.id.edit);
 
-        FavoriteArtistList favoriteArtistList = new FavoriteArtistList(this);
-        FavoriteArtistListAdapter adapter =
-                new FavoriteArtistListAdapter(favoriteArtistList.getRealmResults(),
-                        favoriteArtistList.getArtistMap(),
-                        createFavoriteArtistListListener());
+        // logic
+        FavoriteArtistsLogic logic = FavoriteArtistsLogic.createInstance(this);
 
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-        favoriteListView.setLayoutManager(layout);
+        // dto
+        FavoriteArtistsDto dto = logic.createDto();
+
+        // adapter
+        FavoriteArtistListAdapter adapter = new FavoriteArtistListAdapter(
+                dto.realmResults,
+                dto.artistMap,
+                createFavoriteArtistListListener()
+        );
         favoriteListView.setAdapter(adapter);
 
-        findViewById(R.id.edit).setOnClickListener(createEditClickListener());
+        // layout
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        favoriteListView.setLayoutManager(layout);
+
+        // event
+        editView.setOnClickListener(createEditClickListener());
     }
 
     private FavoriteArtistListAdapter.FavoriteArtistListListener createFavoriteArtistListListener() {

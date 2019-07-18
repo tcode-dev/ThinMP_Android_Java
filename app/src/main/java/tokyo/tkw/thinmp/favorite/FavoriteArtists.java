@@ -3,7 +3,6 @@ package tokyo.tkw.thinmp.favorite;
 import android.content.Context;
 
 import com.annimon.stream.Collectors;
-import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 
 import java.util.List;
@@ -11,17 +10,15 @@ import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import tokyo.tkw.thinmp.music.Album;
 import tokyo.tkw.thinmp.music.Artist;
-import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
 import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
-public class FavoriteArtistList {
+public class FavoriteArtists {
     private Context mContext;
     private RealmResults<FavoriteArtistRealm> mRealmResults;
 
-    public FavoriteArtistList(Context context) {
+    public FavoriteArtists(Context context) {
         mContext = context;
         mRealmResults = findAll();
     }
@@ -47,25 +44,9 @@ public class FavoriteArtistList {
         return realm.where(FavoriteArtistRealm.class).findAll().sort(FavoriteArtistRealm.ID);
     }
 
-    public Map<String, Optional<String>> getArtistAlbumArtMap() {
-        return toArtistAlbumArtMap(getArtistsAlbumArtList());
-    }
-
-    private List<Album> getArtistsAlbumArtList() {
-        AlbumArtContentProvider provider = new AlbumArtContentProvider(mContext);
-
-        return provider.findByArtist(toArtistIdList(getFavoriteArtistRealmList()));
-    }
-
     private List<String> toArtistIdList(List<FavoriteArtistRealm> favoriteArtistRealmList) {
         return Stream.of(favoriteArtistRealmList)
                 .map(FavoriteArtistRealm::getArtistId)
                 .collect(Collectors.toList());
-    }
-
-    private Map<String, Optional<String>> toArtistAlbumArtMap(List<Album> artistAlbumList) {
-        return Stream.of(artistAlbumList)
-                .distinctBy(Album::getArtistId)
-                .collect(Collectors.toMap(Album::getArtistId, Album::getAlbumArtId));
     }
 }
