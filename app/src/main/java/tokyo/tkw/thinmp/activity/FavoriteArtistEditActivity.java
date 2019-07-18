@@ -2,7 +2,9 @@ package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,13 +16,14 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistEditAdapter;
-import tokyo.tkw.thinmp.favorite.FavoriteArtistList;
+import tokyo.tkw.thinmp.dto.FavoriteArtistDto;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
+import tokyo.tkw.thinmp.logic.FavoriteArtistsEditLogic;
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
 public class FavoriteArtistEditActivity extends BaseActivity {
-    private List<FavoriteArtistRealm> mFavoriteList;
-    private FavoriteArtistEditAdapter mAdapter;
+    private List<FavoriteArtistRealm> favoriteList;
+    private FavoriteArtistEditAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,27 +36,41 @@ public class FavoriteArtistEditActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        RecyclerView view = findViewById(R.id.list);
+        // view
+        RecyclerView listView = findViewById(R.id.list);
+        Button applyView = findViewById(R.id.apply);
+        Button cancelView = findViewById(R.id.cancel);
 
-        FavoriteArtistList favoriteArtistList = new FavoriteArtistList(this);
-        mFavoriteList = favoriteArtistList.getFavoriteArtistRealmList();
-        mAdapter = new FavoriteArtistEditAdapter(mFavoriteList, favoriteArtistList.getArtistMap());
+        // logic
+        FavoriteArtistsEditLogic logic = FavoriteArtistsEditLogic.createInstance(this);
 
-        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
-        itemTouchHelper.attachToRecyclerView(view);
+        // dto
+        FavoriteArtistDto dto = logic.createDto();
 
-        findViewById(R.id.apply).setOnClickListener(createApplyClickListener());
-        findViewById(R.id.cancel).setOnClickListener(createCancelClickListener());
+        // favoriteList
+        favoriteList = dto.favoriteList;
 
+        // adapter
+        adapter = new FavoriteArtistEditAdapter(dto.favoriteList, dto.artistMap);
+        listView.setAdapter(adapter);
+
+        // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
-        view.setLayoutManager(layout);
-        view.setAdapter(mAdapter);
+        listView.setLayoutManager(layout);
+
+        // ドラッグとスワイプ
+        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
+        itemTouchHelper.attachToRecyclerView(listView);
+
+        // event
+        applyView.setOnClickListener(createApplyClickListener());
+        cancelView.setOnClickListener(createCancelClickListener());
     }
 
     private View.OnClickListener createApplyClickListener() {
         return v -> {
             List<String> artistIdList =
-                    Stream.of(mFavoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
+                    Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
             FavoriteArtistRegister.update(artistIdList);
             finish();
         };
@@ -72,27 +89,27 @@ public class FavoriteArtistEditActivity extends BaseActivity {
         ) {
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                                  RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
                 final int fromPos = viewHolder.getAdapterPosition();
                 final int toPos = target.getAdapterPosition();
 
                 // viewの並び替え
-                mAdapter.notifyItemMoved(fromPos, toPos);
+                adapter.notifyItemMoved(fromPos, toPos);
 
                 // dataの並び替え
-                mFavoriteList.add(toPos, mFavoriteList.remove(fromPos));
+                favoriteList.add(toPos, favoriteList.remove(fromPos));
 
                 return true;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
                 // 削除
-                mFavoriteList.remove(fromPos);
-                mAdapter.notifyItemRemoved(fromPos);
+                favoriteList.remove(fromPos);
+                adapter.notifyItemRemoved(fromPos);
             }
         });
     }
