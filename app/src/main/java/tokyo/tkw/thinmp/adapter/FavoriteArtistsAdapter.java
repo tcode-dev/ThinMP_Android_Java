@@ -14,14 +14,14 @@ import tokyo.tkw.thinmp.music.Artist;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
-public class FavoriteArtistListAdapter extends RealmRecyclerViewAdapter<FavoriteArtistRealm,
+public class FavoriteArtistsAdapter extends RealmRecyclerViewAdapter<FavoriteArtistRealm,
         ArtistViewHolder> {
     private Map<String, Artist> mArtistMap;
     private FavoriteArtistListListener mListener;
 
-    public FavoriteArtistListAdapter(OrderedRealmCollection<FavoriteArtistRealm> favoriteList,
-                                     Map<String, Artist> artistMap,
-                                     FavoriteArtistListListener listener) {
+    public FavoriteArtistsAdapter(OrderedRealmCollection<FavoriteArtistRealm> favoriteList,
+                                  Map<String, Artist> artistMap,
+                                  FavoriteArtistListListener listener) {
         super(favoriteList, true);
 
         mArtistMap = artistMap;

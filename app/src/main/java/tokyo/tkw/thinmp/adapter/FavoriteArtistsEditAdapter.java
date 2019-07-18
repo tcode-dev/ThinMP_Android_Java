@@ -15,12 +15,12 @@ import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.ArtistViewHolder;
 
-public class FavoriteArtistEditAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
+public class FavoriteArtistsEditAdapter extends RecyclerView.Adapter<ArtistViewHolder> {
     private List<FavoriteArtistRealm> mFavoriteList;
     private Map<String, Artist> mArtistMap;
 
-    public FavoriteArtistEditAdapter(List<FavoriteArtistRealm> favoriteList,
-                                     Map<String, Artist> artistMap) {
+    public FavoriteArtistsEditAdapter(List<FavoriteArtistRealm> favoriteList,
+                                      Map<String, Artist> artistMap) {
         mFavoriteList = favoriteList;
         mArtistMap = artistMap;
     }

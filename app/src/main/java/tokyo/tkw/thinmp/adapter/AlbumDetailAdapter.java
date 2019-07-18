@@ -14,12 +14,12 @@ import tokyo.tkw.thinmp.listener.ITrackClickListener;
 import tokyo.tkw.thinmp.music.Track;
 import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
 
-public class AlbumTrackListAdapter extends RecyclerView.Adapter<AlbumTrackListViewHolder> {
+public class AlbumDetailAdapter extends RecyclerView.Adapter<AlbumTrackListViewHolder> {
     private List<Track> mTrackList;
     private ITrackClickListener mListener;
     private RecyclerView mRecycler;
 
-    public AlbumTrackListAdapter(@NonNull List<Track> trackList, ITrackClickListener listener) {
+    public AlbumDetailAdapter(@NonNull List<Track> trackList, ITrackClickListener listener) {
         mTrackList = trackList;
         mListener = listener;
     }

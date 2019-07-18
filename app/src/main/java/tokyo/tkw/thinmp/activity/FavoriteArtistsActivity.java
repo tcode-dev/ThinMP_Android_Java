@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.FavoriteArtistListAdapter;
+import tokyo.tkw.thinmp.adapter.FavoriteArtistsAdapter;
 import tokyo.tkw.thinmp.dto.FavoriteArtistsDto;
 import tokyo.tkw.thinmp.logic.FavoriteArtistsLogic;
 import tokyo.tkw.thinmp.music.Artist;
@@ -38,7 +38,7 @@ public class FavoriteArtistsActivity extends BaseActivity {
         FavoriteArtistsDto dto = logic.createDto();
 
         // adapter
-        FavoriteArtistListAdapter adapter = new FavoriteArtistListAdapter(
+        FavoriteArtistsAdapter adapter = new FavoriteArtistsAdapter(
                 dto.realmResults,
                 dto.artistMap,
                 createFavoriteArtistListListener()
@@ -53,7 +53,7 @@ public class FavoriteArtistsActivity extends BaseActivity {
         editView.setOnClickListener(createEditClickListener());
     }
 
-    private FavoriteArtistListAdapter.FavoriteArtistListListener createFavoriteArtistListListener() {
+    private FavoriteArtistsAdapter.FavoriteArtistListListener createFavoriteArtistListListener() {
         return artistId -> {
             Intent intent = new Intent(this, ArtistDetailActivity.class);
             intent.putExtra(Artist.ARTIST_ID, artistId);

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.AlbumTrackListAdapter;
+import tokyo.tkw.thinmp.adapter.AlbumDetailAdapter;
 import tokyo.tkw.thinmp.dto.AlbumDetailDto;
 import tokyo.tkw.thinmp.listener.AlbumMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
@@ -55,7 +55,7 @@ public class AlbumDetailActivity extends BaseActivity {
         GlideUtil.bitmap(dto.albumArtId, albumArtView);
 
         // adapter
-        AlbumTrackListAdapter adapter = new AlbumTrackListAdapter(
+        AlbumDetailAdapter adapter = new AlbumDetailAdapter(
                 dto.trackList,
                 new TrackClickListener(dto.trackList)
         );

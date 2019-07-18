@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.FavoriteSongListAdapter;
+import tokyo.tkw.thinmp.adapter.FavoriteSongsAdapter;
 import tokyo.tkw.thinmp.dto.FavoriteSongsDto;
 import tokyo.tkw.thinmp.listener.FavoriteSongClickListener;
 import tokyo.tkw.thinmp.logic.FavoriteSongsLogic;
@@ -39,7 +39,7 @@ public class FavoriteSongsActivity extends BaseActivity {
         FavoriteSongsDto dto = logic.createDto();
 
         // adapter
-        FavoriteSongListAdapter adapter = new FavoriteSongListAdapter(
+        FavoriteSongsAdapter adapter = new FavoriteSongsAdapter(
                 dto.realmResults,
                 dto.trackMap,
                 new FavoriteSongClickListener()

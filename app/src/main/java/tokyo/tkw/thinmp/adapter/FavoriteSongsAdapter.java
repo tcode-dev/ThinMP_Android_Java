@@ -17,15 +17,15 @@ import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
-public class FavoriteSongListAdapter extends RealmRecyclerViewAdapter<FavoriteSongRealm,
+public class FavoriteSongsAdapter extends RealmRecyclerViewAdapter<FavoriteSongRealm,
         TrackViewHolder> {
     private Map<String, Track> mTrackMap;
     private ITrackClickListener mListener;
     private RecyclerView mRecycler;
 
-    public FavoriteSongListAdapter(OrderedRealmCollection<FavoriteSongRealm> favoriteList,
-                                   Map<String, Track> trackMap,
-                                   ITrackClickListener listener) {
+    public FavoriteSongsAdapter(OrderedRealmCollection<FavoriteSongRealm> favoriteList,
+                                Map<String, Track> trackMap,
+                                ITrackClickListener listener) {
         super(favoriteList, true);
 
         mTrackMap = trackMap;

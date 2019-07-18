@@ -15,14 +15,14 @@ import com.annimon.stream.Stream;
 import java.util.List;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.FavoriteArtistEditAdapter;
+import tokyo.tkw.thinmp.adapter.FavoriteArtistsEditAdapter;
 import tokyo.tkw.thinmp.dto.FavoriteArtistDto;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.logic.FavoriteArtistsEditLogic;
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
 public class FavoriteArtistsEditActivity extends BaseActivity {
-    private FavoriteArtistEditAdapter adapter;
+    private FavoriteArtistsEditAdapter adapter;
     private List<FavoriteArtistRealm> favoriteList;
 
     @Override
@@ -51,7 +51,7 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
         favoriteList = dto.favoriteList;
 
         // adapter
-        adapter = new FavoriteArtistEditAdapter(dto.favoriteList, dto.artistMap);
+        adapter = new FavoriteArtistsEditAdapter(dto.favoriteList, dto.artistMap);
         listView.setAdapter(adapter);
 
         // layout
