@@ -6,15 +6,12 @@ import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.dto.AlbumDetailDto;
 import tokyo.tkw.thinmp.music.Album;
-import tokyo.tkw.thinmp.music.TrackCollection;
 
 public class AlbumDetailLogic {
     private Optional<Album> album;
-    private TrackCollection trackCollection;
 
     private AlbumDetailLogic(Context context, String albumId) {
         album = Album.createInstance(context, albumId);
-        trackCollection = TrackCollection.createAlbumTrackCollectionInstance(context, albumId);
     }
 
     public static AlbumDetailLogic createInstance(Context context, String albumId) {
@@ -28,9 +25,8 @@ public class AlbumDetailLogic {
             dto.albumName = album.getName();
             dto.artistName = album.getArtistName();
             dto.albumArtId = album.getAlbumArtId();
+            dto.trackList = album.getTrackList();
         });
-
-        dto.trackList = trackCollection.getList();
 
         return dto;
     }

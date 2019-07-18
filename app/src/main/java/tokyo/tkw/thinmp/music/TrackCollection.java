@@ -19,20 +19,6 @@ public class TrackCollection {
         return new TrackCollection(provider.findAll());
     }
 
-    public static TrackCollection createArtistTrackCollectionInstance(Context context,
-                                                                      String artistId) {
-        TrackContentProvider provider = new TrackContentProvider(context);
-
-        return new TrackCollection(provider.findByArtist(artistId));
-    }
-
-    public static TrackCollection createAlbumTrackCollectionInstance(Context context,
-                                                                     String albumId) {
-        TrackContentProvider provider = new TrackContentProvider(context);
-
-        return new TrackCollection(provider.findByAlbum(albumId));
-    }
-
     public List<Track> getList() {
         return mTrackList;
     }

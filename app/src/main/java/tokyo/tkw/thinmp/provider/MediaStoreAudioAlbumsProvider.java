@@ -49,7 +49,7 @@ abstract class MediaStoreAudioAlbumsProvider extends MediaStoreAudioProvider<Alb
     }
 
     private Album getAlbum() {
-        return new Album(getId(), getAlbumName(), getArtistId(), getArtistName(), getAlbumArtId());
+        return new Album(mContext, getId(), getAlbumName(), getArtistId(), getArtistName(), getAlbumArtId());
     }
 
     @Override
