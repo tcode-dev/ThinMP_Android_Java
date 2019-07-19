@@ -1,5 +1,6 @@
 package tokyo.tkw.thinmp.menu;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -27,12 +28,13 @@ public class ArtistMenu {
     /**
      * メニューを生成して表示する
      */
+    @SuppressLint("ResourceType")
     public void show() {
         int hiddenShortcut = shortcutRegister.exists(artistId, ShortcutRealm.TYPE_ARTIST) ?
                 R.id.add_shortcut :
                 R.id.del_shortcut;
         PopupMenu popupMenu = new PopupMenu(context, view);
-        popupMenu.getMenuInflater().inflate(R.menu.artist_popup_menu, popupMenu.getMenu());
+        popupMenu.getMenuInflater().inflate(R.layout.popup_menu_artist, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(createMenuItemClickListener());
         popupMenu.getMenu().findItem(hiddenShortcut).setVisible(false);
         popupMenu.show();

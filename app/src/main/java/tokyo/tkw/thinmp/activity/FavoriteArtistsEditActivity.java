@@ -29,7 +29,7 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_favorite_artist_edit);
+        setContentView(R.layout.activity_favorite_artists_edit);
 
         initWithPermissionCheck();
     }

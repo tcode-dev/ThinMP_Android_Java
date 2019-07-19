@@ -15,7 +15,7 @@ public class AlbumTrackListViewHolder extends RecyclerView.ViewHolder {
     public AlbumTrackListViewHolder(View view) {
         super(view);
 
-        title = view.findViewById(R.id.title);
+        title = view.findViewById(R.id.primaryText);
         menu = view.findViewById(R.id.menu);
     }
 }

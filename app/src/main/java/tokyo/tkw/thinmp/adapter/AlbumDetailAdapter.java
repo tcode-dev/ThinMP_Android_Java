@@ -27,7 +27,7 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<AlbumTrackListViewH
     @Override
     public AlbumTrackListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view =
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.album_track_list_item,
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_row_album_track,
                         parent, false);
 
         return new AlbumTrackListViewHolder(view);

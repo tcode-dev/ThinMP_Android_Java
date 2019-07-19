@@ -111,8 +111,8 @@ public class MainController extends TypedEpoxyController<MainDto> {
         Stream.of(albumList).forEach(album -> {
             new AlbumModel_()
                     .id(album.getId())
-                    .primaryText(album.getName())
-                    .secondaryText(album.getArtistName())
+                    .albumName(album.getName())
+                    .artistName(album.getArtistName())
                     .albumArtId(album.getAlbumArtId())
                     .clickListener(new AlbumClickListener(album.getId()))
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)

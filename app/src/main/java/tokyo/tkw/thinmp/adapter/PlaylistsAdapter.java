@@ -30,7 +30,7 @@ public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, Im
     @NonNull
     @Override
     public ImageRowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.panel, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_col_artist_album, parent, false);
 
         return new ImageRowViewHolder(view);
     }

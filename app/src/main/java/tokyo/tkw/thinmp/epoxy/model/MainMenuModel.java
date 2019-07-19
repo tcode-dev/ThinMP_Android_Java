@@ -14,7 +14,7 @@ import tokyo.tkw.thinmp.R;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
-@EpoxyModelClass(layout = R.layout.row)
+@EpoxyModelClass(layout = R.layout.list_item_row_main_menu)
 public abstract class MainMenuModel extends EpoxyModelWithHolder<MainMenuModel.Holder> {
     @EpoxyAttribute
     String label;

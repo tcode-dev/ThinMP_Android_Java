@@ -13,7 +13,7 @@
         android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/artistName"
+        android:id="@+id/primaryText"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="8dp"

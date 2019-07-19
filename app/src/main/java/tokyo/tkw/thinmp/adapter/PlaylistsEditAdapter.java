@@ -28,7 +28,7 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
 
     @Override
     public ImageRowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.playlist_item,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_row_playlist,
                 parent, false);
 
         return new ImageRowViewHolder(view);

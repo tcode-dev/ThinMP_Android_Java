@@ -12,7 +12,7 @@ import com.airbnb.epoxy.EpoxyModelWithHolder;
 
 import tokyo.tkw.thinmp.R;
 
-@EpoxyModelClass(layout = R.layout.section_header)
+@EpoxyModelClass(layout = R.layout.header_section)
 public abstract class SectionHeaderModel extends EpoxyModelWithHolder<SectionHeaderModel.Holder> {
     @EpoxyAttribute
     String title;

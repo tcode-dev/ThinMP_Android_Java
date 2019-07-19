@@ -1,5 +1,6 @@
 package tokyo.tkw.thinmp.menu;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -29,11 +30,12 @@ public class TrackMenu {
     /**
      * メニューを生成して表示する
      */
+    @SuppressLint("ResourceType")
     public void show() {
         int hiddenFavorite = FavoriteSongRegister.exists(mTrackId) ? R.id.add_favorite :
                 R.id.del_favorite;
         PopupMenu popupMenu = new PopupMenu(mContext, mView);
-        popupMenu.getMenuInflater().inflate(R.menu.track_popup_menu, popupMenu.getMenu());
+        popupMenu.getMenuInflater().inflate(R.layout.popup_menu_track, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(createMenuItemClickListener());
         popupMenu.getMenu().findItem(hiddenFavorite).setVisible(false);
         popupMenu.show();

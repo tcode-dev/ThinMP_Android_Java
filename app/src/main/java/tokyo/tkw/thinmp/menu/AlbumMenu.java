@@ -1,5 +1,6 @@
 package tokyo.tkw.thinmp.menu;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -32,12 +33,13 @@ public class AlbumMenu {
     /**
      * メニューを生成して表示する
      */
+    @SuppressLint("ResourceType")
     public void show() {
         int hiddenShortcut = shortcutRegister.exists(albumId, ShortcutRealm.TYPE_ALBUM) ?
                 R.id.add_shortcut :
                 R.id.del_shortcut;
         PopupMenu popupMenu = new PopupMenu(context, view);
-        popupMenu.getMenuInflater().inflate(R.menu.album_popup_menu, popupMenu.getMenu());
+        popupMenu.getMenuInflater().inflate(R.layout.popup_menu_album, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(createMenuItemClickListener());
         popupMenu.getMenu().findItem(hiddenShortcut).setVisible(false);
         popupMenu.show();
