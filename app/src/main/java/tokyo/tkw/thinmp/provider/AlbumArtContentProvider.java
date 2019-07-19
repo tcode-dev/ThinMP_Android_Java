@@ -22,39 +22,11 @@ public class AlbumArtContentProvider extends MediaStoreAudioAlbumsProvider {
         return get();
     }
 
-    public List<Album> findByArtist(List<String> artistIdList) {
-        selection =
-                MediaStore.Audio.Media.ARTIST_ID + " IN (" + makePlaceholders(artistIdList.size()) + ") AND " +
-                        MediaStore.Audio.Albums.ALBUM_ART + " IS NOT NULL";
-        selectionArgs = toStringArray(artistIdList);
-        sortOrder = null;
-
-        return getList();
-    }
-
     public List<Album> findById(List<String> albumIdList) {
         selection =
                 MediaStore.Audio.Albums._ID + " IN (" + makePlaceholders(albumIdList.size()) + ") " +
                         "AND " + MediaStore.Audio.Albums.ALBUM_ART + " IS NOT NULL";
         selectionArgs = toStringArray(albumIdList);
-        sortOrder = null;
-
-        return getList();
-    }
-
-    /**
-     * NOTE:uriからテーブル名を取得する方法がわからないので副問合せのテーブル名はハードコーディングする
-     * @param trackIdList
-     * @return
-     */
-    public List<Album> findByTrack(List<String> trackIdList) {
-        selection = MediaStore.Audio.Albums.ALBUM_ART + " IS NOT NULL " +
-                "AND " + MediaStore.Audio.Albums._ID  + " IN (" +
-                    "SELECT " + MediaStore.Audio.Media.ALBUM_ID + " " +
-                    "FROM audio " +
-                    "WHERE " + MediaStore.Audio.Media._ID + " IN ("+ makePlaceholders(trackIdList.size()) + ")" +
-                ")";
-        selectionArgs = toStringArray(trackIdList);
         sortOrder = null;
 
         return getList();
