@@ -17,7 +17,6 @@ import tokyo.tkw.thinmp.track.Track;
 class PlaylistTrack {
     private TrackContentProvider trackContentProvider;
     private List<String> trackIdList;
-    private List<String> uniqueTrackIdList;
     private Map<String, Track> trackMap;
     private RealmList<PlaylistTrackRealm> trackRealmList;
     private List<Track> trackList;
@@ -27,7 +26,6 @@ class PlaylistTrack {
         this.trackContentProvider = new TrackContentProvider(context);
         this.trackRealmList = trackRealmList;
         this.trackIdList = getTrackIdList();
-        this.uniqueTrackIdList = getUniqueTrackIdList();
         this.trackList = getTrackList();
         this.albumArtId = getFirstTrackAlbumArtId();
         this.trackMap = toTrackMap();
@@ -61,8 +59,7 @@ class PlaylistTrack {
     }
 
     private List<String> getUniqueTrackIdList() {
-        return Stream.of(trackRealmList)
-                .map(PlaylistTrackRealm::getTrackId)
+        return Stream.of(trackIdList)
                 .distinct()
                 .collect(Collectors.toList());
     }
@@ -72,6 +69,7 @@ class PlaylistTrack {
     }
 
     private List<Track> getTrackList() {
-        return trackContentProvider.findById(uniqueTrackIdList);
+        return trackContentProvider.findById(getUniqueTrackIdList());
+
     }
 }
