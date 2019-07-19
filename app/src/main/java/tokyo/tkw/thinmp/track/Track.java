@@ -30,14 +30,14 @@ public class Track extends Music implements Serializable {
     private int duration;
 
     public Track(String id, String title, String artistId, String artistName, String albumId,
-                 String albumName, int duration) {
+                 String albumName, String albumArtId, int duration) {
         this.id = id;
         this.title = title;
         this.artistId = artistId;
         this.artistName = artistName;
         this.albumId = albumId;
         this.albumName = albumName;
-        this.albumArtId = albumId;
+        this.albumArtId = albumArtId;
         this.duration = duration;
     }
 
@@ -85,13 +85,6 @@ public class Track extends Music implements Serializable {
         return parse(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + id);
     }
 
-    /**
-     * 指定された曲を取得
-     *
-     * @param context
-     * @param id
-     * @return
-     */
     public static Optional<Track> createInstance(Context context, String id) {
         TrackContentProvider provider = new TrackContentProvider(context);
 
