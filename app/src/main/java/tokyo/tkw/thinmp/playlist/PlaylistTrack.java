@@ -49,7 +49,9 @@ class PlaylistTrack {
     }
 
     private Optional<String> getFirstTrackAlbumArtId() {
-        return Stream.of(trackList).findFirst().get().getAlbumArtId();
+        Optional<Track> track = Stream.of(trackList).findFirst();
+
+        return track.isEmpty() ? Optional.empty() : track.get().getAlbumArtId();
     }
 
     private List<String> getTrackIdList() {
