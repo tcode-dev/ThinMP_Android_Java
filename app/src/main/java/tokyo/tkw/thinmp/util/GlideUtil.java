@@ -33,10 +33,6 @@ public class GlideUtil {
         RADIUS_PX = (int) ViewUtil.dpToDimensionPx(context, RADIUS_DP);
     }
 
-    public static void bitmap(String albumArtId, ImageView view) {
-        bitmap(albumArtId, view, DEFAULT_RESOURCE_ID);
-    }
-
     public static void bitmap(Optional<String> albumArtIdOpt, ImageView view) {
         albumArtIdOpt.ifPresentOrElse((albumArtId) -> {
             albumArt(albumArtId, view, DEFAULT_RESOURCE_ID);
@@ -51,14 +47,6 @@ public class GlideUtil {
         }, () -> {
             drawable(view, resourceId);
         });
-    }
-
-    private static void bitmap(String albumArtId, ImageView view, int resourceId) {
-        if (albumArtId != null) {
-            albumArt(albumArtId, view, resourceId);
-        } else {
-            drawable(view, resourceId);
-        }
     }
 
     private static void albumArt(String albumArtId, ImageView view, int resourceId) {

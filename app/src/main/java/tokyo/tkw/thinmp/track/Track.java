@@ -26,11 +26,11 @@ public class Track extends Music implements Serializable {
     private String artistName;
     private String albumId;
     private String albumName;
-    private String albumArtId;
+    private Optional<String> albumArtId;
     private int duration;
 
     public Track(String id, String title, String artistId, String artistName, String albumId,
-                 String albumName, String albumArtId, int duration) {
+                 String albumName, Optional<String> albumArtId, int duration) {
         this.id = id;
         this.title = title;
         this.artistId = artistId;
@@ -65,12 +65,8 @@ public class Track extends Music implements Serializable {
         return albumName;
     }
 
-    public String getAlbumArtId() {
+    public Optional<String> getAlbumArtId() {
         return albumArtId;
-    }
-
-    public void setAlbumArtId(String albumArtId) {
-        this.albumArtId = albumArtId;
     }
 
     public int getDurationSecond() {

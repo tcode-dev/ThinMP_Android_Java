@@ -10,34 +10,25 @@ import java.util.List;
 import java.util.Map;
 
 import io.realm.RealmList;
-import tokyo.tkw.thinmp.album.Album;
-import tokyo.tkw.thinmp.track.Track;
-import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
+import tokyo.tkw.thinmp.track.Track;
 
 class PlaylistTrack {
     private TrackContentProvider trackContentProvider;
-    private AlbumArtContentProvider albumArtContentProvider;
     private List<String> trackIdList;
     private List<String> uniqueTrackIdList;
     private Map<String, Track> trackMap;
-    private List<String> albumIdList;
-    private Map<String, String> albumArtMap;
     private RealmList<PlaylistTrackRealm> trackRealmList;
     private List<Track> trackList;
-    private String albumArtId;
+    private Optional<String> albumArtId;
 
     private PlaylistTrack(Context context, RealmList<PlaylistTrackRealm> trackRealmList) {
         this.trackContentProvider = new TrackContentProvider(context);
-        this.albumArtContentProvider = new AlbumArtContentProvider(context);
         this.trackRealmList = trackRealmList;
         this.trackIdList = getTrackIdList();
         this.uniqueTrackIdList = getUniqueTrackIdList();
-        this.albumIdList = getAlbumIdList();
-        List<Track> trackList = getTrackList();
-        this.albumArtMap = getAlbumArtMap(trackList);
-        this.trackList = updateTrackList(trackList);
+        this.trackList = getTrackList();
         this.albumArtId = getFirstTrackAlbumArtId();
         this.trackMap = toTrackMap();
     }
@@ -56,25 +47,11 @@ class PlaylistTrack {
     }
 
     Optional<String> getAlbumArtId() {
-        return Optional.ofNullable(albumArtId);
+        return albumArtId;
     }
 
-    private String getFirstTrackAlbumArtId() {
-        Optional<String> TrackId = Stream.of(uniqueTrackIdList)
-                .filter(albumArtMap::containsKey)
-                .findFirst();
-
-        return albumArtMap.get(TrackId.get());
-    }
-
-    private List<Album> getAlbumList() {
-        return albumArtContentProvider.findByTrack(uniqueTrackIdList);
-    }
-
-    private List<String> getAlbumIdList() {
-        return Stream.of(getAlbumList())
-                .map(Album::getId)
-                .collect(Collectors.toList());
+    private Optional<String> getFirstTrackAlbumArtId() {
+        return Stream.of(trackList).findFirst().get().getAlbumArtId();
     }
 
     private List<String> getTrackIdList() {
@@ -96,20 +73,5 @@ class PlaylistTrack {
 
     private List<Track> getTrackList() {
         return trackContentProvider.findById(uniqueTrackIdList);
-    }
-
-    private List<Track> updateTrackList(List<Track> trackList) {
-        return Stream.of(trackList).map(track -> {
-            track.setAlbumArtId(albumArtMap.get(track.getId()));
-            return track;
-        }).collect(Collectors.toList());
-    }
-
-    private Map<String, String> getAlbumArtMap(List<Track> trackList) {
-        System.out.println(trackList);
-        return Stream.of(trackList)
-                .filter(track -> albumIdList.contains(track.getAlbumId()))
-                .distinctBy(Track::getId)
-                .collect(Collectors.toMap(Track::getId, Track::getAlbumArtId));
     }
 }

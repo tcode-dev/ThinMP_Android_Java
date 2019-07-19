@@ -11,6 +11,7 @@ import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyHolder;
 import com.airbnb.epoxy.EpoxyModelClass;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
+import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.GlideUtil;
@@ -20,7 +21,7 @@ import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 @EpoxyModelClass(layout = R.layout.artist_track_list_item)
 public abstract class ArtistTrackModel extends EpoxyModelWithHolder<ArtistTrackModel.Holder> {
     @EpoxyAttribute
-    String albumArtId;
+    Optional<String> albumArtId;
     @EpoxyAttribute
     String trackName;
     @EpoxyAttribute(DoNotHash)
