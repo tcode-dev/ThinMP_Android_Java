@@ -10,6 +10,7 @@ import tokyo.tkw.thinmp.epoxy.controller.MainController;
 import tokyo.tkw.thinmp.logic.MainLogic;
 
 public class MainActivity extends BaseActivity {
+    private MainController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class MainActivity extends BaseActivity {
         MainLogic logic = MainLogic.createInstance(this);
 
         // controller
-        MainController controller = new MainController();
+        controller = new MainController();
         controller.setData(logic.createDto());
         listView.setAdapter(controller.getAdapter());
 
@@ -39,5 +40,14 @@ public class MainActivity extends BaseActivity {
         controller.setSpanCount(2);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
         listView.setLayoutManager(layout);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        // update
+        MainLogic logic = MainLogic.createInstance(this);
+        controller.setData(logic.createDto());
     }
 }
