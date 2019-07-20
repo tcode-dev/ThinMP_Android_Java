@@ -27,6 +27,7 @@ public class ArtistDetailLogic {
         artist.ifPresent(artist -> {
             dto.artistName = artist.getName();
             dto.albumArtId = artist.getAlbumArtId();
+            dto.meta = artist.getMeta();
             dto.albumList = artist.getAlbumList();
             dto.trackList = artist.getTrackList();
         });

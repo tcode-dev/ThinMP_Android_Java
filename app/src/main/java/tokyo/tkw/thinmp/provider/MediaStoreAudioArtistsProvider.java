@@ -12,7 +12,9 @@ abstract class MediaStoreAudioArtistsProvider extends MediaStoreAudioProvider<Ar
         uri = MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI;
         projection = new String[]{
                 MediaStore.Audio.Artists._ID,
-                MediaStore.Audio.Artists.ARTIST
+                MediaStore.Audio.Artists.ARTIST,
+                MediaStore.Audio.Artists.NUMBER_OF_ALBUMS,
+                MediaStore.Audio.Artists.NUMBER_OF_TRACKS
         };
     }
 
@@ -33,7 +35,7 @@ abstract class MediaStoreAudioArtistsProvider extends MediaStoreAudioProvider<Ar
     }
 
     private Artist getArtist() {
-        return new Artist(mContext, getId(), getArtistName());
+        return new Artist(mContext, getId(), getArtistName(), getNumberOfAlbums(), getNumberOfTracks());
     }
 
     @Override

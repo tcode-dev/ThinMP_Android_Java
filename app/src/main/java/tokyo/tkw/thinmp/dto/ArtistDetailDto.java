@@ -11,6 +11,7 @@ public class ArtistDetailDto {
     public String artistName;
     public String albumsTitle;
     public String songsTitle;
+    public String meta;
     public List<Album> albumList;
     public List<Track> trackList;
     public Optional<String> albumArtId;

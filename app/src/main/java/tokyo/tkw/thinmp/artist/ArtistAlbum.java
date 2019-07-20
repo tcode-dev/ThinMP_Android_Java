@@ -20,7 +20,7 @@ public class ArtistAlbum {
         return new ArtistAlbum(context, artistId);
     }
 
-    public List<Album> getAlbumList() {
+    List<Album> getAlbumList() {
         return provider.findByArtist(artistId);
     }
 }

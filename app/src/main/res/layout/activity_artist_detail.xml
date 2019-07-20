@@ -35,7 +35,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="330dp"
             android:layout_marginStart="-4dp"
             android:layout_marginEnd="-4dp"
             android:background="@null"
@@ -67,46 +67,46 @@
 
                     <tokyo.tkw.thinmp.view.ResponsiveCircleImageView
                         android:id="@+id/albumArt"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="120dp"
                         android:scaleType="centerCrop"
-                        app:collapseOffsetX="10"
-                        app:collapseOffsetY="16"
-                        app:collapseScale="0.6"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <tokyo.tkw.thinmp.view.ResponsiveTextView
                         android:id="@+id/title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="40dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="2dp"
                         android:clipChildren="false"
-                        app:collapseOffsetY="34"
-                        app:collapseScale="0.8"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:collapseOffsetY="16"
+                        app:layout_constraintBottom_toTopOf="@+id/meta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/albumArt"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:textAlignCenter="true"
                         app:textColor="#000000"
-                        app:textSize="24" />
+                        app:textSize="20" />
 
                     <tokyo.tkw.thinmp.view.FadeOutTextView
                         android:id="@+id/meta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:text="10 albums, 35 songs, 1h 30min"
-                        android:textColor="#5c5c5c"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="4dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:textSize="16sp"
-                        app:fadeEnd="0.4"
-                        app:fadeStart="0.2"
+                        app:fadeEnd="0.5"
+                        app:fadeStart="0.1"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/albumArt" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:textColor="#5C5C5C" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -150,7 +150,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:clipToPadding="false"
                 android:nestedScrollingEnabled="true"
+                android:paddingTop="10dp"
                 android:scrollbars="vertical" />
 
         </tokyo.tkw.thinmp.view.ExactlyNestedScrollView>

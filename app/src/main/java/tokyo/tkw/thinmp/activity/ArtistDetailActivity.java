@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +36,7 @@ public class ArtistDetailActivity extends BaseActivity {
         ImageView backgroundView = findViewById(R.id.background);
         ImageView albumArtView = findViewById(R.id.albumArt);
         ResponsiveTextView titleView = findViewById(R.id.title);
+        TextView metaView = findViewById(R.id.meta);
         RecyclerView listView = findViewById(R.id.list);
         ImageView menuView = findViewById(R.id.menu);
 
@@ -52,6 +54,9 @@ public class ArtistDetailActivity extends BaseActivity {
 
         // タイトル
         titleView.setText(dto.artistName);
+
+        // meta
+        metaView.setText(dto.meta);
 
         // controller
         ArtistDetailController controller = new ArtistDetailController();
