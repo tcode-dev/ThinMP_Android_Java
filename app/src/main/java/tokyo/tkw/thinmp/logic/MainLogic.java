@@ -5,18 +5,18 @@ import android.content.Context;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainDto;
-import tokyo.tkw.thinmp.provider.AlbumContentProvider;
+import tokyo.tkw.thinmp.recently.RecentlyAdded;
 import tokyo.tkw.thinmp.shortcut.Shortcuts;
 
 public class MainLogic {
     private Context context;
-    private AlbumContentProvider albumContentProvider;
     private Shortcuts shortcuts;
+    private RecentlyAdded recentlyAdded;
 
     private MainLogic(Context context) {
         this.context = context;
-        this.albumContentProvider = new AlbumContentProvider(context);
-        this.shortcuts = new Shortcuts(context);
+        this.shortcuts = Shortcuts.createInstance(context);
+        this.recentlyAdded = RecentlyAdded.createInstance(context);
     }
 
     public static MainLogic createInstance(Context context) {
@@ -31,7 +31,7 @@ public class MainLogic {
         dto.recentlyAddedTitle = context.getString(R.string.recently_added);
         dto.menuList = MainMenuEnum.values();
         dto.shortcutList = shortcuts.getList();
-        dto.recentlyAddedList = albumContentProvider.findAll();
+        dto.recentlyAddedList = recentlyAdded.getRecentlyAddedList();
         dto.pageTitleSpanSize = 2;
         dto.shortcutTitleSpanSize = 2;
         dto.recentlyAddedTitleSpanSize = 2;

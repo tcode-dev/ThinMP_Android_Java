@@ -17,10 +17,14 @@ public class Shortcuts {
     private ShortcutAlbums shortcutAlbums;
     private ShortcutPlaylists shortcutPlaylists;
 
-    public Shortcuts(Context context) {
+    private Shortcuts(Context context) {
         this.shortcutArtists = ShortcutArtists.createInstance(context);
         this.shortcutAlbums = ShortcutAlbums.createinstance(context);
         this.shortcutPlaylists = ShortcutPlaylists.createInstance(context);
+    }
+
+    public static Shortcuts createInstance(Context context) {
+        return new Shortcuts(context);
     }
 
     public List<Shortcut> getList() {

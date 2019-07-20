@@ -46,4 +46,12 @@ public class AlbumContentProvider extends MediaStoreAudioAlbumsProvider {
 
         return getList();
     }
+
+    public List<Album> findRecentlyAdded(int limit) {
+        selection = null;
+        selectionArgs = null;
+        sortOrder = MediaStore.Audio.Albums._ID + " DESC LIMIT " + limit;
+
+        return getList();
+    }
 }
