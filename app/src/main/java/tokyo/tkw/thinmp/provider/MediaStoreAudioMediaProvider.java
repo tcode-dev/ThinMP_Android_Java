@@ -23,7 +23,7 @@ abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvider<Trac
                 "(" +
                     "SELECT album_id " +
                     "FROM album_info " +
-                    "WHERE album_info._id = audio.album_id and album_info.album_art  IS NOT NULL" +
+                    "WHERE album_info._id = audio.album_id AND album_info.album_art  IS NOT NULL" +
                 ") AS album_art_id"
         };
     }
