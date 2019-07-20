@@ -18,33 +18,33 @@ import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
 public abstract class ShortcutModel extends EpoxyModelWithHolder<ShortcutModel.Holder> {
     @EpoxyAttribute
-    String name;
-    @EpoxyAttribute
-    String type;
-    @EpoxyAttribute
     Optional<String> albumArtId;
+    @EpoxyAttribute
+    String primaryText;
+    @EpoxyAttribute
+    String secondaryText;
     @EpoxyAttribute(DoNotHash)
     View.OnClickListener clickListener;
 
     @Override
     public void bind(@NonNull ShortcutModel.Holder holder) {
-        holder.name.setText(name);
-        holder.type.setText(type);
         GlideUtil.bitmap(albumArtId, holder.albumArt);
+        holder.primaryText.setText(primaryText);
+        holder.secondaryText.setText(secondaryText);
         holder.parent.setOnClickListener(clickListener);
     }
 
     static class Holder extends EpoxyHolder {
         View parent;
-        TextView name;
-        TextView type;
         ImageView albumArt;
+        TextView primaryText;
+        TextView secondaryText;
 
         @Override
         protected void bindView(@NonNull View itemView) {
             parent = itemView;
-            name = itemView.findViewById(R.id.primaryText);
-            type = itemView.findViewById(R.id.secondaryText);
+            primaryText = itemView.findViewById(R.id.primaryText);
+            secondaryText = itemView.findViewById(R.id.secondaryText);
             albumArt = itemView.findViewById(R.id.albumArt);
         }
     }

@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 
-public class ImageRowViewHolder extends RecyclerView.ViewHolder {
+public class PlaylistViewHolder extends RecyclerView.ViewHolder {
     public ImageView albumArt;
     public TextView primaryText;
 
-    public ImageRowViewHolder(View view) {
+    public PlaylistViewHolder(View view) {
         super(view);
 
         albumArt = view.findViewById(R.id.albumArt);

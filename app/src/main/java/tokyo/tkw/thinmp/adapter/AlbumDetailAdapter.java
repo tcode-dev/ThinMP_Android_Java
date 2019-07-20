@@ -12,9 +12,9 @@ import java.util.List;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.ITrackClickListener;
 import tokyo.tkw.thinmp.track.Track;
-import tokyo.tkw.thinmp.viewHolder.AlbumTrackListViewHolder;
+import tokyo.tkw.thinmp.viewHolder.AlbumTrackViewHolder;
 
-public class AlbumDetailAdapter extends RecyclerView.Adapter<AlbumTrackListViewHolder> {
+public class AlbumDetailAdapter extends RecyclerView.Adapter<AlbumTrackViewHolder> {
     private List<Track> mTrackList;
     private ITrackClickListener mListener;
     private RecyclerView mRecycler;
@@ -24,13 +24,14 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<AlbumTrackListViewH
         mListener = listener;
     }
 
+    @NonNull
     @Override
-    public AlbumTrackListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AlbumTrackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view =
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_row_album_track,
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_album_track,
                         parent, false);
 
-        return new AlbumTrackListViewHolder(view);
+        return new AlbumTrackViewHolder(view);
     }
 
     @Override
@@ -46,11 +47,11 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<AlbumTrackListViewH
     }
 
     @Override
-    public void onBindViewHolder(AlbumTrackListViewHolder holder, int position) {
+    public void onBindViewHolder(AlbumTrackViewHolder holder, int position) {
         Track track = mTrackList.get(position);
         String title = track.getTitle();
 
-        holder.title.setText(title);
+        holder.primaryText.setText(title);
         holder.itemView.setOnClickListener(onClickTrack());
         holder.menu.setOnClickListener(onClickMenu());
     }

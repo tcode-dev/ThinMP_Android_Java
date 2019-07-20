@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 
-public class AlbumTrackListViewHolder extends RecyclerView.ViewHolder {
-    public TextView title;
+public class AlbumTrackViewHolder extends RecyclerView.ViewHolder {
+    public TextView primaryText;
     public View menu;
 
 
-    public AlbumTrackListViewHolder(View view) {
+    public AlbumTrackViewHolder(View view) {
         super(view);
 
-        title = view.findViewById(R.id.primaryText);
+        primaryText = view.findViewById(R.id.primaryText);
         menu = view.findViewById(R.id.menu);
     }
 }

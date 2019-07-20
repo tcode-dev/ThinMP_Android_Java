@@ -26,7 +26,7 @@ public class FavoriteSongsEditAdapter extends RecyclerView.Adapter<TrackViewHold
 
     @Override
     public TrackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_row_track, parent,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_track, parent,
                 false);
 
         return new TrackViewHolder(view);
@@ -39,8 +39,8 @@ public class FavoriteSongsEditAdapter extends RecyclerView.Adapter<TrackViewHold
         String title = track.getTitle();
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
-        holder.track.setText(title);
-        holder.artist.setText(track.getArtistName());
+        holder.primaryText.setText(title);
+        holder.secondaryText.setText(track.getArtistName());
     }
 
     @Override

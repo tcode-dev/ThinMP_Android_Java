@@ -48,7 +48,7 @@ public class FavoriteSongsAdapter extends RealmRecyclerViewAdapter<FavoriteSongR
 
     @Override
     public TrackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_row_track, parent,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_track, parent,
                 false);
 
         return new TrackViewHolder(view);
@@ -61,9 +61,8 @@ public class FavoriteSongsAdapter extends RealmRecyclerViewAdapter<FavoriteSongR
         String title = track.getTitle();
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
-        holder.track.setText(title);
-        holder.artist.setText(track.getArtistName());
-
+        holder.primaryText.setText(title);
+        holder.secondaryText.setText(track.getArtistName());
         holder.itemView.setOnClickListener(onClickTrack());
         holder.menu.setOnClickListener(onClickMenu());
     }

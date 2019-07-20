@@ -30,8 +30,8 @@ public class ArtistsController extends TypedEpoxyController<ArtistsDto> {
         Stream.of(artistList).forEach(artist -> {
             new ArtistListItemModel_()
                     .id(artist.getId())
-                    .artistName(artist.getName())
                     .albumArtId(artist.getAlbumArtId())
+                    .primaryText(artist.getName())
                     .clickListener(new ArtistClickListener(artist.getId()))
                     .addTo(this);
         });

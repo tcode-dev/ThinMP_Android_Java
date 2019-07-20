@@ -18,22 +18,22 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
-@EpoxyModelClass(layout = R.layout.list_item_col_album)
+@EpoxyModelClass(layout = R.layout.list_item_grid_album)
 public abstract class AlbumModel extends EpoxyModelWithHolder<AlbumModel.Holder> {
     @EpoxyAttribute
     Optional<String> albumArtId;
     @EpoxyAttribute
-    String albumName;
+    String primaryText;
     @EpoxyAttribute
-    String artistName;
+    String secondaryText;
     @EpoxyAttribute(DoNotHash)
     OnClickListener clickListener;
 
     @Override
     public void bind(@NonNull Holder holder) {
         GlideUtil.bitmap(albumArtId, holder.albumArt);
-        holder.primaryText.setText(albumName);
-        holder.secondaryText.setText(artistName);
+        holder.primaryText.setText(primaryText);
+        holder.secondaryText.setText(secondaryText);
         holder.parent.setOnClickListener(clickListener);
     }
 

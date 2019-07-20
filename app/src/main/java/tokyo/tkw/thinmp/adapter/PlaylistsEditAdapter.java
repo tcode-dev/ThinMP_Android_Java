@@ -14,9 +14,9 @@ import tokyo.tkw.thinmp.listener.PlaylistClickListener;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
-import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
+import tokyo.tkw.thinmp.viewHolder.PlaylistViewHolder;
 
-public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolder> {
+public class PlaylistsEditAdapter extends RecyclerView.Adapter<PlaylistViewHolder> {
     private RealmList<PlaylistRealm> realmList;
     private Map<String, Playlist> playlistMap;
 
@@ -27,15 +27,15 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
     }
 
     @Override
-    public ImageRowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_row_playlist,
+    public PlaylistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_playlist,
                 parent, false);
 
-        return new ImageRowViewHolder(view);
+        return new PlaylistViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ImageRowViewHolder holder, int position) {
+    public void onBindViewHolder(PlaylistViewHolder holder, int position) {
         PlaylistRealm playlistRealm = realmList.get(position);
         String playlistId = playlistRealm.getId();
         Playlist playlist = playlistMap.get(playlistId);
@@ -43,7 +43,6 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<ImageRowViewHolde
 
         GlideUtil.bitmap(playlist.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(name);
-
         holder.itemView.setOnClickListener(new PlaylistClickListener(playlistId));
     }
 

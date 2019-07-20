@@ -37,7 +37,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
         Stream.of(albumList).forEach(album -> {
             new ArtistAlbumModel_()
                     .id("album", album.getId())
-                    .albumName(album.getName())
+                    .primaryText(album.getName())
                     .albumArtId(album.getAlbumArtId())
                     .albumClickListener(new AlbumClickListener(album.getId()))
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
@@ -57,8 +57,8 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
         Stream.of(trackList).forEachIndexed((i, track) -> {
             new ArtistTrackModel_()
                     .id("track", track.getId())
-                    .trackName(track.getTitle())
                     .albumArtId(track.getAlbumArtId())
+                    .primaryText(track.getTitle())
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                     .trackClickListener(new EpoxyTrackClickListener(trackList, i))
                     .menuClickListener(new TrackMenuClickListener(track.getId()))

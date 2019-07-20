@@ -18,14 +18,14 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
-@EpoxyModelClass(layout = R.layout.list_item_row_track)
+@EpoxyModelClass(layout = R.layout.list_item_linear_track)
 public abstract class TrackModel extends EpoxyModelWithHolder<TrackModel.Holder> {
     @EpoxyAttribute
     Optional<String> albumArtId;
     @EpoxyAttribute
-    String trackName;
+    String primaryText;
     @EpoxyAttribute
-    String artistName;
+    String secondaryText;
     @EpoxyAttribute(DoNotHash)
     OnClickListener trackClickListener;
     @EpoxyAttribute(DoNotHash)
@@ -34,8 +34,8 @@ public abstract class TrackModel extends EpoxyModelWithHolder<TrackModel.Holder>
     @Override
     public void bind(@NonNull Holder holder) {
         GlideUtil.bitmap(albumArtId, holder.albumArt);
-        holder.trackName.setText(trackName);
-        holder.artistName.setText(artistName);
+        holder.primaryText.setText(primaryText);
+        holder.secondaryText.setText(secondaryText);
         holder.parent.setOnClickListener(trackClickListener);
         holder.menu.setOnClickListener(menuClickListener);
     }
@@ -43,16 +43,16 @@ public abstract class TrackModel extends EpoxyModelWithHolder<TrackModel.Holder>
     static class Holder extends EpoxyHolder {
         View parent;
         ImageView albumArt;
-        TextView trackName;
-        TextView artistName;
+        TextView primaryText;
+        TextView secondaryText;
         ImageView menu;
 
         @Override
         protected void bindView(@NonNull View itemView) {
             parent = itemView;
             albumArt = itemView.findViewById(R.id.albumArt);
-            trackName = itemView.findViewById(R.id.primaryText);
-            artistName = itemView.findViewById(R.id.secondaryText);
+            primaryText = itemView.findViewById(R.id.primaryText);
+            secondaryText = itemView.findViewById(R.id.secondaryText);
             menu = itemView.findViewById(R.id.menu);
         }
     }

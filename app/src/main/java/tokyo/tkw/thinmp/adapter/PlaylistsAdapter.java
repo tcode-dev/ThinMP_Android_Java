@@ -15,9 +15,9 @@ import tokyo.tkw.thinmp.listener.PlaylistClickListener;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
-import tokyo.tkw.thinmp.viewHolder.ImageRowViewHolder;
+import tokyo.tkw.thinmp.viewHolder.PlaylistViewHolder;
 
-public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, ImageRowViewHolder> {
+public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, PlaylistViewHolder> {
     private Map<String, Playlist> playlistMap;
 
     public PlaylistsAdapter(OrderedRealmCollection<PlaylistRealm> playlists,
@@ -29,14 +29,14 @@ public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, Im
 
     @NonNull
     @Override
-    public ImageRowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_col_artist_album, parent, false);
+    public PlaylistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_grid_artist_album, parent, false);
 
-        return new ImageRowViewHolder(view);
+        return new PlaylistViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageRowViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlaylistViewHolder holder, int position) {
         PlaylistRealm playlistRealm = getItem(position);
         String playlistId = playlistRealm.getId();
         Playlist playlist = playlistMap.get(playlistId);
@@ -44,7 +44,6 @@ public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, Im
 
         GlideUtil.bitmap(playlist.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(name);
-
         holder.itemView.setOnClickListener(new PlaylistClickListener(playlistId));
     }
 }

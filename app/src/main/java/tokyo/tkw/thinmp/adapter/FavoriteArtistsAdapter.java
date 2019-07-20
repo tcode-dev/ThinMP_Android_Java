@@ -30,7 +30,7 @@ public class FavoriteArtistsAdapter extends RealmRecyclerViewAdapter<FavoriteArt
 
     @Override
     public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_row_artist,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_artist,
                 parent, false);
 
         return new ArtistViewHolder(view);
@@ -42,8 +42,7 @@ public class FavoriteArtistsAdapter extends RealmRecyclerViewAdapter<FavoriteArt
         Artist artist = mArtistMap.get(favorite.getArtistId());
 
         GlideUtil.bitmap(artist.getAlbumArtId(), holder.albumArt, GlideUtil.ARTIST_RESOURCE_ID);
-        holder.artistName.setText(artist.getName());
-
+        holder.primaryText.setText(artist.getName());
         holder.itemView.setOnClickListener(onClickListener(artist.getId()));
     }
 

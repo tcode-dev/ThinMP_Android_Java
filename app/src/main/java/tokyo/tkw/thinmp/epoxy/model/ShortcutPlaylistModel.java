@@ -4,6 +4,6 @@ import com.airbnb.epoxy.EpoxyModelClass;
 
 import tokyo.tkw.thinmp.R;
 
-@EpoxyModelClass(layout = R.layout.list_item_col_shortcut_playlist)
+@EpoxyModelClass(layout = R.layout.list_item_grid_shortcut_playlist)
 public abstract class ShortcutPlaylistModel extends ShortcutModel {
 }

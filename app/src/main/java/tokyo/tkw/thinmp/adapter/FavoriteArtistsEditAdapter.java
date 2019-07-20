@@ -27,7 +27,7 @@ public class FavoriteArtistsEditAdapter extends RecyclerView.Adapter<ArtistViewH
 
     @Override
     public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_row_artist,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_artist,
                 parent, false);
 
         return new ArtistViewHolder(view);
@@ -40,7 +40,7 @@ public class FavoriteArtistsEditAdapter extends RecyclerView.Adapter<ArtistViewH
         String title = artist.getName();
 
         GlideUtil.bitmap(artist.getAlbumArtId(), holder.albumArt, GlideUtil.ARTIST_RESOURCE_ID);
-        holder.artistName.setText(title);
+        holder.primaryText.setText(title);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class PlaylistDetailEditAdapter extends RecyclerView.Adapter<TrackViewHol
     @NonNull
     @Override
     public TrackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_row_track, parent,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_track, parent,
                 false);
 
         return new TrackViewHolder(view);
@@ -39,9 +39,10 @@ public class PlaylistDetailEditAdapter extends RecyclerView.Adapter<TrackViewHol
     public void onBindViewHolder(@NonNull TrackViewHolder holder, int position) {
         PlaylistTrackRealm realm = trackRealmList.get(position);
         Track track = trackMap.get(realm.getTrackId());
+
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
-        holder.track.setText(track.getTitle());
-        holder.artist.setText(track.getArtistName());
+        holder.primaryText.setText(track.getTitle());
+        holder.secondaryText.setText(track.getArtistName());
     }
 
     @Override

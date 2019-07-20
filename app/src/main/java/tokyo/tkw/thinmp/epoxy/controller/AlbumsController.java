@@ -31,9 +31,9 @@ public class AlbumsController extends TypedEpoxyController<AlbumsDto> {
         Stream.of(albumList).forEach(album -> {
             new AlbumModel_()
                     .id(album.getId())
-                    .albumName(album.getName())
-                    .artistName(album.getArtistName())
                     .albumArtId(album.getAlbumArtId())
+                    .primaryText(album.getName())
+                    .secondaryText(album.getArtistName())
                     .clickListener(new AlbumClickListener(album.getId()))
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                     .addTo(this);

@@ -10,16 +10,16 @@ import tokyo.tkw.thinmp.R;
 
 public class TrackViewHolder extends RecyclerView.ViewHolder {
     public ImageView albumArt;
-    public TextView track;
-    public TextView artist;
+    public TextView primaryText;
+    public TextView secondaryText;
     public ImageView menu;
 
     public TrackViewHolder(View view) {
         super(view);
 
         albumArt = view.findViewById(R.id.albumArt);
-        track = view.findViewById(R.id.primaryText);
-        artist = view.findViewById(R.id.secondaryText);
+        primaryText = view.findViewById(R.id.primaryText);
+        secondaryText = view.findViewById(R.id.secondaryText);
         menu = view.findViewById(R.id.menu);
     }
 }

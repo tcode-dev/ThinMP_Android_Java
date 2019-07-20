@@ -46,7 +46,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
         Stream.of(menuList).forEachIndexed((i, menu) -> {
             new MainMenuModel_()
                     .id("menu", i)
-                    .label(menu.label())
+                    .primaryText(menu.label())
                     .clickListener(new MainMenuClickListener(menu.link()))
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                     .addTo(this);
@@ -67,9 +67,9 @@ public class MainController extends TypedEpoxyController<MainDto> {
                 case ShortcutRealm.ARTIST:
                     new ShortcutArtistModel_()
                             .id("shortcut", shortcut.getId())
-                            .name(shortcut.getName())
-                            .type(shortcut.getType())
                             .albumArtId(shortcut.getAlbumArtId())
+                            .primaryText(shortcut.getName())
+                            .secondaryText(shortcut.getType())
                             .clickListener(new ArtistClickListener(shortcut.getId()))
                             .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                             .addTo(this);
@@ -77,9 +77,9 @@ public class MainController extends TypedEpoxyController<MainDto> {
                 case ShortcutRealm.ALBUM:
                     new ShortcutAlbumModel_()
                             .id("shortcut", shortcut.getId())
-                            .name(shortcut.getName())
-                            .type(shortcut.getType())
                             .albumArtId(shortcut.getAlbumArtId())
+                            .primaryText(shortcut.getName())
+                            .secondaryText(shortcut.getType())
                             .clickListener(new AlbumClickListener(shortcut.getId()))
                             .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                             .addTo(this);
@@ -87,9 +87,9 @@ public class MainController extends TypedEpoxyController<MainDto> {
                 case ShortcutRealm.PLAYLIST:
                     new ShortcutPlaylistModel_()
                             .id("shortcut", shortcut.getId())
-                            .name(shortcut.getName())
-                            .type(shortcut.getType())
                             .albumArtId(shortcut.getAlbumArtId())
+                            .primaryText(shortcut.getName())
+                            .secondaryText(shortcut.getType())
                             .clickListener(new PlaylistClickListener(shortcut.getId()))
                             .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                             .addTo(this);
@@ -111,9 +111,9 @@ public class MainController extends TypedEpoxyController<MainDto> {
         Stream.of(albumList).forEach(album -> {
             new AlbumModel_()
                     .id(album.getId())
-                    .albumName(album.getName())
-                    .artistName(album.getArtistName())
                     .albumArtId(album.getAlbumArtId())
+                    .primaryText(album.getName())
+                    .secondaryText(album.getArtistName())
                     .clickListener(new AlbumClickListener(album.getId()))
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                     .addTo(this);
