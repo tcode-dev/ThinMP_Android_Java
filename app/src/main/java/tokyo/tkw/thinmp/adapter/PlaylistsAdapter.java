@@ -30,7 +30,7 @@ public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, Pl
     @NonNull
     @Override
     public PlaylistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_grid_artist_album, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_grid_playlist, parent, false);
 
         return new PlaylistViewHolder(view);
     }
@@ -40,10 +40,9 @@ public class PlaylistsAdapter extends RealmRecyclerViewAdapter<PlaylistRealm, Pl
         PlaylistRealm playlistRealm = getItem(position);
         String playlistId = playlistRealm.getId();
         Playlist playlist = playlistMap.get(playlistId);
-        String name = playlist.getName();
 
         GlideUtil.bitmap(playlist.getAlbumArtId(), holder.albumArt);
-        holder.primaryText.setText(name);
+        holder.primaryText.setText(playlist.getName());
         holder.itemView.setOnClickListener(new PlaylistClickListener(playlistId));
     }
 }
