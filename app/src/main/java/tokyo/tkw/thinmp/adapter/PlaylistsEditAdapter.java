@@ -39,10 +39,9 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<PlaylistViewHolde
         PlaylistRealm playlistRealm = realmList.get(position);
         String playlistId = playlistRealm.getId();
         Playlist playlist = playlistMap.get(playlistId);
-        String name = playlist.getName();
 
         GlideUtil.bitmap(playlist.getAlbumArtId(), holder.albumArt);
-        holder.primaryText.setText(name);
+        holder.primaryText.setText(playlist.getName());
         holder.itemView.setOnClickListener(new PlaylistClickListener(playlistId));
     }
 

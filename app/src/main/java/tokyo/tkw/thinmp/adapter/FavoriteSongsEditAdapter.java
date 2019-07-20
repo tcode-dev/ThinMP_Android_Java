@@ -36,10 +36,9 @@ public class FavoriteSongsEditAdapter extends RecyclerView.Adapter<TrackViewHold
     public void onBindViewHolder(TrackViewHolder holder, int position) {
         FavoriteSongRealm favorite = mFavoriteList.get(position);
         Track track = mTrackMap.get(favorite.getTrackId());
-        String title = track.getTitle();
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
-        holder.primaryText.setText(title);
+        holder.primaryText.setText(track.getTitle());
         holder.secondaryText.setText(track.getArtistName());
     }
 

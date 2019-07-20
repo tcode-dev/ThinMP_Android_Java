@@ -47,12 +47,7 @@ public class FavoriteArtistsAdapter extends RealmRecyclerViewAdapter<FavoriteArt
     }
 
     private View.OnClickListener onClickListener(String artistId) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onClick(artistId);
-            }
-        };
+        return v -> mListener.onClick(artistId);
     }
 
     /**

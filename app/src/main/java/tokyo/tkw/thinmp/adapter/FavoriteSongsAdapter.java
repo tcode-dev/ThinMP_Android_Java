@@ -58,10 +58,9 @@ public class FavoriteSongsAdapter extends RealmRecyclerViewAdapter<FavoriteSongR
     public void onBindViewHolder(TrackViewHolder holder, int position) {
         FavoriteSongRealm favorite = getItem(position);
         Track track = mTrackMap.get(favorite.getTrackId());
-        String title = track.getTitle();
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
-        holder.primaryText.setText(title);
+        holder.primaryText.setText(track.getTitle());
         holder.secondaryText.setText(track.getArtistName());
         holder.itemView.setOnClickListener(onClickTrack());
         holder.menu.setOnClickListener(onClickMenu());

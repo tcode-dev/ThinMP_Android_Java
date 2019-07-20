@@ -59,7 +59,6 @@ public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrac
     @Override
     public void onBindViewHolder(@NonNull TrackViewHolder holder, int position) {
         PlaylistTrackRealm playlistTrackRealm = getItem(position);
-
         Track track = trackMap.get(playlistTrackRealm.getTrackId());
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
