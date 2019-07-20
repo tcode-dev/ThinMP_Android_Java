@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -20,18 +19,15 @@ public class BlurImageView extends AppCompatImageView {
     private static final float RADIUS = 20f;
     private static final int REPEAT = 3;
 
-    private float radius;
-    private int repeat;
+    private float mRadius;
+    private int mRepeat;
 
     public BlurImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        @SuppressLint("CustomViewStyleable") TypedArray typedArray = context.obtainStyledAttributes(
-                attrs,
-                R.styleable.Blur
-        );
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Blur);
 
-        radius = typedArray.getFloat(R.styleable.Blur_blurRadius, RADIUS);
-        repeat = typedArray.getInt(R.styleable.Blur_blurRepeat, REPEAT);
+        mRadius = typedArray.getFloat(R.styleable.Blur_blurRadius, RADIUS);
+        mRepeat = typedArray.getInt(R.styleable.Blur_blurRepeat, REPEAT);
 
         typedArray.recycle();
     }
@@ -44,7 +40,8 @@ public class BlurImageView extends AppCompatImageView {
 
         RenderScript rs = RenderScript.create(getContext());
         RSBlurProcessor rsBlurProcessor = new RSBlurProcessor(rs);
-        Bitmap blurBitMap = rsBlurProcessor.blur(bm.copy(Bitmap.Config.ARGB_8888, true), radius, repeat);
+        Bitmap blurBitMap = rsBlurProcessor.blur(bm.copy(Bitmap.Config.ARGB_8888, true), mRadius,
+                mRepeat);
 
         super.setImageBitmap(blurBitMap);
     }

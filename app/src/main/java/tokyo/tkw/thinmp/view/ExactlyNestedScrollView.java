@@ -22,14 +22,11 @@ public class ExactlyNestedScrollView extends NestedScrollView {
                                            int parentHeightMeasureSpec, int heightUsed) {
         final MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
 
-        final int childWidthMeasureSpec = getChildMeasureSpec(
-                parentWidthMeasureSpec,
-                getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin + widthUsed, lp.width
-        );
+        final int childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,
+                getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin
+                        + widthUsed, lp.width);
         final int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                lp.topMargin + lp.bottomMargin,
-                MeasureSpec.EXACTLY
-        );
+                lp.topMargin + lp.bottomMargin, MeasureSpec.EXACTLY);
 
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
