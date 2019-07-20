@@ -5,11 +5,11 @@ import com.annimon.stream.Stream;
 
 import java.util.List;
 
+import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.dto.AlbumsDto;
 import tokyo.tkw.thinmp.epoxy.model.AlbumModel_;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
+import tokyo.tkw.thinmp.epoxy.model.PageHeaderMarginTopBottomModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
-import tokyo.tkw.thinmp.album.Album;
 
 public class AlbumsController extends TypedEpoxyController<AlbumsDto> {
 
@@ -20,7 +20,7 @@ public class AlbumsController extends TypedEpoxyController<AlbumsDto> {
     }
 
     private void buildHeader(String title, int spanSize) {
-        new PageHeaderModel_()
+        new PageHeaderMarginTopBottomModel_()
                 .id("header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)

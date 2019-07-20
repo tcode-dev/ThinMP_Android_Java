@@ -12,7 +12,6 @@ import com.airbnb.epoxy.EpoxyModelWithHolder;
 
 import tokyo.tkw.thinmp.R;
 
-@EpoxyModelClass(layout = R.layout.header_page)
 public abstract class PageHeaderModel extends EpoxyModelWithHolder<PageHeaderModel.Holder> {
     @EpoxyAttribute
     String title;
