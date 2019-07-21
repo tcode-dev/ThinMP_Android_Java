@@ -27,8 +27,8 @@ class PlaylistTrack {
         this.trackRealmList = trackRealmList;
         this.trackIdList = getTrackIdList();
         this.trackList = getTrackList();
-        this.albumArtId = getFirstTrackAlbumArtId();
         this.trackMap = toTrackMap();
+        this.albumArtId = getFirstTrackAlbumArtId();
     }
 
     static PlaylistTrack createInstance(Context context,
@@ -49,7 +49,7 @@ class PlaylistTrack {
     }
 
     private Optional<String> getFirstTrackAlbumArtId() {
-        Optional<Track> track = Stream.of(trackList).findFirst();
+        Optional<Track> track = Stream.of(getSortedTrackList()).findFirst();
 
         return track.isEmpty() ? Optional.empty() : track.get().getAlbumArtId();
     }
@@ -72,6 +72,5 @@ class PlaylistTrack {
 
     private List<Track> getTrackList() {
         return trackContentProvider.findById(getUniqueTrackIdList());
-
     }
 }

@@ -25,8 +25,7 @@ public class PlaylistDetailLogic {
         dto.playlistName = playlist.getPlaylistRealm().getName();
         dto.typeName = context.getString(R.string.playlist);
         dto.albumArtId = playlist.getAlbumArtId();
-        dto.trackRealmList = playlist.getTrackRealmList();
-        dto.trackMap = playlist.getTrackMap();
+        dto.trackList = playlist.getSortedTrackList();
 
         return dto;
     }

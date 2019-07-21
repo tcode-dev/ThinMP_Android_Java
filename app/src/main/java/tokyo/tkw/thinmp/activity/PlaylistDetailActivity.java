@@ -9,14 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDetailAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistDetailDto;
+import tokyo.tkw.thinmp.epoxy.controller.PlaylistDetailController;
 import tokyo.tkw.thinmp.listener.PlaylistMenuClickListener;
 import tokyo.tkw.thinmp.listener.PlaylistTrackClickListener;
 import tokyo.tkw.thinmp.logic.PlaylistDetailLogic;
+import tokyo.tkw.thinmp.logic.PlaylistsLogic;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class PlaylistDetailActivity extends BaseActivity {
+    private String playlistId;
+    private PlaylistDetailController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,7 @@ public class PlaylistDetailActivity extends BaseActivity {
     @Override
     protected void init() {
         // playlistId
-        String playlistId = getIntent().getStringExtra(PlaylistTrackRealm.PLAYLIST_ID);
+        playlistId = getIntent().getStringExtra(PlaylistTrackRealm.PLAYLIST_ID);
 
         // view
         RecyclerView listView = findViewById(R.id.list);
@@ -54,13 +58,10 @@ public class PlaylistDetailActivity extends BaseActivity {
         // playlist文字列
         subTitleView.setText(dto.typeName);
 
-        // adapter
-        PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(
-                dto.trackRealmList,
-                dto.trackMap,
-                new PlaylistTrackClickListener(playlistId)
-        );
-        listView.setAdapter(adapter);
+        // controller
+        controller = new PlaylistDetailController();
+        controller.setData(dto.trackList);
+        listView.setAdapter(controller.getAdapter());
 
         // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
@@ -68,5 +69,33 @@ public class PlaylistDetailActivity extends BaseActivity {
 
         // event
         menuView.setOnClickListener(new PlaylistMenuClickListener(playlistId));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        update();
+    }
+
+    private void update() {
+        // view
+        ImageView albumArtView = findViewById(R.id.albumArt);
+        ResponsiveTextView titleView = findViewById(R.id.title);
+
+        // logic
+        PlaylistDetailLogic logic = PlaylistDetailLogic.createInstance(this, playlistId);
+
+        // dto
+        PlaylistDetailDto dto = logic.createDto();
+
+        // アルバムアート
+        GlideUtil.bitmap(dto.albumArtId, albumArtView);
+
+        // プレイリスト名
+        titleView.setText(dto.playlistName);
+
+        // controller
+        controller.setData(dto.trackList);
     }
 }
