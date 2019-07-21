@@ -16,7 +16,7 @@ public class AlbumsController extends TypedEpoxyController<AlbumsDto> {
     @Override
     protected void buildModels(AlbumsDto dto) {
         buildHeader(dto.title, dto.titleSpanSize);
-        buildAlbumList(dto.albumList, dto.albumListSpanSize);
+        buildAlbumList(dto.albumList, dto.listSpanSize);
     }
 
     private void buildHeader(String title, int spanSize) {

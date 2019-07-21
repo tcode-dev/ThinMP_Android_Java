@@ -41,10 +41,6 @@ public class Playlists {
         return new Playlists(context, playlistIds);
     }
 
-    public RealmResults<PlaylistRealm> getRealmResults() {
-        return realmResults;
-    }
-
     private RealmResults<PlaylistRealm> findById(List<String> playlistIds) {
         return realm.where(PlaylistRealm.class).in(PlaylistRealm.ID,
                 playlistIds.toArray(new String[0])).findAll();
@@ -75,5 +71,9 @@ public class Playlists {
                         playlistId -> playlistId,
                         playlistId -> Playlist.createInstance(context, playlistId)));
 
+    }
+
+    public List<Playlist> getPlaylists() {
+        return Stream.of(playlistIds).map(playlistId -> Playlist.createInstance(context, playlistId)).toList();
     }
 }

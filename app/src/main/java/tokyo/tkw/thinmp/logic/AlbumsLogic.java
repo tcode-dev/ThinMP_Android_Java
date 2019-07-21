@@ -25,7 +25,7 @@ public class AlbumsLogic {
         dto.title = context.getResources().getString(R.string.albums);
         dto.albumList = albums.getAlbumList();
         dto.titleSpanSize = 2;
-        dto.albumListSpanSize = 1;
+        dto.listSpanSize = 1;
 
         return dto;
     }

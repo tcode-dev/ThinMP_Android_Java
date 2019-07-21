@@ -96,8 +96,7 @@ public class PlaylistDialogFragment extends DialogFragment {
 
         // adapter
         PlaylistAddAdapter adapter = new PlaylistAddAdapter(
-                dto.realmResults,
-                dto.playlistMap,
+                dto.playlists,
                 createPlaylistClickListener()
         );
         playlistView.setAdapter(adapter);

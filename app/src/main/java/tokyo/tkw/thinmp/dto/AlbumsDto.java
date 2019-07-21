@@ -8,5 +8,5 @@ public class AlbumsDto {
     public String title;
     public List<Album> albumList;
     public int titleSpanSize;
-    public int albumListSpanSize;
+    public int listSpanSize;
 }

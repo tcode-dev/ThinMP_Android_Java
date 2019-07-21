@@ -61,7 +61,6 @@ public class Playlist {
     }
 
     private PlaylistRealm findById(String playlistId) {
-
         return realm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
     }
 }
