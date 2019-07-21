@@ -11,7 +11,6 @@ import java.util.List;
 import tokyo.tkw.thinmp.config.Config;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
-import tokyo.tkw.thinmp.music.PlayingList;
 import tokyo.tkw.thinmp.track.Track;
 
 public class MusicService extends Service {

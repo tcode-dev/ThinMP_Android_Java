@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.music;
+package tokyo.tkw.thinmp.player;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
