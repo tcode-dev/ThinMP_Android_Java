@@ -346,11 +346,12 @@ public class MusicService extends Service {
     }
 
     public MusicState getState() {
+        FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
         Track track = mPlayingList.getTrack();
 
         return new MusicState(mMediaPlayer.isPlaying(), getCurrentPosition(), hasPrev(),
                 hasNext(), getRepeat(), getShuffle(), FavoriteSongRegister.exists(track.getId()),
-                FavoriteArtistRegister.exists(track.getArtistId()));
+                register.exists(track.getArtistId()));
     }
 
     /**

@@ -250,13 +250,25 @@ public class Player {
     }
 
     /**
-     * OnClickFavoriteArtist
+     * OnClickFavoriteArtistRegister
      *
      * @param view
      */
-    public void OnClickFavoriteArtist(View view) {
-        boolean favorite = FavoriteArtistRegister.set(mTrack.getArtistId());
-        isFavoriteArtist.set(favorite);
+    public void OnClickFavoriteArtistRegister(View view) {
+        FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
+        register.add(mTrack.getArtistId());
+        isFavoriteArtist.set(true);
+    }
+
+    /**
+     * OnClickFavoriteArtistUnregister
+     *
+     * @param view
+     */
+    public void OnClickFavoriteArtistUnregister(View view) {
+        FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
+        register.remove(mTrack.getArtistId());
+        isFavoriteArtist.set(false);
     }
 
     /**

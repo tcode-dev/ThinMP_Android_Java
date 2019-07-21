@@ -1,88 +1,63 @@
 package tokyo.tkw.thinmp.favorite;
 
-import com.annimon.stream.IntStream;
+import com.annimon.stream.Stream;
 
 import java.util.List;
 
-import io.realm.Realm;
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
+import tokyo.tkw.thinmp.realm.RealmRegister;
 
-public class FavoriteArtistRegister {
-    private Realm mRealm;
-
-    public FavoriteArtistRegister() {
-        mRealm = Realm.getDefaultInstance();
-    }
-
+public class FavoriteArtistRegister extends RealmRegister {
     public static FavoriteArtistRegister createInstance() {
         return new FavoriteArtistRegister();
     }
 
-    public static boolean set(String artistId) {
-        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
-
-        return favoriteRegister.update(artistId);
-    }
-
-    public static boolean exists(String artistId) {
+    public boolean exists(String artistId) {
         FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
 
         return favoriteRegister.getArtist(artistId) != null;
     }
 
-    public static void update(List list) {
-        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
-        favoriteRegister.allUpdate(list);
-    }
-
-    public void beginTransaction() {
-        mRealm.beginTransaction();
-    }
-
-    public void commitTransaction() {
-        mRealm.commitTransaction();
-    }
-
     private FavoriteArtistRealm getArtist(String artistId) {
-        return mRealm.where(FavoriteArtistRealm.class).equalTo("artistId", artistId).findFirst();
+        return realm.where(FavoriteArtistRealm.class).equalTo("artistId", artistId).findFirst();
     }
 
-    private boolean update(String artistId) {
-        FavoriteArtistRealm favorite = getArtist(artistId);
-
+    public void add(String artistId) {
         beginTransaction();
 
-        boolean isFavorite;
-        if (favorite == null) {
-            mRealm.createObject(FavoriteArtistRealm.class, nextId()).setArtistId(artistId);
-            isFavorite = true;
-        } else {
-            favorite.deleteFromRealm();
-            isFavorite = false;
-        }
+        realm.createObject(FavoriteArtistRealm.class, nextId()).setArtistId(artistId);
 
         commitTransaction();
+    }
 
-        return isFavorite;
+    public void remove(String artistId) {
+        beginTransaction();
+
+        FavoriteArtistRealm favorite = getArtist(artistId);
+        favorite.deleteFromRealm();
+
+        commitTransaction();
     }
 
     /**
      * truncateしてlistを登録する
      *
-     * @param list
+     * @param artistIdList
      */
-    private void allUpdate(List list) {
+    public void allUpdate(List<String> artistIdList) {
         beginTransaction();
 
-        mRealm.delete(FavoriteArtistRealm.class);
+        realm.delete(FavoriteArtistRealm.class);
 
-        IntStream.range(0, list.size()).forEach(i -> mRealm.createObject(FavoriteArtistRealm.class, i + 1).setArtistId(list.get(i).toString()));
+        Stream.of(artistIdList).forEachIndexed((i, id) -> {
+            realm.createObject(FavoriteArtistRealm.class, i + 1).setArtistId(id);
+        });
 
         commitTransaction();
     }
 
     private int nextId() {
-        Number maxId = mRealm.where(FavoriteArtistRealm.class).max("id");
+        Number maxId = realm.where(FavoriteArtistRealm.class).max("id");
 
         return (maxId != null) ? maxId.intValue() + 1 : 1;
     }

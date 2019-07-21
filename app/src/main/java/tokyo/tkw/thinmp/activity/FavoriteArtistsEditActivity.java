@@ -16,14 +16,14 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistsEditAdapter;
-import tokyo.tkw.thinmp.dto.FavoriteArtistDto;
+import tokyo.tkw.thinmp.artist.Artist;
+import tokyo.tkw.thinmp.dto.FavoriteArtistsEditDto;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.logic.FavoriteArtistsEditLogic;
-import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
 public class FavoriteArtistsEditActivity extends BaseActivity {
     private FavoriteArtistsEditAdapter adapter;
-    private List<FavoriteArtistRealm> favoriteList;
+    private List<Artist> artistList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +45,13 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
         FavoriteArtistsEditLogic logic = FavoriteArtistsEditLogic.createInstance(this);
 
         // dto
-        FavoriteArtistDto dto = logic.createDto();
+        FavoriteArtistsEditDto dto = logic.createDto();
 
-        // favoriteList
-        favoriteList = dto.favoriteList;
+        // artistList
+        artistList = dto.artistList;
 
         // adapter
-        adapter = new FavoriteArtistsEditAdapter(dto.favoriteList, dto.artistMap);
+        adapter = new FavoriteArtistsEditAdapter(dto.artistList);
         listView.setAdapter(adapter);
 
         // layout
@@ -68,16 +68,16 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
     }
 
     private View.OnClickListener createApplyClickListener() {
-        return v -> {
-            List<String> artistIdList =
-                    Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
-            FavoriteArtistRegister.update(artistIdList);
+        return view -> {
+            FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
+            List<String> artistIdList = Stream.of(artistList).map(Artist::getId).collect(Collectors.toList());
+            register.allUpdate(artistIdList);
             finish();
         };
     }
 
     private View.OnClickListener createCancelClickListener() {
-        return v -> {
+        return view -> {
             finish();
         };
     }
@@ -98,7 +98,7 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
                 adapter.notifyItemMoved(fromPos, toPos);
 
                 // dataの並び替え
-                favoriteList.add(toPos, favoriteList.remove(fromPos));
+                artistList.add(toPos, artistList.remove(fromPos));
 
                 return true;
             }
@@ -108,7 +108,7 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
                 final int fromPos = viewHolder.getAdapterPosition();
 
                 // 削除
-                favoriteList.remove(fromPos);
+                artistList.remove(fromPos);
                 adapter.notifyItemRemoved(fromPos);
             }
         });

@@ -2,8 +2,7 @@ package tokyo.tkw.thinmp.logic;
 
 import android.content.Context;
 
-import tokyo.tkw.thinmp.dto.FavoriteArtistDto;
-import tokyo.tkw.thinmp.dto.FavoriteArtistsDto;
+import tokyo.tkw.thinmp.dto.FavoriteArtistsEditDto;
 import tokyo.tkw.thinmp.favorite.FavoriteArtists;
 
 public class FavoriteArtistsEditLogic {
@@ -17,11 +16,10 @@ public class FavoriteArtistsEditLogic {
         return new FavoriteArtistsEditLogic(context);
     }
 
-    public FavoriteArtistDto createDto() {
-        FavoriteArtistDto dto = new FavoriteArtistDto();
+    public FavoriteArtistsEditDto createDto() {
+        FavoriteArtistsEditDto dto = new FavoriteArtistsEditDto();
 
-        dto.favoriteList = favoriteArtists.getFavoriteArtistRealmList();
-        dto.artistMap = favoriteArtists.getArtistMap();
+        dto.artistList = favoriteArtists.getArtistList();
 
         return dto;
     }
