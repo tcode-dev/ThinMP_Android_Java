@@ -11,20 +11,17 @@ import androidx.fragment.app.FragmentActivity;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
-import tokyo.tkw.thinmp.track.Track;
+import tokyo.tkw.thinmp.music.Music;
 
-/**
- * メニュー
- */
 public class TrackMenu {
-    private Context mContext;
-    private View mView;
-    private String mTrackId;
+    private Context context;
+    private View view;
+    private String trackId;
 
     public TrackMenu(View view, String trackId) {
-        mContext = view.getContext();
-        mView = view;
-        mTrackId = trackId;
+        context = view.getContext();
+        this.view = view;
+        this.trackId = trackId;
     }
 
     /**
@@ -32,9 +29,9 @@ public class TrackMenu {
      */
     @SuppressLint("ResourceType")
     public void show() {
-        int hiddenFavorite = FavoriteSongRegister.exists(mTrackId) ? R.id.add_favorite :
+        int hiddenFavorite = FavoriteSongRegister.exists(trackId) ? R.id.add_favorite :
                 R.id.del_favorite;
-        PopupMenu popupMenu = new PopupMenu(mContext, mView);
+        PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.getMenuInflater().inflate(R.layout.popup_menu_track, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(createMenuItemClickListener());
         popupMenu.getMenu().findItem(hiddenFavorite).setVisible(false);
@@ -47,25 +44,24 @@ public class TrackMenu {
     private void playlist() {
         // データの受け渡し
         Bundle bundle = new Bundle();
-        bundle.putString(Track.TRACK_ID, mTrackId);
+        bundle.putString(Music.ID, trackId);
+        bundle.putInt(Music.TYPE, Music.TYPE_TRACK);
 
-        FragmentActivity activity = (FragmentActivity) mContext;
+        FragmentActivity activity = (FragmentActivity) context;
         PlaylistDialogFragment playlistDialogFragment = new PlaylistDialogFragment();
         playlistDialogFragment.setArguments(bundle);
-        playlistDialogFragment.show(activity.getSupportFragmentManager(), "PlaylistDialogFragment");
+        playlistDialogFragment.show(activity.getSupportFragmentManager(), PlaylistDialogFragment.class.getName());
     }
 
     /**
      * お気に入り登録
      */
     private void favorite() {
-        FavoriteSongRegister.set(mTrackId);
+        FavoriteSongRegister.set(trackId);
     }
 
     /**
      * メニューのイベント
-     *
-     * @return
      */
     private PopupMenu.OnMenuItemClickListener createMenuItemClickListener() {
         return item -> {

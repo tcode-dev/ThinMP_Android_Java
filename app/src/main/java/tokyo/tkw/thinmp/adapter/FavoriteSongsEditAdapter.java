@@ -38,7 +38,7 @@ public class FavoriteSongsEditAdapter extends RecyclerView.Adapter<TrackViewHold
         Track track = mTrackMap.get(favorite.getTrackId());
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
-        holder.primaryText.setText(track.getTitle());
+        holder.primaryText.setText(track.getName());
         holder.secondaryText.setText(track.getArtistName());
     }
 

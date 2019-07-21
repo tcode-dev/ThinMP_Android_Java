@@ -75,7 +75,7 @@ public class MiniPlayer {
      * @param track
      */
     private void changeTrack(Track track) {
-        this.trackName.set(track.getTitle());
+        this.trackName.set(track.getName());
         GlideUtil.bitmap(track.getAlbumArtId(), this.mBinding.albumArt);
         this.mDurationMSecond = track.getDurationSecond() * 1000;
     }

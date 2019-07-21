@@ -41,7 +41,7 @@ public class PlaylistDetailEditAdapter extends RecyclerView.Adapter<TrackViewHol
         Track track = trackMap.get(realm.getTrackId());
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
-        holder.primaryText.setText(track.getTitle());
+        holder.primaryText.setText(track.getName());
         holder.secondaryText.setText(track.getArtistName());
     }
 

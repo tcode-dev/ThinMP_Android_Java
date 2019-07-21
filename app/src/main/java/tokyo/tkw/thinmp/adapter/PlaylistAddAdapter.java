@@ -19,16 +19,14 @@ import tokyo.tkw.thinmp.viewHolder.PlaylistViewHolder;
 public class PlaylistAddAdapter extends RealmRecyclerViewAdapter<PlaylistRealm,
         PlaylistViewHolder> {
     private Map<String, Playlist> playlistMap;
-    private Track track;
-    private Runnable callback;
+    private PlaylistClickListener playlistClickListener;
 
     public PlaylistAddAdapter(OrderedRealmCollection<PlaylistRealm> playlists, Map<String,
-            Playlist> playlistMap, Track track, Runnable callback) {
+            Playlist> playlistMap, PlaylistClickListener playlistClickListener) {
         super(playlists, true);
 
         this.playlistMap = playlistMap;
-        this.track = track;
-        this.callback = callback;
+        this.playlistClickListener = playlistClickListener;
     }
 
     @Override
@@ -47,10 +45,19 @@ public class PlaylistAddAdapter extends RealmRecyclerViewAdapter<PlaylistRealm,
 
         GlideUtil.bitmap(playlist.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(playlistRealm.getName());
-        holder.itemView.setOnClickListener(v -> {
-            PlaylistRegister playlistRegister = new PlaylistRegister();
-            playlistRegister.add(playlistId, track);
-            callback.run();
-        });
+        holder.itemView.setOnClickListener(createPlaylistClickListener(playlistId));
+    }
+
+    private View.OnClickListener createPlaylistClickListener(String playlistId) {
+        return view -> {
+            playlistClickListener.onClick(view, playlistId);
+        };
+    }
+
+    /**
+     * interface
+     */
+    public interface PlaylistClickListener {
+        void onClick(View view, String playlistId);
     }
 }

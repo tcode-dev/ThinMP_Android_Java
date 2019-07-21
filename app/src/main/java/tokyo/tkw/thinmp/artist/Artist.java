@@ -16,8 +16,6 @@ public class Artist extends Music {
     private static final String META_FORMAT = "%s albums, %s songs";
 
     private Context context;
-    private String id;
-    private String name;
     private String numberOfAlbums;
     private String numberOfTracks;
 
@@ -33,14 +31,6 @@ public class Artist extends Music {
         ArtistContentProvider provider = new ArtistContentProvider(context);
 
         return provider.findById(id);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Optional<String> getAlbumArtId() {

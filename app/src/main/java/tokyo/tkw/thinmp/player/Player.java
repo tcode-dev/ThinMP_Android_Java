@@ -87,7 +87,7 @@ public class Player {
         // 状態
         this.mMusicState = state;
         // 曲名
-        this.trackName.set(track.getTitle());
+        this.trackName.set(track.getName());
         // アーティスト名
         this.artistName.set(track.getArtistName());
         // seekBarProgress

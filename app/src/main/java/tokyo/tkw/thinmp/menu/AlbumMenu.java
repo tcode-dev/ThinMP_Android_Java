@@ -1,8 +1,10 @@
 package tokyo.tkw.thinmp.menu;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.PopupMenu;
 
@@ -11,12 +13,10 @@ import androidx.fragment.app.FragmentActivity;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
 import tokyo.tkw.thinmp.album.Album;
+import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 
-/**
- * メニュー
- */
 public class AlbumMenu {
     private Context context;
     private View view;
@@ -24,7 +24,8 @@ public class AlbumMenu {
     private ShortcutRegister shortcutRegister;
 
     public AlbumMenu(View view, String albumId) {
-        this.context = view.getContext();
+        // CollapsingToolbarLayoutの中だとContextThemeWrapperが返ってくる
+        this.context = (((ContextThemeWrapper) view.getContext()).getBaseContext());
         this.view = view;
         this.albumId = albumId;
         this.shortcutRegister = ShortcutRegister.createInstance();
@@ -49,9 +50,9 @@ public class AlbumMenu {
      * プレイリスト登録
      */
     private void playlist() {
-        // データの受け渡し
         Bundle bundle = new Bundle();
-        bundle.putString(Album.ALBUM_ID, albumId);
+        bundle.putString(Music.ID, albumId);
+        bundle.putInt(Music.TYPE, Music.TYPE_ALBUM);
 
         FragmentActivity activity = (FragmentActivity) context;
         PlaylistDialogFragment playlistDialogFragment = new PlaylistDialogFragment();
@@ -61,8 +62,6 @@ public class AlbumMenu {
 
     /**
      * メニューのイベント
-     *
-     * @return
      */
     private PopupMenu.OnMenuItemClickListener createMenuItemClickListener() {
         return item -> {

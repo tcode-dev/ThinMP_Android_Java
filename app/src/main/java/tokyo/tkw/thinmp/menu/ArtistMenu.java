@@ -9,9 +9,6 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 
-/**
- * メニュー
- */
 public class ArtistMenu {
     private Context context;
     private View view;
@@ -42,8 +39,6 @@ public class ArtistMenu {
 
     /**
      * メニューのイベント
-     *
-     * @return
      */
     private PopupMenu.OnMenuItemClickListener createMenuItemClickListener() {
         return item -> {

@@ -62,7 +62,7 @@ public class PlaylistDetailAdapter extends RealmRecyclerViewAdapter<PlaylistTrac
         Track track = trackMap.get(playlistTrackRealm.getTrackId());
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
-        holder.primaryText.setText(track.getTitle());
+        holder.primaryText.setText(track.getName());
         holder.secondaryText.setText(track.getArtistName());
         holder.itemView.setOnClickListener(createClickTrackListener());
         holder.menu.setOnClickListener(createClickMenuListener());

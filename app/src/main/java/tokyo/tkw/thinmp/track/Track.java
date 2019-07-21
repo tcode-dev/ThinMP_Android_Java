@@ -7,6 +7,8 @@ import android.provider.MediaStore;
 import com.annimon.stream.Optional;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
@@ -20,8 +22,6 @@ import static android.net.Uri.parse;
 public class Track extends Music implements Serializable {
     public static final String TRACK_ID = "trackId";
 
-    private String id;
-    private String title;
     private String artistId;
     private String artistName;
     private String albumId;
@@ -29,24 +29,16 @@ public class Track extends Music implements Serializable {
     private Optional<String> albumArtId;
     private int duration;
 
-    public Track(String id, String title, String artistId, String artistName, String albumId,
+    public Track(String id, String name, String artistId, String artistName, String albumId,
                  String albumName, Optional<String> albumArtId, int duration) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.artistId = artistId;
         this.artistName = artistName;
         this.albumId = albumId;
         this.albumName = albumName;
         this.albumArtId = albumArtId;
         this.duration = duration;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public String getArtistId() {
@@ -79,6 +71,13 @@ public class Track extends Music implements Serializable {
 
     public Uri getUri() {
         return parse(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + id);
+    }
+
+    public List<Track> getTrackList() {
+        List<Track> trackList = new ArrayList<>();
+        trackList.add(this);
+
+        return trackList;
     }
 
     public static Optional<Track> createInstance(Context context, String id) {

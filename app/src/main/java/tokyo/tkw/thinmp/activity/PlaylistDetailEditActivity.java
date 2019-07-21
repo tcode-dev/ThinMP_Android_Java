@@ -79,7 +79,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
         cancelView.setOnClickListener(createCancelClickListener());
 
         // transaction
-        playlistRegister = new PlaylistRegister();
+        playlistRegister = PlaylistRegister.createInstance();
         playlistRegister.beginTransaction();
     }
 

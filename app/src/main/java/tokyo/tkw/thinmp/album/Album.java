@@ -18,8 +18,6 @@ public class Album extends Music {
     public static final String ALBUM_ID = "albumId";
 
     private Context context;
-    private String id;
-    private String name;
     private String artistId;
     private String artistName;
     private Optional<String> albumArtId;
@@ -37,14 +35,6 @@ public class Album extends Music {
         AlbumContentProvider provider = new AlbumContentProvider(context);
 
         return provider.findById(id);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getArtistId() {

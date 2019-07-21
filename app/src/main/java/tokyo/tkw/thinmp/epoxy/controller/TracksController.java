@@ -32,7 +32,7 @@ public class TracksController extends TypedEpoxyController<TracksDto> {
             new TrackModel_()
                     .id(track.getId())
                     .albumArtId(track.getAlbumArtId())
-                    .primaryText(track.getTitle())
+                    .primaryText(track.getName())
                     .secondaryText(track.getArtistName())
                     .trackClickListener(new EpoxyTrackClickListener(trackList, i))
                     .menuClickListener(new TrackMenuClickListener(track.getId()))

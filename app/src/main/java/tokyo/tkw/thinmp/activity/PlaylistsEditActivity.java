@@ -65,7 +65,7 @@ public class PlaylistsEditActivity extends BaseActivity {
         cancelView.setOnClickListener(createCancelClickListener());
 
         // transaction
-        mPlaylistRegister = new PlaylistRegister();
+        mPlaylistRegister = PlaylistRegister.createInstance();
         mPlaylistRegister.beginTransaction();
     }
 

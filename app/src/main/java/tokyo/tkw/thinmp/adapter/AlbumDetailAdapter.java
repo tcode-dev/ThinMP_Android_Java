@@ -50,7 +50,7 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<AlbumTrackViewHolde
     public void onBindViewHolder(AlbumTrackViewHolder holder, int position) {
         Track track = mTrackList.get(position);
 
-        holder.primaryText.setText(track.getTitle());
+        holder.primaryText.setText(track.getName());
         holder.itemView.setOnClickListener(onClickTrack());
         holder.menu.setOnClickListener(onClickMenu());
     }

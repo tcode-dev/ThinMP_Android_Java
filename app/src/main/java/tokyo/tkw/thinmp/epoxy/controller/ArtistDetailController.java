@@ -58,7 +58,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
             new ArtistTrackModel_()
                     .id("track", track.getId())
                     .albumArtId(track.getAlbumArtId())
-                    .primaryText(track.getTitle())
+                    .primaryText(track.getName())
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                     .trackClickListener(new EpoxyTrackClickListener(trackList, i))
                     .menuClickListener(new TrackMenuClickListener(track.getId()))
