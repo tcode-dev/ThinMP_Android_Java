@@ -4,28 +4,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-import java.util.Map;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
 public class FavoriteSongsEditAdapter extends RecyclerView.Adapter<TrackViewHolder> {
-    private List<FavoriteSongRealm> mFavoriteList;
-    private Map<String, Track> mTrackMap;
+    private List<Track> trackList;
 
-    public FavoriteSongsEditAdapter(List<FavoriteSongRealm> favoriteList, Map<String, Track> trackMap) {
-        mFavoriteList = favoriteList;
-        mTrackMap = trackMap;
+    public FavoriteSongsEditAdapter(List<Track> trackList) {
+        this.trackList = trackList;
     }
 
+    @NonNull
     @Override
-    public TrackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TrackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_track, parent,
                 false);
 
@@ -33,9 +31,8 @@ public class FavoriteSongsEditAdapter extends RecyclerView.Adapter<TrackViewHold
     }
 
     @Override
-    public void onBindViewHolder(TrackViewHolder holder, int position) {
-        FavoriteSongRealm favorite = mFavoriteList.get(position);
-        Track track = mTrackMap.get(favorite.getTrackId());
+    public void onBindViewHolder(@NonNull TrackViewHolder holder, int position) {
+        Track track = trackList.get(position);
 
         GlideUtil.bitmap(track.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(track.getName());
@@ -44,6 +41,6 @@ public class FavoriteSongsEditAdapter extends RecyclerView.Adapter<TrackViewHold
 
     @Override
     public int getItemCount() {
-        return mFavoriteList.size();
+        return trackList.size();
     }
 }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -20,8 +21,9 @@ public class FavoriteArtistsEditAdapter extends RecyclerView.Adapter<ArtistViewH
         this.artistList = artistList;
     }
 
+    @NonNull
     @Override
-    public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ArtistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_artist,
                 parent, false);
 
@@ -29,7 +31,7 @@ public class FavoriteArtistsEditAdapter extends RecyclerView.Adapter<ArtistViewH
     }
 
     @Override
-    public void onBindViewHolder(ArtistViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ArtistViewHolder holder, int position) {
         Artist artist = artistList.get(position);
 
         GlideUtil.bitmap(artist.getAlbumArtId(), holder.albumArt, GlideUtil.ARTIST_RESOURCE_ID);

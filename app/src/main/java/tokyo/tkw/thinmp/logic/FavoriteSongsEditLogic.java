@@ -19,8 +19,7 @@ public class FavoriteSongsEditLogic {
     public FavoriteSongsEditDto createDto() {
         FavoriteSongsEditDto dto = new FavoriteSongsEditDto();
 
-        dto.favoriteList = favoriteSongs.getList();
-        dto.trackMap = favoriteSongs.getTrackMap();
+        dto.trackList = favoriteSongs.getSortedTrackList();
 
         return dto;
     }

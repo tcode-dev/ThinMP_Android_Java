@@ -10,59 +10,31 @@ import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
+import tokyo.tkw.thinmp.track.Track;
 
 public class FavoriteSongs {
-    private Context mContext;
-    private RealmResults<FavoriteSongRealm> mRealmResults;
+    private Realm realm;
+    private TrackContentProvider provider;
 
     public FavoriteSongs(Context context) {
-        mContext = context;
-        mRealmResults = findAll();
+        realm = Realm.getDefaultInstance();
+        provider = new TrackContentProvider(context);
     }
+
     public static FavoriteSongs createInstance(Context context) {
         return new FavoriteSongs(context);
     }
 
-    public RealmResults<FavoriteSongRealm> getRealmResults() {
-        return mRealmResults;
-    }
-
-    public List<FavoriteSongRealm> getList() {
-        return Stream.of(mRealmResults).toList();
-    }
-
     public List<Track> getSortedTrackList() {
-        Map<String, Track> trackMap = toTrackMap(getTrackList());
+        RealmResults<FavoriteSongRealm> realmResults =
+                realm.where(FavoriteSongRealm.class).findAll().sort(FavoriteSongRealm.ID);
+        List<String> trackIdList = Stream.of(realmResults)
+                .map(FavoriteSongRealm::getTrackId).collect(Collectors.toList());
+        List<Track> trackList = provider.findById(trackIdList);
+        Map<String, Track> trackMap = Stream.of(trackList).collect(Collectors.toMap(Track::getId, track -> track));
 
-        return Stream.of(getTrackIdList()).map(trackMap::get).collect(Collectors.toList());
-    }
-
-    public Map<String, Track> getTrackMap() {
-        return toTrackMap(getTrackList());
-    }
-
-    private List<String> getTrackIdList() {
-        return Stream.of(mRealmResults)
-                .map(FavoriteSongRealm::getTrackId)
-                .collect(Collectors.toList());
-    }
-
-    private List<Track> getTrackList() {
-        TrackContentProvider provider = new TrackContentProvider(mContext);
-
-        return provider.findById(getTrackIdList());
-    }
-
-    private Map<String, Track> toTrackMap(List<Track> trackList) {
-        return Stream.of(trackList).collect(Collectors.toMap(Track::getId, track -> track));
-    }
-
-    private RealmResults<FavoriteSongRealm> findAll() {
-        Realm realm = Realm.getDefaultInstance();
-
-        return realm.where(FavoriteSongRealm.class).findAll().sort(FavoriteSongRealm.ID);
+        return Stream.of(trackIdList).map(trackMap::get).collect(Collectors.toList());
     }
 }

@@ -20,10 +20,11 @@ import tokyo.tkw.thinmp.dto.FavoriteSongsEditDto;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.logic.FavoriteSongsEditLogic;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
+import tokyo.tkw.thinmp.track.Track;
 
 public class FavoriteSongsEditActivity extends BaseActivity {
     FavoriteSongsEditAdapter adapter;
-    List<FavoriteSongRealm> favoriteList;
+    List<Track> trackList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +49,10 @@ public class FavoriteSongsEditActivity extends BaseActivity {
         FavoriteSongsEditDto dto = logic.createDto();
 
         // favoriteList
-        favoriteList = dto.favoriteList;
+        trackList = dto.trackList;
 
         // adapter
-        adapter = new FavoriteSongsEditAdapter(dto.favoriteList, dto.trackMap);
+        adapter = new FavoriteSongsEditAdapter(dto.trackList);
         listView.setAdapter(adapter);
 
         // layout
@@ -69,8 +70,8 @@ public class FavoriteSongsEditActivity extends BaseActivity {
 
     private View.OnClickListener createApplyClickListener() {
         return view -> {
-            List<String> trackIdList = Stream.of(favoriteList)
-                    .map(FavoriteSongRealm::getTrackId)
+            List<String> trackIdList = Stream.of(trackList)
+                    .map(Track::getId)
                     .collect(Collectors.toList());
             FavoriteSongRegister.update(trackIdList);
             finish();
@@ -97,7 +98,7 @@ public class FavoriteSongsEditActivity extends BaseActivity {
                 adapter.notifyItemMoved(fromPos, toPos);
 
                 // dataの並び替え
-                favoriteList.add(toPos, favoriteList.remove(fromPos));
+                trackList.add(toPos, trackList.remove(fromPos));
 
                 return true;
             }
@@ -107,7 +108,7 @@ public class FavoriteSongsEditActivity extends BaseActivity {
                 final int fromPos = viewHolder.getAdapterPosition();
 
                 // 削除
-                favoriteList.remove(fromPos);
+                trackList.remove(fromPos);
                 adapter.notifyItemRemoved(fromPos);
             }
         });
