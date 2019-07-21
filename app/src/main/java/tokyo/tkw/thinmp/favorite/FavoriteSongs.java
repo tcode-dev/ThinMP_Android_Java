@@ -22,6 +22,9 @@ public class FavoriteSongs {
         mContext = context;
         mRealmResults = findAll();
     }
+    public static FavoriteSongs createInstance(Context context) {
+        return new FavoriteSongs(context);
+    }
 
     public RealmResults<FavoriteSongRealm> getRealmResults() {
         return mRealmResults;

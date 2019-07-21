@@ -1,12 +1,10 @@
 package tokyo.tkw.thinmp.dto;
 
-import java.util.Map;
+import java.util.List;
 
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.track.Track;
-import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
 
 public class FavoriteSongsDto {
-    public RealmResults<FavoriteSongRealm> realmResults;
-    public Map<String, Track> trackMap;
+    public String title;
+    public List<Track> trackList;
 }
