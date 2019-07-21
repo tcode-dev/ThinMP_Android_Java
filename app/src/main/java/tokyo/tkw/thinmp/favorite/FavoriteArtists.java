@@ -23,6 +23,13 @@ public class FavoriteArtists {
         mRealmResults = findAll();
     }
 
+    public List<Artist> getArtistList() {
+        Map<String, Artist> artistMap = getArtistMap();
+        List<String> artistIdList = toArtistIdList(getFavoriteArtistRealmList());
+
+        return Stream.of(artistIdList).map(artistMap::get).toList();
+    }
+
     public RealmResults<FavoriteArtistRealm> getRealmResults() {
         return mRealmResults;
     }
@@ -33,9 +40,10 @@ public class FavoriteArtists {
 
     public Map<String, Artist> getArtistMap() {
         ArtistContentProvider provider = new ArtistContentProvider(mContext);
+        List<String> artistIdList = toArtistIdList(getFavoriteArtistRealmList());
+        List<Artist> list = provider.findById(artistIdList);
 
-        return Stream.of(provider.findById(toArtistIdList(getFavoriteArtistRealmList())))
-                .collect(Collectors.toMap(Artist::getId, artist -> artist));
+        return Stream.of(list).collect(Collectors.toMap(Artist::getId, artist -> artist));
     }
 
     private RealmResults<FavoriteArtistRealm> findAll() {

@@ -7,22 +7,25 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.dto.ArtistsDto;
+import tokyo.tkw.thinmp.dto.FavoriteArtistsDto;
 import tokyo.tkw.thinmp.epoxy.model.ArtistModel_;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderMarginTopModel_;
+import tokyo.tkw.thinmp.epoxy.model.PageHeaderMarginTopWithButtonModel_;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
+import tokyo.tkw.thinmp.listener.FavoriteArtistsEditClickListener;
 
-public class ArtistsController extends TypedEpoxyController<ArtistsDto> {
+public class FavoriteArtistsController extends TypedEpoxyController<FavoriteArtistsDto> {
 
     @Override
-    protected void buildModels(ArtistsDto dto) {
+    protected void buildModels(FavoriteArtistsDto dto) {
         buildHeader(dto.title);
         buildArtistList(dto.artistList);
     }
 
     private void buildHeader(String title) {
-        new PageHeaderMarginTopModel_()
+        new PageHeaderMarginTopWithButtonModel_()
                 .id("header")
                 .title(title)
+                .clickListener(new FavoriteArtistsEditClickListener())
                 .addTo(this);
     }
 

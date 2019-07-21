@@ -8,17 +8,17 @@ import tokyo.tkw.thinmp.activity.ArtistDetailActivity;
 import tokyo.tkw.thinmp.artist.Artist;
 
 public class ArtistClickListener implements View.OnClickListener {
-    private String mArtistId;
+    private String artistId;
 
     public ArtistClickListener(String artistId) {
-        mArtistId = artistId;
+        this.artistId = artistId;
     }
 
     @Override
     public void onClick(View v) {
         Context context = v.getContext();
         Intent intent = new Intent(context, ArtistDetailActivity.class);
-        intent.putExtra(Artist.ARTIST_ID, mArtistId);
+        intent.putExtra(Artist.ARTIST_ID, artistId);
         context.startActivity(intent);
     }
 }

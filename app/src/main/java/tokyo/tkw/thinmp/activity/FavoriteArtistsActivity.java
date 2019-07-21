@@ -1,20 +1,16 @@
 package tokyo.tkw.thinmp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.FavoriteArtistsAdapter;
-import tokyo.tkw.thinmp.dto.FavoriteArtistsDto;
+import tokyo.tkw.thinmp.epoxy.controller.FavoriteArtistsController;
 import tokyo.tkw.thinmp.logic.FavoriteArtistsLogic;
-import tokyo.tkw.thinmp.artist.Artist;
 
 public class FavoriteArtistsActivity extends BaseActivity {
+    private FavoriteArtistsController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,43 +24,27 @@ public class FavoriteArtistsActivity extends BaseActivity {
     @Override
     protected void init() {
         // view
-        RecyclerView favoriteListView = findViewById(R.id.list);
-        Button editView = findViewById(R.id.edit);
+        RecyclerView listView = findViewById(R.id.list);
 
         // logic
         FavoriteArtistsLogic logic = FavoriteArtistsLogic.createInstance(this);
 
-        // dto
-        FavoriteArtistsDto dto = logic.createDto();
-
-        // adapter
-        FavoriteArtistsAdapter adapter = new FavoriteArtistsAdapter(
-                dto.realmResults,
-                dto.artistMap,
-                createFavoriteArtistListListener()
-        );
-        favoriteListView.setAdapter(adapter);
+        // controller
+        controller = new FavoriteArtistsController();
+        controller.setData(logic.createDto());
+        listView.setAdapter(controller.getAdapter());
 
         // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
-        favoriteListView.setLayoutManager(layout);
-
-        // event
-        editView.setOnClickListener(createEditClickListener());
+        listView.setLayoutManager(layout);
     }
 
-    private FavoriteArtistsAdapter.FavoriteArtistListListener createFavoriteArtistListListener() {
-        return artistId -> {
-            Intent intent = new Intent(this, ArtistDetailActivity.class);
-            intent.putExtra(Artist.ARTIST_ID, artistId);
-            startActivity(intent);
-        };
-    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
 
-    private View.OnClickListener createEditClickListener() {
-        return v -> {
-            Intent intent = new Intent(this, FavoriteArtistsEditActivity.class);
-            startActivity(intent);
-        };
+        // update
+        FavoriteArtistsLogic logic = FavoriteArtistsLogic.createInstance(this);
+        controller.setData(logic.createDto());
     }
 }

@@ -1,12 +1,10 @@
 package tokyo.tkw.thinmp.dto;
 
-import java.util.Map;
+import java.util.List;
 
-import io.realm.RealmResults;
 import tokyo.tkw.thinmp.artist.Artist;
-import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
 public class FavoriteArtistsDto {
-    public RealmResults<FavoriteArtistRealm> realmResults;
-    public Map<String, Artist> artistMap;
+    public String title;
+    public List<Artist> artistList;
 }
