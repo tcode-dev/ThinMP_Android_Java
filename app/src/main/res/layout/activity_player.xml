@@ -74,12 +74,13 @@
 
                 <TextView
                     android:id="@+id/trackName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
                     android:text="@{player.trackName}"
+                    android:textAlignment="center"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -89,12 +90,13 @@
 
                 <TextView
                     android:id="@+id/artistName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginEnd="20dp"
                     android:text="@{player.artistName}"
+                    android:textAlignment="center"
                     android:textColor="#5C5C5C"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
