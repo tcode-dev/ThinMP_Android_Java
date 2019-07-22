@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="miniPlayer" type="tokyo.tkw.thinmp.player.MiniPlayer" />
-        <import type="android.view.View"/>
+
+        <variable
+            name="miniPlayer"
+            type="tokyo.tkw.thinmp.player.MiniPlayer" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:onClick="@{miniPlayer::onClickPlayer}"
         android:elevation="10dp"
+        android:onClick="@{miniPlayer::onClickPlayer}"
         android:visibility="@{miniPlayer.isActive ? View.VISIBLE : View.INVISIBLE}">
 
         <ImageView
@@ -55,12 +58,13 @@
                 android:layout_height="70dp"
                 android:background="@null"
                 android:onClick="@{miniPlayer::onClickPlay}"
-                android:paddingBottom="30dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="10dp"
                 android:paddingTop="30dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="30dp"
                 android:scaleType="centerCrop"
                 android:visibility="@{miniPlayer.isPlaying ? View.GONE : View.VISIBLE}"
+                app:iconColor="@color/colorIconSub"
                 app:srcCompat="@drawable/icon_play_2" />
 
             <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
@@ -69,12 +73,13 @@
                 android:layout_height="70dp"
                 android:background="@null"
                 android:onClick="@{miniPlayer::onClickPause}"
-                android:paddingBottom="30dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="10dp"
                 android:paddingTop="30dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="30dp"
                 android:scaleType="centerCrop"
                 android:visibility="@{miniPlayer.isPlaying ? View.VISIBLE : View.GONE}"
+                app:iconColor="@color/colorIconSub"
                 app:srcCompat="@drawable/icon_pause_2" />
 
         </FrameLayout>
@@ -87,11 +92,12 @@
             android:onClick="@{miniPlayer::onClickNext}"
             android:onLongClick="@{miniPlayer::onLongClickNext}"
             android:onTouch="@{miniPlayer::onTouchNext}"
-            android:paddingBottom="30dp"
             android:paddingLeft="10dp"
-            android:paddingRight="20dp"
             android:paddingTop="30dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="30dp"
             android:scaleType="centerCrop"
+            app:iconColor="@color/colorIconSub"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/icon_next_2" />
 

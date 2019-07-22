@@ -23,4 +23,8 @@
         <attr name="blurRadius" format="float" />
         <attr name="blurRepeat" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="Icon">
+        <attr name="iconColor" format="string" />
+    </declare-styleable>
 </resources>
