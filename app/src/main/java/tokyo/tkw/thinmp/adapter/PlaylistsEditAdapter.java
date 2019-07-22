@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Map;
@@ -20,22 +21,21 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<PlaylistViewHolde
     private RealmList<PlaylistRealm> realmList;
     private Map<String, Playlist> playlistMap;
 
-    public PlaylistsEditAdapter(RealmList<PlaylistRealm> realmList,
-                                Map<String, Playlist> playlistMap) {
+    public PlaylistsEditAdapter(RealmList<PlaylistRealm> realmList, Map<String, Playlist> playlistMap) {
         this.realmList = realmList;
         this.playlistMap = playlistMap;
     }
 
+    @NonNull
     @Override
-    public PlaylistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_playlist,
-                parent, false);
+    public PlaylistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_playlist, parent, false);
 
         return new PlaylistViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PlaylistViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlaylistViewHolder holder, int position) {
         PlaylistRealm playlistRealm = realmList.get(position);
         String playlistId = playlistRealm.getId();
         Playlist playlist = playlistMap.get(playlistId);

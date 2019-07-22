@@ -27,27 +27,26 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<AlbumTrackViewHolde
     @NonNull
     @Override
     public AlbumTrackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_album_track,
-                        parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_album_track, parent,
+                false);
 
         return new AlbumTrackViewHolder(view);
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         mRecycler = recyclerView;
     }
 
     @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         mRecycler = null;
     }
 
     @Override
-    public void onBindViewHolder(AlbumTrackViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AlbumTrackViewHolder holder, int position) {
         Track track = mTrackList.get(position);
 
         holder.primaryText.setText(track.getName());

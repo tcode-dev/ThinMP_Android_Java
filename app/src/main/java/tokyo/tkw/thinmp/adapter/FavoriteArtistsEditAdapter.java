@@ -24,8 +24,7 @@ public class FavoriteArtistsEditAdapter extends RecyclerView.Adapter<ArtistViewH
     @NonNull
     @Override
     public ArtistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_artist,
-                parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_artist, parent, false);
 
         return new ArtistViewHolder(view);
     }

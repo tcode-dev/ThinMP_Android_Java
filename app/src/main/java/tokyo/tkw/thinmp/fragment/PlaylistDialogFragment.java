@@ -19,7 +19,7 @@ import com.annimon.stream.Optional;
 import java.util.Objects;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.PlaylistAddAdapter;
+import tokyo.tkw.thinmp.adapter.PlaylistDialogAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistsDto;
 import tokyo.tkw.thinmp.logic.PlaylistsLogic;
 import tokyo.tkw.thinmp.music.Music;
@@ -96,7 +96,7 @@ public class PlaylistDialogFragment extends DialogFragment {
         PlaylistsDto dto = logic.createDto();
 
         // adapter
-        PlaylistAddAdapter adapter = new PlaylistAddAdapter(
+        PlaylistDialogAdapter adapter = new PlaylistDialogAdapter(
                 dto.playlists,
                 createPlaylistClickListener()
         );
@@ -112,7 +112,7 @@ public class PlaylistDialogFragment extends DialogFragment {
         playlistRegister.create(editText.getText().toString(), music);
     }
 
-    private PlaylistAddAdapter.PlaylistClickListener createPlaylistClickListener() {
+    private PlaylistDialogAdapter.PlaylistClickListener createPlaylistClickListener() {
         return (View view, String playlistId) -> {
             PlaylistRegister playlistRegister = PlaylistRegister.createInstance();
             playlistRegister.add(playlistId, music);

@@ -7,13 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.PlaylistDetailAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistDetailDto;
 import tokyo.tkw.thinmp.epoxy.controller.PlaylistDetailController;
 import tokyo.tkw.thinmp.listener.PlaylistMenuClickListener;
-import tokyo.tkw.thinmp.listener.PlaylistTrackClickListener;
 import tokyo.tkw.thinmp.logic.PlaylistDetailLogic;
-import tokyo.tkw.thinmp.logic.PlaylistsLogic;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;

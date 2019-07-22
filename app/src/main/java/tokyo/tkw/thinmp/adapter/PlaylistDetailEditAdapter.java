@@ -11,8 +11,8 @@ import java.util.Map;
 
 import io.realm.RealmList;
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
+import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.TrackViewHolder;
 
@@ -29,8 +29,7 @@ public class PlaylistDetailEditAdapter extends RecyclerView.Adapter<TrackViewHol
     @NonNull
     @Override
     public TrackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_track, parent,
-                false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_track, parent, false);
 
         return new TrackViewHolder(view);
     }
