@@ -1,6 +1,7 @@
 package tokyo.tkw.thinmp.menu;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
+import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.music.Music;
 
 public class TrackMenu {
@@ -68,21 +70,31 @@ public class TrackMenu {
             switch (item.getItemId()) {
                 case R.id.playlist:
                     playlist();
-
                     return true;
+
                 case R.id.add_favorite:
                     favorite();
+                    break;
 
-                    return true;
                 case R.id.del_favorite:
                     favorite();
-
-                    return true;
-                default:
                     break;
+
+                default:
+                    return false;
             }
 
-            return false;
+            screenUpdate();
+
+            return true;
         };
+    }
+
+    private void screenUpdate() {
+        Activity activity = ((Activity) context);
+
+        if (activity instanceof ScreenUpdateListener) {
+            ((ScreenUpdateListener) activity).screenUpdate();
+        }
     }
 }

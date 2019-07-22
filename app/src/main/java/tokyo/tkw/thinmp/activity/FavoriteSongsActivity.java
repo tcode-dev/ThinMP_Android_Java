@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.epoxy.controller.FavoriteSongsController;
+import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.logic.FavoriteArtistsLogic;
 import tokyo.tkw.thinmp.logic.FavoriteSongsLogic;
 
-public class FavoriteSongsActivity extends BaseActivity {
+public class FavoriteSongsActivity extends BaseActivity implements ScreenUpdateListener {
     private FavoriteSongsController controller;
 
     @Override
@@ -44,7 +45,11 @@ public class FavoriteSongsActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
 
-        // update
+        screenUpdate();
+    }
+
+    @Override
+    public void screenUpdate() {
         FavoriteSongsLogic logic = FavoriteSongsLogic.createInstance(this);
         controller.setData(logic.createDto());
     }
