@@ -46,6 +46,8 @@ public class MusicService extends Service {
                     onFinished();
 
                     if (!hasNext()) {
+                        // 再生終了時に最初の曲で画面を更新
+                        next();
                         return;
                     }
 
