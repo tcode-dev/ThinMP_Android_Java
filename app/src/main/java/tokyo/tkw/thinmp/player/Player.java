@@ -105,7 +105,9 @@ public class Player {
         // 再生中
         this.isPlaying.set(state.isPlaying());
         // 背景画像
-        GlideUtil.bitmap(track.getAlbumArtId(), this.mBinding.background);
+        track.getAlbumArtId().ifPresent(albumArtId -> {
+            GlideUtil.bitmap(track.getAlbumArtId(), this.mBinding.background);
+        });
         // アルバムアート
         GlideUtil.bitmap(track.getAlbumArtId(), this.mBinding.albumArt);
         // リピート

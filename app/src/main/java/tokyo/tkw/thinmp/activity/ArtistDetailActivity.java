@@ -47,7 +47,9 @@ public class ArtistDetailActivity extends BaseActivity {
         ArtistDetailDto dto = logic.createDto();
 
         // 背景画像
-        GlideUtil.bitmap(dto.albumArtId, backgroundView, GlideUtil.ARTIST_RESOURCE_ID);
+        dto.albumArtId.ifPresent(albumArtId -> {
+            GlideUtil.bitmap(dto.albumArtId, backgroundView, GlideUtil.ARTIST_RESOURCE_ID);
+        });
 
         // アルバムアート
         GlideUtil.bitmap(dto.albumArtId, albumArtView, GlideUtil.ARTIST_RESOURCE_ID);
