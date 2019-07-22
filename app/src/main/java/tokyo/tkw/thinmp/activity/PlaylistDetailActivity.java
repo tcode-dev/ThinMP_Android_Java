@@ -10,12 +10,13 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.PlaylistDetailDto;
 import tokyo.tkw.thinmp.epoxy.controller.PlaylistDetailController;
 import tokyo.tkw.thinmp.listener.PlaylistMenuClickListener;
+import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.logic.PlaylistDetailLogic;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
-public class PlaylistDetailActivity extends BaseActivity {
+public class PlaylistDetailActivity extends BaseActivity implements ScreenUpdateListener {
     private String playlistId;
     private PlaylistDetailController controller;
 
@@ -72,10 +73,11 @@ public class PlaylistDetailActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
 
-        update();
+        screenUpdate();
     }
 
-    private void update() {
+    @Override
+    public void screenUpdate() {
         // view
         ImageView albumArtView = findViewById(R.id.albumArt);
         ResponsiveTextView titleView = findViewById(R.id.title);

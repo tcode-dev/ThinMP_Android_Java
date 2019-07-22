@@ -21,6 +21,7 @@ import java.util.Objects;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDialogAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistsDto;
+import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.logic.PlaylistsLogic;
 import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.music.MusicFactory;
@@ -84,13 +85,13 @@ public class PlaylistDialogFragment extends DialogFragment {
      * プレイリスト一覧を表示
      */
     private void setViewPlaylist(View view) {
-        Activity context = getActivity();
+        Activity activity = getActivity();
 
         // view
         RecyclerView playlistView = view.findViewById(R.id.playlist);
 
         // logic
-        PlaylistsLogic logic = PlaylistsLogic.createInstance(view.getContext());
+        PlaylistsLogic logic = PlaylistsLogic.createInstance(getContext());
 
         // dto
         PlaylistsDto dto = logic.createDto();
@@ -103,7 +104,7 @@ public class PlaylistDialogFragment extends DialogFragment {
         playlistView.setAdapter(adapter);
 
         // layout
-        LinearLayoutManager layout = new LinearLayoutManager(context);
+        LinearLayoutManager layout = new LinearLayoutManager(activity);
         playlistView.setLayoutManager(layout);
     }
 
@@ -116,6 +117,7 @@ public class PlaylistDialogFragment extends DialogFragment {
         return (View view, String playlistId) -> {
             PlaylistRegister playlistRegister = PlaylistRegister.createInstance();
             playlistRegister.add(playlistId, music);
+            screenUpdate();
             dialog.dismiss();
         };
     }
@@ -133,5 +135,13 @@ public class PlaylistDialogFragment extends DialogFragment {
 
     private View.OnClickListener createCancelListener() {
         return view -> showAddPlaylist();
+    }
+
+    private void screenUpdate() {
+        Activity activity = ((Activity) getContext());
+
+        if (activity instanceof ScreenUpdateListener) {
+            ((ScreenUpdateListener) activity).screenUpdate();
+        }
     }
 }
