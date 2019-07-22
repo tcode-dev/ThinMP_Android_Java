@@ -8,12 +8,14 @@ import androidx.annotation.NonNull;
 
 import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyHolder;
+import com.airbnb.epoxy.EpoxyModelClass;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
 
 import tokyo.tkw.thinmp.R;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
+@EpoxyModelClass(layout = R.layout.header_page_with_button)
 public abstract class PageHeaderWithButtonModel extends EpoxyModelWithHolder<PageHeaderWithButtonModel.Holder> {
     @EpoxyAttribute
     String title;

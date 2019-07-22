@@ -22,7 +22,7 @@ import tokyo.tkw.thinmp.util.ViewUtil;
 
 public class ResponsiveTextView extends View {
     private static final int STROKE_WIDTH = 1;
-    private static final float DEFAULT_COLLAPSE_SCALE = 0.8f;
+    private static final float DEFAULT_COLLAPSE_SCALE = 1f;
     private static final int DEFAULT_TEXT_SIZE = 24;
     private static final int DEFAULT_OFFSET_X = 0;
     private static final int DEFAULT_OFFSET_Y = 0;
@@ -91,7 +91,7 @@ public class ResponsiveTextView extends View {
                 TextUtils.ellipsize(mText, mTextPaint, canvasWidth * (1 + (1 - scale)),
                         TextUtils.TruncateAt.END);
         float offsetX = (mIsTextAlignCenter && (currentWidth < canvasWidth)) ?
-                mScrollRate * mOffsetX + ((canvasWidth - currentWidth) / 2) :
+                mScrollRate * mOffsetX + ((float) (canvasWidth - currentWidth) / 2) :
                 mScrollRate * mOffsetX;
         float offsetY = mScrollRate * mOffsetY;
 

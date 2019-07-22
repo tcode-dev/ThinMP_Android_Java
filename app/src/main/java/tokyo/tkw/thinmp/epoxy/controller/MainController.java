@@ -10,9 +10,8 @@ import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainDto;
 import tokyo.tkw.thinmp.epoxy.model.AlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuModel_;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderMarginTopModel_;
-import tokyo.tkw.thinmp.epoxy.model.SectionHeaderMarginBottomModel_;
-import tokyo.tkw.thinmp.epoxy.model.SectionHeaderMarginTopBottomModel_;
+import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
+import tokyo.tkw.thinmp.epoxy.model.SectionHeaderForGridModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutPlaylistModel_;
@@ -42,7 +41,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
     }
 
     private void buildPageHeader(String title, int spanSize) {
-        new PageHeaderMarginTopModel_()
+        new PageHeaderModel_()
                 .id("page header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
@@ -61,7 +60,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
     }
 
     private void buildShortcutHeader(String title, int spanSize) {
-        new SectionHeaderMarginTopBottomModel_()
+        new SectionHeaderForGridModel_()
                 .id("shortcut header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
@@ -107,7 +106,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
     }
 
     private void buildRecentlyAddedHeader(String title, int spanSize) {
-        new SectionHeaderMarginBottomModel_()
+        new SectionHeaderForGridModel_()
                 .id("recently added header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)

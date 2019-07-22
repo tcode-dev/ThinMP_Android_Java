@@ -10,7 +10,10 @@
     <FrameLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,9 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:clipToPadding="false"
             android:fitsSystemWindows="true"
-            android:paddingBottom="20dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
             android:scrollbars="vertical" />
 
     </FrameLayout>

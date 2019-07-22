@@ -6,7 +6,7 @@ import com.annimon.stream.Stream;
 import java.util.List;
 
 import tokyo.tkw.thinmp.dto.TracksDto;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderMarginTopModel_;
+import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
 import tokyo.tkw.thinmp.epoxy.model.TrackModel_;
 import tokyo.tkw.thinmp.listener.EpoxyTrackClickListener;
 import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
@@ -21,7 +21,7 @@ public class TracksController extends TypedEpoxyController<TracksDto> {
     }
 
     private void buildHeader(String title) {
-        new PageHeaderMarginTopModel_()
+        new PageHeaderModel_()
                 .id("header")
                 .title(title)
                 .addTo(this);

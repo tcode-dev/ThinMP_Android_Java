@@ -9,7 +9,8 @@ import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.dto.ArtistDetailDto;
 import tokyo.tkw.thinmp.epoxy.model.ArtistAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ArtistTrackModel_;
-import tokyo.tkw.thinmp.epoxy.model.SectionHeaderMarginBottomModel_;
+import tokyo.tkw.thinmp.epoxy.model.SectionHeaderForGridModel_;
+import tokyo.tkw.thinmp.epoxy.model.SectionHeaderForLinearModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.listener.EpoxyTrackClickListener;
 import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
@@ -26,7 +27,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
     }
 
     private void buildAlbumsHeader(String title, int spanSize) {
-        new SectionHeaderMarginBottomModel_()
+        new SectionHeaderForGridModel_()
                 .id("albums header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
@@ -46,7 +47,7 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
     }
 
     private void buildSongsHeader(String title, int spanSize) {
-        new SectionHeaderMarginBottomModel_()
+        new SectionHeaderForLinearModel_()
                 .id("tracks header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)

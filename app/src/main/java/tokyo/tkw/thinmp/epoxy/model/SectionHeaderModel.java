@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyHolder;
+import com.airbnb.epoxy.EpoxyModelClass;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
 
 import tokyo.tkw.thinmp.R;
