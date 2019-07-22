@@ -3,47 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_bottom"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
-
-    <ImageView
-        android:id="@+id/albumArt"
-        android:layout_width="54dp"
-        android:layout_height="54dp" />
+    android:background="#ffffff"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/primaryText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textSize="18sp" />
+        <ImageView
+            android:id="@+id/albumArt"
+            android:layout_width="54dp"
+            android:layout_height="54dp" />
 
-        <TextView
-            android:id="@+id/secondaryText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/primaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/secondaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:padding="6dp"
+            app:srcCompat="@drawable/open_menu" />
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/menu"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:padding="6dp"
-        app:srcCompat="@drawable/open_menu" />
 
 </LinearLayout>
