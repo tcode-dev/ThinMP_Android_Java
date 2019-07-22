@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root">
 
     <data>
-        <variable name="player" type="tokyo.tkw.thinmp.player.Player" />
+
+        <variable
+            name="player"
+            type="tokyo.tkw.thinmp.player.Player" />
+
         <import type="android.view.View" />
     </data>
 
@@ -258,24 +261,21 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/repeat"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         android:layout_marginStart="8dp"
                         app:layout_constraintStart_toStartOf="parent">
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/repeatOff"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:alpha="0.5"
                             android:background="@null"
                             android:onClick="@{player::onClickRepeat}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isRepeatOff ? View.VISIBLE : View.GONE}"
-                            android:alpha="0.5"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -284,14 +284,11 @@
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/repeatAll"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:background="@null"
                             android:onClick="@{player::onClickRepeat}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isRepeatAll ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -302,10 +299,11 @@
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/repeatOne"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:background="@null"
                             android:onClick="@{player::onClickRepeat}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isRepeatOne ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -318,8 +316,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/shuffle"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         app:layout_constraintEnd_toStartOf="@+id/favoriteSong"
@@ -327,10 +325,11 @@
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/shuffleOn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:background="@null"
                             android:onClick="@{player::onClickShuffle}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isShuffle ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -341,10 +340,12 @@
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/shuffleOff"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:alpha="0.5"
                             android:background="@null"
                             android:onClick="@{player::onClickShuffle}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isShuffle ? View.GONE : View.VISIBLE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -357,17 +358,18 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/favoriteSong"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent">
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteSongOn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:background="@null"
                             android:onClick="@{player::OnClickFavorite}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isFavorite ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -378,10 +380,11 @@
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteSongOff"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:background="@null"
                             android:onClick="@{player::OnClickFavorite}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isFavorite ? View.GONE : View.VISIBLE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -394,17 +397,18 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/favoriteArtist"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         app:layout_constraintEnd_toStartOf="@+id/playlist"
                         app:layout_constraintStart_toEndOf="@+id/favoriteSong">
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteArtistOn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:background="@null"
                             android:onClick="@{player::OnClickFavoriteArtistUnregister}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isFavoriteArtist ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -415,10 +419,11 @@
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteArtistOff"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:background="@null"
                             android:onClick="@{player::OnClickFavoriteArtistRegister}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isFavoriteArtist ? View.GONE : View.VISIBLE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -431,14 +436,16 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/playlist"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         app:layout_constraintEnd_toEndOf="parent">
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:background="@null"
+                            android:onClick="@{player::OnClickAddPlaylist}"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

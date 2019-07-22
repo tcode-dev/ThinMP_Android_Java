@@ -1,12 +1,14 @@
 package tokyo.tkw.thinmp.player;
 
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SeekBar;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.fragment.app.FragmentActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,6 +16,8 @@ import java.util.TimerTask;
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
+import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
+import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.util.TimeUtil;
@@ -269,6 +273,22 @@ public class Player {
         FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
         register.remove(mTrack.getArtistId());
         isFavoriteArtist.set(false);
+    }
+
+    /**
+     * OnClickAddPlaylist
+     *
+     * @param view
+     */
+    public void OnClickAddPlaylist(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Music.ID, mTrack.getId());
+        bundle.putInt(Music.TYPE, Music.TYPE_TRACK);
+
+        FragmentActivity activity = (FragmentActivity) view.getContext();
+        PlaylistDialogFragment playlistDialogFragment = new PlaylistDialogFragment();
+        playlistDialogFragment.setArguments(bundle);
+        playlistDialogFragment.show(activity.getSupportFragmentManager(), PlaylistDialogFragment.class.getName());
     }
 
     /**
