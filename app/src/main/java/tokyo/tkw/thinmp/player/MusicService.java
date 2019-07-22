@@ -23,7 +23,6 @@ public class MusicService extends Service {
     private int mRepeat;
     private boolean mShuffle;
     private MediaPlayer mMediaPlayer;
-    private List<Track> mOriginalList;
     private PlayingList mPlayingList;
     private OnMusicServiceListener mListener;
 
@@ -70,7 +69,6 @@ public class MusicService extends Service {
      * @param position
      */
     public void setPlayingList(List<Track> playList, int position) {
-        mOriginalList = playList;
         mPlayingList = new PlayingList(playList, position);
     }
 
@@ -260,9 +258,6 @@ public class MusicService extends Service {
      * 次の曲へ
      */
     public void next() {
-        if (!hasNext()) {
-            return;
-        }
         destroy();
 
         mPlayingList.next();
@@ -296,10 +291,6 @@ public class MusicService extends Service {
      * 次の曲の再生
      */
     public void playNext() {
-        if (!hasNext()) {
-            return;
-        }
-
         mPlayingList.next();
         start();
     }

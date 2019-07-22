@@ -193,10 +193,6 @@ public class Player {
      * @param view
      */
     public void onClickNext(View view) {
-        if (!mMusicState.hasNext()) {
-            return;
-        }
-
         cancelSeekBarProgressTask();
         mListener.onNext();
     }
