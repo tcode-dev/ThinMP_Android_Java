@@ -11,6 +11,7 @@ import tokyo.tkw.thinmp.dto.FavoriteArtistsDto;
 import tokyo.tkw.thinmp.epoxy.model.ArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderMarginTopWithButtonModel_;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
+import tokyo.tkw.thinmp.listener.ArtistMenuClickListener;
 import tokyo.tkw.thinmp.listener.FavoriteArtistsEditClickListener;
 
 public class FavoriteArtistsController extends TypedEpoxyController<FavoriteArtistsDto> {
@@ -36,6 +37,7 @@ public class FavoriteArtistsController extends TypedEpoxyController<FavoriteArti
                     .albumArtId(artist.getAlbumArtId())
                     .primaryText(artist.getName())
                     .clickListener(new ArtistClickListener(artist.getId()))
+                    .menuClickListener(new ArtistMenuClickListener(artist.getId()))
                     .addTo(this);
         });
     }

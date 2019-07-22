@@ -10,6 +10,7 @@ import tokyo.tkw.thinmp.dto.ArtistsDto;
 import tokyo.tkw.thinmp.epoxy.model.ArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderMarginTopModel_;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
+import tokyo.tkw.thinmp.listener.ArtistMenuClickListener;
 
 public class ArtistsController extends TypedEpoxyController<ArtistsDto> {
 
@@ -33,6 +34,7 @@ public class ArtistsController extends TypedEpoxyController<ArtistsDto> {
                     .albumArtId(artist.getAlbumArtId())
                     .primaryText(artist.getName())
                     .clickListener(new ArtistClickListener(artist.getId()))
+                    .menuClickListener(new ArtistMenuClickListener(artist.getId()))
                     .addTo(this);
         });
     }

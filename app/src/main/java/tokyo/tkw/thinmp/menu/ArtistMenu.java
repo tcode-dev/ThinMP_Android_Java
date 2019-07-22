@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 
@@ -14,12 +15,14 @@ public class ArtistMenu {
     private View view;
     private String artistId;
     private ShortcutRegister shortcutRegister;
+    private FavoriteArtistRegister favoriteArtistRegister;
 
     public ArtistMenu(View view, String artistId) {
         this.context = view.getContext();
         this.view = view;
         this.artistId = artistId;
         this.shortcutRegister = ShortcutRegister.createInstance();
+        this.favoriteArtistRegister = FavoriteArtistRegister.createInstance();
     }
 
     /**
@@ -30,10 +33,14 @@ public class ArtistMenu {
         int hiddenShortcut = shortcutRegister.exists(artistId, ShortcutRealm.TYPE_ARTIST) ?
                 R.id.add_shortcut :
                 R.id.del_shortcut;
+        int hiddenFavorite = favoriteArtistRegister.exists(artistId) ?
+                R.id.add_favorite :
+                R.id.del_favorite;
         PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.getMenuInflater().inflate(R.layout.popup_menu_artist, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(createMenuItemClickListener());
         popupMenu.getMenu().findItem(hiddenShortcut).setVisible(false);
+        popupMenu.getMenu().findItem(hiddenFavorite).setVisible(false);
         popupMenu.show();
     }
 
@@ -51,11 +58,17 @@ public class ArtistMenu {
                     shortcutRegister.remove(artistId, ShortcutRealm.TYPE_ARTIST);
 
                     return true;
-                default:
-                    break;
-            }
+                case R.id.add_favorite:
+                    favoriteArtistRegister.add(artistId);
 
-            return false;
+                    return true;
+                case R.id.del_favorite:
+                    favoriteArtistRegister.remove(artistId);
+
+                    return true;
+                default:
+                    return false;
+            }
         };
     }
 }
