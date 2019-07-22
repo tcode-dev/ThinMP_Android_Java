@@ -1,17 +1,15 @@
 package tokyo.tkw.thinmp.shortcut;
 
-import io.realm.Realm;
+import tokyo.tkw.thinmp.realm.RealmRegister;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 
-public class ShortcutRegister {
-    private Realm realm;
-
-    private ShortcutRegister() {
-        realm = Realm.getDefaultInstance();
-    }
-
+public class ShortcutRegister extends RealmRegister {
     public static ShortcutRegister createInstance() {
         return new ShortcutRegister();
+    }
+
+    public boolean exists(String itemId, int type) {
+        return findFirst(itemId, type) != null;
     }
 
     /**
@@ -37,8 +35,12 @@ public class ShortcutRegister {
         commitTransaction();
     }
 
-    public boolean exists(String itemId, int type) {
-        return findFirst(itemId, type) != null;
+    /**
+     * 仮削除
+     */
+    public void temporaryRemove(String itemId, int type) {
+        ShortcutRealm shortcutRealm = findFirst(itemId, type);
+        shortcutRealm.deleteFromRealm();
     }
 
     private ShortcutRealm findFirst(String itemId, int type) {
@@ -52,13 +54,5 @@ public class ShortcutRegister {
         Number maxId = realm.where(ShortcutRealm.class).max("id");
 
         return (maxId != null) ? maxId.intValue() + 1 : 1;
-    }
-
-    public void beginTransaction() {
-        realm.beginTransaction();
-    }
-
-    public void commitTransaction() {
-        realm.commitTransaction();
     }
 }

@@ -65,6 +65,4 @@ public class PlaylistRegister extends RealmRegister {
         Number max = realm.where(PlaylistRealm.class).max(PlaylistRealm.ORDER);
         return (max != null) ? max.intValue() + 1 : 1;
     }
-
-
 }

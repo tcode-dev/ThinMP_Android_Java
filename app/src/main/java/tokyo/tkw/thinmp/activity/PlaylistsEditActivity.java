@@ -17,6 +17,9 @@ import tokyo.tkw.thinmp.dto.PlaylistsEditDto;
 import tokyo.tkw.thinmp.logic.PlaylistsEditLogic;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
+import tokyo.tkw.thinmp.realm.ShortcutRealm;
+import tokyo.tkw.thinmp.shortcut.Shortcut;
+import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 
 public class PlaylistsEditActivity extends BaseActivity {
     private PlaylistsEditAdapter mAdapter;
@@ -118,9 +121,25 @@ public class PlaylistsEditActivity extends BaseActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
-                // 削除
-                realmList.get(fromPos).deleteFromRealm();
+                PlaylistRealm playlistRealm = realmList.get(fromPos);
+
+                // shortcutに登録されていたら削除する
+                String playListId = playlistRealm.getId();
+                ShortcutRegister shortcutRegister = ShortcutRegister.createInstance();
+                if (shortcutRegister.exists(playListId, ShortcutRealm.TYPE_PLAYLIST)) {
+                    shortcutRegister.temporaryRemove(playListId, ShortcutRealm.TYPE_PLAYLIST);
+                }
+
+                // プレイリストの曲を削除する
+                playlistRealm.getTrackRealmList().deleteAllFromRealm();
+
+                // プレイリストを削除する
+                playlistRealm.deleteFromRealm();
+
+                // 一覧からプレイリストを削除する
                 realmList.remove(fromPos);
+
+                // 画面からプレイリストを削除する
                 mAdapter.notifyItemRemoved(fromPos);
             }
         });
