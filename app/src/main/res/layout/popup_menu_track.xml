@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
     <item
         android:id="@+id/playlist"
         android:orderInCategory="200"
-        app:showAsAction="never"
-        android:title="プレイリスト追加"/>
+        android:title="@string/add_playlist"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/add_favorite"
         android:orderInCategory="300"
-        app:showAsAction="never"
-        android:title="お気に入り登録"/>
+        android:title="@string/add_favorite_artist"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/del_favorite"
         android:orderInCategory="400"
-        app:showAsAction="never"
-        android:title="お気に入り解除"/>
+        android:title="@string/del_favorite_artist"
+        app:showAsAction="never" />
+
 </menu>

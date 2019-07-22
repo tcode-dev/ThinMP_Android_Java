@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/playlist"
-        android:orderInCategory="200"
-        app:showAsAction="never"
-        android:title="@string/add_playlist"/>
-
-    <item
         android:id="@+id/add_shortcut"
         android:orderInCategory="300"
         app:showAsAction="never"
@@ -19,5 +13,11 @@
         android:orderInCategory="400"
         app:showAsAction="never"
         android:title="@string/remove_shortcut"/>
+
+    <item
+        android:id="@+id/playlist"
+        android:orderInCategory="200"
+        app:showAsAction="never"
+        android:title="@string/add_playlist"/>
 
 </menu>

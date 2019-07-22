@@ -27,4 +27,5 @@
         android:orderInCategory="300"
         android:title="@string/del_favorite_artist"
         app:showAsAction="never" />
+
 </menu>
