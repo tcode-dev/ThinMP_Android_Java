@@ -17,6 +17,11 @@ import tokyo.tkw.thinmp.track.Track;
 public class FavoriteSongs {
     private Realm realm;
     private TrackContentProvider provider;
+    private RealmResults<FavoriteSongRealm> favoriteList;
+    private List<String> trackIdList;
+    private List<Track> trackList;
+    private Map<String, Track> trackMap;
+    private List<Track> sortedTrackList;
 
     public FavoriteSongs(Context context) {
         realm = Realm.getDefaultInstance();
@@ -28,13 +33,57 @@ public class FavoriteSongs {
     }
 
     public List<Track> getSortedTrackList() {
-        RealmResults<FavoriteSongRealm> realmResults =
-                realm.where(FavoriteSongRealm.class).findAll().sort(FavoriteSongRealm.ID);
-        List<String> trackIdList = Stream.of(realmResults)
-                .map(FavoriteSongRealm::getTrackId).collect(Collectors.toList());
-        List<Track> trackList = provider.findById(trackIdList);
-        Map<String, Track> trackMap = Stream.of(trackList).collect(Collectors.toMap(Track::getId, track -> track));
+        favoriteList = getFavoriteList();
+        trackIdList = getTrackIdList();
+        trackList = getTrackList();
+        trackMap = getTrackMap();
+        sortedTrackList = sortTrackList();
 
-        return Stream.of(trackIdList).map(trackMap::get).collect(Collectors.toList());
+        return validation();
+    }
+
+    private RealmResults<FavoriteSongRealm> getFavoriteList() {
+        return realm.where(FavoriteSongRealm.class).findAll().sort(FavoriteSongRealm.ID);
+    }
+
+    private List<String> getTrackIdList() {
+        return Stream.of(favoriteList).map(FavoriteSongRealm::getTrackId).collect(Collectors.toList());
+    }
+
+    private List<Track> getTrackList() {
+        return provider.findById(trackIdList);
+    }
+
+    private Map<String, Track> getTrackMap() {
+        return Stream.of(trackList).collect(Collectors.toMap(Track::getId, track -> track));
+    }
+
+    private List<Track> sortTrackList() {
+        return Stream.of(trackIdList).filter(trackMap::containsKey).map(trackMap::get).collect(Collectors.toList());
+    }
+
+    /**
+     * ローカル楽曲が削除されていたらお気に入りから削除する
+     */
+    private List<Track> validation() {
+        if (!exists()) {
+            remove();
+        }
+
+        return sortedTrackList;
+    }
+
+    private boolean exists() {
+        return trackList.size() != sortedTrackList.size();
+    }
+
+    private void remove() {
+        List<String> removeList = Stream.of(trackIdList)
+                .filter(id -> !trackMap.containsKey(id))
+                .map(id -> id)
+                .collect(Collectors.toList());
+
+        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+        register.remove(removeList);
     }
 }
