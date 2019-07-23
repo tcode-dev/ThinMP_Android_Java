@@ -74,7 +74,7 @@ public class FavoriteSongs {
     }
 
     private boolean exists() {
-        return trackList.size() != sortedTrackList.size();
+        return trackIdList.size() == sortedTrackList.size();
     }
 
     private void remove() {

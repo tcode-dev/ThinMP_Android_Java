@@ -23,7 +23,7 @@ public class FavoriteArtistsLogic {
         FavoriteArtistsDto dto = new FavoriteArtistsDto();
 
         dto.title = context.getResources().getString(R.string.favorite_artists);
-        dto.artistList = favoriteArtists.getArtistList();
+        dto.artistList = favoriteArtists.getSortedArtistList();
 
         return dto;
     }

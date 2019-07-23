@@ -19,7 +19,7 @@ public class FavoriteArtistRegister extends RealmRegister {
     }
 
     private FavoriteArtistRealm getArtist(String artistId) {
-        return realm.where(FavoriteArtistRealm.class).equalTo("artistId", artistId).findFirst();
+        return realm.where(FavoriteArtistRealm.class).equalTo(FavoriteArtistRealm.ARTIST_ID, artistId).findFirst();
     }
 
     public void add(String artistId) {
@@ -35,6 +35,16 @@ public class FavoriteArtistRegister extends RealmRegister {
 
         FavoriteArtistRealm favorite = getArtist(artistId);
         favorite.deleteFromRealm();
+
+        commitTransaction();
+    }
+
+    public void remove(List<String> artistIdList) {
+        beginTransaction();
+
+        realm.where(FavoriteArtistRealm.class)
+                .in(FavoriteArtistRealm.ARTIST_ID, artistIdList.toArray(new String[0]))
+                .findAll().deleteAllFromRealm();
 
         commitTransaction();
     }
@@ -57,7 +67,7 @@ public class FavoriteArtistRegister extends RealmRegister {
     }
 
     private int nextId() {
-        Number maxId = realm.where(FavoriteArtistRealm.class).max("id");
+        Number maxId = realm.where(FavoriteArtistRealm.class).max(FavoriteArtistRealm.ID);
 
         return (maxId != null) ? maxId.intValue() + 1 : 1;
     }

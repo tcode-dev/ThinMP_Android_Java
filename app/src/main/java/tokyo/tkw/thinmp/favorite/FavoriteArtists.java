@@ -17,22 +17,75 @@ import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 public class FavoriteArtists {
     private Realm realm;
     private ArtistContentProvider provider;
+    private RealmResults<FavoriteArtistRealm> favoriteRealmResults;
+    private List<FavoriteArtistRealm> favoriteList;
+    private List<String> artistIdList;
+    private List<Artist> artistList;
+    private Map<String, Artist> artistMap;
+    private List<Artist> sortedArtistList;
 
     public FavoriteArtists(Context context) {
         this.realm = Realm.getDefaultInstance();
         this.provider = new ArtistContentProvider(context);
     }
 
-    public List<Artist> getArtistList() {
-        RealmResults<FavoriteArtistRealm> realmResults =
-                realm.where(FavoriteArtistRealm.class).findAll().sort(FavoriteArtistRealm.ID);
-        List<FavoriteArtistRealm> favoriteArtistRealmList = Stream.of(realmResults).toList();
-        List<String> artistIdList = Stream.of(favoriteArtistRealmList)
-                .map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
-        List<Artist> artistList = provider.findById(artistIdList);
-        Map<String, Artist> artistMap = Stream.of(artistList)
-                .collect(Collectors.toMap(Artist::getId, artist -> artist));
+    public List<Artist> getSortedArtistList() {
+        favoriteRealmResults = getFavoriteRealmResults();
+        favoriteList = getFavoriteList();
+        artistIdList = getArtistIdList();
+        artistList = getArtistList();
+        artistMap = getArtistMap();
+        sortedArtistList = sortArtistList();
 
-        return Stream.of(artistIdList).map(artistMap::get).toList();
+        return validation();
+    }
+
+    private RealmResults<FavoriteArtistRealm> getFavoriteRealmResults() {
+        return realm.where(FavoriteArtistRealm.class).findAll().sort(FavoriteArtistRealm.ID);
+    }
+
+    private List<FavoriteArtistRealm> getFavoriteList() {
+        return Stream.of(favoriteRealmResults).toList();
+    }
+
+    private List<String> getArtistIdList() {
+        return Stream.of(favoriteList).map(FavoriteArtistRealm::getArtistId).collect(Collectors.toList());
+    }
+
+    private List<Artist> getArtistList() {
+        return provider.findById(artistIdList);
+    }
+
+    private Map<String, Artist> getArtistMap() {
+        return Stream.of(artistList).collect(Collectors.toMap(Artist::getId, artist -> artist));
+    }
+
+    private List<Artist> sortArtistList() {
+        return Stream.of(artistIdList).filter(artistMap::containsKey).map(artistMap::get).toList();
+    }
+
+    /**
+     * ローカルのアーティストが削除されていたらお気に入りから削除する
+     */
+    private List<Artist> validation() {
+        if (!exists()) {
+            remove();
+        }
+
+        return sortedArtistList;
+    }
+
+    private boolean exists() {
+        return artistIdList.size() == sortedArtistList.size();
+    }
+
+    private void remove() {
+        List<String> removeList = Stream.of(artistIdList)
+                .filter(id -> !artistMap.containsKey(id))
+                .map(id -> id)
+                .collect(Collectors.toList());
+
+        FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
+        register.remove(removeList);
     }
 }

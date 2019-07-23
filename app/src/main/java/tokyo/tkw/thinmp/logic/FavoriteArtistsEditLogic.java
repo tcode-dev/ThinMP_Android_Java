@@ -19,7 +19,7 @@ public class FavoriteArtistsEditLogic {
     public FavoriteArtistsEditDto createDto() {
         FavoriteArtistsEditDto dto = new FavoriteArtistsEditDto();
 
-        dto.artistList = favoriteArtists.getArtistList();
+        dto.artistList = favoriteArtists.getSortedArtistList();
 
         return dto;
     }
