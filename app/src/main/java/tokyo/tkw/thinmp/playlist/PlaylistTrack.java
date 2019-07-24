@@ -20,6 +20,7 @@ class PlaylistTrack {
     private Map<String, Track> trackMap;
     private RealmList<PlaylistTrackRealm> trackRealmList;
     private List<Track> trackList;
+    private List<Track> sortedTrackList;
     private Optional<String> albumArtId;
 
     private PlaylistTrack(Context context, RealmList<PlaylistTrackRealm> trackRealmList) {
@@ -28,16 +29,18 @@ class PlaylistTrack {
         this.trackIdList = getTrackIdList();
         this.trackList = getTrackList();
         this.trackMap = toTrackMap();
+        this.sortedTrackList = sortTrackList();
         this.albumArtId = getFirstTrackAlbumArtId();
+
+        validation();
     }
 
-    static PlaylistTrack createInstance(Context context,
-                                        RealmList<PlaylistTrackRealm> trackRealmList) {
+    static PlaylistTrack createInstance(Context context, RealmList<PlaylistTrackRealm> trackRealmList) {
         return new PlaylistTrack(context, trackRealmList);
     }
 
     List<Track> getSortedTrackList() {
-        return Stream.of(trackIdList).map(trackMap::get).collect(Collectors.toList());
+        return sortedTrackList;
     }
 
     Map<String, Track> getTrackMap() {
@@ -48,8 +51,12 @@ class PlaylistTrack {
         return albumArtId;
     }
 
+    private List<Track> sortTrackList() {
+        return Stream.of(trackIdList).filter(trackMap::containsKey).map(trackMap::get).collect(Collectors.toList());
+    }
+
     private Optional<String> getFirstTrackAlbumArtId() {
-        Optional<Track> track = Stream.of(getSortedTrackList()).findFirst();
+        Optional<Track> track = Stream.of(sortedTrackList).findFirst();
 
         return track.isEmpty() ? Optional.empty() : track.get().getAlbumArtId();
     }
@@ -72,5 +79,25 @@ class PlaylistTrack {
 
     private List<Track> getTrackList() {
         return trackContentProvider.findById(getUniqueTrackIdList());
+    }
+
+    private void validation() {
+        if (exists()) return;
+
+        remove();
+    }
+
+    private boolean exists() {
+        return trackIdList.size() == sortedTrackList.size();
+    }
+
+    private void remove() {
+        List<String> deleteList = Stream.of(trackIdList)
+                .filter(id -> !trackMap.containsKey(id))
+                .map(id -> id)
+                .collect(Collectors.toList());
+
+        PlaylistRegister register = PlaylistRegister.createInstance();
+        register.delete(deleteList);
     }
 }

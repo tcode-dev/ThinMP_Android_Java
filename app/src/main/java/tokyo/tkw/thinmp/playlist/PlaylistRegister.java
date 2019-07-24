@@ -50,6 +50,17 @@ public class PlaylistRegister extends RealmRegister {
         commitTransaction();
     }
 
+    public void delete(List<String> trackIdList) {
+        beginTransaction();
+
+        realm.where(PlaylistTrackRealm.class)
+                .in(PlaylistTrackRealm.TRACK_ID, trackIdList.toArray(new String[0]))
+                .findAll()
+                .deleteAllFromRealm();
+
+        commitTransaction();
+    }
+
     private List<PlaylistTrackRealm> createPlaylistTrackRealmList(String playlistId, List<Track> trackList) {
         return Stream.of(trackList).map(track -> {
             PlaylistTrackRealm playlistTrackRealm = realm.createObject(
