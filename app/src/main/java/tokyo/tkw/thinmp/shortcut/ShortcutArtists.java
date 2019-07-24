@@ -82,17 +82,14 @@ class ShortcutArtists {
                         }));
     }
 
-    /**
-     * アーティストが削除されていたらショートカットから削除する
-     */
     private void validation() {
-        if (exists()) return;
-
-        remove();
+        if (isDeleted()) {
+            remove();
+        }
     }
 
-    private boolean exists() {
-        return artistIdList.size() == artistList.size();
+    private boolean isDeleted() {
+        return artistIdList.size() != artistList.size();
     }
 
     private void remove() {

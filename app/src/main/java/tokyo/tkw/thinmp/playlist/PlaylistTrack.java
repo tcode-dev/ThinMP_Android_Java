@@ -79,13 +79,13 @@ class PlaylistTrack {
     }
 
     private void validation() {
-        if (exists()) return;
-
-        remove();
+        if (isDeleted()) {
+            remove();
+        }
     }
 
-    private boolean exists() {
-        return trackIdList.size() == sortedTrackList.size();
+    private boolean isDeleted() {
+        return trackIdList.size() != sortedTrackList.size();
     }
 
     private void remove() {

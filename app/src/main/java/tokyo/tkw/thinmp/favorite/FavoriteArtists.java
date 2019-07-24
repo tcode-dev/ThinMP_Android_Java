@@ -70,17 +70,14 @@ public class FavoriteArtists {
         return Stream.of(artistIdList).filter(artistMap::containsKey).map(artistMap::get).toList();
     }
 
-    /**
-     * ローカルのアーティストが削除されていたらお気に入りから削除する
-     */
     private void validation() {
-        if (exists()) return;
-
-        remove();
+        if (isDeleted()) {
+            remove();
+        }
     }
 
-    private boolean exists() {
-        return artistIdList.size() == sortedArtistList.size();
+    private boolean isDeleted() {
+        return artistIdList.size() != sortedArtistList.size();
     }
 
     private void remove() {

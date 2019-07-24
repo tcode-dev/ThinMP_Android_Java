@@ -19,7 +19,7 @@ public class Shortcuts {
 
     private Shortcuts(Context context) {
         this.shortcutArtists = ShortcutArtists.createInstance(context);
-        this.shortcutAlbums = ShortcutAlbums.createinstance(context);
+        this.shortcutAlbums = ShortcutAlbums.createInstance(context);
         this.shortcutPlaylists = ShortcutPlaylists.createInstance(context);
     }
 

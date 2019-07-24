@@ -16,23 +16,32 @@ import tokyo.tkw.thinmp.realm.ShortcutRealm;
 
 class ShortcutAlbums {
     private AlbumContentProvider provider;
+    private RealmResults<ShortcutRealm> realmResults;
+    private List<ShortcutRealm> shortcutRealmList;
+    private List<String> albumIdList;
+    private List<Album> albumList;
+    private Map<String, Album> albumMap;
+    private Map<Integer, Shortcut> shortcutMap;
 
     private ShortcutAlbums(Context context) {
         provider = new AlbumContentProvider(context);
     }
 
-    static ShortcutAlbums createinstance(Context context) {
+    static ShortcutAlbums createInstance(Context context) {
         return new ShortcutAlbums(context);
     }
 
     Map<Integer, Shortcut> getAlbumShortcutMap() {
-        RealmResults<ShortcutRealm> realmResults = findAll();
-        List<ShortcutRealm> shortcutRealmList = Stream.of(realmResults).toList();
-        List<String> albumIdList = getItemIdList(realmResults);
-        List<Album> albumList = getAlbumList(albumIdList);
-        Map<String, Album> albumMap = getAlbumMap(albumList);
+        realmResults = findAll();
+        shortcutRealmList = getShortcutRealmList();
+        albumIdList = getItemIdList();
+        albumList = getAlbumList();
+        albumMap = getAlbumMap();
+        shortcutMap = getShortcutMap();
 
-        return toAlbumShortcutMap(shortcutRealmList, albumMap);
+        validation();
+
+        return shortcutMap;
     }
 
     private RealmResults<ShortcutRealm> findAll() {
@@ -41,21 +50,25 @@ class ShortcutAlbums {
         return realm.where(ShortcutRealm.class).equalTo(ShortcutRealm.TYPE, ShortcutRealm.TYPE_ALBUM).findAll();
     }
 
-    private List<String> getItemIdList(List<ShortcutRealm> shortcutRealmList) {
+    private List<ShortcutRealm> getShortcutRealmList() {
+        return Stream.of(realmResults).toList();
+    }
+
+    private List<String> getItemIdList() {
         return Stream.of(shortcutRealmList).map(ShortcutRealm::getItemId).toList();
     }
 
-    private List<Album> getAlbumList(List<String> albumIdList) {
+    private List<Album> getAlbumList() {
         return provider.findById(albumIdList);
     }
 
-    private Map<String, Album> getAlbumMap(List<Album> albumList) {
+    private Map<String, Album> getAlbumMap() {
         return Stream.of(albumList).collect(Collectors.toMap(Album::getId, album -> album));
     }
 
-    private Map<Integer, Shortcut> toAlbumShortcutMap(List<ShortcutRealm> shortcutRealmList,
-                                                      Map<String, Album> albumMap) {
+    private Map<Integer, Shortcut> getShortcutMap() {
         return Stream.of(shortcutRealmList)
+                .filter(shortcutRealm -> albumMap.containsKey(shortcutRealm.getItemId()))
                 .collect(Collectors.toMap(
                         ShortcutRealm::getId,
                         shortcutRealm -> {
@@ -67,5 +80,25 @@ class ShortcutAlbums {
                                     album.getAlbumArtId()
                             );
                         }));
+    }
+
+    private void validation() {
+        if (isDeleted()) {
+            remove();
+        }
+    }
+
+    private boolean isDeleted() {
+        return albumIdList.size() != albumList.size();
+    }
+
+    private void remove() {
+        List<String> removeList = Stream.of(albumIdList)
+                .filter(id -> !albumList.contains(id))
+                .map(id -> id)
+                .collect(Collectors.toList());
+
+        ShortcutRegister register = ShortcutRegister.createInstance();
+        register.delete(removeList, ShortcutRealm.TYPE_ALBUM);
     }
 }

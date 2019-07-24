@@ -64,17 +64,14 @@ public class FavoriteSongs {
         return Stream.of(trackIdList).filter(trackMap::containsKey).map(trackMap::get).collect(Collectors.toList());
     }
 
-    /**
-     * ローカル楽曲が削除されていたらお気に入りから削除する
-     */
     private void validation() {
-        if (exists()) return;
-
-        remove();
+        if (isDeleted()) {
+            remove();
+        }
     }
 
-    private boolean exists() {
-        return trackIdList.size() == sortedTrackList.size();
+    private boolean isDeleted() {
+        return trackIdList.size() != sortedTrackList.size();
     }
 
     private void remove() {
