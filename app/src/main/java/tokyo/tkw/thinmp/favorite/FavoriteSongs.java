@@ -23,7 +23,7 @@ public class FavoriteSongs {
     private Map<String, Track> trackMap;
     private List<Track> sortedTrackList;
 
-    public FavoriteSongs(Context context) {
+    private FavoriteSongs(Context context) {
         realm = Realm.getDefaultInstance();
         provider = new TrackContentProvider(context);
     }
@@ -39,7 +39,9 @@ public class FavoriteSongs {
         trackMap = getTrackMap();
         sortedTrackList = sortTrackList();
 
-        return validation();
+        validation();
+
+        return sortedTrackList;
     }
 
     private RealmResults<FavoriteSongRealm> getFavoriteList() {
@@ -65,12 +67,10 @@ public class FavoriteSongs {
     /**
      * ローカル楽曲が削除されていたらお気に入りから削除する
      */
-    private List<Track> validation() {
-        if (!exists()) {
-            remove();
-        }
+    private void validation() {
+        if (exists()) return;
 
-        return sortedTrackList;
+        remove();
     }
 
     private boolean exists() {
@@ -84,6 +84,6 @@ public class FavoriteSongs {
                 .collect(Collectors.toList());
 
         FavoriteSongRegister register = FavoriteSongRegister.createInstance();
-        register.remove(removeList);
+        register.delete(removeList);
     }
 }

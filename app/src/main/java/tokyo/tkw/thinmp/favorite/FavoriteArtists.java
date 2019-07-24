@@ -24,9 +24,13 @@ public class FavoriteArtists {
     private Map<String, Artist> artistMap;
     private List<Artist> sortedArtistList;
 
-    public FavoriteArtists(Context context) {
+    private FavoriteArtists(Context context) {
         this.realm = Realm.getDefaultInstance();
         this.provider = new ArtistContentProvider(context);
+    }
+
+    public static FavoriteArtists createInstance(Context context) {
+        return new FavoriteArtists(context);
     }
 
     public List<Artist> getSortedArtistList() {
@@ -37,7 +41,9 @@ public class FavoriteArtists {
         artistMap = getArtistMap();
         sortedArtistList = sortArtistList();
 
-        return validation();
+        validation();
+
+        return sortedArtistList;
     }
 
     private RealmResults<FavoriteArtistRealm> getFavoriteRealmResults() {
@@ -67,12 +73,10 @@ public class FavoriteArtists {
     /**
      * ローカルのアーティストが削除されていたらお気に入りから削除する
      */
-    private List<Artist> validation() {
-        if (!exists()) {
-            remove();
-        }
+    private void validation() {
+        if (exists()) return;
 
-        return sortedArtistList;
+        remove();
     }
 
     private boolean exists() {
@@ -86,6 +90,6 @@ public class FavoriteArtists {
                 .collect(Collectors.toList());
 
         FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
-        register.remove(removeList);
+        register.delete(removeList);
     }
 }

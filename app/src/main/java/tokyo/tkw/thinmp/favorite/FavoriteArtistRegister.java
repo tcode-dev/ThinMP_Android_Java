@@ -13,13 +13,7 @@ public class FavoriteArtistRegister extends RealmRegister {
     }
 
     public boolean exists(String artistId) {
-        FavoriteArtistRegister favoriteRegister = FavoriteArtistRegister.createInstance();
-
-        return favoriteRegister.getArtist(artistId) != null;
-    }
-
-    private FavoriteArtistRealm getArtist(String artistId) {
-        return realm.where(FavoriteArtistRealm.class).equalTo(FavoriteArtistRealm.ARTIST_ID, artistId).findFirst();
+        return findFirst(artistId) != null;
     }
 
     public void add(String artistId) {
@@ -30,21 +24,21 @@ public class FavoriteArtistRegister extends RealmRegister {
         commitTransaction();
     }
 
-    public void remove(String artistId) {
+    public void delete(String artistId) {
         beginTransaction();
 
-        FavoriteArtistRealm favorite = getArtist(artistId);
-        favorite.deleteFromRealm();
+        findFirst(artistId).deleteFromRealm();
 
         commitTransaction();
     }
 
-    public void remove(List<String> artistIdList) {
+    public void delete(List<String> artistIdList) {
         beginTransaction();
 
         realm.where(FavoriteArtistRealm.class)
                 .in(FavoriteArtistRealm.ARTIST_ID, artistIdList.toArray(new String[0]))
-                .findAll().deleteAllFromRealm();
+                .findAll()
+                .deleteAllFromRealm();
 
         commitTransaction();
     }
@@ -54,7 +48,7 @@ public class FavoriteArtistRegister extends RealmRegister {
      *
      * @param artistIdList
      */
-    public void allUpdate(List<String> artistIdList) {
+    public void update(List<String> artistIdList) {
         beginTransaction();
 
         realm.delete(FavoriteArtistRealm.class);
@@ -64,6 +58,10 @@ public class FavoriteArtistRegister extends RealmRegister {
         });
 
         commitTransaction();
+    }
+
+    private FavoriteArtistRealm findFirst(String artistId) {
+        return realm.where(FavoriteArtistRealm.class).equalTo(FavoriteArtistRealm.ARTIST_ID, artistId).findFirst();
     }
 
     private int nextId() {

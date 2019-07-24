@@ -71,7 +71,7 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
         return view -> {
             FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
             List<String> artistIdList = Stream.of(artistList).map(Artist::getId).collect(Collectors.toList());
-            register.allUpdate(artistIdList);
+            register.update(artistIdList);
             finish();
         };
     }

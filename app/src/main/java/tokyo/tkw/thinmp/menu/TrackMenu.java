@@ -31,8 +31,8 @@ public class TrackMenu {
      */
     @SuppressLint("ResourceType")
     public void show() {
-        int hiddenFavorite = FavoriteSongRegister.exists(trackId) ? R.id.add_favorite :
-                R.id.del_favorite;
+        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+        int hiddenFavorite = register.exists(trackId) ? R.id.add_favorite : R.id.del_favorite;
         PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.getMenuInflater().inflate(R.layout.popup_menu_track, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(createMenuItemClickListener());
@@ -56,10 +56,21 @@ public class TrackMenu {
     }
 
     /**
-     * お気に入り登録
+     * お気に入り追加
      */
-    private void favorite() {
-        FavoriteSongRegister.set(trackId);
+    private void addFavoriteSong() {
+        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+
+        register.add(trackId);
+    }
+
+    /**
+     * お気に入り削除
+     */
+    private void deleteFavoriteSong() {
+        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+
+        register.delete(trackId);
     }
 
     /**
@@ -73,11 +84,11 @@ public class TrackMenu {
                     return true;
 
                 case R.id.add_favorite:
-                    favorite();
+                    deleteFavoriteSong();
                     break;
 
                 case R.id.del_favorite:
-                    favorite();
+                    addFavoriteSong();
                     break;
 
                 default:

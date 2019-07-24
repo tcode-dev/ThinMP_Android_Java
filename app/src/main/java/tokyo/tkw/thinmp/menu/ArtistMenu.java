@@ -65,7 +65,7 @@ public class ArtistMenu {
                     break;
 
                 case R.id.del_favorite:
-                    favoriteArtistRegister.remove(artistId);
+                    favoriteArtistRegister.delete(artistId);
                     break;
 
                 default:

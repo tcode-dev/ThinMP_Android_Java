@@ -70,10 +70,12 @@ public class FavoriteSongsEditActivity extends BaseActivity {
 
     private View.OnClickListener createApplyClickListener() {
         return view -> {
+            FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+
             List<String> trackIdList = Stream.of(trackList)
                     .map(Track::getId)
                     .collect(Collectors.toList());
-            FavoriteSongRegister.update(trackIdList);
+            register.update(trackIdList);
             finish();
         };
     }

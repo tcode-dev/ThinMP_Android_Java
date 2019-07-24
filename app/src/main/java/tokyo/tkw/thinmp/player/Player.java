@@ -223,7 +223,7 @@ public class Player {
     }
 
     /**
-     * onClickRepeat
+     * リピート
      *
      * @param view
      */
@@ -232,7 +232,7 @@ public class Player {
     }
 
     /**
-     * onClickShuffle
+     * シャッフル
      *
      * @param view
      */
@@ -242,34 +242,48 @@ public class Player {
     }
 
     /**
-     * OnClickFavorite
+     * お気に入りの曲追加
      *
      * @param view
      */
-    public void OnClickFavorite(View view) {
-        boolean favorite = FavoriteSongRegister.set(mTrack.getId());
-        isFavorite.set(favorite);
+    public void onClickAddFavoriteSong(View view) {
+        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+        register.add(mTrack.getId());
+
+        isFavorite.set(true);
     }
 
     /**
-     * OnClickFavoriteArtistRegister
+     * お気に入りの曲削除
      *
      * @param view
      */
-    public void OnClickFavoriteArtistRegister(View view) {
+    public void onClickDeleteFavoriteSong(View view) {
+        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+        register.delete(mTrack.getId());
+
+        isFavorite.set(false);
+    }
+
+    /**
+     * お気に入りアーティスト追加
+     *
+     * @param view
+     */
+    public void onClickAddFavoriteArtist(View view) {
         FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
         register.add(mTrack.getArtistId());
         isFavoriteArtist.set(true);
     }
 
     /**
-     * OnClickFavoriteArtistUnregister
+     * お気に入りアーティスト削除
      *
      * @param view
      */
-    public void OnClickFavoriteArtistUnregister(View view) {
+    public void onClickDeleteFavoriteArtist(View view) {
         FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
-        register.remove(mTrack.getArtistId());
+        register.delete(mTrack.getArtistId());
         isFavoriteArtist.set(false);
     }
 
@@ -278,7 +292,7 @@ public class Player {
      *
      * @param view
      */
-    public void OnClickAddPlaylist(View view) {
+    public void onClickAddPlaylist(View view) {
         Bundle bundle = new Bundle();
         bundle.putString(Music.ID, mTrack.getId());
         bundle.putInt(Music.TYPE, Music.TYPE_TRACK);

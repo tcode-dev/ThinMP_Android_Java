@@ -12,7 +12,7 @@ public class FavoriteArtistsLogic {
 
     private FavoriteArtistsLogic(Context context) {
         this.context = context;
-        this.favoriteArtists = new FavoriteArtists(context);
+        this.favoriteArtists = FavoriteArtists.createInstance(context);
     }
 
     public static FavoriteArtistsLogic createInstance(Context context) {

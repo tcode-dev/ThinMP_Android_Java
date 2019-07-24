@@ -9,7 +9,7 @@ public class FavoriteArtistsEditLogic {
     private FavoriteArtists favoriteArtists;
 
     private FavoriteArtistsEditLogic(Context context) {
-        favoriteArtists = new FavoriteArtists(context);
+        favoriteArtists = FavoriteArtists.createInstance(context);
     }
 
     public static FavoriteArtistsEditLogic createInstance(Context context) {

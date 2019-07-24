@@ -1,6 +1,6 @@
 package tokyo.tkw.thinmp.favorite;
 
-import com.annimon.stream.IntStream;
+import com.annimon.stream.Stream;
 
 import java.util.List;
 
@@ -12,83 +12,60 @@ public class FavoriteSongRegister extends RealmRegister {
         return new FavoriteSongRegister();
     }
 
-    public static boolean set(String trackId) {
-        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
-
-        return favoriteRegister.update(trackId);
+    public boolean exists(String trackId) {
+        return findFirst(trackId) != null;
     }
 
-    public static boolean exists(String trackId) {
-        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
+    public void add(String trackId) {
+        beginTransaction();
 
-        return favoriteRegister.findFirst(trackId) != null;
+        realm.createObject(FavoriteSongRealm.class, nextId()).setTrackId(trackId);
+
+        commitTransaction();
     }
 
-    public static void update(List<String> list) {
-        FavoriteSongRegister favoriteRegister = FavoriteSongRegister.createInstance();
-        favoriteRegister.allUpdate(list);
+    public void delete(String trackId) {
+        beginTransaction();
+
+        findFirst(trackId).deleteFromRealm();
+
+        commitTransaction();
     }
 
-    /**
-     * 削除
-     */
-    public void remove(List<String> trackIdList) {
+    public void delete(List<String> trackIdList) {
         beginTransaction();
 
         realm.where(FavoriteSongRealm.class)
-                .in("trackId", trackIdList.toArray(new String[0]))
-                .findAll().deleteAllFromRealm();
+                .in(FavoriteSongRealm.TRACK_ID, trackIdList.toArray(new String[0]))
+                .findAll()
+                .deleteAllFromRealm();
 
         commitTransaction();
-    }
-
-    public FavoriteSongRealm findFirst(String trackId) {
-        return realm.where(FavoriteSongRealm.class).equalTo("trackId", trackId).findFirst();
-    }
-
-    /**
-     * trackをupdate
-     *
-     * @param trackId
-     * @return
-     */
-    private boolean update(String trackId) {
-        FavoriteSongRealm favorite = findFirst(trackId);
-
-        beginTransaction();
-
-        boolean isFavorite;
-        if (favorite == null) {
-            realm.createObject(FavoriteSongRealm.class, nextId()).setTrackId(trackId);
-            isFavorite = true;
-        } else {
-            favorite.deleteFromRealm();
-            isFavorite = false;
-        }
-
-        commitTransaction();
-
-        return isFavorite;
     }
 
     /**
      * truncateしてlistを登録する
      *
-     * @param list
+     * @param trackIdList
      */
-    private void allUpdate(List<String> list) {
+    public void update(List<String> trackIdList) {
         beginTransaction();
 
         realm.delete(FavoriteSongRealm.class);
 
-        IntStream.range(0, list.size()).forEach(i -> realm.createObject(FavoriteSongRealm.class,
-                i + 1).setTrackId(list.get(i).toString()));
+        Stream.of(trackIdList).forEachIndexed((i, trackId) -> {
+            realm.createObject(FavoriteSongRealm.class, i + 1).setTrackId(trackId);
+        });
 
         commitTransaction();
     }
 
+    private FavoriteSongRealm findFirst(String trackId) {
+        return realm.where(FavoriteSongRealm.class).equalTo(FavoriteSongRealm.TRACK_ID, trackId).findFirst();
+    }
+
     private int nextId() {
-        Number maxId = realm.where(FavoriteSongRealm.class).max("id");
+        Number maxId = realm.where(FavoriteSongRealm.class).max(FavoriteSongRealm.ID);
 
         return (maxId != null) ? maxId.intValue() + 1 : 1;
     }
