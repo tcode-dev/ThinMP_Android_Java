@@ -22,7 +22,7 @@ public class PlaylistDetailLogic {
     public PlaylistDetailDto createDto() {
         PlaylistDetailDto dto = new PlaylistDetailDto();
 
-        dto.playlistName = playlist.getPlaylistRealm().getName();
+        dto.playlistName = playlist.getName();
         dto.typeName = context.getString(R.string.playlist);
         dto.albumArtId = playlist.getAlbumArtId();
         dto.trackList = playlist.getSortedTrackList();

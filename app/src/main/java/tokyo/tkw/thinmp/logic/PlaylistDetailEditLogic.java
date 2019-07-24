@@ -19,10 +19,9 @@ public class PlaylistDetailEditLogic {
     public PlaylistDetailEditDto createDto() {
         PlaylistDetailEditDto dto = new PlaylistDetailEditDto();
 
-        dto.playlistRealm = playlist.getPlaylistRealm();
         dto.playlistName = playlist.getName();
-        dto.trackRealmList = playlist.getTrackRealmList();
-        dto.trackMap = playlist.getTrackMap();
+        dto.trackList = playlist.getSortedTrackList();
+        dto.trackIdList = playlist.getTrackIdList();
 
         return dto;
     }

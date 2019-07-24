@@ -13,9 +13,9 @@ public class PlaylistTrackRealm extends RealmObject {
     private String playlistId;
     private String trackId;
 
-    public void set(String playlistId, Track track) {
+    public void set(String playlistId, String trackId) {
         this.playlistId = playlistId;
-        this.trackId = track.getId();
+        this.trackId = trackId;
     }
 
     public String getId() {

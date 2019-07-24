@@ -10,22 +10,25 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import io.realm.RealmList;
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
+import java.util.List;
+
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDetailEditAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistDetailEditDto;
 import tokyo.tkw.thinmp.logic.PlaylistDetailEditLogic;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
-import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
+import tokyo.tkw.thinmp.track.Track;
 
 public class PlaylistDetailEditActivity extends BaseActivity {
     private PlaylistDetailEditAdapter adapter;
-    private RealmList<PlaylistTrackRealm> trackRealmList;
-    private PlaylistRealm playlistRealm;
-    private PlaylistRegister playlistRegister;
-    private EditText playlistName;
+    private String playlistId;
+    private List<Track> trackList;
+    private List<String> trackIdList;
+    private EditText playlistNameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +42,10 @@ public class PlaylistDetailEditActivity extends BaseActivity {
     @Override
     protected void init() {
         // playlistId
-        String playlistId = getIntent().getStringExtra(Playlist.PLAYLIST_ID);
+        playlistId = getIntent().getStringExtra(Playlist.PLAYLIST_ID);
 
         // view
-        playlistName = findViewById(R.id.playlistName);
+        playlistNameView = findViewById(R.id.playlistName);
         RecyclerView listView = findViewById(R.id.list);
         Button applyView = findViewById(R.id.apply);
         Button cancelView = findViewById(R.id.cancel);
@@ -53,17 +56,17 @@ public class PlaylistDetailEditActivity extends BaseActivity {
         // dto
         PlaylistDetailEditDto dto = logic.createDto();
 
-        // playlistRealm
-        playlistRealm = dto.playlistRealm;
+        // 曲一覧
+        trackList = dto.trackList;
 
-        // プレイリストの曲一覧
-        trackRealmList = dto.trackRealmList;
+        // id一覧
+        trackIdList = dto.trackIdList;
 
         // プレイリスト名
-        playlistName.setText(dto.playlistName);
+        playlistNameView.setText(dto.playlistName);
 
         // adapter
-        adapter = new PlaylistDetailEditAdapter(trackRealmList, dto.trackMap);
+        adapter = new PlaylistDetailEditAdapter(trackList);
         listView.setAdapter(adapter);
 
         // layout
@@ -77,30 +80,22 @@ public class PlaylistDetailEditActivity extends BaseActivity {
         // event
         applyView.setOnClickListener(createApplyClickListener());
         cancelView.setOnClickListener(createCancelClickListener());
-
-        // transaction
-        playlistRegister = PlaylistRegister.createInstance();
-        playlistRegister.beginTransaction();
-    }
-
-    @Override
-    public void onBackPressed() {
-        playlistRegister.cancelTransaction();
-
-        super.onBackPressed();
     }
 
     private View.OnClickListener createApplyClickListener() {
         return v -> {
-            playlistRealm.setName(playlistName.getText().toString());
-            playlistRegister.commitTransaction();
+            PlaylistRegister register = PlaylistRegister.createInstance();
+            String name = playlistNameView.getText().toString();
+            List<String> toTrackIdList = Stream.of(trackList).map(Track::getId).collect(Collectors.toList());
+
+            register.update(playlistId, name, trackIdList, toTrackIdList);
+
             finish();
         };
     }
 
     private View.OnClickListener createCancelClickListener() {
         return v -> {
-            playlistRegister.cancelTransaction();
             finish();
         };
     }
@@ -122,7 +117,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
                 adapter.notifyItemMoved(fromPos, toPos);
 
                 // dataの並び替え
-                trackRealmList.add(toPos, trackRealmList.remove(fromPos));
+                trackList.add(toPos, trackList.remove(fromPos));
 
                 return true;
             }
@@ -132,7 +127,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
                 final int fromPos = viewHolder.getAdapterPosition();
 
                 // 削除
-                trackRealmList.remove(fromPos);
+                trackList.remove(fromPos);
                 adapter.notifyItemRemoved(fromPos);
             }
         });

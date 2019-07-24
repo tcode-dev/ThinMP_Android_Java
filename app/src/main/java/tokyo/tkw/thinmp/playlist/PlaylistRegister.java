@@ -20,31 +20,27 @@ public class PlaylistRegister extends RealmRegister {
         return new PlaylistRegister();
     }
 
-    /**
-     * playlistを新規作成
-     */
     public void create(String name, Music music) {
         int nextOrder = getNextPlaylistOrder();
 
         beginTransaction();
 
         PlaylistRealm playlist = realm.createObject(PlaylistRealm.class, UUID.randomUUID().toString());
-        playlist.set(name, createPlaylistTrackRealmList(playlist.getId(), music.getTrackList()), nextOrder);
+        playlist.set(name, createPlaylistTrackRealmList(playlist.getId(), music.getIdList()), nextOrder);
 
         commitTransaction();
     }
 
-    /**
-     * playlistにtrackを追加
-     */
     public void add(String playlistId, Music music) {
         beginTransaction();
 
+        PlaylistRealm playlist = getPlaylist(playlistId);
+
         List<PlaylistTrackRealm> playlistTrackRealmList = createPlaylistTrackRealmList(
                 playlistId,
-                music.getTrackList()
+                music.getIdList()
         );
-        PlaylistRealm playlist = realm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
+
         playlist.getTrackRealmList().addAll(playlistTrackRealmList);
 
         commitTransaction();
@@ -53,21 +49,48 @@ public class PlaylistRegister extends RealmRegister {
     public void delete(List<String> trackIdList) {
         beginTransaction();
 
-        realm.where(PlaylistTrackRealm.class)
-                .in(PlaylistTrackRealm.TRACK_ID, trackIdList.toArray(new String[0]))
-                .findAll()
-                .deleteAllFromRealm();
+        temporaryDelete(trackIdList);
 
         commitTransaction();
     }
 
-    private List<PlaylistTrackRealm> createPlaylistTrackRealmList(String playlistId, List<Track> trackList) {
-        return Stream.of(trackList).map(track -> {
+    public void temporaryDelete(List<String> trackIdList) {
+        realm.where(PlaylistTrackRealm.class)
+                .in(PlaylistTrackRealm.TRACK_ID, trackIdList.toArray(new String[0]))
+                .findAll()
+                .deleteAllFromRealm();
+    }
+
+    public void update(String playlistId, String name, List<String> fromTrackIdList, List<String> toTrackIdList) {
+        beginTransaction();
+
+        PlaylistRealm playlist = getPlaylist(playlistId);
+
+        playlist.setName(name);
+
+        temporaryDelete(fromTrackIdList);
+
+        List<PlaylistTrackRealm> playlistTrackRealmList = createPlaylistTrackRealmList(
+                playlistId,
+                toTrackIdList
+        );
+
+        playlist.getTrackRealmList().addAll(playlistTrackRealmList);
+
+        commitTransaction();
+    }
+
+    private PlaylistRealm getPlaylist(String playlistId) {
+        return realm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
+    }
+
+    private List<PlaylistTrackRealm> createPlaylistTrackRealmList(String playlistId, List<String> trackIdList) {
+        return Stream.of(trackIdList).map(trackId -> {
             PlaylistTrackRealm playlistTrackRealm = realm.createObject(
                     PlaylistTrackRealm.class,
                     UUID.randomUUID().toString()
             );
-            playlistTrackRealm.set(playlistId, track);
+            playlistTrackRealm.set(playlistId, trackId);
             return playlistTrackRealm;
         }).toList();
     }

@@ -1,5 +1,7 @@
 package tokyo.tkw.thinmp.music;
 
+import com.annimon.stream.Stream;
+
 import java.util.List;
 
 import tokyo.tkw.thinmp.track.Track;
@@ -22,4 +24,8 @@ public abstract class Music {
     }
 
     public abstract List<Track> getTrackList();
+
+    public List<String> getIdList() {
+        return Stream.of(getTrackList()).map(Music::getId).toList();
+    }
 }

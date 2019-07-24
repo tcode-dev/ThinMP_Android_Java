@@ -5,13 +5,12 @@ import android.content.Context;
 import com.annimon.stream.Optional;
 
 import java.util.List;
-import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmList;
-import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
+import tokyo.tkw.thinmp.track.Track;
 
 public class Playlist {
     public static final String PLAYLIST_ID = "playlistId";
@@ -40,20 +39,12 @@ public class Playlist {
         return playlistRealm.getName();
     }
 
-    public PlaylistRealm getPlaylistRealm() {
-        return playlistRealm;
-    }
-
-    public RealmList<PlaylistTrackRealm> getTrackRealmList() {
-        return trackRealmList;
-    }
-
-    public Map<String, Track> getTrackMap() {
-        return playlistTrack.getTrackMap();
-    }
-
     public Optional<String> getAlbumArtId() {
         return playlistTrack.getAlbumArtId();
+    }
+
+    public List<String> getTrackIdList() {
+        return playlistTrack.getTrackIdList();
     }
 
     public List<Track> getSortedTrackList() {

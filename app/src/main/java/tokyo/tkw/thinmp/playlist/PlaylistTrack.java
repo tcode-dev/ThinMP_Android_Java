@@ -39,16 +39,18 @@ class PlaylistTrack {
         return new PlaylistTrack(context, trackRealmList);
     }
 
+    Optional<String> getAlbumArtId() {
+        return albumArtId;
+    }
+
     List<Track> getSortedTrackList() {
         return sortedTrackList;
     }
 
-    Map<String, Track> getTrackMap() {
-        return trackMap;
-    }
-
-    Optional<String> getAlbumArtId() {
-        return albumArtId;
+    List<String> getTrackIdList() {
+        return Stream.of(trackRealmList)
+                .map(PlaylistTrackRealm::getTrackId)
+                .collect(Collectors.toList());
     }
 
     private List<Track> sortTrackList() {
@@ -61,11 +63,6 @@ class PlaylistTrack {
         return track.isEmpty() ? Optional.empty() : track.get().getAlbumArtId();
     }
 
-    private List<String> getTrackIdList() {
-        return Stream.of(trackRealmList)
-                .map(PlaylistTrackRealm::getTrackId)
-                .collect(Collectors.toList());
-    }
 
     private List<String> getUniqueTrackIdList() {
         return Stream.of(trackIdList)
