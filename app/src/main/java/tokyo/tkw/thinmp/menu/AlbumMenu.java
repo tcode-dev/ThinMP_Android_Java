@@ -1,7 +1,6 @@
 package tokyo.tkw.thinmp.menu;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
@@ -12,7 +11,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
-import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
@@ -75,7 +73,7 @@ public class AlbumMenu {
 
                     return true;
                 case R.id.del_shortcut:
-                    shortcutRegister.remove(albumId, ShortcutRealm.TYPE_ALBUM);
+                    shortcutRegister.delete(albumId, ShortcutRealm.TYPE_ALBUM);
 
                     return true;
                 default:

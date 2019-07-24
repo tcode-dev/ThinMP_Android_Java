@@ -18,7 +18,6 @@ import tokyo.tkw.thinmp.logic.PlaylistsEditLogic;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
-import tokyo.tkw.thinmp.shortcut.Shortcut;
 import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 
 public class PlaylistsEditActivity extends BaseActivity {
@@ -127,7 +126,7 @@ public class PlaylistsEditActivity extends BaseActivity {
                 String playListId = playlistRealm.getId();
                 ShortcutRegister shortcutRegister = ShortcutRegister.createInstance();
                 if (shortcutRegister.exists(playListId, ShortcutRealm.TYPE_PLAYLIST)) {
-                    shortcutRegister.temporaryRemove(playListId, ShortcutRealm.TYPE_PLAYLIST);
+                    shortcutRegister.temporaryDelete(playListId, ShortcutRealm.TYPE_PLAYLIST);
                 }
 
                 // プレイリストの曲を削除する

@@ -1,5 +1,8 @@
 package tokyo.tkw.thinmp.shortcut;
 
+import java.util.List;
+
+import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 import tokyo.tkw.thinmp.realm.RealmRegister;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 
@@ -26,7 +29,7 @@ public class ShortcutRegister extends RealmRegister {
     /**
      * 削除
      */
-    public void remove(String itemId, int type) {
+    public void delete(String itemId, int type) {
         beginTransaction();
 
         ShortcutRealm shortcutRealm = findFirst(itemId, type);
@@ -35,10 +38,22 @@ public class ShortcutRegister extends RealmRegister {
         commitTransaction();
     }
 
+    public void delete(List<String> itemIdList, int type) {
+        beginTransaction();
+
+        realm.where(ShortcutRealm.class)
+                .in(ShortcutRealm.ITEM_ID, itemIdList.toArray(new String[0]))
+                .equalTo(ShortcutRealm.TYPE, type)
+                .findAll()
+                .deleteAllFromRealm();
+
+        commitTransaction();
+    }
+
     /**
      * 仮削除
      */
-    public void temporaryRemove(String itemId, int type) {
+    public void temporaryDelete(String itemId, int type) {
         ShortcutRealm shortcutRealm = findFirst(itemId, type);
         shortcutRealm.deleteFromRealm();
     }

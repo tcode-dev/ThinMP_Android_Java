@@ -51,7 +51,7 @@ public class PlaylistMenu {
 
                     return true;
                 case R.id.del_shortcut:
-                    shortcutRegister.remove(playlistId, ShortcutRealm.TYPE_PLAYLIST);
+                    shortcutRegister.delete(playlistId, ShortcutRealm.TYPE_PLAYLIST);
 
                     return true;
 

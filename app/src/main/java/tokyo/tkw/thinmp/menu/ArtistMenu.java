@@ -57,7 +57,7 @@ public class ArtistMenu {
                     break;
 
                 case R.id.del_shortcut:
-                    shortcutRegister.remove(artistId, ShortcutRealm.TYPE_ARTIST);
+                    shortcutRegister.delete(artistId, ShortcutRealm.TYPE_ARTIST);
                     break;
 
                 case R.id.add_favorite:
