@@ -46,7 +46,11 @@ public class MainActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
 
-        // update
+        screenUpdate();
+    }
+
+
+    private void screenUpdate() {
         MainLogic logic = MainLogic.createInstance(this);
         controller.setData(logic.createDto());
     }
