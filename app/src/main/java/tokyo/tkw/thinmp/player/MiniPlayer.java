@@ -19,9 +19,9 @@ import tokyo.tkw.thinmp.util.GlideUtil;
  * UIの変更を行う
  */
 public class MiniPlayer {
-    private final int INCREMENT_MS = 3000;
-    private final long KEY_PRESS_INTERVAL_MS = 100L;
-    private final long KEY_PRESS_DELAY_MS = 0;
+    private static final int INCREMENT_MS = 3000;
+    private static final long KEY_PRESS_INTERVAL_MS = 100L;
+    private static final long KEY_PRESS_DELAY_MS = 0;
 
     public ObservableBoolean isActive = new ObservableBoolean();
     public ObservableBoolean isPlaying = new ObservableBoolean();
@@ -148,7 +148,7 @@ public class MiniPlayer {
     /**
      * setFastForward
      */
-    public void setFastForward() {
+    private void setFastForward() {
         mFastForwardTask = new Timer();
         mFastForwardTask.schedule(fastForwardTask(), KEY_PRESS_DELAY_MS, KEY_PRESS_INTERVAL_MS);
     }
@@ -156,7 +156,7 @@ public class MiniPlayer {
     /**
      * fastForwardTask
      */
-    public TimerTask fastForwardTask() {
+    private TimerTask fastForwardTask() {
         return new TimerTask() {
             public void run() {
                 fastForward();
@@ -167,7 +167,7 @@ public class MiniPlayer {
     /**
      * fastForward
      */
-    public void fastForward() {
+    private void fastForward() {
         int nextMsec = mListener.onGetCurrentPosition() + INCREMENT_MS;
 
         if (nextMsec <= mDurationMSecond) {
@@ -181,7 +181,7 @@ public class MiniPlayer {
     /**
      * cancelFastForwardTask
      */
-    public void cancelFastForwardTask() {
+    private void cancelFastForwardTask() {
         if (mFastForwardTask == null) return;
 
         mFastForwardTask.cancel();

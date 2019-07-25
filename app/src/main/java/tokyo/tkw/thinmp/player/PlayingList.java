@@ -35,20 +35,11 @@ public class PlayingList {
     }
 
     /**
-     * 現在の曲の位置を取得
-     *
-     * @return
-     */
-    public int getCurrentPosition() {
-        return currentIndex;
-    }
-
-    /**
      * 前の曲が存在するか
      *
      * @return
      */
-    public boolean hasPrev() {
+    private boolean hasPrev() {
         return currentIndex != 0;
     }
 
@@ -57,14 +48,14 @@ public class PlayingList {
      *
      * @return
      */
-    public boolean hasNext() {
+    boolean hasNext() {
         return currentIndex != getLastIndex();
     }
 
     /**
      * 前の曲へ
      */
-    public void prev() {
+    void prev() {
         if (hasPrev()) {
             currentIndex--;
         } else {
@@ -90,7 +81,7 @@ public class PlayingList {
     /**
      * プレイリストをシャッフルする
      */
-    public void shuffle() {
+    void shuffle() {
         Track currentTrack = getTrack();
 
         List<Track> playingList = Stream.of(originalList).toList();
@@ -105,11 +96,11 @@ public class PlayingList {
     /**
      * プレイリストを元の順に戻す
      */
-    public void undo() {
+    void undo() {
         playingList = Stream.of(originalList).collect(Collectors.toList());
     }
 
-    public boolean validation() {
+    boolean validation() {
         remove();
 
         if (playingList.isEmpty()) return false;

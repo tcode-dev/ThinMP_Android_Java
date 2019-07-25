@@ -252,25 +252,6 @@ public class MusicService extends Service {
     }
 
     /**
-     * 前の曲があるか
-     */
-    public boolean hasPrev() {
-        switch (repeat) {
-            case REPEAT_OFF:
-                return playingList.hasPrev();
-
-            case REPEAT_ONE:
-                return true;
-
-            case REPEAT_ALL:
-                return true;
-
-            default:
-                return false;
-        }
-    }
-
-    /**
      * 次の曲へ
      */
     public void next() {
