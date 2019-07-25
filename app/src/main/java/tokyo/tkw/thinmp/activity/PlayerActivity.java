@@ -17,12 +17,12 @@ import tokyo.tkw.thinmp.player.Player;
 import tokyo.tkw.thinmp.track.Track;
 
 public class PlayerActivity extends BaseActivity {
-    private MusicService mMusicService;
-    private Player mPlayer;
-    private boolean mBound = false;
+    private MusicService musicService;
+    private Player player;
+    private boolean bound = false;
     private MusicService.OnMusicServiceListener musicServiceListener;
-    private Player.OnPlayerListener mPlayerListener;
-    private ServiceConnection mConnection;
+    private Player.OnPlayerListener playerListener;
+    private ServiceConnection connection;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,8 +34,8 @@ public class PlayerActivity extends BaseActivity {
     @Override
     protected void init() {
         musicServiceListener = createMusicService();
-        mPlayerListener = createPlayerListener();
-        mConnection = createServiceConnection();
+        playerListener = createPlayerListener();
+        connection = createServiceConnection();
 
         bindMusicService();
     }
@@ -44,9 +44,9 @@ public class PlayerActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        if (mBound) {
+        if (bound) {
             setPlayer();
-            mMusicService.setListener(musicServiceListener);
+            musicService.setListener(musicServiceListener);
         }
     }
 
@@ -54,9 +54,9 @@ public class PlayerActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
 
-        if (mBound) {
-            mPlayer.stopDisplayUpdate();
-            mMusicService.unsetListener();
+        if (bound) {
+            player.stopDisplayUpdate();
+            musicService.unsetListener();
         }
     }
 
@@ -64,7 +64,7 @@ public class PlayerActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (mBound) {
+        if (bound) {
             unbindMusicService();
         }
     }
@@ -78,12 +78,12 @@ public class PlayerActivity extends BaseActivity {
 
             @Override
             public void onStarted() {
-                mPlayer.start();
+                player.start();
             }
 
             @Override
             public void onFinished() {
-                mPlayer.finish();
+                player.finish();
             }
         };
     }
@@ -92,50 +92,50 @@ public class PlayerActivity extends BaseActivity {
         return new Player.OnPlayerListener() {
             @Override
             public void onPlay() {
-                mMusicService.play();
+                musicService.play();
             }
 
             @Override
             public void onPause() {
-                mMusicService.pause();
+                musicService.pause();
             }
 
             @Override
             public void onPrev() {
-                if (mMusicService.isPlaying()) {
-                    mMusicService.playPrev();
+                if (musicService.isPlaying()) {
+                    musicService.playPrev();
                 } else {
-                    mMusicService.prev();
+                    musicService.prev();
                 }
             }
 
             @Override
             public void onNext() {
-                if (mMusicService.isPlaying()) {
-                    mMusicService.playNext();
+                if (musicService.isPlaying()) {
+                    musicService.playNext();
                 } else {
-                    mMusicService.next();
+                    musicService.next();
                 }
             }
 
             @Override
             public int onRepeat() {
-                return mMusicService.repeat();
+                return musicService.repeat();
             }
 
             @Override
             public boolean onShuffle() {
-                return mMusicService.shuffle();
+                return musicService.shuffle();
             }
 
             @Override
             public int onGetCurrentPosition() {
-                return mMusicService.getCurrentPosition();
+                return musicService.getCurrentPosition();
             }
 
             @Override
             public void onSeekTo(int msec) {
-                mMusicService.seekTo(msec);
+                musicService.seekTo(msec);
             }
         };
     }
@@ -145,15 +145,15 @@ public class PlayerActivity extends BaseActivity {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
-                mMusicService = binder.getService();
-                mMusicService.setListener(musicServiceListener);
+                musicService = binder.getService();
+                musicService.setListener(musicServiceListener);
                 setPlayer();
-                mBound = true;
+                bound = true;
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-                mBound = false;
+                bound = false;
             }
         };
     }
@@ -161,26 +161,26 @@ public class PlayerActivity extends BaseActivity {
     private void setPlayer() {
         ActivityPlayerBinding mBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_player);
-        mPlayer = new Player(mBinding, mPlayerListener);
+        player = new Player(mBinding, playerListener);
 
-        mBinding.setPlayer(mPlayer);
+        mBinding.setPlayer(player);
         updatePlayer();
 
-        if (mMusicService.isPlaying()) {
-            mPlayer.setSeekBarProgressTask();
+        if (musicService.isPlaying()) {
+            player.setSeekBarProgressTask();
         }
     }
 
     private void updatePlayer() {
-        mPlayer.update(mMusicService.getTrack(), mMusicService.getState());
+        player.update(musicService.getTrack(), musicService.getState());
     }
 
     private void bindMusicService() {
         Intent intent = new Intent(this, MusicService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
 
     private void unbindMusicService() {
-        unbindService(mConnection);
+        unbindService(connection);
     }
 }

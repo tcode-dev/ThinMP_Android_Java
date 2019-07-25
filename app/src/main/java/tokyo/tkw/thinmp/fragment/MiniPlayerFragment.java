@@ -10,134 +10,146 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import java.util.List;
+import java.util.Objects;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.PlayerActivity;
 import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
-import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.player.MiniPlayer;
 import tokyo.tkw.thinmp.player.MusicService;
+import tokyo.tkw.thinmp.track.Track;
 
 /**
  * MiniPlayerFragment
  */
 public class MiniPlayerFragment extends Fragment {
-    private MusicService mMusicService;
-    private MiniPlayer mMiniPlayer;
-    private boolean mBound = false;
+    private MusicService musicService;
+    private MiniPlayer miniPlayer;
+    private MiniPlayer.OnMiniPlayerListener miniPlayerListener;
+    private MusicService.OnMusicServiceListener musicServiceListener;
+    private ServiceConnection connection;
+    private boolean bound = false;
     private boolean shouldEnsuredPlayer = true;
+
     /**
      * MiniPlayerのListener
      */
-    private MiniPlayer.OnMiniPlayerListener mMiniPlayerListener =
-            new MiniPlayer.OnMiniPlayerListener() {
-        /**
-         * 再生画面へ遷移
-         */
-        @Override
-        public void onClickPlayer() {
-            Intent intent = new Intent(getContext(), PlayerActivity.class);
-            startActivity(intent);
-        }
-
-        /**
-         * 曲の再生
-         */
-        @Override
-        public void onClickPlay() {
-            mMusicService.play();
-        }
-
-        /**
-         * 曲の一時停止
-         */
-        @Override
-        public void onClickPause() {
-            mMusicService.pause();
-        }
-
-        /**
-         * 次の曲
-         */
-        @Override
-        public void onClickNext() {
-            if (mMusicService.isPlaying()) {
-                mMusicService.playNext();
-            } else {
-                mMusicService.next();
+    private MiniPlayer.OnMiniPlayerListener createMiniPlayerListener() {
+        return new MiniPlayer.OnMiniPlayerListener() {
+            /**
+             * 再生画面へ遷移
+             */
+            @Override
+            public void onClickPlayer() {
+                Intent intent = new Intent(getContext(), PlayerActivity.class);
+                startActivity(intent);
             }
-        }
 
-        /**
-         * 曲を取得
-         */
-        @Override
-        public Track onGetTrack() {
-            return mMusicService.getTrack();
-        }
+            /**
+             * 曲の再生
+             */
+            @Override
+            public void onClickPlay() {
+                musicService.play();
+            }
 
-        @Override
-        public boolean onIsPlaying() {
-            return mMusicService.isPlaying();
-        }
+            /**
+             * 曲の一時停止
+             */
+            @Override
+            public void onClickPause() {
+                musicService.pause();
+            }
 
-        @Override
-        public int onGetCurrentPosition() {
-            return mMusicService.getCurrentPosition();
-        }
+            /**
+             * 次の曲
+             */
+            @Override
+            public void onClickNext() {
+                if (musicService.isPlaying()) {
+                    musicService.playNext();
+                } else {
+                    musicService.next();
+                }
+            }
 
-        /**
-         * seekTo
-         */
-        @Override
-        public void onSeekTo(int msec) {
-            mMusicService.seekTo(msec);
-        }
-    };
+            /**
+             * 曲を取得
+             */
+            @Override
+            public Track onGetTrack() {
+                return musicService.getTrack();
+            }
+
+            @Override
+            public boolean onIsPlaying() {
+                return musicService.isPlaying();
+            }
+
+            @Override
+            public int onGetCurrentPosition() {
+                return musicService.getCurrentPosition();
+            }
+
+            /**
+             * seekTo
+             */
+            @Override
+            public void onSeekTo(int msec) {
+                musicService.seekTo(msec);
+            }
+        };
+    }
+
     /**
      * MusicServiceのListener
      */
-    private MusicService.OnMusicServiceListener musicServiceListener =
-            new MusicService.OnMusicServiceListener() {
-        @Override
-        public void onChangeTrack(Track track) {
-            update(track);
-        }
+    private MusicService.OnMusicServiceListener createMusicServiceListener() {
+        return new MusicService.OnMusicServiceListener() {
+            @Override
+            public void onChangeTrack(Track track) {
+                update(track);
+            }
 
-        @Override
-        public void onStarted() {
+            @Override
+            public void onStarted() {
 
-        }
+            }
 
-        @Override
-        public void onFinished() {
+            @Override
+            public void onFinished() {
 
-        }
-    };
+            }
+        };
+    }
+
     /**
      * ServiceConnection
      */
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
-            mMusicService = binder.getService();
-            mMusicService.setListener(musicServiceListener);
-            update();
-            mBound = true;
-        }
+    private ServiceConnection createConnection() {
+        return new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
+                musicService = binder.getService();
+                musicService.setListener(musicServiceListener);
+                update();
+                bound = true;
+            }
 
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBound = false;
-        }
-    };
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                bound = false;
+            }
+        };
+    }
 
     /**
      * onCreate
@@ -148,8 +160,11 @@ public class MiniPlayerFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        miniPlayerListener = createMiniPlayerListener();
+        musicServiceListener = createMusicServiceListener();
+        connection = createConnection();
         bindMusicService();
-        getActivity().startService(new Intent(getActivity(), MusicService.class));
+        Objects.requireNonNull(getActivity()).startService(new Intent(getActivity(), MusicService.class));
     }
 
     /**
@@ -161,13 +176,16 @@ public class MiniPlayerFragment extends Fragment {
      * @return
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        FragmentMiniPlayerBinding mBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_mini_player, container, false);
-        mMiniPlayer = new MiniPlayer(mBinding, mMiniPlayerListener);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FragmentMiniPlayerBinding mBinding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_mini_player,
+                container,
+                false
+        );
+        miniPlayer = new MiniPlayer(mBinding, miniPlayerListener);
 
-        mBinding.setMiniPlayer(mMiniPlayer);
+        mBinding.setMiniPlayer(miniPlayer);
 
         return mBinding.getRoot();
     }
@@ -176,9 +194,9 @@ public class MiniPlayerFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (mBound) {
+        if (bound) {
             update();
-            mMusicService.setListener(musicServiceListener);
+            musicService.setListener(musicServiceListener);
         }
     }
 
@@ -186,8 +204,8 @@ public class MiniPlayerFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        if (mBound) {
-            mMusicService.unsetListener();
+        if (bound) {
+            musicService.unsetListener();
         }
     }
 
@@ -195,9 +213,9 @@ public class MiniPlayerFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-        if (mBound) {
+        if (bound) {
             unbindMusicService();
-            mBound = false;
+            bound = false;
         }
     }
 
@@ -206,13 +224,18 @@ public class MiniPlayerFragment extends Fragment {
      * 余白を設定するviewにはidにmainを設定しておく
      */
     private void ensurePlayer() {
-        ViewGroup rootView =
-                (ViewGroup) ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
+        ViewGroup rootView = (ViewGroup) ((ViewGroup) Objects.requireNonNull(getActivity()).
+                findViewById(android.R.id.content)).
+                getChildAt(0);
         ViewGroup mainView = rootView.findViewById(R.id.main);
 
-        ViewGroup.MarginLayoutParams mlp =
-                (ViewGroup.MarginLayoutParams) mainView.getLayoutParams();
-        mlp.setMargins(mlp.leftMargin, mlp.topMargin, mlp.rightMargin, this.getView().getHeight());
+        ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) mainView.getLayoutParams();
+        mlp.setMargins(
+                mlp.leftMargin,
+                mlp.topMargin,
+                mlp.rightMargin,
+                Objects.requireNonNull(this.getView()).getHeight()
+        );
 
         mainView.setLayoutParams(mlp);
 
@@ -226,8 +249,8 @@ public class MiniPlayerFragment extends Fragment {
      * @param position
      */
     public void start(List<Track> trackList, int position) {
-        mMusicService.setPlayingList(trackList, position);
-        mMusicService.start();
+        musicService.setPlayingList(trackList, position);
+        musicService.start();
         update();
     }
 
@@ -235,7 +258,7 @@ public class MiniPlayerFragment extends Fragment {
      * 曲変更
      */
     public void update() {
-        update(mMusicService.getTrack());
+        update(musicService.getTrack());
     }
 
     /**
@@ -244,7 +267,7 @@ public class MiniPlayerFragment extends Fragment {
      * @param track
      */
     public void update(Track track) {
-        mMiniPlayer.update(track);
+        miniPlayer.update(track);
 
         if (track != null && shouldEnsuredPlayer) {
             ensurePlayer();
@@ -254,16 +277,16 @@ public class MiniPlayerFragment extends Fragment {
     /**
      * bindMusicService
      */
-    public void bindMusicService() {
+    private void bindMusicService() {
         FragmentActivity activity = getActivity();
         Intent intent = new Intent(activity, MusicService.class);
-        activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        Objects.requireNonNull(activity).bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
 
     /**
      * unbindMusicService
      */
     private void unbindMusicService() {
-        getActivity().unbindService(mConnection);
+        Objects.requireNonNull(getActivity()).unbindService(connection);
     }
 }

@@ -48,48 +48,47 @@ public class Player {
     public ObservableBoolean isFavorite = new ObservableBoolean();
     public ObservableBoolean isFavoriteArtist = new ObservableBoolean();
 
-    private ActivityPlayerBinding mBinding;
-    private Timer mSeekBarProgressTask;
-    private Timer mFastBackwardTask;
-    private Timer mFastForwardTask;
-    private OnPlayerListener mListener;
-    private Track mTrack;
-    private int mDurationMSecond;
-    private MusicState mMusicState;
-    private SeekBar.OnSeekBarChangeListener seekBarChangeListener =
-            new SeekBar.OnSeekBarChangeListener() {
+    private ActivityPlayerBinding binding;
+    private Timer seekBarProgressTask;
+    private Timer fastBackwardTask;
+    private Timer fastForwardTask;
+    private OnPlayerListener listener;
+    private Track track;
+    private int durationMSecond;
 
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if (!fromUser) return;
+    private SeekBar.OnSeekBarChangeListener createSeekBarChangeListener() {
+        return new SeekBar.OnSeekBarChangeListener() {
 
-                    int msec = progress * 1000;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (!fromUser) return;
 
-                    seekBarProgress(msec);
-                    mListener.onSeekTo(msec);
-                }
+                int msec = progress * 1000;
 
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
+                seekBarProgress(msec);
+                listener.onSeekTo(msec);
+            }
 
-                }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
+            }
 
-                }
-            };
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        };
+    }
 
     public Player(ActivityPlayerBinding binding, OnPlayerListener listener) {
-        mBinding = binding;
-        mListener = listener;
+        this.binding = binding;
+        this.listener = listener;
     }
 
     public void update(Track track, MusicState state) {
         // track
-        this.mTrack = track;
-        // 状態
-        this.mMusicState = state;
+        this.track = track;
         // 曲名
         this.trackName.set(track.getName());
         // アーティスト名
@@ -101,15 +100,15 @@ public class Player {
         // 曲の秒数
         this.durationSecond.set(track.getDurationSecond());
         // 曲のミリ秒
-        this.mDurationMSecond = track.getDurationSecond() * 1000;
+        this.durationMSecond = track.getDurationSecond() * 1000;
         // 再生中
         this.isPlaying.set(state.isPlaying());
         // 背景画像
         track.getAlbumArtId().ifPresent(albumArtId -> {
-            GlideUtil.bitmap(track.getAlbumArtId(), this.mBinding.background);
+            GlideUtil.bitmap(track.getAlbumArtId(), this.binding.background);
         });
         // アルバムアート
-        GlideUtil.bitmap(track.getAlbumArtId(), this.mBinding.albumArt);
+        GlideUtil.bitmap(track.getAlbumArtId(), this.binding.albumArt);
         // リピート
         setRepeat(state.getRepeat());
         // シャッフル
@@ -119,7 +118,7 @@ public class Player {
         // お気に入りアーティスト
         this.isFavoriteArtist.set(state.isFavoriteArtist());
         // seekbar
-        this.mBinding.seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+        this.binding.seekBar.setOnSeekBarChangeListener(createSeekBarChangeListener());
     }
 
     public void start() {
@@ -136,7 +135,7 @@ public class Player {
      * @param view
      */
     public void onClickPlay(View view) {
-        mListener.onPlay();
+        listener.onPlay();
         this.setSeekBarProgressTask();
         this.isPlaying.set(true);
     }
@@ -148,7 +147,7 @@ public class Player {
      */
     public void onClickPause(View view) {
         cancelSeekBarProgressTask();
-        mListener.onPause();
+        listener.onPause();
         this.isPlaying.set(false);
     }
 
@@ -159,7 +158,7 @@ public class Player {
      */
     public void onClickPrev(View view) {
         cancelSeekBarProgressTask();
-        mListener.onPrev();
+        listener.onPrev();
     }
 
     /**
@@ -180,7 +179,7 @@ public class Player {
      * @return
      */
     public boolean onTouchPrev(View view, MotionEvent event) {
-        if (mFastBackwardTask != null && event.getAction() == MotionEvent.ACTION_UP) {
+        if (fastBackwardTask != null && event.getAction() == MotionEvent.ACTION_UP) {
             cancelFastBackwardTask();
         }
 
@@ -194,7 +193,7 @@ public class Player {
      */
     public void onClickNext(View view) {
         cancelSeekBarProgressTask();
-        mListener.onNext();
+        listener.onNext();
     }
 
     /**
@@ -215,7 +214,7 @@ public class Player {
      * @return
      */
     public boolean onTouchNext(View view, MotionEvent event) {
-        if (mFastForwardTask != null && event.getAction() == MotionEvent.ACTION_UP) {
+        if (fastForwardTask != null && event.getAction() == MotionEvent.ACTION_UP) {
             cancelFastForwardTask();
         }
 
@@ -228,7 +227,7 @@ public class Player {
      * @param view
      */
     public void onClickRepeat(View view) {
-        setRepeat(mListener.onRepeat());
+        setRepeat(listener.onRepeat());
     }
 
     /**
@@ -237,7 +236,7 @@ public class Player {
      * @param view
      */
     public void onClickShuffle(View view) {
-        boolean isShuffle = mListener.onShuffle();
+        boolean isShuffle = listener.onShuffle();
         this.isShuffle.set(isShuffle);
     }
 
@@ -248,7 +247,7 @@ public class Player {
      */
     public void onClickAddFavoriteSong(View view) {
         FavoriteSongRegister register = FavoriteSongRegister.createInstance();
-        register.add(mTrack.getId());
+        register.add(track.getId());
 
         isFavorite.set(true);
     }
@@ -260,7 +259,7 @@ public class Player {
      */
     public void onClickDeleteFavoriteSong(View view) {
         FavoriteSongRegister register = FavoriteSongRegister.createInstance();
-        register.delete(mTrack.getId());
+        register.delete(track.getId());
 
         isFavorite.set(false);
     }
@@ -272,7 +271,7 @@ public class Player {
      */
     public void onClickAddFavoriteArtist(View view) {
         FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
-        register.add(mTrack.getArtistId());
+        register.add(track.getArtistId());
         isFavoriteArtist.set(true);
     }
 
@@ -283,7 +282,7 @@ public class Player {
      */
     public void onClickDeleteFavoriteArtist(View view) {
         FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
-        register.delete(mTrack.getArtistId());
+        register.delete(track.getArtistId());
         isFavoriteArtist.set(false);
     }
 
@@ -294,7 +293,7 @@ public class Player {
      */
     public void onClickAddPlaylist(View view) {
         Bundle bundle = new Bundle();
-        bundle.putString(Music.ID, mTrack.getId());
+        bundle.putString(Music.ID, track.getId());
         bundle.putInt(Music.TYPE, Music.TYPE_TRACK);
 
         FragmentActivity activity = (FragmentActivity) view.getContext();
@@ -306,14 +305,14 @@ public class Player {
     /**
      * seekBarProgress
      */
-    public void seekBarProgress() {
-        seekBarProgress(mListener.onGetCurrentPosition());
+    private void seekBarProgress() {
+        seekBarProgress(listener.onGetCurrentPosition());
     }
 
     /**
      * seekBarProgress
      */
-    public void seekBarProgress(int currentPosition) {
+    private void seekBarProgress(int currentPosition) {
         int second = TimeUtil.millisecondToSecond(currentPosition);
 
         this.currentTime.set(TimeUtil.secondToTime(second));
@@ -325,7 +324,7 @@ public class Player {
      *
      * @return TimerTask
      */
-    public TimerTask seekBarProgressTask() {
+    private TimerTask seekBarProgressTask() {
         return new TimerTask() {
             public void run() {
                 seekBarProgress();
@@ -337,18 +336,18 @@ public class Player {
      * setSeekBarProgressTask
      */
     public void setSeekBarProgressTask() {
-        mSeekBarProgressTask = new Timer();
-        mSeekBarProgressTask.schedule(seekBarProgressTask(), 0, 1000L);
+        seekBarProgressTask = new Timer();
+        seekBarProgressTask.schedule(seekBarProgressTask(), 0, 1000L);
     }
 
     /**
      * cancelSeekBarProgressTask
      */
     private void cancelSeekBarProgressTask() {
-        if (mSeekBarProgressTask == null) return;
+        if (seekBarProgressTask == null) return;
 
-        mSeekBarProgressTask.cancel();
-        mSeekBarProgressTask = null;
+        seekBarProgressTask.cancel();
+        seekBarProgressTask = null;
     }
 
     /**
@@ -362,15 +361,15 @@ public class Player {
     /**
      * setFastBackwardTask
      */
-    public void setFastBackwardTask() {
-        mFastBackwardTask = new Timer();
-        mFastBackwardTask.schedule(fastBackwardTask(), KEY_PRESS_DELAY_MS, KEY_PRESS_INTERVAL_MS);
+    private void setFastBackwardTask() {
+        fastBackwardTask = new Timer();
+        fastBackwardTask.schedule(fastBackwardTask(), KEY_PRESS_DELAY_MS, KEY_PRESS_INTERVAL_MS);
     }
 
     /**
      * fastBackwardTask
      */
-    public TimerTask fastBackwardTask() {
+    private TimerTask fastBackwardTask() {
         return new TimerTask() {
             public void run() {
                 fastBackward();
@@ -381,15 +380,15 @@ public class Player {
     /**
      * fastBackward
      */
-    public void fastBackward() {
-        int nextMsec = mListener.onGetCurrentPosition() - DECREMENT_MS;
+    private void fastBackward() {
+        int nextMsec = listener.onGetCurrentPosition() - DECREMENT_MS;
 
         if (nextMsec >= 0) {
-            mListener.onSeekTo(nextMsec);
+            listener.onSeekTo(nextMsec);
             seekBarProgress(nextMsec);
         } else {
             cancelFastBackwardTask();
-            mListener.onSeekTo(0);
+            listener.onSeekTo(0);
             seekBarProgress(0);
         }
     }
@@ -397,25 +396,25 @@ public class Player {
     /**
      * cancelFastBackwardTask
      */
-    public void cancelFastBackwardTask() {
-        if (mFastBackwardTask == null) return;
+    private void cancelFastBackwardTask() {
+        if (fastBackwardTask == null) return;
 
-        mFastBackwardTask.cancel();
-        mFastBackwardTask = null;
+        fastBackwardTask.cancel();
+        fastBackwardTask = null;
     }
 
     /**
      * setFastForward
      */
-    public void setFastForward() {
-        mFastForwardTask = new Timer();
-        mFastForwardTask.schedule(fastForwardTask(), KEY_PRESS_DELAY_MS, KEY_PRESS_INTERVAL_MS);
+    private void setFastForward() {
+        fastForwardTask = new Timer();
+        fastForwardTask.schedule(fastForwardTask(), KEY_PRESS_DELAY_MS, KEY_PRESS_INTERVAL_MS);
     }
 
     /**
      * fastForwardTask
      */
-    public TimerTask fastForwardTask() {
+    private TimerTask fastForwardTask() {
         return new TimerTask() {
             public void run() {
                 fastForward();
@@ -426,27 +425,27 @@ public class Player {
     /**
      * fastForward
      */
-    public void fastForward() {
-        int nextMsec = mListener.onGetCurrentPosition() + INCREMENT_MS;
+    private void fastForward() {
+        int nextMsec = listener.onGetCurrentPosition() + INCREMENT_MS;
 
-        if (nextMsec <= mDurationMSecond) {
-            mListener.onSeekTo(nextMsec);
+        if (nextMsec <= durationMSecond) {
+            listener.onSeekTo(nextMsec);
             seekBarProgress(nextMsec);
         } else {
             cancelFastForwardTask();
-            mListener.onSeekTo(mDurationMSecond);
-            seekBarProgress(mDurationMSecond);
+            listener.onSeekTo(durationMSecond);
+            seekBarProgress(durationMSecond);
         }
     }
 
     /**
      * cancelFastForwardTask
      */
-    public void cancelFastForwardTask() {
-        if (mFastForwardTask == null) return;
+    private void cancelFastForwardTask() {
+        if (fastForwardTask == null) return;
 
-        mFastForwardTask.cancel();
-        mFastForwardTask = null;
+        fastForwardTask.cancel();
+        fastForwardTask = null;
     }
 
     /**

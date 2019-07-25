@@ -27,6 +27,7 @@ public class MusicService extends Service {
     private MediaPlayer mediaPlayer;
     private PlayingList playingList;
     private OnMusicServiceListener listener;
+    private MediaPlayer.OnCompletionListener onCompletionListener;
 
     @Override
     public void onCreate() {
@@ -36,30 +37,30 @@ public class MusicService extends Service {
 
         repeat = config.getRepeat();
         shuffle = config.getShuffle();
+
+        onCompletionListener = createCompletionListener();
     }
 
     /**
      * 再生が終わったあとの処理
      */
-    private MediaPlayer.OnCompletionListener onCompletionListener =
-            new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    onFinished();
+    private MediaPlayer.OnCompletionListener createCompletionListener() {
+        return mp -> {
+            onFinished();
 
-                    if (!hasNext()) {
-                        // 再生終了時に最初の曲で画面を更新
-                        next();
-                        return;
-                    }
+            if (!hasNext()) {
+                // 再生終了時に最初の曲で画面を更新
+                next();
+                return;
+            }
 
-                    if (repeat != REPEAT_ONE) {
-                        playingList.next();
-                    }
+            if (repeat != REPEAT_ONE) {
+                playingList.next();
+            }
 
-                    start();
-                }
-            };
+            start();
+        };
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -223,7 +224,7 @@ public class MusicService extends Service {
 
     /**
      * 前の曲へ
-     * 再生時間が3秒を超える場合同じ曲を最初から再生
+     * 再生時間が3秒を超える場合同じ曲で初期化
      */
     public void prev() {
         if (getCurrentPosition() <= PREV_MS) {
@@ -356,10 +357,9 @@ public class MusicService extends Service {
         FavoriteSongRegister favoriteSongRegister = FavoriteSongRegister.createInstance();
         Track track = playingList.getTrack();
 
-        return new MusicState(mediaPlayer.isPlaying(),
+        return new MusicState(
+                mediaPlayer.isPlaying(),
                 getCurrentPosition(),
-                hasPrev(),
-                hasNext(),
                 getRepeat(),
                 getShuffle(),
                 favoriteSongRegister.exists(track.getId()),
