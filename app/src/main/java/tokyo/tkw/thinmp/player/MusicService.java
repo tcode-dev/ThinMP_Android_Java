@@ -6,6 +6,8 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 
+import com.annimon.stream.Optional;
+
 import java.util.List;
 
 import tokyo.tkw.thinmp.config.Config;
@@ -19,12 +21,12 @@ public class MusicService extends Service {
     public static final int REPEAT_ALL = 2;
     private final int PREV_MS = 3000;
 
-    public IBinder mBinder = new MusicBinder();
-    private int mRepeat;
-    private boolean mShuffle;
-    private MediaPlayer mMediaPlayer;
-    private PlayingList mPlayingList;
-    private OnMusicServiceListener mListener;
+    public IBinder binder = new MusicBinder();
+    private int repeat;
+    private boolean shuffle;
+    private MediaPlayer mediaPlayer;
+    private PlayingList playingList;
+    private OnMusicServiceListener listener;
 
     @Override
     public void onCreate() {
@@ -32,8 +34,8 @@ public class MusicService extends Service {
 
         Config config = new Config(this);
 
-        mRepeat = config.getRepeat();
-        mShuffle = config.getShuffle();
+        repeat = config.getRepeat();
+        shuffle = config.getShuffle();
     }
 
     /**
@@ -51,8 +53,8 @@ public class MusicService extends Service {
                         return;
                     }
 
-                    if (mRepeat != REPEAT_ONE) {
-                        mPlayingList.next();
+                    if (repeat != REPEAT_ONE) {
+                        playingList.next();
                     }
 
                     start();
@@ -61,7 +63,7 @@ public class MusicService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return mBinder;
+        return binder;
     }
 
     /**
@@ -71,7 +73,7 @@ public class MusicService extends Service {
      * @param position
      */
     public void setPlayingList(List<Track> playList, int position) {
-        mPlayingList = new PlayingList(playList, position);
+        playingList = new PlayingList(playList, position);
     }
 
     /**
@@ -80,14 +82,14 @@ public class MusicService extends Service {
      * @param listener
      */
     public void setListener(OnMusicServiceListener listener) {
-        mListener = listener;
+        this.listener = listener;
     }
 
     /**
      * リスナーを削除
      */
     public void unsetListener() {
-        mListener = null;
+        listener = null;
     }
 
     /**
@@ -96,34 +98,45 @@ public class MusicService extends Service {
     public void start() {
         destroy();
 
-        Track track = mPlayingList.getTrack();
-        mMediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
-        mMediaPlayer.start();
-        mMediaPlayer.setOnCompletionListener(onCompletionListener);
+        Track track = playingList.getTrack();
 
-        onChangeTrack(track);
-        onStarted();
+        Optional<MediaPlayer> mediaPlayerOptional = Optional.ofNullable(MediaPlayer.create(getBaseContext(),
+                track.getUri()));
+        mediaPlayerOptional.ifPresentOrElse(mediaPlayer -> {
+            this.mediaPlayer = mediaPlayer;
+            this.mediaPlayer.start();
+            this.mediaPlayer.setOnCompletionListener(onCompletionListener);
+
+            onChangeTrack(track);
+            onStarted();
+        }, () -> {
+            if (playingList.validation()) {
+                start();
+            } else {
+                destroy();
+            }
+        });
     }
 
     /**
      * 再生を再開
      */
     public void play() {
-        mMediaPlayer.start();
+        mediaPlayer.start();
     }
 
     /**
      * 一時停止
      */
     public void pause() {
-        mMediaPlayer.pause();
+        mediaPlayer.pause();
     }
 
     /**
      * seek
      */
     public void seekTo(int msec) {
-        mMediaPlayer.seekTo(msec);
+        mediaPlayer.seekTo(msec);
     }
 
     /**
@@ -132,14 +145,14 @@ public class MusicService extends Service {
      * @return ミリ秒
      */
     public int getCurrentPosition() {
-        return mMediaPlayer.getCurrentPosition();
+        return mediaPlayer.getCurrentPosition();
     }
 
     /**
      * リピート
      */
     public int repeat() {
-        switch (mRepeat) {
+        switch (repeat) {
             case REPEAT_OFF:
                 repeatAll();
                 break;
@@ -153,48 +166,48 @@ public class MusicService extends Service {
 
         // 設定を保存
         Config config = new Config(getBaseContext());
-        config.setRepeat(mRepeat);
+        config.setRepeat(repeat);
 
-        return mRepeat;
+        return repeat;
     }
 
     /**
      * 1曲リピート
      */
     private void repeatOne() {
-        mRepeat = REPEAT_ONE;
+        repeat = REPEAT_ONE;
     }
 
     /**
      * 全曲リピート
      */
     private void repeatAll() {
-        mRepeat = REPEAT_ALL;
+        repeat = REPEAT_ALL;
     }
 
     /**
      * リピートoff
      */
     private void repeatOff() {
-        mRepeat = REPEAT_OFF;
+        repeat = REPEAT_OFF;
     }
 
     /**
      * シャッフル
      */
     public boolean shuffle() {
-        mShuffle = !mShuffle;
-        if (mShuffle) {
-            mPlayingList.shuffle();
+        shuffle = !shuffle;
+        if (shuffle) {
+            playingList.shuffle();
         } else {
-            mPlayingList.undo();
+            playingList.undo();
         }
 
         // 設定を保存
         Config config = new Config(getBaseContext());
-        config.setShuffle(mShuffle);
+        config.setShuffle(shuffle);
 
-        return mShuffle;
+        return shuffle;
     }
 
     /**
@@ -203,9 +216,9 @@ public class MusicService extends Service {
      * @return Track
      */
     public Track getTrack() {
-        if (mPlayingList == null) return null;
+        if (playingList == null) return null;
 
-        return mPlayingList.getTrack();
+        return playingList.getTrack();
     }
 
     /**
@@ -214,14 +227,14 @@ public class MusicService extends Service {
      */
     public void prev() {
         if (getCurrentPosition() <= PREV_MS) {
-            mPlayingList.prev();
+            playingList.prev();
         }
 
         destroy();
 
-        Track track = mPlayingList.getTrack();
-        mMediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
-        mMediaPlayer.setOnCompletionListener(onCompletionListener);
+        Track track = playingList.getTrack();
+        mediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
+        mediaPlayer.setOnCompletionListener(onCompletionListener);
 
         onChangeTrack(track);
     }
@@ -232,7 +245,7 @@ public class MusicService extends Service {
      */
     public void playPrev() {
         if (getCurrentPosition() <= PREV_MS) {
-            mPlayingList.prev();
+            playingList.prev();
         }
         start();
     }
@@ -241,9 +254,9 @@ public class MusicService extends Service {
      * 前の曲があるか
      */
     public boolean hasPrev() {
-        switch (mRepeat) {
+        switch (repeat) {
             case REPEAT_OFF:
-                return mPlayingList.hasPrev();
+                return playingList.hasPrev();
 
             case REPEAT_ONE:
                 return true;
@@ -262,10 +275,10 @@ public class MusicService extends Service {
     public void next() {
         destroy();
 
-        mPlayingList.next();
-        Track track = mPlayingList.getTrack();
-        mMediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
-        mMediaPlayer.setOnCompletionListener(onCompletionListener);
+        playingList.next();
+        Track track = playingList.getTrack();
+        mediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
+        mediaPlayer.setOnCompletionListener(onCompletionListener);
 
         onChangeTrack(track);
     }
@@ -274,9 +287,9 @@ public class MusicService extends Service {
      * 次の曲があるか
      */
     public boolean hasNext() {
-        switch (mRepeat) {
+        switch (repeat) {
             case REPEAT_OFF:
-                return mPlayingList.hasNext();
+                return playingList.hasNext();
 
             case REPEAT_ONE:
                 return true;
@@ -293,7 +306,7 @@ public class MusicService extends Service {
      * 次の曲の再生
      */
     public void playNext() {
-        mPlayingList.next();
+        playingList.next();
         start();
     }
 
@@ -303,7 +316,7 @@ public class MusicService extends Service {
      * @return
      */
     public boolean isPlaying() {
-        return mMediaPlayer.isPlaying();
+        return mediaPlayer.isPlaying();
     }
 
     /**
@@ -312,7 +325,7 @@ public class MusicService extends Service {
      * @return
      */
     public boolean getShuffle() {
-        return mShuffle;
+        return shuffle;
     }
 
     /**
@@ -321,29 +334,29 @@ public class MusicService extends Service {
      * @return
      */
     public Integer getRepeat() {
-        return mRepeat;
+        return repeat;
     }
 
     /**
      * MediaPlayerを破棄
      */
     public void destroy() {
-        if (mMediaPlayer == null) return;
+        if (mediaPlayer == null) return;
 
-        if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.stop();
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
         }
 
-        mMediaPlayer.release();
-        mMediaPlayer = null;
+        mediaPlayer.release();
+        mediaPlayer = null;
     }
 
     public MusicState getState() {
         FavoriteArtistRegister favoriteArtistRegister = FavoriteArtistRegister.createInstance();
         FavoriteSongRegister favoriteSongRegister = FavoriteSongRegister.createInstance();
-        Track track = mPlayingList.getTrack();
+        Track track = playingList.getTrack();
 
-        return new MusicState(mMediaPlayer.isPlaying(),
+        return new MusicState(mediaPlayer.isPlaying(),
                 getCurrentPosition(),
                 hasPrev(),
                 hasNext(),
@@ -359,7 +372,7 @@ public class MusicService extends Service {
      * （スリープなど画面を更新する必要がない場合Listenerを削除している）
      */
     private boolean hasListener() {
-        return (mListener != null);
+        return (listener != null);
     }
 
     /**
@@ -367,7 +380,7 @@ public class MusicService extends Service {
      */
     private void onChangeTrack(Track track) {
         if (hasListener()) {
-            mListener.onChangeTrack(track);
+            listener.onChangeTrack(track);
         }
     }
 
@@ -376,7 +389,7 @@ public class MusicService extends Service {
      */
     private void onStarted() {
         if (hasListener()) {
-            mListener.onStarted();
+            listener.onStarted();
         }
     }
 
@@ -385,7 +398,7 @@ public class MusicService extends Service {
      */
     private void onFinished() {
         if (hasListener()) {
-            mListener.onFinished();
+            listener.onFinished();
         }
     }
 

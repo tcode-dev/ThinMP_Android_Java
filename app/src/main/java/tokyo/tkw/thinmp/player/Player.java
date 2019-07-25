@@ -59,26 +59,26 @@ public class Player {
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener =
             new SeekBar.OnSeekBarChangeListener() {
 
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (!fromUser) return;
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    if (!fromUser) return;
 
-            int msec = progress * 1000;
+                    int msec = progress * 1000;
 
-            seekBarProgress(msec);
-            mListener.onSeekTo(msec);
-        }
+                    seekBarProgress(msec);
+                    mListener.onSeekTo(msec);
+                }
 
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
 
-        }
+                }
 
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
 
-        }
-    };
+                }
+            };
 
     public Player(ActivityPlayerBinding binding, OnPlayerListener listener) {
         mBinding = binding;

@@ -12,20 +12,17 @@ import tokyo.tkw.thinmp.track.Track;
  * 再生中の曲リスト
  */
 public class PlayingList {
-    // 最後の曲のインデックス
-    private static int mLastIndex;
     // 再生曲リスト
-    private List<Track> mPlayingList;
+    private List<Track> playingList;
     // シャッフル後に戻すためのバックアップ
-    private List<Track> mOriginalList;
+    private List<Track> originalList;
     // 現在位置
-    private int mCurrentPosition;
+    private int currentIndex;
 
-    public PlayingList(List<Track> playingList, int position) {
-        mPlayingList = playingList;
-        mOriginalList = Stream.of(playingList).toList();
-        mCurrentPosition = position;
-        mLastIndex = playingList.size() - 1;
+    PlayingList(List<Track> playingList, int position) {
+        this.playingList = playingList;
+        originalList = Stream.of(playingList).toList();
+        currentIndex = position;
     }
 
     /**
@@ -34,7 +31,7 @@ public class PlayingList {
      * @return
      */
     public Track getTrack() {
-        return mPlayingList.get(mCurrentPosition);
+        return playingList.get(currentIndex);
     }
 
     /**
@@ -43,7 +40,7 @@ public class PlayingList {
      * @return
      */
     public int getCurrentPosition() {
-        return mCurrentPosition;
+        return currentIndex;
     }
 
     /**
@@ -52,7 +49,7 @@ public class PlayingList {
      * @return
      */
     public boolean hasPrev() {
-        return mCurrentPosition != 0;
+        return currentIndex != 0;
     }
 
     /**
@@ -61,7 +58,7 @@ public class PlayingList {
      * @return
      */
     public boolean hasNext() {
-        return mCurrentPosition != mLastIndex;
+        return currentIndex != getLastIndex();
     }
 
     /**
@@ -69,9 +66,9 @@ public class PlayingList {
      */
     public void prev() {
         if (hasPrev()) {
-            mCurrentPosition--;
+            currentIndex--;
         } else {
-            mCurrentPosition = mLastIndex;
+            currentIndex = getLastIndex();
         }
     }
 
@@ -80,10 +77,14 @@ public class PlayingList {
      */
     public void next() {
         if (hasNext()) {
-            mCurrentPosition++;
+            currentIndex++;
         } else {
-            mCurrentPosition = 0;
+            currentIndex = 0;
         }
+    }
+
+    private int getLastIndex() {
+        return playingList.size() - 1;
     }
 
     /**
@@ -92,19 +93,38 @@ public class PlayingList {
     public void shuffle() {
         Track currentTrack = getTrack();
 
-        List<Track> playingList = Stream.of(mOriginalList).toList();
+        List<Track> playingList = Stream.of(originalList).toList();
         playingList.remove(currentTrack);
         Collections.shuffle(playingList);
         playingList.add(0, currentTrack);
 
-        mPlayingList = playingList;
-        mCurrentPosition = 0;
+        this.playingList = playingList;
+        currentIndex = 0;
     }
 
     /**
      * プレイリストを元の順に戻す
      */
     public void undo() {
-        mPlayingList = Stream.of(mOriginalList).collect(Collectors.toList());
+        playingList = Stream.of(originalList).collect(Collectors.toList());
+    }
+
+    public boolean validation() {
+        remove();
+
+        if (playingList.isEmpty()) return false;
+
+        if (currentIndex == playingList.size()) {
+            currentIndex = 0;
+        }
+
+        return true;
+    }
+
+    /**
+     * ローカル楽曲が削除されている場合に一覧から削除する
+     */
+    private void remove() {
+        playingList.remove(currentIndex);
     }
 }
