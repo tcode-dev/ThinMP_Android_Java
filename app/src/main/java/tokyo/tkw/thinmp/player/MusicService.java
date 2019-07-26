@@ -24,7 +24,8 @@ public class MusicService extends Service {
     public IBinder binder = new MusicBinder();
     private int repeat;
     private boolean shuffle;
-    private MediaPlayer mediaPlayer;
+    private Track track;
+    private Optional<MediaPlayer> mediaPlayerOptional;
     private PlayingList playingList;
     private OnMusicServiceListener listener;
     private MediaPlayer.OnCompletionListener onCompletionListener;
@@ -37,6 +38,7 @@ public class MusicService extends Service {
 
         repeat = config.getRepeat();
         shuffle = config.getShuffle();
+        mediaPlayerOptional = Optional.empty();
 
         onCompletionListener = createCompletionListener();
     }
@@ -55,7 +57,7 @@ public class MusicService extends Service {
             }
 
             if (repeat != REPEAT_ONE) {
-                playingList.next();
+                setNextTrack();
             }
 
             start();
@@ -65,16 +67,6 @@ public class MusicService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return binder;
-    }
-
-    /**
-     * 再生リストを登録
-     *
-     * @param playList
-     * @param position
-     */
-    public void setPlayingList(List<Track> playList, int position) {
-        playingList = new PlayingList(playList, position);
     }
 
     /**
@@ -96,48 +88,66 @@ public class MusicService extends Service {
     /**
      * 再生を開始
      */
+    public void initStart(List<Track> playList, int position) {
+        playingList = PlayingList.createInstance(playList, position);
+        setCurrentTrack();
+
+        start();
+    }
+
     public void start() {
+        setMediaPlayer();
+        mediaPlayerOptional.ifPresent(mediaPlayer -> {
+            mediaPlayer.start();
+            onStarted();
+            onChangeTrack();
+        });
+    }
+
+    private void setMediaPlayer() {
         destroy();
 
-        Track track = playingList.getTrack();
+        mediaPlayerOptional = Optional.ofNullable(MediaPlayer.create(getBaseContext(), track.getUri()));
+        mediaPlayerOptional.ifPresentOrElse(
+                mediaPlayer -> mediaPlayer.setOnCompletionListener(onCompletionListener),
+                this::validation);
+    }
 
-        Optional<MediaPlayer> mediaPlayerOptional = Optional.ofNullable(MediaPlayer.create(getBaseContext(),
-                track.getUri()));
-        mediaPlayerOptional.ifPresentOrElse(mediaPlayer -> {
-            this.mediaPlayer = mediaPlayer;
-            this.mediaPlayer.start();
-            this.mediaPlayer.setOnCompletionListener(onCompletionListener);
+    private void setCurrentTrack() {
+        track = playingList.getTrack();
+    }
 
-            onChangeTrack(track);
-            onStarted();
-        }, () -> {
-            if (playingList.validation()) {
-                start();
-            } else {
-                destroy();
-            }
-        });
+    private void setPrevTrack() {
+        track = playingList.getPrevTrack();
+    }
+
+    private void setNextTrack() {
+        track = playingList.getNextTrack();
+    }
+
+    private void validation() {
+        playingList.validation();
     }
 
     /**
      * 再生を再開
      */
     public void play() {
-        mediaPlayer.start();
+        mediaPlayerOptional.ifPresent(MediaPlayer::start);
     }
 
     /**
      * 一時停止
      */
     public void pause() {
-        mediaPlayer.pause();
+        mediaPlayerOptional.ifPresent(MediaPlayer::pause);
     }
 
     /**
      * seek
      */
     public void seekTo(int msec) {
-        mediaPlayer.seekTo(msec);
+        mediaPlayerOptional.ifPresent(mediaPlayer -> mediaPlayer.seekTo(msec));
     }
 
     /**
@@ -146,7 +156,9 @@ public class MusicService extends Service {
      * @return ミリ秒
      */
     public int getCurrentPosition() {
-        return mediaPlayer.getCurrentPosition();
+        if (mediaPlayerOptional.isEmpty()) return 0;
+
+        return mediaPlayerOptional.get().getCurrentPosition();
     }
 
     /**
@@ -217,9 +229,7 @@ public class MusicService extends Service {
      * @return Track
      */
     public Track getTrack() {
-        if (playingList == null) return null;
-
-        return playingList.getTrack();
+        return track;
     }
 
     /**
@@ -228,16 +238,11 @@ public class MusicService extends Service {
      */
     public void prev() {
         if (getCurrentPosition() <= PREV_MS) {
-            playingList.prev();
+            setPrevTrack();
         }
 
-        destroy();
-
-        Track track = playingList.getTrack();
-        mediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
-        mediaPlayer.setOnCompletionListener(onCompletionListener);
-
-        onChangeTrack(track);
+        setMediaPlayer();
+        onChangeTrack();
     }
 
     /**
@@ -246,8 +251,16 @@ public class MusicService extends Service {
      */
     public void playPrev() {
         if (getCurrentPosition() <= PREV_MS) {
-            playingList.prev();
+            setPrevTrack();
         }
+        start();
+    }
+
+    /**
+     * 次の曲の再生
+     */
+    public void playNext() {
+        setNextTrack();
         start();
     }
 
@@ -255,14 +268,8 @@ public class MusicService extends Service {
      * 次の曲へ
      */
     public void next() {
-        destroy();
-
-        playingList.next();
-        Track track = playingList.getTrack();
-        mediaPlayer = MediaPlayer.create(getBaseContext(), track.getUri());
-        mediaPlayer.setOnCompletionListener(onCompletionListener);
-
-        onChangeTrack(track);
+        setNextTrack();
+        onChangeTrack();
     }
 
     /**
@@ -285,20 +292,14 @@ public class MusicService extends Service {
     }
 
     /**
-     * 次の曲の再生
-     */
-    public void playNext() {
-        playingList.next();
-        start();
-    }
-
-    /**
      * 再生中か
      *
      * @return
      */
     public boolean isPlaying() {
-        return mediaPlayer.isPlaying();
+        if (mediaPlayerOptional.isEmpty()) return false;
+
+        return mediaPlayerOptional.get().isPlaying();
     }
 
     /**
@@ -323,14 +324,14 @@ public class MusicService extends Service {
      * MediaPlayerを破棄
      */
     public void destroy() {
-        if (mediaPlayer == null) return;
+        mediaPlayerOptional.ifPresent((mediaPlayer) -> {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+            }
+            mediaPlayer.release();
+        });
 
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-        }
-
-        mediaPlayer.release();
-        mediaPlayer = null;
+        mediaPlayerOptional = Optional.empty();
     }
 
     public MusicState getState() {
@@ -339,7 +340,7 @@ public class MusicService extends Service {
         Track track = playingList.getTrack();
 
         return new MusicState(
-                mediaPlayer.isPlaying(),
+                mediaPlayerOptional.get().isPlaying(),
                 getCurrentPosition(),
                 getRepeat(),
                 getShuffle(),
@@ -359,7 +360,7 @@ public class MusicService extends Service {
     /**
      * 曲変更
      */
-    private void onChangeTrack(Track track) {
+    private void onChangeTrack() {
         if (hasListener()) {
             listener.onChangeTrack(track);
         }

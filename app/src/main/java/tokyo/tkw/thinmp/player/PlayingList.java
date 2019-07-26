@@ -19,10 +19,14 @@ public class PlayingList {
     // 現在位置
     private int currentIndex;
 
-    PlayingList(List<Track> playingList, int position) {
+    private PlayingList(List<Track> playingList, int position) {
         this.playingList = playingList;
         originalList = Stream.of(playingList).toList();
         currentIndex = position;
+    }
+
+    static PlayingList createInstance(List<Track> playingList, int position) {
+        return new PlayingList(playingList, position);
     }
 
     /**
@@ -31,6 +35,26 @@ public class PlayingList {
      * @return
      */
     public Track getTrack() {
+        return playingList.get(currentIndex);
+    }
+
+    /**
+     * 前のtrackを取得
+     *
+     * @return
+     */
+    public Track getPrevTrack() {
+        prev();
+        return playingList.get(currentIndex);
+    }
+
+    /**
+     * 次のtrackを取得
+     *
+     * @return
+     */
+    public Track getNextTrack() {
+        next();
         return playingList.get(currentIndex);
     }
 

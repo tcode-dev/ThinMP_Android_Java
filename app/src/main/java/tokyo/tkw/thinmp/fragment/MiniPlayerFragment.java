@@ -38,6 +38,61 @@ public class MiniPlayerFragment extends Fragment {
     private boolean bound = false;
     private boolean shouldEnsuredPlayer = true;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        miniPlayerListener = createMiniPlayerListener();
+        musicServiceListener = createMusicServiceListener();
+        connection = createConnection();
+        bindMusicService();
+        Objects.requireNonNull(getActivity()).startService(new Intent(getActivity(), MusicService.class));
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FragmentMiniPlayerBinding binding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_mini_player,
+                container,
+                false
+        );
+        miniPlayer = new MiniPlayer(binding, miniPlayerListener);
+
+        binding.setMiniPlayer(miniPlayer);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (bound) {
+            update();
+            musicService.setListener(musicServiceListener);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (bound) {
+            musicService.unsetListener();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (bound) {
+            unbindMusicService();
+            bound = false;
+        }
+    }
+
     /**
      * MiniPlayerのListener
      */
@@ -152,74 +207,6 @@ public class MiniPlayerFragment extends Fragment {
     }
 
     /**
-     * onCreate
-     *
-     * @param savedInstanceState
-     */
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        miniPlayerListener = createMiniPlayerListener();
-        musicServiceListener = createMusicServiceListener();
-        connection = createConnection();
-        bindMusicService();
-        Objects.requireNonNull(getActivity()).startService(new Intent(getActivity(), MusicService.class));
-    }
-
-    /**
-     * onCreateView
-     *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FragmentMiniPlayerBinding mBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_mini_player,
-                container,
-                false
-        );
-        miniPlayer = new MiniPlayer(mBinding, miniPlayerListener);
-
-        mBinding.setMiniPlayer(miniPlayer);
-
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (bound) {
-            update();
-            musicService.setListener(musicServiceListener);
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (bound) {
-            musicService.unsetListener();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (bound) {
-            unbindMusicService();
-            bound = false;
-        }
-    }
-
-    /**
      * ミニプレイヤー表示時に画面下に余白を確保する
      * 余白を設定するviewにはidにmainを設定しておく
      */
@@ -249,8 +236,7 @@ public class MiniPlayerFragment extends Fragment {
      * @param position
      */
     public void start(List<Track> trackList, int position) {
-        musicService.setPlayingList(trackList, position);
-        musicService.start();
+        musicService.initStart(trackList, position);
         update();
     }
 

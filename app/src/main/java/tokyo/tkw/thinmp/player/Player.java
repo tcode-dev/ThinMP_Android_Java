@@ -56,34 +56,13 @@ public class Player {
     private Track track;
     private int durationMSecond;
 
-    private SeekBar.OnSeekBarChangeListener createSeekBarChangeListener() {
-        return new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (!fromUser) return;
-
-                int msec = progress * 1000;
-
-                seekBarProgress(msec);
-                listener.onSeekTo(msec);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        };
-    }
-
-    public Player(ActivityPlayerBinding binding, OnPlayerListener listener) {
+    private Player(ActivityPlayerBinding binding, OnPlayerListener listener) {
         this.binding = binding;
         this.listener = listener;
+    }
+
+    public static Player createInstance(ActivityPlayerBinding binding, OnPlayerListener listener) {
+        return new Player(binding, listener);
     }
 
     public void update(Track track, MusicState state) {
@@ -457,6 +436,31 @@ public class Player {
         this.isRepeatOff.set(repeat == MusicService.REPEAT_OFF);
         this.isRepeatOne.set(repeat == MusicService.REPEAT_ONE);
         this.isRepeatAll.set(repeat == MusicService.REPEAT_ALL);
+    }
+
+    private SeekBar.OnSeekBarChangeListener createSeekBarChangeListener() {
+        return new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (!fromUser) return;
+
+                int msec = progress * 1000;
+
+                seekBarProgress(msec);
+                listener.onSeekTo(msec);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        };
     }
 
     /**

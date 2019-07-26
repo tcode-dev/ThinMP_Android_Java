@@ -159,11 +159,10 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void setPlayer() {
-        ActivityPlayerBinding mBinding = DataBindingUtil.setContentView(this,
-                R.layout.activity_player);
-        player = new Player(mBinding, playerListener);
+        ActivityPlayerBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_player);
+        player = Player.createInstance(binding, playerListener);
 
-        mBinding.setPlayer(player);
+        binding.setPlayer(player);
         updatePlayer();
 
         if (musicService.isPlaying()) {
