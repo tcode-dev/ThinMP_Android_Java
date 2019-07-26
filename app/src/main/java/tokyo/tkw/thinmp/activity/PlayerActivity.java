@@ -85,6 +85,11 @@ public class PlayerActivity extends BaseActivity {
             public void onFinished() {
                 player.finish();
             }
+
+            @Override
+            public void onForceFinished() {
+                finish();
+            }
         };
     }
 

@@ -33,9 +33,13 @@ public class MiniPlayer {
     private int mDurationMSecond;
     private Timer mFastForwardTask;
 
-    public MiniPlayer(FragmentMiniPlayerBinding binding, MiniPlayer.OnMiniPlayerListener listener) {
+    private MiniPlayer(FragmentMiniPlayerBinding binding, MiniPlayer.OnMiniPlayerListener listener) {
         mBinding = binding;
         mListener = listener;
+    }
+
+    public static MiniPlayer createInstance(FragmentMiniPlayerBinding binding, MiniPlayer.OnMiniPlayerListener listener) {
+        return new MiniPlayer(binding, listener);
     }
 
     /**
@@ -44,18 +48,8 @@ public class MiniPlayer {
      * @param track
      */
     public void update(Track track) {
-        if (track == null) {
-            setInactive();
-        } else {
-            setActive(track);
-        }
-    }
-
-    /**
-     * プレイヤーを非表示
-     */
-    private void setInactive() {
-        this.isActive.set(false);
+        this.isPlaying.set(mListener.onIsPlaying());
+        this.changeTrack(track);
     }
 
     /**
@@ -63,10 +57,16 @@ public class MiniPlayer {
      *
      * @param track
      */
-    private void setActive(Track track) {
+    public void show(Track track) {
         this.isActive.set(true);
-        this.isPlaying.set(mListener.onIsPlaying());
-        this.changeTrack(track);
+        update(track);
+    }
+
+    /**
+     * プレイヤーを非表示
+     */
+    public void hide() {
+        this.isActive.set(false);
     }
 
     /**

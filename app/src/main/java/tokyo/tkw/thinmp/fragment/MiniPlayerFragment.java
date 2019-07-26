@@ -36,7 +36,7 @@ public class MiniPlayerFragment extends Fragment {
     private MusicService.OnMusicServiceListener musicServiceListener;
     private ServiceConnection connection;
     private boolean bound = false;
-    private boolean shouldEnsuredPlayer = true;
+    private boolean isDisplay = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class MiniPlayerFragment extends Fragment {
                 container,
                 false
         );
-        miniPlayer = new MiniPlayer(binding, miniPlayerListener);
+        miniPlayer = MiniPlayer.createInstance(binding, miniPlayerListener);
 
         binding.setMiniPlayer(miniPlayer);
 
@@ -182,6 +182,11 @@ public class MiniPlayerFragment extends Fragment {
             public void onFinished() {
 
             }
+
+            @Override
+            public void onForceFinished() {
+                hide();
+            }
         };
     }
 
@@ -206,11 +211,23 @@ public class MiniPlayerFragment extends Fragment {
         };
     }
 
+    private void show(Track track) {
+        miniPlayer.show(track);
+        updateView(Objects.requireNonNull(this.getView()).getHeight());
+        isDisplay = true;
+    }
+
+    private void hide() {
+        miniPlayer.hide();
+        updateView(0);
+        isDisplay = false;
+    }
+
     /**
      * ミニプレイヤー表示時に画面下に余白を確保する
      * 余白を設定するviewにはidにmainを設定しておく
      */
-    private void ensurePlayer() {
+    private void updateView(int bottomMargin) {
         ViewGroup rootView = (ViewGroup) ((ViewGroup) Objects.requireNonNull(getActivity()).
                 findViewById(android.R.id.content)).
                 getChildAt(0);
@@ -221,12 +238,10 @@ public class MiniPlayerFragment extends Fragment {
                 mlp.leftMargin,
                 mlp.topMargin,
                 mlp.rightMargin,
-                Objects.requireNonNull(this.getView()).getHeight()
+                bottomMargin
         );
 
         mainView.setLayoutParams(mlp);
-
-        shouldEnsuredPlayer = false;
     }
 
     /**
@@ -237,7 +252,7 @@ public class MiniPlayerFragment extends Fragment {
      */
     public void start(List<Track> trackList, int position) {
         musicService.initStart(trackList, position);
-        update();
+        update(trackList.get(position));
     }
 
     /**
@@ -253,10 +268,14 @@ public class MiniPlayerFragment extends Fragment {
      * @param track
      */
     public void update(Track track) {
-        miniPlayer.update(track);
-
-        if (track != null && shouldEnsuredPlayer) {
-            ensurePlayer();
+        if (musicService.isActive()) {
+            if (isDisplay) {
+                miniPlayer.update(track);
+            } else {
+                show(track);
+            }
+        } else {
+            hide();
         }
     }
 

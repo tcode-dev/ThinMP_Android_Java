@@ -110,7 +110,16 @@ public class MusicService extends Service {
         mediaPlayerOptional = Optional.ofNullable(MediaPlayer.create(getBaseContext(), track.getUri()));
         mediaPlayerOptional.ifPresentOrElse(
                 mediaPlayer -> mediaPlayer.setOnCompletionListener(onCompletionListener),
-                this::validation);
+                () -> {
+                    if (validation()) {
+                        // 再生する曲があれば次の曲の再生する
+                        setNextTrack();
+                        start();
+                    } else {
+                        // 再生する曲がなければ強制終了
+                        onForceFinished();
+                    }
+                });
     }
 
     private void setCurrentTrack() {
@@ -125,8 +134,8 @@ public class MusicService extends Service {
         track = playingList.getNextTrack();
     }
 
-    private void validation() {
-        playingList.validation();
+    private boolean validation() {
+        return playingList.validation();
     }
 
     /**
@@ -303,6 +312,15 @@ public class MusicService extends Service {
     }
 
     /**
+     * isActive
+     *
+     * @return
+     */
+    public boolean isActive() {
+        return mediaPlayerOptional.isPresent();
+    }
+
+    /**
      * シャッフルの状態を返す
      *
      * @return
@@ -385,6 +403,18 @@ public class MusicService extends Service {
     }
 
     /**
+     * 強制終了
+     */
+    private void onForceFinished() {
+        if (hasListener()) {
+            track = null;
+            mediaPlayerOptional = Optional.empty();
+            playingList = null;
+            listener.onForceFinished();
+        }
+    }
+
+    /**
      * interface
      */
     public interface OnMusicServiceListener {
@@ -402,6 +432,11 @@ public class MusicService extends Service {
          * 再生終了
          */
         void onFinished();
+
+        /**
+         * 強制終了
+         */
+        void onForceFinished();
     }
 
     /**
