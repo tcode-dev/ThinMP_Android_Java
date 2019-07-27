@@ -20,9 +20,11 @@ public class ArtistAlbumArt {
         return new ArtistAlbumArt(context, artistId);
     }
 
-    public Optional<String> getAlbumArtId() {
+    public String getAlbumArtId() {
         Optional<Album> album = provider.findByArtist(artistId);
 
-        return album.isEmpty() ? Optional.empty() : album.get().getAlbumArtId();
+        if (album.isEmpty()) return null;
+
+        return album.get().getAlbumArtId();
     }
 }

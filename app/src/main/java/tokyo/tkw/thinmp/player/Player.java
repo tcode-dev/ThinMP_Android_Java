@@ -10,6 +10,8 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.fragment.app.FragmentActivity;
 
+import com.annimon.stream.Optional;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -83,7 +85,7 @@ public class Player {
         // 再生中
         this.isPlaying.set(state.isPlaying());
         // 背景画像
-        track.getAlbumArtId().ifPresent(albumArtId -> {
+        Optional.ofNullable(track.getAlbumArtId()).ifPresent(albumArtId -> {
             GlideUtil.bitmap(track.getAlbumArtId(), this.binding.background);
         });
         // アルバムアート

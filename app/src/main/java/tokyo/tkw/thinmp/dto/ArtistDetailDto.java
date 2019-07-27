@@ -14,7 +14,7 @@ public class ArtistDetailDto {
     public String meta;
     public List<Album> albumList;
     public List<Track> trackList;
-    public Optional<String> albumArtId;
+    public String albumArtId;
     public int layoutSpanSize;
     public int headerSpanSize;
     public int albumListSpanSize;

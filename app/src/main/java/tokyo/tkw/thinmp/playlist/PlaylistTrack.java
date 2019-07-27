@@ -21,7 +21,7 @@ class PlaylistTrack {
     private RealmList<PlaylistTrackRealm> trackRealmList;
     private List<Track> trackList;
     private List<Track> sortedTrackList;
-    private Optional<String> albumArtId;
+    private String albumArtId;
 
     private PlaylistTrack(Context context, RealmList<PlaylistTrackRealm> trackRealmList) {
         this.trackContentProvider = new TrackContentProvider(context);
@@ -39,7 +39,7 @@ class PlaylistTrack {
         return new PlaylistTrack(context, trackRealmList);
     }
 
-    Optional<String> getAlbumArtId() {
+    String getAlbumArtId() {
         return albumArtId;
     }
 
@@ -57,12 +57,13 @@ class PlaylistTrack {
         return Stream.of(trackIdList).filter(trackMap::containsKey).map(trackMap::get).collect(Collectors.toList());
     }
 
-    private Optional<String> getFirstTrackAlbumArtId() {
+    private String getFirstTrackAlbumArtId() {
         Optional<Track> track = Stream.of(sortedTrackList).findFirst();
 
-        return track.isEmpty() ? Optional.empty() : track.get().getAlbumArtId();
-    }
+        if (track.isEmpty()) return null;
 
+        return track.get().getAlbumArtId();
+    }
 
     private List<String> getUniqueTrackIdList() {
         return Stream.of(trackIdList)

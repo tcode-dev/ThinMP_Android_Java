@@ -33,7 +33,7 @@ public class Artist extends Music {
         return provider.findById(id);
     }
 
-    public Optional<String> getAlbumArtId() {
+    public String getAlbumArtId() {
         ArtistAlbumArt artistAlbumArt = ArtistAlbumArt.createInstance(context, id);
 
         return artistAlbumArt.getAlbumArtId();

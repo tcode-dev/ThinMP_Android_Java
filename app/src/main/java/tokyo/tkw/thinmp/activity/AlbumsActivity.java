@@ -11,6 +11,7 @@ import tokyo.tkw.thinmp.epoxy.controller.AlbumsController;
 import tokyo.tkw.thinmp.logic.AlbumsLogic;
 
 public class AlbumsActivity extends BaseActivity {
+    AlbumsController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class AlbumsActivity extends BaseActivity {
         AlbumsDto dto = logic.createDto();
 
         // controller
-        AlbumsController controller = new AlbumsController();
+        controller = new AlbumsController();
         controller.setData(dto);
         listView.setAdapter(controller.getAdapter());
 
@@ -42,5 +43,20 @@ public class AlbumsActivity extends BaseActivity {
         controller.setSpanCount(dto.layoutSpanSize);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
         listView.setLayoutManager(layout);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        screenUpdate();
+    }
+
+    public void screenUpdate() {
+        // logic
+        AlbumsLogic logic = AlbumsLogic.createInstance(this);
+
+        // controller
+        controller.setData(logic.createDto());
     }
 }

@@ -6,23 +6,24 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.annimon.stream.Optional;
+
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.AlbumDetailAdapter;
+import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.dto.AlbumDetailDto;
 import tokyo.tkw.thinmp.listener.AlbumMenuClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.logic.AlbumDetailLogic;
-import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class AlbumDetailActivity extends BaseActivity {
+    String albumId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_album_detail);
 
         initWithPermissionCheck();
     }
@@ -30,7 +31,19 @@ public class AlbumDetailActivity extends BaseActivity {
     @Override
     protected void init() {
         // albumId
-        String albumId = getIntent().getStringExtra(Album.ALBUM_ID);
+        albumId = getIntent().getStringExtra(Album.ALBUM_ID);
+
+        // logic
+        AlbumDetailLogic logic = AlbumDetailLogic.createInstance(this, albumId);
+
+        // dto
+        Optional<AlbumDetailDto> dtoOptional = logic.createDto();
+
+        dtoOptional.ifPresentOrElse(this::showDetail, this::notFound);
+    }
+
+    private void showDetail(AlbumDetailDto dto) {
+        setContentView(R.layout.activity_album_detail);
 
         // view
         RecyclerView listView = findViewById(R.id.list);
@@ -38,12 +51,6 @@ public class AlbumDetailActivity extends BaseActivity {
         ResponsiveTextView titleView = findViewById(R.id.title);
         ResponsiveTextView subTitleView = findViewById(R.id.subTitle);
         ImageView menuView = findViewById(R.id.menu);
-
-        // logic
-        AlbumDetailLogic logic = AlbumDetailLogic.createInstance(this, albumId);
-
-        // dto
-        AlbumDetailDto dto = logic.createDto();
 
         // アルバム名
         titleView.setText(dto.albumName);
@@ -67,5 +74,9 @@ public class AlbumDetailActivity extends BaseActivity {
 
         // event
         menuView.setOnClickListener(new AlbumMenuClickListener(albumId));
+    }
+
+    private void notFound() {
+        setContentView(R.layout.activity_album_detail_not_found);
     }
 }

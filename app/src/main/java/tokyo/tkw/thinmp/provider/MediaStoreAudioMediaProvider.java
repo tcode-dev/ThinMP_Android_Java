@@ -52,8 +52,8 @@ abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvider<Trac
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
     }
 
-    private Optional<String> getAlbumArtId() {
-        return Optional.ofNullable(mCursor.getString(mCursor.getColumnIndex("album_art_id")));
+    private String getAlbumArtId() {
+        return mCursor.getString(mCursor.getColumnIndex("album_art_id"));
     }
 
     private int getDuration() {

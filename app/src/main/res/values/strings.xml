@@ -24,4 +24,6 @@
     <string name="create_playlist_label">プレイリスト名を入力</string>
     <string name="add_shortcut">Shortcutに追加</string>
     <string name="remove_shortcut">Shortcutから削除</string>
+
+    <string name="album_not_found">アルバムが見つかりませんでした</string>
 </resources>

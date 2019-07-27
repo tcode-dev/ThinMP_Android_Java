@@ -18,7 +18,7 @@ import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
 public abstract class ShortcutModel extends EpoxyModelWithHolder<ShortcutModel.Holder> {
     @EpoxyAttribute
-    Optional<String> albumArtId;
+    String albumArtId;
     @EpoxyAttribute
     String primaryText;
     @EpoxyAttribute

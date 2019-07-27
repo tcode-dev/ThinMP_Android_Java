@@ -18,16 +18,15 @@ public class AlbumDetailLogic {
         return new AlbumDetailLogic(context, albumId);
     }
 
-    public AlbumDetailDto createDto() {
-        AlbumDetailDto dto = new AlbumDetailDto();
-
-        album.ifPresent(album -> {
+    public Optional<AlbumDetailDto> createDto() {
+        return album.map(album -> {
+            AlbumDetailDto dto = new AlbumDetailDto();
             dto.albumName = album.getName();
             dto.artistName = album.getArtistName();
             dto.albumArtId = album.getAlbumArtId();
             dto.trackList = album.getTrackList();
-        });
 
-        return dto;
-    }
+            return dto;
+        });
+     }
 }

@@ -20,9 +20,9 @@ public class Album extends Music {
     private Context context;
     private String artistId;
     private String artistName;
-    private Optional<String> albumArtId;
+    private String albumArtId;
 
-    public Album(Context context, String id, String name, String artistId, String artistName, Optional<String> albumArtId) {
+    public Album(Context context, String id, String name, String artistId, String artistName, String albumArtId) {
         this.context = context;
         this.id = id;
         this.name = name;
@@ -37,6 +37,10 @@ public class Album extends Music {
         return provider.findById(id);
     }
 
+    public static Album createInstance(Context context, String id, String name, String artistId, String artistName, String albumArtId) {
+        return new Album(context, id, name, artistId, artistName, albumArtId);
+    }
+
     public String getArtistId() {
         return artistId;
     }
@@ -45,7 +49,7 @@ public class Album extends Music {
         return artistName;
     }
 
-    public Optional<String> getAlbumArtId() {
+    public String getAlbumArtId() {
         return albumArtId;
     }
 

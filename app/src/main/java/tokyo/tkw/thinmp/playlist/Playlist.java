@@ -39,7 +39,7 @@ public class Playlist {
         return playlistRealm.getName();
     }
 
-    public Optional<String> getAlbumArtId() {
+    public String getAlbumArtId() {
         return playlistTrack.getAlbumArtId();
     }
 

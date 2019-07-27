@@ -21,7 +21,7 @@ import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 @EpoxyModelClass(layout = R.layout.list_item_grid_artist_album)
 public abstract class ArtistAlbumModel extends EpoxyModelWithHolder<ArtistAlbumModel.Holder> {
     @EpoxyAttribute
-    Optional<String> albumArtId;
+    String albumArtId;
     @EpoxyAttribute
     String primaryText;
     @EpoxyAttribute(DoNotHash)

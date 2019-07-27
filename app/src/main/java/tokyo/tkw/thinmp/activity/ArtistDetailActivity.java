@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.annimon.stream.Optional;
+
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.ArtistDetailDto;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistDetailController;
@@ -47,7 +49,7 @@ public class ArtistDetailActivity extends BaseActivity {
         ArtistDetailDto dto = logic.createDto();
 
         // 背景画像
-        dto.albumArtId.ifPresent(albumArtId -> {
+        Optional.ofNullable(dto.albumArtId).ifPresent(albumArtId -> {
             GlideUtil.bitmap(dto.albumArtId, backgroundView, GlideUtil.ARTIST_RESOURCE_ID);
         });
 

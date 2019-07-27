@@ -6,9 +6,9 @@ public class Shortcut {
     public String id;
     public String name;
     public String type;
-    public Optional<String> albumArtId;
+    public String albumArtId;
 
-    public Shortcut(String id, String name, String type, Optional<String> albumArtId) {
+    public Shortcut(String id, String name, String type, String albumArtId) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -27,7 +27,7 @@ public class Shortcut {
         return type;
     }
 
-    public Optional<String> getAlbumArtId() {
+    public String getAlbumArtId() {
         return albumArtId;
     }
 }

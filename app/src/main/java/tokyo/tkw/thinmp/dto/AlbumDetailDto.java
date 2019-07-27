@@ -9,6 +9,6 @@ import tokyo.tkw.thinmp.track.Track;
 public class AlbumDetailDto {
     public String albumName;
     public String artistName;
-    public Optional<String> albumArtId;
+    public String albumArtId;
     public List<Track> trackList;
 }
