@@ -13,9 +13,8 @@ public class MainDto {
     public MainMenuEnum[] menuList;
     public List<Shortcut> shortcutList;
     public List<Album> recentlyAddedList;
-    public int pageTitleSpanSize;
-    public int shortcutTitleSpanSize;
-    public int recentlyAddedTitleSpanSize;
+    public int layoutSpanSize;
+    public int headerSpanSize;
     public int mainMenuSpanSize;
     public int shortcutListSpanSize;
     public int recentlyAddedListSpanSize;

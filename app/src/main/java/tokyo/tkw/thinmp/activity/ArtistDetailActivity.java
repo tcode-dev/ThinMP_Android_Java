@@ -66,8 +66,8 @@ public class ArtistDetailActivity extends BaseActivity {
         listView.setAdapter(controller.getAdapter());
 
         // layout
-        GridLayoutManager layout = new GridLayoutManager(this, 2);
-        controller.setSpanCount(2);
+        GridLayoutManager layout = new GridLayoutManager(this, dto.layoutSpanSize);
+        controller.setSpanCount(dto.layoutSpanSize);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
         listView.setLayoutManager(layout);
 

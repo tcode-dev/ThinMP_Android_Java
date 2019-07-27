@@ -10,6 +10,7 @@ import tokyo.tkw.thinmp.realm.PlaylistRealm;
 public class PlaylistsDto {
     public String title;
     public List<Playlist> playlists;
-    public int titleSpanSize;
+    public int layoutSpanSize;
+    public int headerSpanSize;
     public int listSpanSize;
 }

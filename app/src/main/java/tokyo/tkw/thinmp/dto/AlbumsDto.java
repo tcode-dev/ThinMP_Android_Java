@@ -7,6 +7,7 @@ import tokyo.tkw.thinmp.album.Album;
 public class AlbumsDto {
     public String title;
     public List<Album> albumList;
-    public int titleSpanSize;
+    public int layoutSpanSize;
+    public int headerSpanSize;
     public int listSpanSize;
 }

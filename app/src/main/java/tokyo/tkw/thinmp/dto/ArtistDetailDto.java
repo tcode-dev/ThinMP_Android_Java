@@ -15,7 +15,8 @@ public class ArtistDetailDto {
     public List<Album> albumList;
     public List<Track> trackList;
     public Optional<String> albumArtId;
-    public int titleSpanSize;
+    public int layoutSpanSize;
+    public int headerSpanSize;
     public int albumListSpanSize;
     public int trackListSpanSize;
 }

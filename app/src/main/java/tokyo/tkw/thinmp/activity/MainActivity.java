@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.dto.MainDto;
 import tokyo.tkw.thinmp.epoxy.controller.MainController;
 import tokyo.tkw.thinmp.logic.MainLogic;
 
@@ -30,14 +31,17 @@ public class MainActivity extends BaseActivity {
         // logic
         MainLogic logic = MainLogic.createInstance(this);
 
+        // dto
+        MainDto dto = logic.createDto();
+
         // controller
         controller = new MainController();
-        controller.setData(logic.createDto());
+        controller.setData(dto);
         listView.setAdapter(controller.getAdapter());
 
         // layout
-        GridLayoutManager layout = new GridLayoutManager(this, 2);
-        controller.setSpanCount(2);
+        GridLayoutManager layout = new GridLayoutManager(this, dto.layoutSpanSize);
+        controller.setSpanCount(dto.layoutSpanSize);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
         listView.setLayoutManager(layout);
     }

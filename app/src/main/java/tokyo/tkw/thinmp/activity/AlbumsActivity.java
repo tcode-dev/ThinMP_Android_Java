@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.dto.AlbumsDto;
 import tokyo.tkw.thinmp.epoxy.controller.AlbumsController;
 import tokyo.tkw.thinmp.logic.AlbumsLogic;
 
@@ -28,14 +29,17 @@ public class AlbumsActivity extends BaseActivity {
         // logic
         AlbumsLogic logic = AlbumsLogic.createInstance(this);
 
+        // dto
+        AlbumsDto dto = logic.createDto();
+
         // controller
         AlbumsController controller = new AlbumsController();
-        controller.setData(logic.createDto());
+        controller.setData(dto);
         listView.setAdapter(controller.getAdapter());
 
         // layout
-        GridLayoutManager layout = new GridLayoutManager(this, 2);
-        controller.setSpanCount(2);
+        GridLayoutManager layout = new GridLayoutManager(this, dto.layoutSpanSize);
+        controller.setSpanCount(dto.layoutSpanSize);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
         listView.setLayoutManager(layout);
     }

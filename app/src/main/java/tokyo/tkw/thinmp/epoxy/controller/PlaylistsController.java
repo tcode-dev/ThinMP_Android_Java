@@ -16,7 +16,7 @@ public class PlaylistsController extends TypedEpoxyController<PlaylistsDto> {
 
     @Override
     protected void buildModels(PlaylistsDto dto) {
-        buildHeader(dto.title, dto.titleSpanSize);
+        buildHeader(dto.title, dto.headerSpanSize);
         buildList(dto.playlists, dto.listSpanSize);
     }
 

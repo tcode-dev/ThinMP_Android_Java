@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.dto.PlaylistsDto;
 import tokyo.tkw.thinmp.epoxy.controller.PlaylistsController;
 import tokyo.tkw.thinmp.logic.PlaylistsLogic;
 
@@ -29,14 +30,17 @@ public class PlaylistsActivity extends BaseActivity {
         // logic
         PlaylistsLogic logic = PlaylistsLogic.createInstance(this);
 
+        // dto
+        PlaylistsDto dto = logic.createDto();
+
         // controller
         controller = new PlaylistsController();
-        controller.setData(logic.createDto());
+        controller.setData(dto);
         listView.setAdapter(controller.getAdapter());
 
         // layout
-        GridLayoutManager layout = new GridLayoutManager(this, 2);
-        controller.setSpanCount(2);
+        GridLayoutManager layout = new GridLayoutManager(this, dto.layoutSpanSize);
+        controller.setSpanCount(dto.layoutSpanSize);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
         listView.setLayoutManager(layout);
     }

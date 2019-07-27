@@ -26,16 +26,16 @@ public class MainController extends TypedEpoxyController<MainDto> {
 
     @Override
     protected void buildModels(MainDto dto) {
-        buildPageHeader(dto.pageTitle, dto.pageTitleSpanSize);
+        buildPageHeader(dto.pageTitle, dto.headerSpanSize);
         buildMenu(dto.menuList, dto.mainMenuSpanSize);
 
         if (!dto.shortcutList.isEmpty()) {
-            buildShortcutHeader(dto.shortcutTitle, dto.shortcutTitleSpanSize);
+            buildShortcutHeader(dto.shortcutTitle, dto.headerSpanSize);
             buildShortcut(dto.shortcutList, dto.shortcutListSpanSize);
         }
 
         if (!dto.recentlyAddedList.isEmpty()) {
-            buildRecentlyAddedHeader(dto.recentlyAddedTitle, dto.recentlyAddedTitleSpanSize);
+            buildRecentlyAddedHeader(dto.recentlyAddedTitle, dto.headerSpanSize);
             buildRecentlyAdded(dto.recentlyAddedList, dto.recentlyAddedListSpanSize);
         }
     }

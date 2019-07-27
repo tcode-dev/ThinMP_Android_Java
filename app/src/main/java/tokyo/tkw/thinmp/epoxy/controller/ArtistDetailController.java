@@ -20,9 +20,9 @@ public class ArtistDetailController extends TypedEpoxyController<ArtistDetailDto
 
     @Override
     protected void buildModels(ArtistDetailDto dto) {
-        buildAlbumsHeader(dto.albumsTitle, dto.titleSpanSize);
+        buildAlbumsHeader(dto.albumsTitle, dto.headerSpanSize);
         buildAlbumList(dto.albumList, dto.albumListSpanSize);
-        buildSongsHeader(dto.songsTitle, dto.titleSpanSize);
+        buildSongsHeader(dto.songsTitle, dto.headerSpanSize);
         buildTrackList(dto.trackList, dto.trackListSpanSize);
     }
 

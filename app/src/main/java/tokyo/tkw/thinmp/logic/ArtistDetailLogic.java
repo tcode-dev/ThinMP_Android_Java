@@ -5,6 +5,7 @@ import android.content.Context;
 import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.constant.LayoutSpanSizeEnum;
 import tokyo.tkw.thinmp.dto.ArtistDetailDto;
 import tokyo.tkw.thinmp.artist.Artist;
 
@@ -34,9 +35,10 @@ public class ArtistDetailLogic {
 
         dto.albumsTitle = context.getResources().getString(R.string.albums);
         dto.songsTitle = context.getResources().getString(R.string.songs);
-        dto.titleSpanSize = 2;
-        dto.albumListSpanSize = 1;
-        dto.trackListSpanSize = 2;
+        dto.layoutSpanSize = LayoutSpanSizeEnum.LAYOUT.spanSize();
+        dto.headerSpanSize = LayoutSpanSizeEnum.HEADER.spanSize();
+        dto.albumListSpanSize = LayoutSpanSizeEnum.LIST_ITEM_GRID.spanSize();
+        dto.trackListSpanSize = LayoutSpanSizeEnum.LIST_ITEM_LINEAR.spanSize();
 
         return dto;
     }
