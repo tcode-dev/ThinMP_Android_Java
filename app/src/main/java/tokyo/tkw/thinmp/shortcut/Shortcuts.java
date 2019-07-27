@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.shortcut;
 
 import android.content.Context;
 
+import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import java.util.List;
@@ -28,33 +29,33 @@ public class Shortcuts {
     }
 
     public List<Shortcut> getList() {
+        RealmResults<ShortcutRealm> realmResults = findAll();
+        Map<Integer, Shortcut> shortcutMap = getShortcutMap();
+
+        return toShortcutList(realmResults, shortcutMap);
+    }
+
+    private Map<Integer, Shortcut> getShortcutMap() {
         Map<Integer, Shortcut> artistMap = shortcutArtists.getArtistShortcutMap();
         Map<Integer, Shortcut> albumMap = shortcutAlbums.getAlbumShortcutMap();
         Map<Integer, Shortcut> playlistMap = shortcutPlaylists.getPlaylistShortcutMap();
-        RealmResults<ShortcutRealm> realmResults = findAll();
 
-        return toShortcutList(realmResults, artistMap, albumMap, playlistMap);
+        return mergeShortcutMap(artistMap, albumMap, playlistMap);
+    }
+
+    private Map<Integer, Shortcut> mergeShortcutMap(
+            Map<Integer, Shortcut> artistMap,
+            Map<Integer, Shortcut> albumMap,
+            Map<Integer, Shortcut> playlistMap
+    ) {
+        return Stream.of(artistMap, albumMap, playlistMap)
+                .flatMap(map -> Stream.of(map.entrySet()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     private List<Shortcut> toShortcutList(RealmResults<ShortcutRealm> realmResults,
-                                          Map<Integer, Shortcut> artistMap,
-                                          Map<Integer, Shortcut> albumMap,
-                                          Map<Integer, Shortcut> playlistMap) {
-        return Stream.of(realmResults).map(shortcutRealm -> {
-            switch (shortcutRealm.getType()) {
-                case ShortcutRealm.TYPE_ARTIST:
-                    return artistMap.get(shortcutRealm.getId());
-
-                case ShortcutRealm.TYPE_ALBUM:
-                    return albumMap.get(shortcutRealm.getId());
-
-                case ShortcutRealm.TYPE_PLAYLIST:
-                    return playlistMap.get(shortcutRealm.getId());
-
-                default:
-                    return null;
-            }
-        }).toList();
+                                          Map<Integer, Shortcut> shortcutMap) {
+        return Stream.of(realmResults).map(shortcutRealm -> shortcutMap.get(shortcutRealm.getId())).toList();
     }
 
     private RealmResults<ShortcutRealm> findAll() {
