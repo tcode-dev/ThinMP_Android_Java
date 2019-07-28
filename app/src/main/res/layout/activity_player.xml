@@ -192,7 +192,7 @@
                             android:onLongClick="@{player::onLongClickPrev}"
                             android:onTouch="@{player::onTouchPrev}"
                             android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/icon_prev" />
+                            app:srcCompat="@drawable/ic_prev" />
 
                     </FrameLayout>
 
@@ -211,7 +211,7 @@
                             android:onClick="@{player::onClickPlay}"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isPlaying ? View.GONE : View.VISIBLE}"
-                            app:srcCompat="@drawable/icon_play" />
+                            app:srcCompat="@drawable/ic_play" />
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/pause"
@@ -221,7 +221,7 @@
                             android:onClick="@{player::onClickPause}"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isPlaying ? View.VISIBLE : View.GONE}"
-                            app:srcCompat="@drawable/icon_pause" />
+                            app:srcCompat="@drawable/ic_pause" />
 
                     </FrameLayout>
 
@@ -245,7 +245,7 @@
                             android:onLongClick="@{player::onLongClickNext}"
                             android:onTouch="@{player::onTouchNext}"
                             android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/icon_next" />
+                            app:srcCompat="@drawable/ic_next" />
 
                     </FrameLayout>
 
@@ -282,7 +282,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_repeat" />
+                            app:srcCompat="@drawable/ic_repeat" />
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/repeatAll"
@@ -297,7 +297,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_repeat" />
+                            app:srcCompat="@drawable/ic_repeat" />
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/repeatOne"
@@ -312,7 +312,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_repeat_one" />
+                            app:srcCompat="@drawable/ic_repeat_one" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -338,7 +338,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_shuffle" />
+                            app:srcCompat="@drawable/ic_shuffle" />
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/shuffleOff"
@@ -354,7 +354,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_shuffle" />
+                            app:srcCompat="@drawable/ic_shuffle" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -378,7 +378,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_star_on" />
+                            app:srcCompat="@drawable/ic_star_on" />
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteSongOff"
@@ -393,7 +393,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_star_off" />
+                            app:srcCompat="@drawable/ic_star_off" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -417,7 +417,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_artist_on" />
+                            app:srcCompat="@drawable/ic_artist_on" />
 
                         <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                             android:id="@+id/favoriteArtistOff"
@@ -432,7 +432,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_artist_off" />
+                            app:srcCompat="@drawable/ic_artist_off" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -453,7 +453,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_playlist" />
+                            app:srcCompat="@drawable/ic_playlist" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

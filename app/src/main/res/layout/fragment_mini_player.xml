@@ -65,7 +65,7 @@
                 android:scaleType="centerCrop"
                 android:visibility="@{miniPlayer.isPlaying ? View.GONE : View.VISIBLE}"
                 app:iconColor="@color/colorIconSub"
-                app:srcCompat="@drawable/icon_play_2" />
+                app:srcCompat="@drawable/ic_play_2" />
 
             <tokyo.tkw.thinmp.view.ColorChangeableImageButtonView
                 android:id="@+id/pause"
@@ -80,7 +80,7 @@
                 android:scaleType="centerCrop"
                 android:visibility="@{miniPlayer.isPlaying ? View.VISIBLE : View.GONE}"
                 app:iconColor="@color/colorIconSub"
-                app:srcCompat="@drawable/icon_pause_2" />
+                app:srcCompat="@drawable/ic_pause_2" />
 
         </FrameLayout>
 
@@ -99,7 +99,7 @@
             android:scaleType="centerCrop"
             app:iconColor="@color/colorIconSub"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/icon_next_2" />
+            app:srcCompat="@drawable/ic_next_2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
