@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".activity.AlbumDetailActivity">
+    tools:context=".activity.ArtistDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <tokyo.tkw.thinmp.view.BackImageButtonView
             android:layout_width="40dp"
@@ -29,7 +29,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="100dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/album_not_found"
+            android:text="@string/artist_not_found"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

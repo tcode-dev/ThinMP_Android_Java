@@ -5,9 +5,9 @@ import android.content.Context;
 import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.constant.LayoutSpanSizeEnum;
 import tokyo.tkw.thinmp.dto.ArtistDetailDto;
-import tokyo.tkw.thinmp.artist.Artist;
 
 public class ArtistDetailLogic {
     private Context context;
@@ -22,24 +22,23 @@ public class ArtistDetailLogic {
         return new ArtistDetailLogic(context, artistId);
     }
 
-    public ArtistDetailDto createDto() {
-        ArtistDetailDto dto = new ArtistDetailDto();
+    public Optional<ArtistDetailDto> createDto() {
+        return artist.map(artist -> {
+            ArtistDetailDto dto = new ArtistDetailDto();
 
-        artist.ifPresent(artist -> {
             dto.artistName = artist.getName();
             dto.albumArtId = artist.getAlbumArtId();
             dto.meta = artist.getMeta();
             dto.albumList = artist.getAlbumList();
             dto.trackList = artist.getTrackList();
+            dto.albumsTitle = context.getResources().getString(R.string.albums);
+            dto.songsTitle = context.getResources().getString(R.string.songs);
+            dto.layoutSpanSize = LayoutSpanSizeEnum.LAYOUT.spanSize();
+            dto.headerSpanSize = LayoutSpanSizeEnum.HEADER.spanSize();
+            dto.albumListSpanSize = LayoutSpanSizeEnum.LIST_ITEM_GRID.spanSize();
+            dto.trackListSpanSize = LayoutSpanSizeEnum.LIST_ITEM_LINEAR.spanSize();
+
+            return dto;
         });
-
-        dto.albumsTitle = context.getResources().getString(R.string.albums);
-        dto.songsTitle = context.getResources().getString(R.string.songs);
-        dto.layoutSpanSize = LayoutSpanSizeEnum.LAYOUT.spanSize();
-        dto.headerSpanSize = LayoutSpanSizeEnum.HEADER.spanSize();
-        dto.albumListSpanSize = LayoutSpanSizeEnum.LIST_ITEM_GRID.spanSize();
-        dto.trackListSpanSize = LayoutSpanSizeEnum.LIST_ITEM_LINEAR.spanSize();
-
-        return dto;
     }
 }

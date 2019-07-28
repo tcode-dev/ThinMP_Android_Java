@@ -21,6 +21,7 @@ public class AlbumDetailLogic {
     public Optional<AlbumDetailDto> createDto() {
         return album.map(album -> {
             AlbumDetailDto dto = new AlbumDetailDto();
+
             dto.albumName = album.getName();
             dto.artistName = album.getArtistName();
             dto.albumArtId = album.getAlbumArtId();

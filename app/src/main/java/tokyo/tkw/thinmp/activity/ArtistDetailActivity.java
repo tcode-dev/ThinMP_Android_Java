@@ -4,27 +4,28 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.dto.ArtistDetailDto;
 import tokyo.tkw.thinmp.epoxy.controller.ArtistDetailController;
 import tokyo.tkw.thinmp.listener.ArtistMenuClickListener;
 import tokyo.tkw.thinmp.logic.ArtistDetailLogic;
-import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class ArtistDetailActivity extends BaseActivity {
+    String artistId;
+    ArtistDetailController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_artist_detail);
 
         initWithPermissionCheck();
     }
@@ -32,7 +33,17 @@ public class ArtistDetailActivity extends BaseActivity {
     @Override
     protected void init() {
         // artistId
-        String artistId = getIntent().getStringExtra(Artist.ARTIST_ID);
+        artistId = getIntent().getStringExtra(Artist.ARTIST_ID);
+
+        // logic
+        ArtistDetailLogic logic = ArtistDetailLogic.createInstance(this, artistId);
+
+        // dto
+        logic.createDto().ifPresentOrElse(this::showDetail, this::notFound);
+    }
+
+    private void showDetail(ArtistDetailDto dto) {
+        setContentView(R.layout.activity_artist_detail);
 
         // view
         ImageView backgroundView = findViewById(R.id.background);
@@ -41,12 +52,6 @@ public class ArtistDetailActivity extends BaseActivity {
         TextView metaView = findViewById(R.id.meta);
         RecyclerView listView = findViewById(R.id.list);
         ImageView menuView = findViewById(R.id.menu);
-
-        // logic
-        ArtistDetailLogic logic = ArtistDetailLogic.createInstance(this, artistId);
-
-        // dto
-        ArtistDetailDto dto = logic.createDto();
 
         // 背景画像
         Optional.ofNullable(dto.albumArtId).ifPresent(albumArtId -> {
@@ -63,7 +68,7 @@ public class ArtistDetailActivity extends BaseActivity {
         metaView.setText(dto.meta);
 
         // controller
-        ArtistDetailController controller = new ArtistDetailController();
+        controller = new ArtistDetailController();
         controller.setData(dto);
         listView.setAdapter(controller.getAdapter());
 
@@ -75,5 +80,23 @@ public class ArtistDetailActivity extends BaseActivity {
 
         // event
         menuView.setOnClickListener(new ArtistMenuClickListener(artistId));
+    }
+
+    private void notFound() {
+        setContentView(R.layout.activity_artist_detail_not_found);
+        // 別アクティビティから戻ってきたときにfitsSystemWindowsを効かせる
+        ViewCompat.requestApplyInsets(findViewById(R.id.main));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        screenUpdate();
+    }
+
+    private void screenUpdate() {
+        ArtistDetailLogic logic = ArtistDetailLogic.createInstance(this, artistId);
+        logic.createDto().ifPresentOrElse((dto) -> controller.setData(dto), this::notFound);
     }
 }

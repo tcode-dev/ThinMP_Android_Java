@@ -10,6 +10,7 @@ import tokyo.tkw.thinmp.epoxy.controller.ArtistsController;
 import tokyo.tkw.thinmp.logic.ArtistsLogic;
 
 public class ArtistsActivity extends BaseActivity {
+    ArtistsController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +30,24 @@ public class ArtistsActivity extends BaseActivity {
         ArtistsLogic logic = ArtistsLogic.createInstance(this);
 
         // controller
-        ArtistsController controller = new ArtistsController();
+        controller = new ArtistsController();
         controller.setData(logic.createDto());
         listView.setAdapter(controller.getAdapter());
 
         // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
         listView.setLayoutManager(layout);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        screenUpdate();
+    }
+
+    private void screenUpdate() {
+        ArtistsLogic logic = ArtistsLogic.createInstance(this);
+        controller.setData(logic.createDto());
     }
 }

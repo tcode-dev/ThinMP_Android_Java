@@ -26,4 +26,5 @@
     <string name="remove_shortcut">Shortcutから削除</string>
 
     <string name="album_not_found">アルバムが見つかりませんでした</string>
+    <string name="artist_not_found">アーティストが見つかりませんでした</string>
 </resources>
