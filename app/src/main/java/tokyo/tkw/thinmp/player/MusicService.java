@@ -112,7 +112,7 @@ public class MusicService extends Service {
                 mediaPlayer -> mediaPlayer.setOnCompletionListener(onCompletionListener),
                 () -> {
                     if (validation()) {
-                        // 再生する曲があれば次の曲の再生する
+                        // 再生する曲があれば次の曲を再生する
                         setNextTrack();
                         start();
                     } else {
@@ -278,6 +278,7 @@ public class MusicService extends Service {
      */
     public void next() {
         setNextTrack();
+        setMediaPlayer();
         onChangeTrack();
     }
 
