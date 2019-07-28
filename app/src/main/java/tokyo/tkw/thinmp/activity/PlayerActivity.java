@@ -90,6 +90,11 @@ public class PlayerActivity extends BaseActivity {
             public void onForceFinished() {
                 finish();
             }
+
+            @Override
+            public void onScreenUpdate() {
+
+            }
         };
     }
 

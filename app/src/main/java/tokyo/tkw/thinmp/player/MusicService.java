@@ -25,6 +25,7 @@ public class MusicService extends Service {
     private int repeat;
     private boolean shuffle;
     private Track track;
+    private boolean needScreenUpdate;
     private Optional<MediaPlayer> mediaPlayerOptional;
     private PlayingList playingList;
     private OnMusicServiceListener listener;
@@ -39,29 +40,9 @@ public class MusicService extends Service {
         repeat = config.getRepeat();
         shuffle = config.getShuffle();
         mediaPlayerOptional = Optional.empty();
+        needScreenUpdate = false;
 
         onCompletionListener = createCompletionListener();
-    }
-
-    /**
-     * 再生が終わったあとの処理
-     */
-    private MediaPlayer.OnCompletionListener createCompletionListener() {
-        return mp -> {
-            onFinished();
-
-            if (!hasNext()) {
-                // 再生終了時に最初の曲で画面を更新
-                next();
-                return;
-            }
-
-            if (repeat != REPEAT_ONE) {
-                setNextTrack();
-            }
-
-            start();
-        };
     }
 
     @Override
@@ -86,6 +67,14 @@ public class MusicService extends Service {
     }
 
     /**
+     * listenerがあるか
+     * （スリープなど画面を更新する必要がない場合Listenerを削除している）
+     */
+    private boolean hasListener() {
+        return (listener != null);
+    }
+
+    /**
      * 再生を開始
      */
     public void initStart(List<Track> playList, int position) {
@@ -101,6 +90,7 @@ public class MusicService extends Service {
             mediaPlayer.start();
             onStarted();
             onChangeTrack();
+            onScreenUpdate();
         });
     }
 
@@ -110,16 +100,8 @@ public class MusicService extends Service {
         mediaPlayerOptional = Optional.ofNullable(MediaPlayer.create(getBaseContext(), track.getUri()));
         mediaPlayerOptional.ifPresentOrElse(
                 mediaPlayer -> mediaPlayer.setOnCompletionListener(onCompletionListener),
-                () -> {
-                    if (validation()) {
-                        // 再生する曲があれば次の曲を再生する
-                        setNextTrack();
-                        start();
-                    } else {
-                        // 再生する曲がなければ強制終了
-                        onForceFinished();
-                    }
-                });
+                this::validation
+        );
     }
 
     private void setCurrentTrack() {
@@ -134,8 +116,17 @@ public class MusicService extends Service {
         track = playingList.getNextTrack();
     }
 
-    private boolean validation() {
-        return playingList.validation();
+    private void validation() {
+        if (playingList.validation()) {
+            // 再生する曲があれば次の曲をセットする
+            needScreenUpdate = true;
+            setCurrentTrack();
+            setMediaPlayer();
+        } else {
+            // 再生する曲がなければ強制終了
+            needScreenUpdate = false;
+            onForceFinished();
+        }
     }
 
     /**
@@ -252,6 +243,7 @@ public class MusicService extends Service {
 
         setMediaPlayer();
         onChangeTrack();
+        onScreenUpdate();
     }
 
     /**
@@ -280,6 +272,7 @@ public class MusicService extends Service {
         setNextTrack();
         setMediaPlayer();
         onChangeTrack();
+        onScreenUpdate();
     }
 
     /**
@@ -369,11 +362,24 @@ public class MusicService extends Service {
     }
 
     /**
-     * listenerがあるか
-     * （スリープなど画面を更新する必要がない場合Listenerを削除している）
+     * 再生が終わったあとの処理
      */
-    private boolean hasListener() {
-        return (listener != null);
+    private MediaPlayer.OnCompletionListener createCompletionListener() {
+        return mp -> {
+            onFinished();
+
+            if (!hasNext()) {
+                // 再生終了時に最初の曲で画面を更新
+                next();
+                return;
+            }
+
+            if (repeat != REPEAT_ONE) {
+                setNextTrack();
+            }
+
+            start();
+        };
     }
 
     /**
@@ -415,6 +421,16 @@ public class MusicService extends Service {
         }
     }
 
+    private void onScreenUpdate() {
+        if (!needScreenUpdate) return;
+
+        if (hasListener()) {
+            listener.onScreenUpdate();
+        }
+
+        needScreenUpdate = false;
+    }
+
     /**
      * interface
      */
@@ -438,6 +454,11 @@ public class MusicService extends Service {
          * 強制終了
          */
         void onForceFinished();
+
+        /**
+         * 画面を更新する必要がある
+         */
+        void onScreenUpdate();
     }
 
     /**

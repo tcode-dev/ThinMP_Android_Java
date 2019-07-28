@@ -1,5 +1,6 @@
 package tokyo.tkw.thinmp.fragment;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +17,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.annimon.stream.Optional;
+
 import java.util.List;
 import java.util.Objects;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.PlayerActivity;
 import tokyo.tkw.thinmp.databinding.FragmentMiniPlayerBinding;
+import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.player.MiniPlayer;
 import tokyo.tkw.thinmp.player.MusicService;
 import tokyo.tkw.thinmp.track.Track;
@@ -187,6 +191,11 @@ public class MiniPlayerFragment extends Fragment {
             public void onForceFinished() {
                 hide();
             }
+
+            @Override
+            public void onScreenUpdate() {
+                screenUpdate();
+            }
         };
     }
 
@@ -252,7 +261,12 @@ public class MiniPlayerFragment extends Fragment {
      */
     public void start(List<Track> trackList, int position) {
         musicService.initStart(trackList, position);
-        update(trackList.get(position));
+
+        Optional.ofNullable(musicService.getTrack()).ifPresentOrElse(track -> {
+            update(trackList.get(position));
+        }, () -> {
+            screenUpdate();
+        });
     }
 
     /**
@@ -293,5 +307,13 @@ public class MiniPlayerFragment extends Fragment {
      */
     private void unbindMusicService() {
         Objects.requireNonNull(getActivity()).unbindService(connection);
+    }
+
+    private void screenUpdate() {
+        Activity activity = ((Activity) getContext());
+
+        if (activity instanceof ScreenUpdateListener) {
+            ((ScreenUpdateListener) activity).screenUpdate();
+        }
     }
 }
