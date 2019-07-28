@@ -25,7 +25,9 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:gravity="center_vertical"
+            android:singleLine="true"
             android:textSize="18sp"
             android:textStyle="normal" />
 
