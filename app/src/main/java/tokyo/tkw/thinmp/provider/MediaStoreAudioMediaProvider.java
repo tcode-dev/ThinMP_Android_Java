@@ -19,12 +19,7 @@ abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvider<Trac
                 MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.ALBUM_ID,
                 MediaStore.Audio.Media.ALBUM,
-                MediaStore.Audio.Media.DURATION,
-                "(" +
-                    "SELECT album_id " +
-                    "FROM album_info " +
-                    "WHERE album_info._id = audio.album_id AND album_info.album_art  IS NOT NULL" +
-                ") AS album_art_id"
+                MediaStore.Audio.Media.DURATION
         };
     }
 
@@ -52,10 +47,6 @@ abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvider<Trac
         return mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
     }
 
-    private String getAlbumArtId() {
-        return mCursor.getString(mCursor.getColumnIndex("album_art_id"));
-    }
-
     private int getDuration() {
         return mCursor.getInt(mCursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
     }
@@ -68,7 +59,6 @@ abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvider<Trac
                 getArtistName(),
                 getAlbumId(),
                 getAlbumName(),
-                getAlbumArtId(),
                 getDuration()
         );
     }

@@ -29,15 +29,15 @@ public class Track extends Music implements Serializable {
     private String albumArtId;
     private int duration;
 
-    public Track(String id, String name, String artistId, String artistName, String albumId,
-                 String albumName, String albumArtId, int duration) {
+    public Track(String id, String name, String artistId, String artistName, String albumId, String albumName,
+                 int duration) {
         this.id = id;
         this.name = name;
         this.artistId = artistId;
         this.artistName = artistName;
         this.albumId = albumId;
         this.albumName = albumName;
-        this.albumArtId = albumArtId;
+        this.albumArtId = albumId; // albumArtはalbumIdを使用して取得する
         this.duration = duration;
     }
 
@@ -58,7 +58,7 @@ public class Track extends Music implements Serializable {
     }
 
     public String getAlbumArtId() {
-        return albumArtId;
+        return albumId;
     }
 
     public int getDurationSecond() {
