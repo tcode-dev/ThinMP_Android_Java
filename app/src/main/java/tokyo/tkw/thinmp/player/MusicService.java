@@ -79,6 +79,11 @@ public class MusicService extends Service {
      */
     public void initStart(List<Track> playList, int position) {
         playingList = PlayingList.createInstance(playList, position);
+
+        if (shuffle) {
+            playingList.shuffle();
+        }
+
         setCurrentTrack();
 
         start();
