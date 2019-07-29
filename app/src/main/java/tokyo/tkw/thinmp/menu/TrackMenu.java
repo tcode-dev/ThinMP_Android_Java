@@ -84,11 +84,12 @@ public class TrackMenu {
                     return true;
 
                 case R.id.add_favorite:
-                    deleteFavoriteSong();
+                    addFavoriteSong();
                     break;
 
                 case R.id.del_favorite:
-                    addFavoriteSong();
+                    deleteFavoriteSong();
+
                     break;
 
                 default:
