@@ -8,7 +8,7 @@ public class FavoriteArtistRealm extends RealmObject {
     public static final String ARTIST_ID = "artistId";
 
     @PrimaryKey
-    private int id;
+    private String id;
     private String artistId;
 
     public String getArtistId() {

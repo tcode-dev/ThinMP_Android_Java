@@ -8,7 +8,7 @@ public class Shortcut {
     public String type;
     public String albumArtId;
 
-    public Shortcut(String id, String name, String type, String albumArtId) {
+    Shortcut(String id, String name, String type, String albumArtId) {
         this.id = id;
         this.name = name;
         this.type = type;

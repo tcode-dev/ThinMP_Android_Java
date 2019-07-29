@@ -15,7 +15,7 @@ import tokyo.tkw.thinmp.playlist.Playlists;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 
-public class ShortcutPlaylists {
+class ShortcutPlaylists {
     private Context context;
 
     private ShortcutPlaylists(Context context) {
@@ -26,7 +26,7 @@ public class ShortcutPlaylists {
         return new ShortcutPlaylists(context);
     }
 
-    Map<Integer, Shortcut> getPlaylistShortcutMap() {
+    Map<String, Shortcut> getPlaylistShortcutMap() {
         RealmResults<ShortcutRealm> realmResults = findAll();
         List<ShortcutRealm> shortcutRealmList = Stream.of(realmResults).toList();
         List<String> playlistIdList = getItemIdList(shortcutRealmList);
@@ -59,7 +59,7 @@ public class ShortcutPlaylists {
                         playlistRealm -> playlistRealm));
     }
 
-    private Map<Integer, Shortcut> toPlaylistShortcutMap(List<ShortcutRealm> shortcutRealmList,
+    private Map<String, Shortcut> toPlaylistShortcutMap(List<ShortcutRealm> shortcutRealmList,
                                                          Map<String, PlaylistRealm> playlistMap) {
         return Stream.of(shortcutRealmList)
                 .collect(Collectors.toMap(

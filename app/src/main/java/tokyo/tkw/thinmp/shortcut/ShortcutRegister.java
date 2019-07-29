@@ -21,7 +21,7 @@ public class ShortcutRegister extends RealmRegister {
     public void add(String itemId, int type) {
         beginTransaction();
 
-        realm.createObject(ShortcutRealm.class, nextId()).set(itemId, type);
+        realm.createObject(ShortcutRealm.class, uuid()).set(itemId, type);
 
         commitTransaction();
     }

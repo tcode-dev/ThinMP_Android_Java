@@ -19,7 +19,7 @@ public class FavoriteArtistRegister extends RealmRegister {
     public void add(String artistId) {
         beginTransaction();
 
-        realm.createObject(FavoriteArtistRealm.class, nextId()).setArtistId(artistId);
+        realm.createObject(FavoriteArtistRealm.class, uuid()).setArtistId(artistId);
 
         commitTransaction();
     }
@@ -53,8 +53,8 @@ public class FavoriteArtistRegister extends RealmRegister {
 
         realm.delete(FavoriteArtistRealm.class);
 
-        Stream.of(artistIdList).forEachIndexed((i, id) -> {
-            realm.createObject(FavoriteArtistRealm.class, i + 1).setArtistId(id);
+        Stream.of(artistIdList).forEach((id) -> {
+            realm.createObject(FavoriteArtistRealm.class, uuid()).setArtistId(id);
         });
 
         commitTransaction();
@@ -62,11 +62,5 @@ public class FavoriteArtistRegister extends RealmRegister {
 
     private FavoriteArtistRealm findFirst(String artistId) {
         return realm.where(FavoriteArtistRealm.class).equalTo(FavoriteArtistRealm.ARTIST_ID, artistId).findFirst();
-    }
-
-    private int nextId() {
-        Number maxId = realm.where(FavoriteArtistRealm.class).max(FavoriteArtistRealm.ID);
-
-        return (maxId != null) ? maxId.intValue() + 1 : 1;
     }
 }

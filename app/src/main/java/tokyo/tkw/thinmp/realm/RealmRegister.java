@@ -1,5 +1,7 @@
 package tokyo.tkw.thinmp.realm;
 
+import java.util.UUID;
+
 import io.realm.Realm;
 
 public abstract class RealmRegister {
@@ -19,5 +21,9 @@ public abstract class RealmRegister {
 
     public void cancelTransaction() {
         realm.cancelTransaction();
+    }
+
+    public String uuid() {
+        return UUID.randomUUID().toString();
     }
 }

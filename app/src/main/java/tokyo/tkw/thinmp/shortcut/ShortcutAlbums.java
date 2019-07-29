@@ -21,7 +21,7 @@ class ShortcutAlbums {
     private List<String> albumIdList;
     private List<Album> albumList;
     private Map<String, Album> albumMap;
-    private Map<Integer, Shortcut> shortcutMap;
+    private Map<String, Shortcut> shortcutMap;
 
     private ShortcutAlbums(Context context) {
         provider = new AlbumContentProvider(context);
@@ -31,7 +31,7 @@ class ShortcutAlbums {
         return new ShortcutAlbums(context);
     }
 
-    Map<Integer, Shortcut> getAlbumShortcutMap() {
+    Map<String, Shortcut> getAlbumShortcutMap() {
         realmResults = findAll();
         shortcutRealmList = getShortcutRealmList();
         albumIdList = getItemIdList();
@@ -66,7 +66,7 @@ class ShortcutAlbums {
         return Stream.of(albumList).collect(Collectors.toMap(Album::getId, album -> album));
     }
 
-    private Map<Integer, Shortcut> getShortcutMap() {
+    private Map<String, Shortcut> getShortcutMap() {
         return Stream.of(shortcutRealmList)
                 .filter(shortcutRealm -> albumMap.containsKey(shortcutRealm.getItemId()))
                 .collect(Collectors.toMap(

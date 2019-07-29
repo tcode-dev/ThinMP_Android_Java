@@ -8,7 +8,7 @@ public class FavoriteSongRealm extends RealmObject {
     public static final String TRACK_ID = "trackId";
 
     @PrimaryKey
-    private int id;
+    private String id;
     private String trackId;
 
     public String getTrackId() {

@@ -3,13 +3,11 @@ package tokyo.tkw.thinmp.playlist;
 import com.annimon.stream.Stream;
 
 import java.util.List;
-import java.util.UUID;
 
 import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
 import tokyo.tkw.thinmp.realm.RealmRegister;
-import tokyo.tkw.thinmp.track.Track;
 
 public class PlaylistRegister extends RealmRegister {
     private PlaylistRegister() {
@@ -25,7 +23,7 @@ public class PlaylistRegister extends RealmRegister {
 
         beginTransaction();
 
-        PlaylistRealm playlist = realm.createObject(PlaylistRealm.class, UUID.randomUUID().toString());
+        PlaylistRealm playlist = realm.createObject(PlaylistRealm.class, uuid());
         playlist.set(name, createPlaylistTrackRealmList(playlist.getId(), music.getIdList()), nextOrder);
 
         commitTransaction();
@@ -86,10 +84,7 @@ public class PlaylistRegister extends RealmRegister {
 
     private List<PlaylistTrackRealm> createPlaylistTrackRealmList(String playlistId, List<String> trackIdList) {
         return Stream.of(trackIdList).map(trackId -> {
-            PlaylistTrackRealm playlistTrackRealm = realm.createObject(
-                    PlaylistTrackRealm.class,
-                    UUID.randomUUID().toString()
-            );
+            PlaylistTrackRealm playlistTrackRealm = realm.createObject(PlaylistTrackRealm.class, uuid());
             playlistTrackRealm.set(playlistId, trackId);
             return playlistTrackRealm;
         }).toList();

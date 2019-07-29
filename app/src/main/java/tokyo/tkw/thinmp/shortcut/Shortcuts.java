@@ -30,23 +30,23 @@ public class Shortcuts {
 
     public List<Shortcut> getList() {
         RealmResults<ShortcutRealm> realmResults = findAll();
-        Map<Integer, Shortcut> shortcutMap = getShortcutMap();
+        Map<String, Shortcut> shortcutMap = getShortcutMap();
 
         return toShortcutList(realmResults, shortcutMap);
     }
 
-    private Map<Integer, Shortcut> getShortcutMap() {
-        Map<Integer, Shortcut> artistMap = shortcutArtists.getArtistShortcutMap();
-        Map<Integer, Shortcut> albumMap = shortcutAlbums.getAlbumShortcutMap();
-        Map<Integer, Shortcut> playlistMap = shortcutPlaylists.getPlaylistShortcutMap();
+    private Map<String, Shortcut> getShortcutMap() {
+        Map<String, Shortcut> artistMap = shortcutArtists.getArtistShortcutMap();
+        Map<String, Shortcut> albumMap = shortcutAlbums.getAlbumShortcutMap();
+        Map<String, Shortcut> playlistMap = shortcutPlaylists.getPlaylistShortcutMap();
 
         return mergeShortcutMap(artistMap, albumMap, playlistMap);
     }
 
-    private Map<Integer, Shortcut> mergeShortcutMap(
-            Map<Integer, Shortcut> artistMap,
-            Map<Integer, Shortcut> albumMap,
-            Map<Integer, Shortcut> playlistMap
+    private Map<String, Shortcut> mergeShortcutMap(
+            Map<String, Shortcut> artistMap,
+            Map<String, Shortcut> albumMap,
+            Map<String, Shortcut> playlistMap
     ) {
         return Stream.of(artistMap, albumMap, playlistMap)
                 .flatMap(map -> Stream.of(map.entrySet()))
@@ -54,7 +54,7 @@ public class Shortcuts {
     }
 
     private List<Shortcut> toShortcutList(RealmResults<ShortcutRealm> realmResults,
-                                          Map<Integer, Shortcut> shortcutMap) {
+                                          Map<String, Shortcut> shortcutMap) {
         return Stream.of(realmResults).map(shortcutRealm -> shortcutMap.get(shortcutRealm.getId())).toList();
     }
 

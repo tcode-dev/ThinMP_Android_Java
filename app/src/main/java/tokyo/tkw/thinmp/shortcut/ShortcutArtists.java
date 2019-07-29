@@ -21,7 +21,7 @@ class ShortcutArtists {
     private List<String> artistIdList;
     private List<Artist> artistList;
     private Map<String, Artist> artistMap;
-    private Map<Integer, Shortcut> shortcutMap;
+    private Map<String, Shortcut> shortcutMap;
 
     private ShortcutArtists(Context context) {
         this.provider = new ArtistContentProvider(context);
@@ -31,7 +31,7 @@ class ShortcutArtists {
         return new ShortcutArtists(context);
     }
 
-    Map<Integer, Shortcut> getArtistShortcutMap() {
+    Map<String, Shortcut> getArtistShortcutMap() {
         realmResults = findAll();
         shortcutRealmList = getShortcutRealmList();
         artistIdList = getItemIdList();
@@ -66,7 +66,7 @@ class ShortcutArtists {
         return Stream.of(artistList).collect(Collectors.toMap(Artist::getId, artist -> artist));
     }
 
-    private Map<Integer, Shortcut> getShortcutMap() {
+    private Map<String, Shortcut> getShortcutMap() {
         return Stream.of(shortcutRealmList)
                 .filter(shortcutRealm -> artistMap.containsKey(shortcutRealm.getItemId()))
                 .collect(Collectors.toMap(

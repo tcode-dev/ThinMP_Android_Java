@@ -16,7 +16,7 @@ public class ShortcutRealm extends RealmObject {
     public static final int TYPE_PLAYLIST = 3;
 
     @PrimaryKey
-    private int id;
+    private String id;
     // artist_id or album_id or playlist_id
     private String itemId;
     private int type;
@@ -26,7 +26,7 @@ public class ShortcutRealm extends RealmObject {
         this.type = type;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
