@@ -9,17 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.AlbumDetailAdapter;
 import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.dto.AlbumDetailDto;
+import tokyo.tkw.thinmp.epoxy.controller.AlbumDetailController;
 import tokyo.tkw.thinmp.listener.AlbumMenuClickListener;
-import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.logic.AlbumDetailLogic;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class AlbumDetailActivity extends BaseActivity {
     String albumId;
+    AlbumDetailController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +61,10 @@ public class AlbumDetailActivity extends BaseActivity {
         // アルバムアート
         GlideUtil.bitmap(dto.albumArtId, albumArtView);
 
-        // adapter
-        AlbumDetailAdapter adapter = new AlbumDetailAdapter(
-                dto.trackList,
-                new TrackClickListener(dto.trackList)
-        );
-        listView.setAdapter(adapter);
+        // controller
+        controller = new AlbumDetailController();
+        controller.setData(dto.trackList);
+        listView.setAdapter(controller.getAdapter());
 
         // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
