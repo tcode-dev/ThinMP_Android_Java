@@ -2,22 +2,23 @@ package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.dto.AlbumDetailDto;
 import tokyo.tkw.thinmp.epoxy.controller.AlbumDetailController;
 import tokyo.tkw.thinmp.listener.AlbumMenuClickListener;
+import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.logic.AlbumDetailLogic;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
-public class AlbumDetailActivity extends BaseActivity {
+public class AlbumDetailActivity extends BaseActivity implements ScreenUpdateListener {
     String albumId;
     AlbumDetailController controller;
 
@@ -37,9 +38,7 @@ public class AlbumDetailActivity extends BaseActivity {
         AlbumDetailLogic logic = AlbumDetailLogic.createInstance(this, albumId);
 
         // dto
-        Optional<AlbumDetailDto> dtoOptional = logic.createDto();
-
-        dtoOptional.ifPresentOrElse(this::showDetail, this::notFound);
+        logic.createDto().ifPresentOrElse(this::showDetail, this::notFound);
     }
 
     private void showDetail(AlbumDetailDto dto) {
@@ -75,6 +74,25 @@ public class AlbumDetailActivity extends BaseActivity {
     }
 
     private void notFound() {
-        setContentView(R.layout.activity_album_detail_not_found);
+        setContentView(R.layout.activity_not_found);
+
+        TextView textView = findViewById(R.id.text);
+        textView.setText(getString(R.string.album_not_found));
+
+        // 別アクティビティから戻ってきたときにfitsSystemWindowsを効かせる
+        ViewCompat.requestApplyInsets(findViewById(R.id.main));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        screenUpdate();
+    }
+
+    @Override
+    public void screenUpdate() {
+        AlbumDetailLogic logic = AlbumDetailLogic.createInstance(this, albumId);
+        logic.createDto().ifPresentOrElse((dto) -> controller.setData(dto.trackList), this::notFound);
     }
 }
