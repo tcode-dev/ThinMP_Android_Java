@@ -84,7 +84,11 @@ public class ArtistDetailActivity extends BaseActivity implements ScreenUpdateLi
     }
 
     private void notFound() {
-        setContentView(R.layout.activity_artist_detail_not_found);
+        setContentView(R.layout.activity_not_found);
+
+        TextView textView = findViewById(R.id.text);
+        textView.setText(getString(R.string.artist_not_found));
+
         // 別アクティビティから戻ってきたときにfitsSystemWindowsを効かせる
         ViewCompat.requestApplyInsets(findViewById(R.id.main));
     }
