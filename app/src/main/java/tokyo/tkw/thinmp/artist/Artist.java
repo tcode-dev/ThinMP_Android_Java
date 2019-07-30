@@ -18,6 +18,7 @@ public class Artist extends Music {
     private Context context;
     private String numberOfAlbums;
     private String numberOfTracks;
+    private String albumArtId;
 
     public Artist(Context context, String id, String name, String numberOfAlbums, String numberOfTracks) {
         this.context = context;
@@ -29,14 +30,20 @@ public class Artist extends Music {
 
     public static Optional<Artist> createInstance(Context context, String id) {
         ArtistContentProvider provider = new ArtistContentProvider(context);
+        Optional<Artist> artistOptional = provider.findById(id);
 
-        return provider.findById(id);
+        return artistOptional.map(artist -> {
+            artist.setAlbumArtId(artist.findAlbumArtId());
+            return artist;
+        });
     }
 
     public String getAlbumArtId() {
-        ArtistAlbumArt artistAlbumArt = ArtistAlbumArt.createInstance(context, id);
+        return albumArtId;
+    }
 
-        return artistAlbumArt.getAlbumArtId();
+    public void setAlbumArtId(String albumArtId) {
+        this.albumArtId = albumArtId;
     }
 
     public List<Album> getAlbumList() {
@@ -53,5 +60,11 @@ public class Artist extends Music {
 
     public String getMeta() {
         return String.format(META_FORMAT, numberOfAlbums, numberOfTracks);
+    }
+
+    private String findAlbumArtId() {
+        ArtistAlbumArt artistAlbumArt = ArtistAlbumArt.createInstance(context, id);
+
+        return artistAlbumArt.getAlbumArtId();
     }
 }
