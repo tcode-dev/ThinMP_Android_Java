@@ -19,7 +19,8 @@ public class FavoriteArtistRegister extends RealmRegister {
     public void add(String artistId) {
         beginTransaction();
 
-        realm.createObject(FavoriteArtistRealm.class, uuid()).setArtistId(artistId);
+        realm.createObject(FavoriteArtistRealm.class, uuid())
+                .set(artistId, increment(FavoriteArtistRealm.class, FavoriteArtistRealm.ORDER));
 
         commitTransaction();
     }
@@ -54,7 +55,8 @@ public class FavoriteArtistRegister extends RealmRegister {
         realm.delete(FavoriteArtistRealm.class);
 
         Stream.of(artistIdList).forEach((id) -> {
-            realm.createObject(FavoriteArtistRealm.class, uuid()).setArtistId(id);
+            realm.createObject(FavoriteArtistRealm.class, uuid())
+                    .set(id, increment(FavoriteArtistRealm.class, FavoriteArtistRealm.ORDER));
         });
 
         commitTransaction();

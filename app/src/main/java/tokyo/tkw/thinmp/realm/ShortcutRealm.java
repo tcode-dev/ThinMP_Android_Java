@@ -10,6 +10,7 @@ public class ShortcutRealm extends RealmObject {
     public static final String ID = "id";
     public static final String ITEM_ID = "itemId";
     public static final String TYPE = "type";
+    public static final String ORDER = "order";
 
     public static final int TYPE_ARTIST = 1;
     public static final int TYPE_ALBUM = 2;
@@ -20,10 +21,12 @@ public class ShortcutRealm extends RealmObject {
     // artist_id or album_id or playlist_id
     private String itemId;
     private int type;
+    private int order;
 
-    public void set(String itemId, int type) {
+    public void set(String itemId, int type, int order) {
         this.itemId = itemId;
         this.type = type;
+        this.order = order;
     }
 
     public String getId() {

@@ -19,7 +19,7 @@ public class PlaylistRealm extends RealmObject {
     private int order;
     private RealmList<PlaylistTrackRealm> tracks;
 
-    public void set(String name, List<PlaylistTrackRealm> trackList, int order) {
+    public void set(String name, int order, List<PlaylistTrackRealm> trackList) {
         this.name = name;
         this.order = order;
         this.tracks.addAll(trackList);

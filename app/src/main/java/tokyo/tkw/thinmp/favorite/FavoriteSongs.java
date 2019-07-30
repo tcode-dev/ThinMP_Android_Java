@@ -45,7 +45,7 @@ public class FavoriteSongs {
     }
 
     private RealmResults<FavoriteSongRealm> getFavoriteList() {
-        return realm.where(FavoriteSongRealm.class).findAll().sort(FavoriteSongRealm.ID);
+        return realm.where(FavoriteSongRealm.class).findAll().sort(FavoriteSongRealm.ORDER);
     }
 
     private List<String> getTrackIdList() {

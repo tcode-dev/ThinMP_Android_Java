@@ -24,7 +24,7 @@ public class PlaylistRegister extends RealmRegister {
         beginTransaction();
 
         PlaylistRealm playlist = realm.createObject(PlaylistRealm.class, uuid());
-        playlist.set(name, createPlaylistTrackRealmList(playlist.getId(), music.getIdList()), nextOrder);
+        playlist.set(name, nextOrder, createPlaylistTrackRealmList(playlist.getId(), music.getIdList()));
 
         commitTransaction();
     }

@@ -61,6 +61,6 @@ public class Shortcuts {
     private RealmResults<ShortcutRealm> findAll() {
         Realm realm = Realm.getDefaultInstance();
 
-        return realm.where(ShortcutRealm.class).findAll().sort(ShortcutRealm.ID, Sort.DESCENDING);
+        return realm.where(ShortcutRealm.class).findAll().sort(ShortcutRealm.ORDER, Sort.DESCENDING);
     }
 }

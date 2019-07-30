@@ -47,7 +47,7 @@ public class FavoriteArtists {
     }
 
     private RealmResults<FavoriteArtistRealm> getFavoriteRealmResults() {
-        return realm.where(FavoriteArtistRealm.class).findAll().sort(FavoriteArtistRealm.ID);
+        return realm.where(FavoriteArtistRealm.class).findAll().sort(FavoriteArtistRealm.ORDER);
     }
 
     private List<FavoriteArtistRealm> getFavoriteList() {
