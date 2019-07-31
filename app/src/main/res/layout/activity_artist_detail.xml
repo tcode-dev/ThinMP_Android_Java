@@ -15,13 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <tokyo.tkw.thinmp.view.BlurImageView
+        <tokyo.tkw.thinmp.view.FadeImageView
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="330dp"
             android:layout_weight="1"
-            android:alpha="0.5"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:alphaMax="0.9"
+            app:alphaMin="0.4"
+            app:scrollEnd="1"
+            app:scrollStart="0" />
 
         <View
             android:id="@+id/gradation"
@@ -101,11 +104,11 @@
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:textSize="16sp"
-                        app:fadeEnd="0.5"
-                        app:fadeStart="0.1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:scrollEnd="0.5"
+                        app:scrollStart="0.1"
                         app:textColor="#5C5C5C" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

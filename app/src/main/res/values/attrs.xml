@@ -13,10 +13,14 @@
         <attr name="textAlignCenter" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="Fade">
-        <attr name="fadeStart" format="float" />
-        <attr name="fadeEnd" format="float" />
-        <attr name="fadeIn" format="boolean" />
+    <declare-styleable name="Scroll">
+        <attr name="scrollStart" format="float" />
+        <attr name="scrollEnd" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="Alpha">
+        <attr name="alphaMin" format="float" />
+        <attr name="alphaMax" format="float" />
     </declare-styleable>
 
     <declare-styleable name="Blur">
