@@ -11,11 +11,13 @@ import java.util.Map;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.artist.Artist;
+import tokyo.tkw.thinmp.artist.ArtistAlbumArt;
 import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 
 class ShortcutArtists {
-    private ArtistContentProvider provider;
+    private ArtistContentProvider artistContentProvider;
+    private ArtistAlbumArt artistAlbumArt;
     private RealmResults<ShortcutRealm> realmResults;
     private List<ShortcutRealm> shortcutRealmList;
     private List<String> artistIdList;
@@ -24,7 +26,8 @@ class ShortcutArtists {
     private Map<String, Shortcut> shortcutMap;
 
     private ShortcutArtists(Context context) {
-        this.provider = new ArtistContentProvider(context);
+        artistContentProvider = new ArtistContentProvider(context);
+        artistAlbumArt = ArtistAlbumArt.createInstance(context);
     }
 
     static ShortcutArtists createInstance(Context context) {
@@ -59,7 +62,9 @@ class ShortcutArtists {
     }
 
     private List<Artist> getArtistList() {
-        return provider.findById(artistIdList);
+        List<Artist> artistList = artistContentProvider.findById(artistIdList);
+
+        return artistAlbumArt.mapAlbumArt(artistList);
     }
 
     private Map<String, Artist> getArtistMap() {

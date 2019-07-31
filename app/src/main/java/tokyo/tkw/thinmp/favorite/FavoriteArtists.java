@@ -10,20 +10,17 @@ import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.artist.Artist;
-import tokyo.tkw.thinmp.provider.AlbumArtContentProvider;
+import tokyo.tkw.thinmp.artist.ArtistAlbumArt;
 import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
 
 public class FavoriteArtists {
     private Realm realm;
     private ArtistContentProvider artistContentProvider;
-    private AlbumArtContentProvider albumArtContentProvider;
+    private ArtistAlbumArt artistAlbumArt;
     private RealmResults<FavoriteArtistRealm> favoriteRealmResults;
     private List<FavoriteArtistRealm> favoriteList;
-    private List<Album> albumList;
-    private Map<String, String> albumMap;
     private List<String> artistIdList;
     private List<Artist> artistList;
     private Map<String, Artist> artistMap;
@@ -32,7 +29,7 @@ public class FavoriteArtists {
     private FavoriteArtists(Context context) {
         realm = Realm.getDefaultInstance();
         artistContentProvider = new ArtistContentProvider(context);
-        albumArtContentProvider = new AlbumArtContentProvider(context);
+        artistAlbumArt = ArtistAlbumArt.createInstance(context);
     }
 
     public static FavoriteArtists createInstance(Context context) {
@@ -42,8 +39,6 @@ public class FavoriteArtists {
     public List<Artist> getSortedArtistList() {
         favoriteRealmResults = getFavoriteRealmResults();
         favoriteList = getFavoriteList();
-        albumList = getAlbumList();
-        albumMap = getAlbumMap();
         artistIdList = getArtistIdList();
         artistList = getArtistList();
         artistMap = getArtistMap();
@@ -69,24 +64,7 @@ public class FavoriteArtists {
     private List<Artist> getArtistList() {
         List<Artist> artistList = artistContentProvider.findById(artistIdList);
 
-        return mapAlbumArt(artistList, albumMap);
-    }
-
-    private List<Album> getAlbumList() {
-        return albumArtContentProvider.findAll();
-    }
-
-    private List<Artist> mapAlbumArt(List<Artist> artistList, Map<String, String> albumMap) {
-        return Stream.of(artistList).map(artist -> {
-            artist.setAlbumArtId(albumMap.get(artist.getId()));
-            return artist;
-        }).toList();
-    }
-
-    private Map<String, String> getAlbumMap() {
-        return Stream.of(albumList)
-                .distinctBy(Album::getArtistId)
-                .collect(Collectors.toMap(Album::getArtistId, Album::getAlbumArtId));
+        return artistAlbumArt.mapAlbumArt(artistList);
     }
 
     private Map<String, Artist> getArtistMap() {
