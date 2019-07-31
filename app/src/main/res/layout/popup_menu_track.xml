@@ -6,19 +6,19 @@
 
     <item
         android:id="@+id/playlist"
-        android:orderInCategory="200"
+        android:orderInCategory="1"
         android:title="@string/add_playlist"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/add_favorite"
-        android:orderInCategory="300"
+        android:orderInCategory="2"
         android:title="@string/add_favorite_artist"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/del_favorite"
-        android:orderInCategory="400"
+        android:orderInCategory="3"
         android:title="@string/del_favorite_artist"
         app:showAsAction="never" />
 

@@ -6,25 +6,25 @@
 
     <item
         android:id="@+id/add_shortcut"
-        android:orderInCategory="300"
+        android:orderInCategory="1"
         android:title="@string/add_shortcut"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/del_shortcut"
-        android:orderInCategory="400"
+        android:orderInCategory="2"
         android:title="@string/remove_shortcut"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/add_favorite"
-        android:orderInCategory="300"
+        android:orderInCategory="3"
         android:title="@string/add_favorite_artist"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/del_favorite"
-        android:orderInCategory="300"
+        android:orderInCategory="4"
         android:title="@string/del_favorite_artist"
         app:showAsAction="never" />
 

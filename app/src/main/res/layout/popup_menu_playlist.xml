@@ -6,19 +6,19 @@
 
     <item
         android:id="@+id/add_shortcut"
-        android:orderInCategory="300"
+        android:orderInCategory="1"
         android:title="@string/add_shortcut"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/del_shortcut"
-        android:orderInCategory="400"
+        android:orderInCategory="2"
         android:title="@string/remove_shortcut"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/edit"
-        android:orderInCategory="200"
+        android:orderInCategory="3"
         android:title="@string/edit"
         app:showAsAction="never" />
 
