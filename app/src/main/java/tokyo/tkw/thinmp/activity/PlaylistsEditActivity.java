@@ -23,7 +23,6 @@ import tokyo.tkw.thinmp.playlist.PlaylistRegister;
 import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 
 public class PlaylistsEditActivity extends BaseActivity {
-    private PlaylistsEditAdapter adapter;
     private List<String> playlistIdList;
     private List<Playlist> playlists;
 
@@ -54,7 +53,7 @@ public class PlaylistsEditActivity extends BaseActivity {
         playlists = dto.playlists;
 
         // adapter
-        adapter = new PlaylistsEditAdapter(playlists);
+        RecyclerView.Adapter adapter = new PlaylistsEditAdapter(playlists);
         listView.setAdapter(adapter);
 
         // layout
@@ -72,12 +71,17 @@ public class PlaylistsEditActivity extends BaseActivity {
     }
 
     private View.OnClickListener createApplyClickListener() {
-        return v -> {
-            PlaylistRegister playlistRegister = PlaylistRegister.createInstance();
-            List<String> toPlaylistIdList = Stream.of(playlists).map(Playlist::getId).collect(Collectors.toList());
-
-            playlistRegister.update(playlistIdList, toPlaylistIdList);
+        return view -> {
+            apply();
             finish();
         };
+    }
+
+    private void apply() {
+        PlaylistRegister playlistRegister = PlaylistRegister.createInstance();
+
+        List<String> toPlaylistIdList = Stream.of(playlists).map(Playlist::getId).collect(Collectors.toList());
+
+        playlistRegister.update(playlistIdList, toPlaylistIdList);
     }
 }

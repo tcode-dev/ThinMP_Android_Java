@@ -2,7 +2,6 @@ package tokyo.tkw.thinmp.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -97,7 +96,7 @@ public class PlaylistDialogFragment extends DialogFragment {
         PlaylistsDto dto = logic.createDto();
 
         // adapter
-        PlaylistDialogAdapter adapter = new PlaylistDialogAdapter(
+        RecyclerView.Adapter adapter = new PlaylistDialogAdapter(
                 dto.playlists,
                 createPlaylistClickListener()
         );

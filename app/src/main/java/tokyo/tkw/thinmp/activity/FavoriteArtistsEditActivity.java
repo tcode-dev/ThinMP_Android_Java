@@ -23,7 +23,6 @@ import tokyo.tkw.thinmp.logic.FavoriteArtistsEditLogic;
 import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 
 public class FavoriteArtistsEditActivity extends BaseActivity {
-    private FavoriteArtistsEditAdapter adapter;
     private List<Artist> artistList;
 
     @Override
@@ -52,7 +51,7 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
         artistList = dto.artistList;
 
         // adapter
-        adapter = new FavoriteArtistsEditAdapter(dto.artistList);
+        RecyclerView.Adapter adapter = new FavoriteArtistsEditAdapter(dto.artistList);
         listView.setAdapter(adapter);
 
         // layout
@@ -71,10 +70,14 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
 
     private View.OnClickListener createApplyClickListener() {
         return view -> {
-            FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
-            List<String> artistIdList = Stream.of(artistList).map(Artist::getId).collect(Collectors.toList());
-            register.update(artistIdList);
+            apply();
             finish();
         };
+    }
+
+    private void apply() {
+        FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
+        List<String> artistIdList = Stream.of(artistList).map(Artist::getId).collect(Collectors.toList());
+        register.update(artistIdList);
     }
 }

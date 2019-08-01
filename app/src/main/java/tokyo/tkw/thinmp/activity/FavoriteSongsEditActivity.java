@@ -23,8 +23,7 @@ import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 import tokyo.tkw.thinmp.track.Track;
 
 public class FavoriteSongsEditActivity extends BaseActivity {
-    FavoriteSongsEditAdapter adapter;
-    List<Track> trackList;
+    private List<Track> trackList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,7 @@ public class FavoriteSongsEditActivity extends BaseActivity {
         trackList = dto.trackList;
 
         // adapter
-        adapter = new FavoriteSongsEditAdapter(dto.trackList);
+        RecyclerView.Adapter adapter = new FavoriteSongsEditAdapter(dto.trackList);
         listView.setAdapter(adapter);
 
         // layout
@@ -71,13 +70,16 @@ public class FavoriteSongsEditActivity extends BaseActivity {
 
     private View.OnClickListener createApplyClickListener() {
         return view -> {
-            FavoriteSongRegister register = FavoriteSongRegister.createInstance();
-
-            List<String> trackIdList = Stream.of(trackList)
-                    .map(Track::getId)
-                    .collect(Collectors.toList());
-            register.update(trackIdList);
+            apply();
             finish();
         };
+    }
+
+    private void apply() {
+        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+
+        List<String> trackIdList = Stream.of(trackList).map(Track::getId).collect(Collectors.toList());
+
+        register.update(trackIdList);
     }
 }
