@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +19,7 @@ import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.dto.FavoriteArtistsEditDto;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.logic.FavoriteArtistsEditLogic;
+import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 
 public class FavoriteArtistsEditActivity extends BaseActivity {
     private FavoriteArtistsEditAdapter adapter;
@@ -59,7 +59,8 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
         listView.setLayoutManager(layout);
 
         // ドラッグとスワイプ
-        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
+        EditItemTouchHelper editItemTouchHelper = new EditItemTouchHelper(adapter, artistList);
+        ItemTouchHelper itemTouchHelper = editItemTouchHelper.createItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(listView);
 
         // event
@@ -80,37 +81,5 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
         return view -> {
             finish();
         };
-    }
-
-    private ItemTouchHelper createItemTouchHelper() {
-        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP | ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT
-        ) {
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
-                                  @NonNull RecyclerView.ViewHolder target) {
-                final int fromPos = viewHolder.getAdapterPosition();
-                final int toPos = target.getAdapterPosition();
-
-                // viewの並び替え
-                adapter.notifyItemMoved(fromPos, toPos);
-
-                // dataの並び替え
-                artistList.add(toPos, artistList.remove(fromPos));
-
-                return true;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                final int fromPos = viewHolder.getAdapterPosition();
-
-                // 削除
-                artistList.remove(fromPos);
-                adapter.notifyItemRemoved(fromPos);
-            }
-        });
     }
 }

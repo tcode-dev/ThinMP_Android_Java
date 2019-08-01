@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +18,7 @@ import tokyo.tkw.thinmp.adapter.FavoriteSongsEditAdapter;
 import tokyo.tkw.thinmp.dto.FavoriteSongsEditDto;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.logic.FavoriteSongsEditLogic;
-import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
+import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 import tokyo.tkw.thinmp.track.Track;
 
 public class FavoriteSongsEditActivity extends BaseActivity {
@@ -60,7 +59,8 @@ public class FavoriteSongsEditActivity extends BaseActivity {
         listView.setLayoutManager(layout);
 
         // ドラッグとスワイプ
-        ItemTouchHelper itemTouchHelper = createItemTouchHelper();
+        EditItemTouchHelper editItemTouchHelper = new EditItemTouchHelper(adapter, trackList);
+        ItemTouchHelper itemTouchHelper = editItemTouchHelper.createItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(listView);
 
         // event
@@ -82,37 +82,5 @@ public class FavoriteSongsEditActivity extends BaseActivity {
 
     private View.OnClickListener createCancelClickListener() {
         return view -> finish();
-    }
-
-    private ItemTouchHelper createItemTouchHelper() {
-        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP | ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT
-        ) {
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
-                                  @NonNull RecyclerView.ViewHolder target) {
-                final int fromPos = viewHolder.getAdapterPosition();
-                final int toPos = target.getAdapterPosition();
-
-                // viewの並び替え
-                adapter.notifyItemMoved(fromPos, toPos);
-
-                // dataの並び替え
-                trackList.add(toPos, trackList.remove(fromPos));
-
-                return true;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                final int fromPos = viewHolder.getAdapterPosition();
-
-                // 削除
-                trackList.remove(fromPos);
-                adapter.notifyItemRemoved(fromPos);
-            }
-        });
     }
 }
