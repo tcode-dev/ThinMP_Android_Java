@@ -17,6 +17,7 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongsEditAdapter;
 import tokyo.tkw.thinmp.dto.FavoriteSongsEditDto;
 import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
+import tokyo.tkw.thinmp.listener.CancelClickListener;
 import tokyo.tkw.thinmp.logic.FavoriteSongsEditLogic;
 import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 import tokyo.tkw.thinmp.track.Track;
@@ -65,7 +66,7 @@ public class FavoriteSongsEditActivity extends BaseActivity {
 
         // event
         applyView.setOnClickListener(createApplyClickListener());
-        cancelView.setOnClickListener(createCancelClickListener());
+        cancelView.setOnClickListener(new CancelClickListener());
     }
 
     private View.OnClickListener createApplyClickListener() {
@@ -78,9 +79,5 @@ public class FavoriteSongsEditActivity extends BaseActivity {
             register.update(trackIdList);
             finish();
         };
-    }
-
-    private View.OnClickListener createCancelClickListener() {
-        return view -> finish();
     }
 }

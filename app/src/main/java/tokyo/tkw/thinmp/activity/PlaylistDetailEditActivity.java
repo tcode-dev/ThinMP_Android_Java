@@ -17,6 +17,7 @@ import java.util.List;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistDetailEditAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistDetailEditDto;
+import tokyo.tkw.thinmp.listener.CancelClickListener;
 import tokyo.tkw.thinmp.logic.PlaylistDetailEditLogic;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
@@ -80,7 +81,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
 
         // event
         applyView.setOnClickListener(createApplyClickListener());
-        cancelView.setOnClickListener(createCancelClickListener());
+        cancelView.setOnClickListener(new CancelClickListener());
     }
 
     private View.OnClickListener createApplyClickListener() {
@@ -91,12 +92,6 @@ public class PlaylistDetailEditActivity extends BaseActivity {
 
             register.update(playlistId, name, trackIdList, toTrackIdList);
 
-            finish();
-        };
-    }
-
-    private View.OnClickListener createCancelClickListener() {
-        return v -> {
             finish();
         };
     }
