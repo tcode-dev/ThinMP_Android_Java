@@ -2,8 +2,6 @@ package tokyo.tkw.thinmp.playlist;
 
 import android.content.Context;
 
-import com.annimon.stream.Optional;
-
 import java.util.List;
 
 import io.realm.Realm;
