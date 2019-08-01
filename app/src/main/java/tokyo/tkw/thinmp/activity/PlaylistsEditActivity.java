@@ -4,26 +4,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
-import io.realm.RealmList;
+import java.util.List;
+
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.PlaylistsEditAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistsEditDto;
 import tokyo.tkw.thinmp.logic.PlaylistsEditLogic;
+import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.PlaylistRegister;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
-import tokyo.tkw.thinmp.realm.ShortcutRealm;
-import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 
 public class PlaylistsEditActivity extends BaseActivity {
-    private PlaylistsEditAdapter mAdapter;
-    private RealmList<PlaylistRealm> realmList;
-    private PlaylistRegister mPlaylistRegister;
+    private PlaylistsEditAdapter adapter;
+    private List<String> playlistIdList;
+    private List<Playlist> playlists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +48,13 @@ public class PlaylistsEditActivity extends BaseActivity {
         // dto
         PlaylistsEditDto dto = logic.createDto();
 
-        // プレイリスト一覧
-        realmList = dto.realmList;
+        // プレイリストID一覧
+        playlistIdList = dto.playlistIdList;
+        playlists = dto.playlists;
 
         // adapter
-        mAdapter = new PlaylistsEditAdapter(realmList, dto.playlistMap);
-        listView.setAdapter(mAdapter);
+        adapter = new PlaylistsEditAdapter(playlists);
+        listView.setAdapter(adapter);
 
         // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
@@ -65,32 +67,20 @@ public class PlaylistsEditActivity extends BaseActivity {
         // event
         applyView.setOnClickListener(createApplyClickListener());
         cancelView.setOnClickListener(createCancelClickListener());
-
-        // transaction
-        mPlaylistRegister = PlaylistRegister.createInstance();
-        mPlaylistRegister.beginTransaction();
-    }
-
-    @Override
-    public void onBackPressed() {
-        mPlaylistRegister.cancelTransaction();
-
-        super.onBackPressed();
     }
 
     private View.OnClickListener createApplyClickListener() {
         return v -> {
-            Stream.of(realmList).forEachIndexed((i, realm) -> {
-                realm.setOrder(i + 1);
-            });
-            mPlaylistRegister.commitTransaction();
+            PlaylistRegister playlistRegister = PlaylistRegister.createInstance();
+            List<String> toPlaylistIdList = Stream.of(playlists).map(Playlist::getId).collect(Collectors.toList());
+
+            playlistRegister.update(playlistIdList, toPlaylistIdList);
             finish();
         };
     }
 
     private View.OnClickListener createCancelClickListener() {
         return v -> {
-            mPlaylistRegister.cancelTransaction();
             finish();
         };
     }
@@ -102,44 +92,27 @@ public class PlaylistsEditActivity extends BaseActivity {
         ) {
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                                  RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
                 final int fromPos = viewHolder.getAdapterPosition();
                 final int toPos = target.getAdapterPosition();
 
                 // viewの並び替え
-                mAdapter.notifyItemMoved(fromPos, toPos);
+                adapter.notifyItemMoved(fromPos, toPos);
 
                 // dataの並び替え
-                realmList.add(toPos, realmList.remove(fromPos));
+                playlists.add(toPos, playlists.remove(fromPos));
 
                 return true;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final int fromPos = viewHolder.getAdapterPosition();
 
-                PlaylistRealm playlistRealm = realmList.get(fromPos);
-
-                // shortcutに登録されていたら削除する
-                String playListId = playlistRealm.getId();
-                ShortcutRegister shortcutRegister = ShortcutRegister.createInstance();
-                if (shortcutRegister.exists(playListId, ShortcutRealm.TYPE_PLAYLIST)) {
-                    shortcutRegister.temporaryDelete(playListId, ShortcutRealm.TYPE_PLAYLIST);
-                }
-
-                // プレイリストの曲を削除する
-                playlistRealm.getTrackRealmList().deleteAllFromRealm();
-
-                // プレイリストを削除する
-                playlistRealm.deleteFromRealm();
-
-                // 一覧からプレイリストを削除する
-                realmList.remove(fromPos);
-
-                // 画面からプレイリストを削除する
-                mAdapter.notifyItemRemoved(fromPos);
+                // 削除
+                playlists.remove(fromPos);
+                adapter.notifyItemRemoved(fromPos);
             }
         });
     }

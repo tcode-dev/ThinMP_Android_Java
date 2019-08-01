@@ -1,12 +1,10 @@
 package tokyo.tkw.thinmp.dto;
 
-import java.util.Map;
+import java.util.List;
 
-import io.realm.RealmList;
 import tokyo.tkw.thinmp.playlist.Playlist;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
 public class PlaylistsEditDto {
-    public RealmList<PlaylistRealm> realmList;
-    public Map<String, Playlist> playlistMap;
+    public List<Playlist> playlists;
+    public List<String> playlistIdList;
 }

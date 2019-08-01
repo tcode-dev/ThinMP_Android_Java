@@ -19,8 +19,8 @@ public class PlaylistsEditLogic {
     public PlaylistsEditDto createDto() {
         PlaylistsEditDto dto = new PlaylistsEditDto();
 
-        dto.realmList = playlists.getRealmList();
-        dto.playlistMap = playlists.getPlaylistMap();
+        dto.playlists = playlists.getPlaylists();
+        dto.playlistIdList = playlists.getPlaylistIds();
 
         return dto;
     }

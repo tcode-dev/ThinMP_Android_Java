@@ -2,14 +2,11 @@ package tokyo.tkw.thinmp.playlist;
 
 import android.content.Context;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import java.util.List;
-import java.util.Map;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 
@@ -50,27 +47,12 @@ public class Playlists {
         return realm.where(PlaylistRealm.class).findAll().sort(PlaylistRealm.ORDER);
     }
 
-    private List<String> getPlaylistIds() {
+    public List<String> getPlaylistIds() {
         return Stream.of(realmResults).map(PlaylistRealm::getId).toList();
-    }
-
-    public RealmList<PlaylistRealm> getRealmList() {
-        RealmList<PlaylistRealm> realmList = new RealmList<>();
-        realmList.addAll(realmResults.subList(0, realmResults.size()));
-
-        return realmList;
     }
 
     public List<PlaylistRealm> getPlaylistRealmList() {
         return Stream.of(realmResults).toList();
-    }
-
-    public Map<String, Playlist> getPlaylistMap() {
-        return Stream.of(playlistIds)
-                .collect(Collectors.toMap(
-                        playlistId -> playlistId,
-                        playlistId -> Playlist.createInstance(context, playlistId)));
-
     }
 
     public List<Playlist> getPlaylists() {

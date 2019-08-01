@@ -7,23 +7,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Map;
+import java.util.List;
 
-import io.realm.RealmList;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.PlaylistClickListener;
 import tokyo.tkw.thinmp.playlist.Playlist;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.viewHolder.PlaylistViewHolder;
 
 public class PlaylistsEditAdapter extends RecyclerView.Adapter<PlaylistViewHolder> {
-    private RealmList<PlaylistRealm> realmList;
-    private Map<String, Playlist> playlistMap;
+    private List<Playlist> playlists;
 
-    public PlaylistsEditAdapter(RealmList<PlaylistRealm> realmList, Map<String, Playlist> playlistMap) {
-        this.realmList = realmList;
-        this.playlistMap = playlistMap;
+    public PlaylistsEditAdapter(List<Playlist> playlists) {
+        this.playlists = playlists;
     }
 
     @NonNull
@@ -36,17 +32,15 @@ public class PlaylistsEditAdapter extends RecyclerView.Adapter<PlaylistViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull PlaylistViewHolder holder, int position) {
-        PlaylistRealm playlistRealm = realmList.get(position);
-        String playlistId = playlistRealm.getId();
-        Playlist playlist = playlistMap.get(playlistId);
+        Playlist playlist = playlists.get(position);
 
         GlideUtil.bitmap(playlist.getAlbumArtId(), holder.albumArt);
         holder.primaryText.setText(playlist.getName());
-        holder.itemView.setOnClickListener(new PlaylistClickListener(playlistId));
+        holder.itemView.setOnClickListener(new PlaylistClickListener(playlist.getId()));
     }
 
     @Override
     public int getItemCount() {
-        return realmList.size();
+        return playlists.size();
     }
 }
