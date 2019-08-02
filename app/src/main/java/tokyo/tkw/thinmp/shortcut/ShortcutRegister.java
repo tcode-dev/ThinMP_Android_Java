@@ -2,7 +2,7 @@ package tokyo.tkw.thinmp.shortcut;
 
 import java.util.List;
 
-import tokyo.tkw.thinmp.registration.RealmRegister;
+import tokyo.tkw.thinmp.register.RealmRegister;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 
 public class ShortcutRegister extends RealmRegister {

@@ -1,11 +1,11 @@
-package tokyo.tkw.thinmp.registration.edit;
+package tokyo.tkw.thinmp.register.edit;
 
 import com.annimon.stream.Stream;
 
 import java.util.List;
 
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
-import tokyo.tkw.thinmp.registration.RealmRegister;
+import tokyo.tkw.thinmp.register.RealmRegister;
 
 public class FavoriteSongEditor extends RealmRegister {
     public static FavoriteSongEditor createInstance() {

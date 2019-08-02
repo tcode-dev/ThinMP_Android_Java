@@ -12,7 +12,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
-import tokyo.tkw.thinmp.registration.delete.FavoriteSongDeleter;
+import tokyo.tkw.thinmp.register.delete.FavoriteSongDeleter;
 import tokyo.tkw.thinmp.track.Track;
 
 public class FavoriteSongs {

@@ -18,7 +18,7 @@ import tokyo.tkw.thinmp.adapter.FavoriteSongsEditAdapter;
 import tokyo.tkw.thinmp.dto.FavoriteSongsEditDto;
 import tokyo.tkw.thinmp.listener.CancelClickListener;
 import tokyo.tkw.thinmp.logic.FavoriteSongsEditLogic;
-import tokyo.tkw.thinmp.registration.edit.FavoriteSongEditor;
+import tokyo.tkw.thinmp.register.edit.FavoriteSongEditor;
 import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 import tokyo.tkw.thinmp.track.Track;
 

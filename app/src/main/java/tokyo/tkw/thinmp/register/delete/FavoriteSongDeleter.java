@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.registration.delete;
+package tokyo.tkw.thinmp.register.delete;
 
 import com.annimon.stream.Optional;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
-import tokyo.tkw.thinmp.registration.RealmRegister;
+import tokyo.tkw.thinmp.register.RealmRegister;
 
 public class FavoriteSongDeleter extends RealmRegister {
     public static FavoriteSongDeleter createInstance() {

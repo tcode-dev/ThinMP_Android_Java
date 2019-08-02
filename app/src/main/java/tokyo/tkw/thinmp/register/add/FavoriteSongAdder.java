@@ -1,7 +1,7 @@
-package tokyo.tkw.thinmp.registration.add;
+package tokyo.tkw.thinmp.register.add;
 
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
-import tokyo.tkw.thinmp.registration.RealmRegister;
+import tokyo.tkw.thinmp.register.RealmRegister;
 
 public class FavoriteSongAdder extends RealmRegister {
     public static FavoriteSongAdder createInstance() {

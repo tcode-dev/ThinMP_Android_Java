@@ -13,9 +13,9 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
 import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.music.Music;
-import tokyo.tkw.thinmp.registration.add.FavoriteSongAdder;
-import tokyo.tkw.thinmp.registration.delete.FavoriteSongDeleter;
-import tokyo.tkw.thinmp.registration.exists.FavoriteSongExists;
+import tokyo.tkw.thinmp.register.add.FavoriteSongAdder;
+import tokyo.tkw.thinmp.register.delete.FavoriteSongDeleter;
+import tokyo.tkw.thinmp.register.exists.FavoriteSongExists;
 
 public class TrackMenu {
     private Context context;

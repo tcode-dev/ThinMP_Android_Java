@@ -12,7 +12,7 @@ import io.realm.RealmResults;
 import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
-import tokyo.tkw.thinmp.registration.RealmRegister;
+import tokyo.tkw.thinmp.register.RealmRegister;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 

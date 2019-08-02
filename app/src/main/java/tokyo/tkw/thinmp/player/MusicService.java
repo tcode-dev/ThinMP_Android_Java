@@ -12,7 +12,7 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.config.Config;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
-import tokyo.tkw.thinmp.registration.exists.FavoriteSongExists;
+import tokyo.tkw.thinmp.register.exists.FavoriteSongExists;
 import tokyo.tkw.thinmp.track.Track;
 
 public class MusicService extends Service {

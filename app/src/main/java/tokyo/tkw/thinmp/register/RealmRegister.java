@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.registration;
+package tokyo.tkw.thinmp.register;
 
 import java.util.UUID;
 

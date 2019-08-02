@@ -5,7 +5,7 @@ import com.annimon.stream.Stream;
 import java.util.List;
 
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
-import tokyo.tkw.thinmp.registration.RealmRegister;
+import tokyo.tkw.thinmp.register.RealmRegister;
 
 public class FavoriteArtistRegister extends RealmRegister {
     public static FavoriteArtistRegister createInstance() {
