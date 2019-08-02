@@ -16,9 +16,9 @@ import java.util.List;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteSongsEditAdapter;
 import tokyo.tkw.thinmp.dto.FavoriteSongsEditDto;
-import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.listener.CancelClickListener;
 import tokyo.tkw.thinmp.logic.FavoriteSongsEditLogic;
+import tokyo.tkw.thinmp.registration.edit.FavoriteSongEditor;
 import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 import tokyo.tkw.thinmp.track.Track;
 
@@ -76,10 +76,10 @@ public class FavoriteSongsEditActivity extends BaseActivity {
     }
 
     private void apply() {
-        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+        FavoriteSongEditor favoriteSongEditor = FavoriteSongEditor.createInstance();
 
         List<String> trackIdList = Stream.of(trackList).map(Track::getId).collect(Collectors.toList());
 
-        register.update(trackIdList);
+        favoriteSongEditor.update(trackIdList);
     }
 }

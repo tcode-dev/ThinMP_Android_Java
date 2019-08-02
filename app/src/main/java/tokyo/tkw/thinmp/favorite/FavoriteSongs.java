@@ -12,6 +12,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.realm.FavoriteSongRealm;
+import tokyo.tkw.thinmp.registration.delete.FavoriteSongDeleter;
 import tokyo.tkw.thinmp.track.Track;
 
 public class FavoriteSongs {
@@ -33,7 +34,7 @@ public class FavoriteSongs {
     }
 
     public List<Track> getSortedTrackList() {
-        favoriteList = getFavoriteList();
+        favoriteList = findAll();
         trackIdList = getTrackIdList();
         trackList = getTrackList();
         trackMap = getTrackMap();
@@ -44,7 +45,7 @@ public class FavoriteSongs {
         return sortedTrackList;
     }
 
-    private RealmResults<FavoriteSongRealm> getFavoriteList() {
+    private RealmResults<FavoriteSongRealm> findAll() {
         return realm.where(FavoriteSongRealm.class).findAll().sort(FavoriteSongRealm.ORDER);
     }
 
@@ -80,7 +81,7 @@ public class FavoriteSongs {
                 .map(id -> id)
                 .collect(Collectors.toList());
 
-        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
-        register.delete(removeList);
+        FavoriteSongDeleter favoriteSongDeleter = FavoriteSongDeleter.createInstance();
+        favoriteSongDeleter.delete(removeList);
     }
 }

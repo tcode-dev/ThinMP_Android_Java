@@ -10,10 +10,12 @@ import android.widget.PopupMenu;
 import androidx.fragment.app.FragmentActivity;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
 import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.music.Music;
+import tokyo.tkw.thinmp.registration.add.FavoriteSongAdder;
+import tokyo.tkw.thinmp.registration.delete.FavoriteSongDeleter;
+import tokyo.tkw.thinmp.registration.exists.FavoriteSongExists;
 
 public class TrackMenu {
     private Context context;
@@ -31,8 +33,8 @@ public class TrackMenu {
      */
     @SuppressLint("ResourceType")
     public void show() {
-        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
-        int hiddenFavorite = register.exists(trackId) ? R.id.add_favorite : R.id.del_favorite;
+        FavoriteSongExists favoriteSongExists = FavoriteSongExists.createInstance();
+        int hiddenFavorite = favoriteSongExists.exists(trackId) ? R.id.add_favorite : R.id.del_favorite;
         PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.getMenuInflater().inflate(R.layout.popup_menu_track, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(createMenuItemClickListener());
@@ -59,18 +61,18 @@ public class TrackMenu {
      * お気に入り追加
      */
     private void addFavoriteSong() {
-        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+        FavoriteSongAdder favoriteSongAdder = FavoriteSongAdder.createInstance();
 
-        register.add(trackId);
+        favoriteSongAdder.add(trackId);
     }
 
     /**
      * お気に入り削除
      */
     private void deleteFavoriteSong() {
-        FavoriteSongRegister register = FavoriteSongRegister.createInstance();
+        FavoriteSongDeleter favoriteSongDeleter = FavoriteSongDeleter.createInstance();
 
-        register.delete(trackId);
+        favoriteSongDeleter.delete(trackId);
     }
 
     /**

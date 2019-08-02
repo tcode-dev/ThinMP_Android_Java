@@ -12,7 +12,7 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.config.Config;
 import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
-import tokyo.tkw.thinmp.favorite.FavoriteSongRegister;
+import tokyo.tkw.thinmp.registration.exists.FavoriteSongExists;
 import tokyo.tkw.thinmp.track.Track;
 
 public class MusicService extends Service {
@@ -353,7 +353,7 @@ public class MusicService extends Service {
 
     public MusicState getState() {
         FavoriteArtistRegister favoriteArtistRegister = FavoriteArtistRegister.createInstance();
-        FavoriteSongRegister favoriteSongRegister = FavoriteSongRegister.createInstance();
+        FavoriteSongExists favoriteSongExists = FavoriteSongExists.createInstance();
         Track track = playingList.getTrack();
 
         return new MusicState(
@@ -361,7 +361,7 @@ public class MusicService extends Service {
                 getCurrentPosition(),
                 getRepeat(),
                 getShuffle(),
-                favoriteSongRegister.exists(track.getId()),
+                favoriteSongExists.exists(track.getId()),
                 favoriteArtistRegister.exists(track.getArtistId())
         );
     }

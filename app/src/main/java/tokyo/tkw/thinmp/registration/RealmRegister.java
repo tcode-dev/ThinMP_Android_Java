@@ -1,4 +1,4 @@
-package tokyo.tkw.thinmp.realm;
+package tokyo.tkw.thinmp.registration;
 
 import java.util.UUID;
 
@@ -18,10 +18,6 @@ public abstract class RealmRegister<T extends RealmObject> {
 
     protected void commitTransaction() {
         realm.commitTransaction();
-    }
-
-    protected void cancelTransaction() {
-        realm.cancelTransaction();
     }
 
     protected String uuid() {
