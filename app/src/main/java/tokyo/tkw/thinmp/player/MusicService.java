@@ -11,7 +11,7 @@ import com.annimon.stream.Optional;
 import java.util.List;
 
 import tokyo.tkw.thinmp.config.Config;
-import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
+import tokyo.tkw.thinmp.register.exists.FavoriteArtistExists;
 import tokyo.tkw.thinmp.register.exists.FavoriteSongExists;
 import tokyo.tkw.thinmp.track.Track;
 
@@ -352,7 +352,7 @@ public class MusicService extends Service {
     }
 
     public MusicState getState() {
-        FavoriteArtistRegister favoriteArtistRegister = FavoriteArtistRegister.createInstance();
+        FavoriteArtistExists favoriteArtistExists = FavoriteArtistExists.createInstance();
         FavoriteSongExists favoriteSongExists = FavoriteSongExists.createInstance();
         Track track = playingList.getTrack();
 
@@ -362,7 +362,7 @@ public class MusicService extends Service {
                 getRepeat(),
                 getShuffle(),
                 favoriteSongExists.exists(track.getId()),
-                favoriteArtistRegister.exists(track.getArtistId())
+                favoriteArtistExists.exists(track.getArtistId())
         );
     }
 

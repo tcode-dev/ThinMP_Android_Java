@@ -17,9 +17,9 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.adapter.FavoriteArtistsEditAdapter;
 import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.dto.FavoriteArtistsEditDto;
-import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.listener.CancelClickListener;
 import tokyo.tkw.thinmp.logic.FavoriteArtistsEditLogic;
+import tokyo.tkw.thinmp.register.edit.FavoriteArtistEditor;
 import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 
 public class FavoriteArtistsEditActivity extends BaseActivity {
@@ -76,8 +76,8 @@ public class FavoriteArtistsEditActivity extends BaseActivity {
     }
 
     private void apply() {
-        FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
+        FavoriteArtistEditor favoriteArtistEditor = FavoriteArtistEditor.createInstance();
         List<String> artistIdList = Stream.of(artistList).map(Artist::getId).collect(Collectors.toList());
-        register.update(artistIdList);
+        favoriteArtistEditor.update(artistIdList);
     }
 }

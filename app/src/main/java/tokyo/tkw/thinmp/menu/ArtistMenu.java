@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
+import tokyo.tkw.thinmp.register.add.FavoriteArtistAdder;
+import tokyo.tkw.thinmp.register.delete.FavoriteArtistDeleter;
+import tokyo.tkw.thinmp.register.exists.FavoriteArtistExists;
 import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
 
 public class ArtistMenu {
@@ -17,14 +19,12 @@ public class ArtistMenu {
     private View view;
     private String artistId;
     private ShortcutRegister shortcutRegister;
-    private FavoriteArtistRegister favoriteArtistRegister;
 
     public ArtistMenu(View view, String artistId) {
         this.context = view.getContext();
         this.view = view;
         this.artistId = artistId;
         this.shortcutRegister = ShortcutRegister.createInstance();
-        this.favoriteArtistRegister = FavoriteArtistRegister.createInstance();
     }
 
     /**
@@ -35,9 +35,10 @@ public class ArtistMenu {
         int hiddenShortcut = shortcutRegister.exists(artistId, ShortcutRealm.TYPE_ARTIST) ?
                 R.id.add_shortcut :
                 R.id.del_shortcut;
-        int hiddenFavorite = favoriteArtistRegister.exists(artistId) ?
-                R.id.add_favorite :
-                R.id.del_favorite;
+
+        FavoriteArtistExists favoriteArtistExists = FavoriteArtistExists.createInstance();
+        int hiddenFavorite = favoriteArtistExists.exists(artistId) ? R.id.add_favorite : R.id.del_favorite;
+
         PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.getMenuInflater().inflate(R.layout.popup_menu_artist, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(createMenuItemClickListener());
@@ -61,11 +62,11 @@ public class ArtistMenu {
                     break;
 
                 case R.id.add_favorite:
-                    favoriteArtistRegister.add(artistId);
+                    addFavoriteArtist();
                     break;
 
                 case R.id.del_favorite:
-                    favoriteArtistRegister.delete(artistId);
+                    deleteFavoriteArtist();
                     break;
 
                 default:
@@ -76,6 +77,17 @@ public class ArtistMenu {
 
             return true;
         };
+    }
+
+    private void addFavoriteArtist() {
+        FavoriteArtistAdder favoriteArtistAdder = FavoriteArtistAdder.createInstance();
+        favoriteArtistAdder.add(artistId);
+    }
+
+
+    private void deleteFavoriteArtist() {
+        FavoriteArtistDeleter favoriteArtistDeleter = FavoriteArtistDeleter.createInstance();
+        favoriteArtistDeleter.delete(artistId);
     }
 
     private void screenUpdate() {

@@ -14,6 +14,7 @@ import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.artist.ArtistAlbumArt;
 import tokyo.tkw.thinmp.provider.ArtistContentProvider;
 import tokyo.tkw.thinmp.realm.FavoriteArtistRealm;
+import tokyo.tkw.thinmp.register.delete.FavoriteArtistDeleter;
 
 public class FavoriteArtists {
     private Realm realm;
@@ -91,7 +92,7 @@ public class FavoriteArtists {
                 .map(id -> id)
                 .collect(Collectors.toList());
 
-        FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
-        register.delete(removeList);
+        FavoriteArtistDeleter favoriteArtistDeleter = FavoriteArtistDeleter.createInstance();
+        favoriteArtistDeleter.delete(removeList);
     }
 }

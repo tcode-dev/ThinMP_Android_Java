@@ -16,10 +16,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import tokyo.tkw.thinmp.databinding.ActivityPlayerBinding;
-import tokyo.tkw.thinmp.favorite.FavoriteArtistRegister;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
 import tokyo.tkw.thinmp.music.Music;
+import tokyo.tkw.thinmp.register.add.FavoriteArtistAdder;
 import tokyo.tkw.thinmp.register.add.FavoriteSongAdder;
+import tokyo.tkw.thinmp.register.delete.FavoriteArtistDeleter;
 import tokyo.tkw.thinmp.register.delete.FavoriteSongDeleter;
 import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.util.GlideUtil;
@@ -252,8 +253,8 @@ public class Player {
      * @param view
      */
     public void onClickAddFavoriteArtist(View view) {
-        FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
-        register.add(track.getArtistId());
+        FavoriteArtistAdder favoriteArtistAdder = FavoriteArtistAdder.createInstance();
+        favoriteArtistAdder.add(track.getArtistId());
         isFavoriteArtist.set(true);
     }
 
@@ -263,8 +264,8 @@ public class Player {
      * @param view
      */
     public void onClickDeleteFavoriteArtist(View view) {
-        FavoriteArtistRegister register = FavoriteArtistRegister.createInstance();
-        register.delete(track.getArtistId());
+        FavoriteArtistDeleter favoriteArtistDeleter = FavoriteArtistDeleter.createInstance();
+        favoriteArtistDeleter.delete(track.getArtistId());
         isFavoriteArtist.set(false);
     }
 
