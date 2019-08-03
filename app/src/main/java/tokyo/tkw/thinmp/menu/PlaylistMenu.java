@@ -10,19 +10,19 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.PlaylistDetailEditActivity;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
-import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
+import tokyo.tkw.thinmp.register.add.ShortcutAdder;
+import tokyo.tkw.thinmp.register.delete.ShortcutDeleter;
+import tokyo.tkw.thinmp.register.exists.ShortcutExists;
 
 public class PlaylistMenu {
     private Context context;
     private View view;
     private String playlistId;
-    private ShortcutRegister shortcutRegister;
 
     public PlaylistMenu(View view, String playlistId) {
         this.context = view.getContext();
         this.view = view;
         this.playlistId = playlistId;
-        this.shortcutRegister = ShortcutRegister.createInstance();
     }
 
     /**
@@ -30,7 +30,8 @@ public class PlaylistMenu {
      */
     @SuppressLint("ResourceType")
     public void show() {
-        int hiddenShortcut = shortcutRegister.exists(playlistId, ShortcutRealm.TYPE_PLAYLIST) ?
+        ShortcutExists shortcutExists = ShortcutExists.createInstance();
+        int hiddenShortcut = shortcutExists.exists(playlistId, ShortcutRealm.TYPE_PLAYLIST) ?
                 R.id.add_shortcut :
                 R.id.del_shortcut;
         PopupMenu popupMenu = new PopupMenu(context, view);
@@ -46,17 +47,16 @@ public class PlaylistMenu {
     private PopupMenu.OnMenuItemClickListener createMenuItemClickListener() {
         return item -> {
             switch (item.getItemId()) {
+                case R.id.edit:
+                    edit();
+
+                    return true;
                 case R.id.add_shortcut:
-                    shortcutRegister.add(playlistId, ShortcutRealm.TYPE_PLAYLIST);
+                    addShortcut();
 
                     return true;
                 case R.id.del_shortcut:
-                    shortcutRegister.delete(playlistId, ShortcutRealm.TYPE_PLAYLIST);
-
-                    return true;
-
-                case R.id.edit:
-                    edit();
+                    deleteShortcut();
 
                     return true;
                 default:
@@ -72,5 +72,15 @@ public class PlaylistMenu {
         Intent intent = new Intent(context, PlaylistDetailEditActivity.class);
         intent.putExtra(Playlist.PLAYLIST_ID, playlistId);
         context.startActivity(intent);
+    }
+
+    private void addShortcut() {
+        ShortcutAdder shortcutAdder = ShortcutAdder.createInstance();
+        shortcutAdder.add(playlistId, ShortcutRealm.TYPE_PLAYLIST);
+    }
+
+    private void deleteShortcut() {
+        ShortcutDeleter shortcutDeleter = ShortcutDeleter.createInstance();
+        shortcutDeleter.delete(playlistId, ShortcutRealm.TYPE_PLAYLIST);
     }
 }

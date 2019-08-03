@@ -13,6 +13,7 @@ import io.realm.RealmResults;
 import tokyo.tkw.thinmp.album.Album;
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
+import tokyo.tkw.thinmp.register.delete.ShortcutDeleter;
 
 class ShortcutAlbums {
     private AlbumContentProvider provider;
@@ -84,7 +85,7 @@ class ShortcutAlbums {
 
     private void validation() {
         if (isDeleted()) {
-            remove();
+            delete();
         }
     }
 
@@ -92,13 +93,13 @@ class ShortcutAlbums {
         return albumIdList.size() != albumList.size();
     }
 
-    private void remove() {
+    private void delete() {
         List<String> removeList = Stream.of(albumIdList)
                 .filter(id -> !albumList.contains(id))
                 .map(id -> id)
                 .collect(Collectors.toList());
 
-        ShortcutRegister register = ShortcutRegister.createInstance();
-        register.delete(removeList, ShortcutRealm.TYPE_ALBUM);
+        ShortcutDeleter shortcutDeleter = ShortcutDeleter.createInstance();
+        shortcutDeleter.delete(removeList, ShortcutRealm.TYPE_ALBUM);
     }
 }

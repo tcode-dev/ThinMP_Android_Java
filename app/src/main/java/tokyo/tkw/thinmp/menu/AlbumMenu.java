@@ -13,20 +13,20 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.fragment.PlaylistDialogFragment;
 import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
-import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
+import tokyo.tkw.thinmp.register.add.ShortcutAdder;
+import tokyo.tkw.thinmp.register.delete.ShortcutDeleter;
+import tokyo.tkw.thinmp.register.exists.ShortcutExists;
 
 public class AlbumMenu {
     private Context context;
     private View view;
     private String albumId;
-    private ShortcutRegister shortcutRegister;
 
     public AlbumMenu(View view, String albumId) {
         // CollapsingToolbarLayoutの中だとContextThemeWrapperが返ってくる
         this.context = (((ContextThemeWrapper) view.getContext()).getBaseContext());
         this.view = view;
         this.albumId = albumId;
-        this.shortcutRegister = ShortcutRegister.createInstance();
     }
 
     /**
@@ -34,7 +34,8 @@ public class AlbumMenu {
      */
     @SuppressLint("ResourceType")
     public void show() {
-        int hiddenShortcut = shortcutRegister.exists(albumId, ShortcutRealm.TYPE_ALBUM) ?
+        ShortcutExists shortcutExists = ShortcutExists.createInstance();
+        int hiddenShortcut = shortcutExists.exists(albumId, ShortcutRealm.TYPE_ALBUM) ?
                 R.id.add_shortcut :
                 R.id.del_shortcut;
         PopupMenu popupMenu = new PopupMenu(context, view);
@@ -69,11 +70,11 @@ public class AlbumMenu {
 
                     return true;
                 case R.id.add_shortcut:
-                    shortcutRegister.add(albumId, ShortcutRealm.TYPE_ALBUM);
+                    addShortcut();
 
                     return true;
                 case R.id.del_shortcut:
-                    shortcutRegister.delete(albumId, ShortcutRealm.TYPE_ALBUM);
+                    deleteShortcut();
 
                     return true;
                 default:
@@ -82,5 +83,15 @@ public class AlbumMenu {
 
             return false;
         };
+    }
+
+    private void addShortcut() {
+        ShortcutAdder shortcutAdder = ShortcutAdder.createInstance();
+        shortcutAdder.add(albumId, ShortcutRealm.TYPE_ALBUM);
+    }
+
+    private void deleteShortcut() {
+        ShortcutDeleter shortcutDeleter = ShortcutDeleter.createInstance();
+        shortcutDeleter.delete(albumId, ShortcutRealm.TYPE_ALBUM);
     }
 }

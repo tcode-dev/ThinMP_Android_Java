@@ -8,15 +8,9 @@ import io.realm.RealmResults;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.register.RealmRegister;
-import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
+import tokyo.tkw.thinmp.register.exists.ShortcutExists;
 
 public class PlaylistDeleter extends RealmRegister {
-    private ShortcutRegister shortcutRegister;
-
-    private PlaylistDeleter() {
-        shortcutRegister = ShortcutRegister.createInstance();
-    }
-
     public static PlaylistDeleter createInstance() {
         return new PlaylistDeleter();
     }
@@ -41,9 +35,11 @@ public class PlaylistDeleter extends RealmRegister {
     }
 
     private void deleteShortcutIfNeeded(String playListId) {
-        if (!shortcutRegister.exists(playListId, ShortcutRealm.TYPE_PLAYLIST)) return;
+        ShortcutExists shortcutExists = ShortcutExists.createInstance();
+        if (!shortcutExists.exists(playListId, ShortcutRealm.TYPE_PLAYLIST)) return;
 
-        shortcutRegister.temporaryDelete(playListId, ShortcutRealm.TYPE_PLAYLIST);
+        ShortcutDeleter shortcutDeleter = ShortcutDeleter.createInstance();
+        shortcutDeleter.temporaryDelete(playListId, ShortcutRealm.TYPE_PLAYLIST);
     }
 
     private RealmResults<PlaylistRealm> findByPlaylistId(List<String> playlistIdList) {

@@ -10,21 +10,21 @@ import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.register.add.FavoriteArtistAdder;
+import tokyo.tkw.thinmp.register.add.ShortcutAdder;
 import tokyo.tkw.thinmp.register.delete.FavoriteArtistDeleter;
+import tokyo.tkw.thinmp.register.delete.ShortcutDeleter;
 import tokyo.tkw.thinmp.register.exists.FavoriteArtistExists;
-import tokyo.tkw.thinmp.shortcut.ShortcutRegister;
+import tokyo.tkw.thinmp.register.exists.ShortcutExists;
 
 public class ArtistMenu {
     private Context context;
     private View view;
     private String artistId;
-    private ShortcutRegister shortcutRegister;
 
     public ArtistMenu(View view, String artistId) {
         this.context = view.getContext();
         this.view = view;
         this.artistId = artistId;
-        this.shortcutRegister = ShortcutRegister.createInstance();
     }
 
     /**
@@ -32,7 +32,8 @@ public class ArtistMenu {
      */
     @SuppressLint("ResourceType")
     public void show() {
-        int hiddenShortcut = shortcutRegister.exists(artistId, ShortcutRealm.TYPE_ARTIST) ?
+        ShortcutExists shortcutExists = ShortcutExists.createInstance();
+        int hiddenShortcut = shortcutExists.exists(artistId, ShortcutRealm.TYPE_ARTIST) ?
                 R.id.add_shortcut :
                 R.id.del_shortcut;
 
@@ -54,11 +55,11 @@ public class ArtistMenu {
         return item -> {
             switch (item.getItemId()) {
                 case R.id.add_shortcut:
-                    shortcutRegister.add(artistId, ShortcutRealm.TYPE_ARTIST);
+                    addShortcut();
                     break;
 
                 case R.id.del_shortcut:
-                    shortcutRegister.delete(artistId, ShortcutRealm.TYPE_ARTIST);
+                    deleteShortcut();
                     break;
 
                 case R.id.add_favorite:
@@ -77,6 +78,16 @@ public class ArtistMenu {
 
             return true;
         };
+    }
+
+    private void addShortcut() {
+        ShortcutAdder shortcutAdder = ShortcutAdder.createInstance();
+        shortcutAdder.add(artistId, ShortcutRealm.TYPE_ARTIST);
+    }
+
+    private void deleteShortcut() {
+        ShortcutDeleter shortcutDeleter = ShortcutDeleter.createInstance();
+        shortcutDeleter.delete(artistId, ShortcutRealm.TYPE_ARTIST);
     }
 
     private void addFavoriteArtist() {

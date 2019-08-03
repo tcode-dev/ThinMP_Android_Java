@@ -1,7 +1,5 @@
 package tokyo.tkw.thinmp.shortcut;
 
-import com.annimon.stream.Optional;
-
 public class Shortcut {
     public String id;
     public String name;

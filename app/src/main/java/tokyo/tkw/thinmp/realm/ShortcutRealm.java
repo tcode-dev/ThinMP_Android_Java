@@ -1,5 +1,6 @@
 package tokyo.tkw.thinmp.realm;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -39,6 +40,15 @@ public class ShortcutRealm extends RealmObject {
 
     public int getType() {
         return type;
+    }
+
+    public static ShortcutRealm createInstance(String itemId, int type) {
+        Realm realm = Realm.getDefaultInstance();
+
+        return realm.where(ShortcutRealm.class)
+                .equalTo(ShortcutRealm.ITEM_ID, itemId)
+                .equalTo(ShortcutRealm.TYPE, type)
+                .findFirst();
     }
 }
 
