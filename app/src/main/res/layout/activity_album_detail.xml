@@ -69,8 +69,8 @@
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginEnd="44dp"
                         android:layout_marginBottom="2dp"
                         app:collapseOffsetY="8"
                         app:collapseScale="0.8"
@@ -85,8 +85,8 @@
                         android:id="@+id/subTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginEnd="44dp"
                         android:layout_marginBottom="4dp"
                         app:collapseScale="0.8"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,14 +99,8 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <tokyo.tkw.thinmp.view.BackImageButtonView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@null"
-                    android:padding="10dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/back"
+                    style="@style/BackImageButtonTheme"
+                    android:layout_marginTop="6dp"
                     app:layout_collapseMode="pin" />
 
                 <ImageView
