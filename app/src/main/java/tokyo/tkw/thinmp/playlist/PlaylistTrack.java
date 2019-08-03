@@ -12,6 +12,7 @@ import java.util.Map;
 import io.realm.RealmList;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
+import tokyo.tkw.thinmp.register.delete.PlaylistTrackDeleter;
 import tokyo.tkw.thinmp.track.Track;
 
 class PlaylistTrack {
@@ -81,7 +82,7 @@ class PlaylistTrack {
 
     private void validation() {
         if (isDeleted()) {
-            remove();
+            delete();
         }
     }
 
@@ -89,13 +90,13 @@ class PlaylistTrack {
         return trackIdList.size() != sortedTrackList.size();
     }
 
-    private void remove() {
+    private void delete() {
         List<String> deleteList = Stream.of(trackIdList)
                 .filter(id -> !trackMap.containsKey(id))
                 .map(id -> id)
                 .collect(Collectors.toList());
 
-        PlaylistRegister register = PlaylistRegister.createInstance();
-        register.delete(deleteList);
+        PlaylistTrackDeleter playlistTrackDeleter = PlaylistTrackDeleter.createInstance();
+        playlistTrackDeleter.delete(deleteList);
     }
 }

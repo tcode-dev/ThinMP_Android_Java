@@ -24,7 +24,7 @@ import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
 import tokyo.tkw.thinmp.logic.PlaylistsLogic;
 import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.music.MusicFactory;
-import tokyo.tkw.thinmp.playlist.PlaylistRegister;
+import tokyo.tkw.thinmp.register.add.PlaylistAdder;
 
 public class PlaylistDialogFragment extends DialogFragment {
     private AlertDialog dialog;
@@ -108,14 +108,14 @@ public class PlaylistDialogFragment extends DialogFragment {
     }
 
     private void addPlaylist() {
-        PlaylistRegister playlistRegister = PlaylistRegister.createInstance();
-        playlistRegister.create(editText.getText().toString(), music);
+        PlaylistAdder playlistAdder = PlaylistAdder.createInstance();
+        playlistAdder.create(editText.getText().toString(), music);
     }
 
     private PlaylistDialogAdapter.PlaylistClickListener createPlaylistClickListener() {
         return (View view, String playlistId) -> {
-            PlaylistRegister playlistRegister = PlaylistRegister.createInstance();
-            playlistRegister.add(playlistId, music);
+            PlaylistAdder playlistAdder = PlaylistAdder.createInstance();
+            playlistAdder.add(playlistId, music);
             screenUpdate();
             dialog.dismiss();
         };

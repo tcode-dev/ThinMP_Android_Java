@@ -20,7 +20,7 @@ import tokyo.tkw.thinmp.dto.PlaylistDetailEditDto;
 import tokyo.tkw.thinmp.listener.CancelClickListener;
 import tokyo.tkw.thinmp.logic.PlaylistDetailEditLogic;
 import tokyo.tkw.thinmp.playlist.Playlist;
-import tokyo.tkw.thinmp.playlist.PlaylistRegister;
+import tokyo.tkw.thinmp.register.edit.PlaylistEditor;
 import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 import tokyo.tkw.thinmp.track.Track;
 
@@ -91,11 +91,11 @@ public class PlaylistDetailEditActivity extends BaseActivity {
     }
 
     private void apply() {
-        PlaylistRegister register = PlaylistRegister.createInstance();
+        PlaylistEditor playlistEditor = PlaylistEditor.createInstance();
 
         String name = playlistNameView.getText().toString();
         List<String> toTrackIdList = Stream.of(trackList).map(Track::getId).collect(Collectors.toList());
 
-        register.update(playlistId, name, trackIdList, toTrackIdList);
+        playlistEditor.update(playlistId, name, trackIdList, toTrackIdList);
     }
 }

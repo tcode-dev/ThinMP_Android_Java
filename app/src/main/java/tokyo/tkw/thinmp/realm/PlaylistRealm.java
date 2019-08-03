@@ -25,6 +25,12 @@ public class PlaylistRealm extends RealmObject {
         this.tracks.addAll(trackList);
     }
 
+    public static PlaylistRealm createInstance(String playlistId) {
+        Realm realm = Realm.getDefaultInstance();
+
+        return realm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
+    }
+
     public RealmList<PlaylistTrackRealm> getTrackRealmList() {
         return tracks;
     }
