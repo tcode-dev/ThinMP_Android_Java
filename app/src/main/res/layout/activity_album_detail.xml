@@ -106,11 +106,10 @@
                 <ImageView
                     android:id="@+id/menu"
                     style="@style/MenuImageButtonTheme"
-                    android:layout_gravity="right"
+                    android:layout_gravity="end"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="8dp"
-                    app:layout_collapseMode="pin"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 

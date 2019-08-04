@@ -82,8 +82,8 @@
                         android:id="@+id/title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginEnd="44dp"
                         android:layout_marginBottom="2dp"
                         android:clipChildren="false"
                         app:collapseOffsetY="14"
@@ -98,8 +98,8 @@
                         android:id="@+id/meta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginEnd="44dp"
                         android:layout_marginBottom="4dp"
                         android:ellipsize="end"
                         android:singleLine="true"
@@ -114,26 +114,17 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <tokyo.tkw.thinmp.view.BackImageButtonView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@null"
-                    android:padding="10dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/back"
+                    style="@style/BackImageButtonTheme"
+                    android:layout_marginTop="6dp"
                     app:layout_collapseMode="pin" />
 
                 <ImageView
                     android:id="@+id/menu"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="8dp"
+                    style="@style/MenuImageButtonTheme"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="8dp"
-                    app:layout_collapseMode="pin"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/open_menu" />
+                    app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
