@@ -17,7 +17,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/title"
@@ -34,25 +35,19 @@
 
             <Button
                 android:id="@+id/apply"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ButtonTheme"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/ok"
-                android:textColor="#A0A0A0"
                 app:layout_constraintEnd_toStartOf="@+id/cancel"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/cancel"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ButtonTheme"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/cancel"
-                android:textColor="#A0A0A0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

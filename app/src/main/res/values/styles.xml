@@ -49,4 +49,10 @@
         <item name="android:background">@drawable/style_linear_fill</item>
     </style>
 
+    <style name="ButtonTheme" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#A0A0A0</item>
+    </style>
+
 </resources>

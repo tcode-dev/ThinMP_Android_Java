@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:fitsSystemWindows="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:fitsSystemWindows="true"
         android:text="@string/favorite_artists"
         android:textColor="#000000"
         android:textSize="30sp" />
 
     <Button
         android:id="@+id/edit"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edit"
-        android:textColor="#A0A0A0" />
+        style="@style/ButtonTheme"
+        android:text="@string/edit" />
 
 </LinearLayout>

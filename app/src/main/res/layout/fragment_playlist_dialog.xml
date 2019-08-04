@@ -39,8 +39,7 @@
 
             <Button
                 android:id="@+id/cancelButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ButtonTheme"
                 android:text="@string/cancel" />
 
         </LinearLayout>
@@ -82,20 +81,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/okButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ButtonTheme"
                 android:text="@string/ok" />
 
             <Button
                 android:id="@+id/cancelButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ButtonTheme"
                 android:text="@string/cancel" />
 
         </LinearLayout>

@@ -22,6 +22,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -32,25 +34,20 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:fitsSystemWindows="true"
+                    android:gravity="center_vertical"
                     android:text="@string/edit"
                     android:textColor="#000000"
                     android:textSize="30sp" />
 
                 <Button
                     android:id="@+id/apply"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ok"
-                    android:textColor="#A0A0A0" />
+                    style="@style/ButtonTheme"
+                    android:text="@string/ok" />
 
                 <Button
                     android:id="@+id/cancel"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cancel"
-                    android:textColor="#A0A0A0" />
+                    style="@style/ButtonTheme"
+                    android:text="@string/cancel" />
 
             </LinearLayout>
 
