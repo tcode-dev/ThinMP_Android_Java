@@ -46,6 +46,7 @@ public class PlaylistDialogFragment extends DialogFragment {
         editText = view.findViewById(R.id.editText);
         Button okButtonView = view.findViewById(R.id.okButton);
         Button cancelButtonView = view.findViewById(R.id.cancelButton);
+        Button cancelButtonView2 = view.findViewById(R.id.cancelButton2);
 
         Bundle bundle = getArguments();
         String id = Objects.requireNonNull(bundle).getString(Music.ID);
@@ -66,6 +67,7 @@ public class PlaylistDialogFragment extends DialogFragment {
         addPlaylistView.setOnClickListener(createAddPlaylistListener());
         okButtonView.setOnClickListener(createOkListener());
         cancelButtonView.setOnClickListener(createCancelListener());
+        cancelButtonView2.setOnClickListener(createCancel2Listener());
 
         return dialog;
     }
@@ -133,6 +135,10 @@ public class PlaylistDialogFragment extends DialogFragment {
     }
 
     private View.OnClickListener createCancelListener() {
+        return view -> dialog.dismiss();
+    }
+
+    private View.OnClickListener createCancel2Listener() {
         return view -> showAddPlaylist();
     }
 
