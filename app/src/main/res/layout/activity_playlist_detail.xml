@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
@@ -42,9 +41,7 @@
                     android:layout_height="match_parent"
                     android:background="#ffffff"
                     android:fitsSystemWindows="true"
-                    app:layout_collapseMode="pin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_collapseMode="pin">
 
                     <ImageView
                         android:id="@+id/albumArt"
@@ -53,7 +50,6 @@
                         android:layout_weight="1"
                         android:scaleType="centerCrop"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -129,8 +125,8 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
                 android:nestedScrollingEnabled="true"
-                android:paddingStart="20dp"
                 android:scrollbars="vertical" />
 
         </tokyo.tkw.thinmp.view.ExactlyNestedScrollView>

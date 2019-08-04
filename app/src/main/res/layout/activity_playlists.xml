@@ -25,10 +25,7 @@
             android:layout_marginStart="20dp"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:fitsSystemWindows="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:fitsSystemWindows="true" />
 
     </FrameLayout>
 

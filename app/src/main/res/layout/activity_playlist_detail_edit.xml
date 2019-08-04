@@ -56,7 +56,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <EditText
                 android:id="@+id/playlistName"
                 android:layout_width="match_parent"
@@ -83,6 +82,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 </FrameLayout>
