@@ -11,7 +11,7 @@
         <bitmap
             android:gravity="center"
             android:scaleType="center"
-            android:src="@drawable/splash_bg"/>
+            android:src="@drawable/bg_splash"/>
     </item>
 
 </layer-list>

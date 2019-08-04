@@ -22,8 +22,8 @@ import tokyo.tkw.thinmp.R;
 import static android.net.Uri.parse;
 
 public class GlideUtil {
-    public static final int ALBUM_RESOURCE_ID = R.drawable.album_art;
-    public static final int ARTIST_RESOURCE_ID = R.drawable.artist_art;
+    public static final int ALBUM_RESOURCE_ID = R.drawable.img_album_art;
+    public static final int ARTIST_RESOURCE_ID = R.drawable.img_artist_art;
     private static final int DEFAULT_RESOURCE_ID = ALBUM_RESOURCE_ID;
     private static final String ALBUM_ART_URL = "content://media/external/audio/albumart/";
     private static final int RADIUS_DP = 4;
