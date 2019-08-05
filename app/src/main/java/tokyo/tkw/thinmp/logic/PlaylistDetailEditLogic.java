@@ -2,11 +2,13 @@ package tokyo.tkw.thinmp.logic;
 
 import android.content.Context;
 
+import com.annimon.stream.Optional;
+
 import tokyo.tkw.thinmp.dto.PlaylistDetailEditDto;
 import tokyo.tkw.thinmp.playlist.Playlist;
 
 public class PlaylistDetailEditLogic {
-    private Playlist playlist;
+    private Optional<Playlist> playlist;
 
     private PlaylistDetailEditLogic(Context context, String playlistId) {
         playlist = Playlist.createInstance(context, playlistId);
@@ -16,13 +18,15 @@ public class PlaylistDetailEditLogic {
         return new PlaylistDetailEditLogic(context, playlistId);
     }
 
-    public PlaylistDetailEditDto createDto() {
-        PlaylistDetailEditDto dto = new PlaylistDetailEditDto();
+    public Optional<PlaylistDetailEditDto> createDto() {
+        return playlist.map(playlist -> {
+            PlaylistDetailEditDto dto = new PlaylistDetailEditDto();
 
-        dto.playlistName = playlist.getName();
-        dto.trackList = playlist.getSortedTrackList();
-        dto.trackIdList = playlist.getTrackIdList();
+            dto.playlistName = playlist.getName();
+            dto.trackList = playlist.getSortedTrackList();
+            dto.trackIdList = playlist.getTrackIdList();
 
-        return dto;
+            return dto;
+        });
     }
 }

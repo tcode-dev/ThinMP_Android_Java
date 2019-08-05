@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,17 +45,19 @@ public class PlaylistDetailEditActivity extends BaseActivity {
         // playlistId
         playlistId = getIntent().getStringExtra(Playlist.PLAYLIST_ID);
 
+        // logic
+        PlaylistDetailEditLogic logic = PlaylistDetailEditLogic.createInstance(this, playlistId);
+
+        // dto
+        logic.createDto().ifPresentOrElse(this::showDetail, this::notFound);
+    }
+
+    private void showDetail(PlaylistDetailEditDto dto) {
         // view
         playlistNameView = findViewById(R.id.playlistName);
         RecyclerView listView = findViewById(R.id.list);
         Button applyView = findViewById(R.id.apply);
         Button cancelView = findViewById(R.id.cancel);
-
-        // logic
-        PlaylistDetailEditLogic logic = PlaylistDetailEditLogic.createInstance(this, playlistId);
-
-        // dto
-        PlaylistDetailEditDto dto = logic.createDto();
 
         // 曲一覧
         trackList = dto.trackList;
@@ -81,6 +84,13 @@ public class PlaylistDetailEditActivity extends BaseActivity {
         // event
         applyView.setOnClickListener(createApplyClickListener());
         cancelView.setOnClickListener(new CancelClickListener());
+    }
+
+    private void notFound() {
+        setContentView(R.layout.activity_not_found);
+
+        TextView textView = findViewById(R.id.text);
+        textView.setText(getString(R.string.playlist_not_found));
     }
 
     private View.OnClickListener createApplyClickListener() {

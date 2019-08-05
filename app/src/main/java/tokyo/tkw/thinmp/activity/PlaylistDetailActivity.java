@@ -2,7 +2,9 @@ package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,18 +36,20 @@ public class PlaylistDetailActivity extends BaseActivity implements ScreenUpdate
         // playlistId
         playlistId = getIntent().getStringExtra(PlaylistTrackRealm.PLAYLIST_ID);
 
+        // logic
+        PlaylistDetailLogic logic = PlaylistDetailLogic.createInstance(this, playlistId);
+
+        // dto
+        logic.createDto().ifPresentOrElse(this::showDetail, this::notFound);
+    }
+
+    private void showDetail(PlaylistDetailDto dto) {
         // view
         RecyclerView listView = findViewById(R.id.list);
         ImageView albumArtView = findViewById(R.id.albumArt);
         ResponsiveTextView titleView = findViewById(R.id.title);
         ResponsiveTextView subTitleView = findViewById(R.id.subTitle);
         ImageView menuView = findViewById(R.id.menu);
-
-        // logic
-        PlaylistDetailLogic logic = PlaylistDetailLogic.createInstance(this, playlistId);
-
-        // dto
-        PlaylistDetailDto dto = logic.createDto();
 
         // アルバムアート
         GlideUtil.bitmap(dto.albumArtId, albumArtView);
@@ -69,6 +73,16 @@ public class PlaylistDetailActivity extends BaseActivity implements ScreenUpdate
         menuView.setOnClickListener(new PlaylistMenuClickListener(playlistId));
     }
 
+    private void notFound() {
+        setContentView(R.layout.activity_not_found);
+
+        TextView textView = findViewById(R.id.text);
+        textView.setText(getString(R.string.playlist_not_found));
+
+        // 別アクティビティから戻ってきたときにfitsSystemWindowsを効かせる
+        ViewCompat.requestApplyInsets(findViewById(R.id.main));
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -86,15 +100,15 @@ public class PlaylistDetailActivity extends BaseActivity implements ScreenUpdate
         PlaylistDetailLogic logic = PlaylistDetailLogic.createInstance(this, playlistId);
 
         // dto
-        PlaylistDetailDto dto = logic.createDto();
+        logic.createDto().ifPresentOrElse(dto -> {
+            // アルバムアート
+            GlideUtil.bitmap(dto.albumArtId, albumArtView);
 
-        // アルバムアート
-        GlideUtil.bitmap(dto.albumArtId, albumArtView);
+            // プレイリスト名
+            titleView.setText(dto.playlistName);
 
-        // プレイリスト名
-        titleView.setText(dto.playlistName);
-
-        // controller
-        controller.setData(dto.trackList);
+            // controller
+            controller.setData(dto.trackList);
+        }, this::notFound);
     }
 }

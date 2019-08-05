@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.playlist;
 
 import android.content.Context;
 
+import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 
 import java.util.List;
@@ -56,6 +57,10 @@ public class Playlists {
     }
 
     public List<Playlist> getPlaylists() {
-        return Stream.of(playlistIds).map(playlistId -> Playlist.createInstance(context, playlistId)).toList();
+        return Stream.of(playlistIds)
+                .map(playlistId -> Playlist.createInstance(context, playlistId))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .toList();
     }
 }

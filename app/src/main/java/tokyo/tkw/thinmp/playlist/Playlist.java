@@ -2,9 +2,10 @@ package tokyo.tkw.thinmp.playlist;
 
 import android.content.Context;
 
+import com.annimon.stream.Optional;
+
 import java.util.List;
 
-import io.realm.Realm;
 import io.realm.RealmList;
 import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.PlaylistTrackRealm;
@@ -12,21 +13,18 @@ import tokyo.tkw.thinmp.track.Track;
 
 public class Playlist {
     public static final String PLAYLIST_ID = "playlistId";
-
-    private Realm realm;
     private PlaylistRealm playlistRealm;
-    private RealmList<PlaylistTrackRealm> trackRealmList;
     private PlaylistTrack playlistTrack;
 
-    private Playlist(Context context, String playlistId) {
-        this.realm = Realm.getDefaultInstance();
-        this.playlistRealm = findById(playlistId);
-        this.trackRealmList = playlistRealm.getTrackRealmList();
+    private Playlist(Context context, PlaylistRealm playlistRealm) {
+        this.playlistRealm = playlistRealm;
+        RealmList<PlaylistTrackRealm> trackRealmList = playlistRealm.getTrackRealmList();
         this.playlistTrack = PlaylistTrack.createInstance(context, trackRealmList);
     }
 
-    public static Playlist createInstance(Context context, String playlistId) {
-        return new Playlist(context, playlistId);
+    public static Optional<Playlist> createInstance(Context context, String playlistId) {
+        return Optional.ofNullable(PlaylistRealm.createInstance(playlistId))
+                .map(playlistRealm -> new Playlist(context, playlistRealm));
     }
 
     public String getId() {
@@ -47,9 +45,5 @@ public class Playlist {
 
     public List<Track> getSortedTrackList() {
         return playlistTrack.getSortedTrackList();
-    }
-
-    private PlaylistRealm findById(String playlistId) {
-        return realm.where(PlaylistRealm.class).equalTo(PlaylistRealm.ID, playlistId).findFirst();
     }
 }

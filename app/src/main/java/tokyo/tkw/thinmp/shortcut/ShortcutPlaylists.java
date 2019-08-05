@@ -3,6 +3,7 @@ package tokyo.tkw.thinmp.shortcut;
 import android.content.Context;
 
 import com.annimon.stream.Collectors;
+import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 
 import java.util.List;
@@ -60,20 +61,21 @@ class ShortcutPlaylists {
     }
 
     private Map<String, Shortcut> toPlaylistShortcutMap(List<ShortcutRealm> shortcutRealmList,
-                                                         Map<String, PlaylistRealm> playlistMap) {
+                                                        Map<String, PlaylistRealm> playlistMap) {
         return Stream.of(shortcutRealmList)
                 .collect(Collectors.toMap(
                         ShortcutRealm::getId,
                         shortcutRealm -> {
                             PlaylistRealm playlistRealm =
                                     playlistMap.get(shortcutRealm.getItemId());
-                            Playlist playlist = Playlist.createInstance(context,
+                            Optional<Playlist> playlistOptional = Playlist.createInstance(context,
                                     playlistRealm.getId());
+                            if (playlistOptional.isEmpty()) return null;
                             return new Shortcut(
                                     shortcutRealm.getItemId(),
                                     playlistRealm.getName(),
                                     ShortcutRealm.PLAYLIST,
-                                    playlist.getAlbumArtId()
+                                    playlistOptional.get().getAlbumArtId()
                             );
                         }));
     }

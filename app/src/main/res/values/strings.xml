@@ -27,4 +27,5 @@
 
     <string name="album_not_found">アルバムが見つかりませんでした</string>
     <string name="artist_not_found">アーティストが見つかりませんでした</string>
+    <string name="playlist_not_found">プレイリストが見つかりませんでした</string>
 </resources>
