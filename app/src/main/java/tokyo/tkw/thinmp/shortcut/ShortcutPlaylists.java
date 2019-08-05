@@ -3,7 +3,6 @@ package tokyo.tkw.thinmp.shortcut;
 import android.content.Context;
 
 import com.annimon.stream.Collectors;
-import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 
 import java.util.List;
@@ -13,11 +12,14 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.Playlists;
-import tokyo.tkw.thinmp.realm.PlaylistRealm;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
+import tokyo.tkw.thinmp.register.delete.PlaylistTrackDeleter;
+import tokyo.tkw.thinmp.register.delete.ShortcutDeleter;
 
 class ShortcutPlaylists {
     private Context context;
+    private List<String> playlistIdList;
+    private List<Playlist> playLists;
 
     private ShortcutPlaylists(Context context) {
         this.context = context;
@@ -30,11 +32,14 @@ class ShortcutPlaylists {
     Map<String, Shortcut> getPlaylistShortcutMap() {
         RealmResults<ShortcutRealm> realmResults = findAll();
         List<ShortcutRealm> shortcutRealmList = Stream.of(realmResults).toList();
-        List<String> playlistIdList = getItemIdList(shortcutRealmList);
-        List<PlaylistRealm> playLists = getPlayList(playlistIdList);
-        Map<String, PlaylistRealm> playlistMap = getPlaylistMap(playLists);
+        playlistIdList = getItemIdList(shortcutRealmList);
+        playLists = getPlayList(playlistIdList);
+        Map<String, Playlist> playlistMap = getPlaylistMap(playLists);
+        Map<String, Shortcut> shortcutMap = toPlaylistShortcutMap(shortcutRealmList, playlistMap);
 
-        return toPlaylistShortcutMap(shortcutRealmList, playlistMap);
+        validation();
+
+        return shortcutMap;
     }
 
     private RealmResults<ShortcutRealm> findAll() {
@@ -47,36 +52,53 @@ class ShortcutPlaylists {
         return Stream.of(shortcutRealmList).map(ShortcutRealm::getItemId).toList();
     }
 
-    private List<PlaylistRealm> getPlayList(List<String> playlistIdList) {
+    private List<Playlist> getPlayList(List<String> playlistIdList) {
         Playlists playlists = Playlists.createInstance(context, playlistIdList);
 
-        return playlists.getPlaylistRealmList();
+        return playlists.getPlaylists();
     }
 
-    private Map<String, PlaylistRealm> getPlaylistMap(List<PlaylistRealm> playlists) {
-        return Stream.of(playlists)
-                .collect(Collectors.toMap(
-                        playlistRealm -> playlistRealm.getId(),
-                        playlistRealm -> playlistRealm));
+    private Map<String, Playlist> getPlaylistMap(List<Playlist> playlists) {
+        return Stream.of(playlists).collect(Collectors.toMap(Playlist::getId, playlist -> playlist));
     }
 
     private Map<String, Shortcut> toPlaylistShortcutMap(List<ShortcutRealm> shortcutRealmList,
-                                                        Map<String, PlaylistRealm> playlistMap) {
+                                                        Map<String, Playlist> playlistMap) {
         return Stream.of(shortcutRealmList)
+                .filter(shortcutRealm -> playlistMap.containsKey(shortcutRealm.getItemId()))
                 .collect(Collectors.toMap(
                         ShortcutRealm::getId,
                         shortcutRealm -> {
-                            PlaylistRealm playlistRealm =
-                                    playlistMap.get(shortcutRealm.getItemId());
-                            Optional<Playlist> playlistOptional = Playlist.createInstance(context,
-                                    playlistRealm.getId());
-                            if (playlistOptional.isEmpty()) return null;
+                            Playlist playlist = playlistMap.get(shortcutRealm.getItemId());
                             return new Shortcut(
                                     shortcutRealm.getItemId(),
-                                    playlistRealm.getName(),
+                                    playlist.getName(),
                                     ShortcutRealm.PLAYLIST,
-                                    playlistOptional.get().getAlbumArtId()
+                                    playlist.getAlbumArtId()
                             );
                         }));
+    }
+
+    private void validation() {
+        if (isDeleted()) {
+            delete();
+        }
+    }
+
+    private boolean isDeleted() {
+        return playlistIdList.size() != playLists.size();
+    }
+
+    private void delete() {
+        List<String> actualList = Stream.of(playLists).map(Playlist::getId).toList();
+        List<String> removeList = Stream.of(playlistIdList)
+                .filter(id -> !actualList.contains(id))
+                .collect(Collectors.toList());
+
+        ShortcutDeleter shortcutDeleter = ShortcutDeleter.createInstance();
+        shortcutDeleter.delete(removeList, ShortcutRealm.TYPE_PLAYLIST);
+
+        PlaylistTrackDeleter playlistTrackDeleter = PlaylistTrackDeleter.createInstance();
+        playlistTrackDeleter.deleteByPlaylistId(removeList);
     }
 }

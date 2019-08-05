@@ -55,7 +55,10 @@ public class Shortcuts {
 
     private List<Shortcut> toShortcutList(RealmResults<ShortcutRealm> realmResults,
                                           Map<String, Shortcut> shortcutMap) {
-        return Stream.of(realmResults).map(shortcutRealm -> shortcutMap.get(shortcutRealm.getId())).toList();
+        return Stream.of(realmResults)
+                .filter(shortcutRealm -> shortcutMap.containsKey(shortcutRealm.getId()))
+                .map(shortcutRealm -> shortcutMap.get(shortcutRealm.getId()))
+                .toList();
     }
 
     private RealmResults<ShortcutRealm> findAll() {
