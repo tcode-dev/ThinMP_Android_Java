@@ -13,14 +13,6 @@ public class PlaylistTrackDeleter extends RealmRegister {
         return new PlaylistTrackDeleter();
     }
 
-    public void deleteByPlaylistId(List<String> playlistIdList) {
-        beginTransaction();
-
-        temporaryDeleteByPlaylistId(playlistIdList);
-
-        commitTransaction();
-    }
-
     public void delete(List<String> trackIdList) {
         beginTransaction();
 
@@ -29,22 +21,10 @@ public class PlaylistTrackDeleter extends RealmRegister {
         commitTransaction();
     }
 
-    private void temporaryDeleteByPlaylistId(List<String> playlistIdList) {
-        Optional.ofNullable(findByPlaylistId(playlistIdList)).ifPresent(realmResults -> {
-            realmResults.deleteAllFromRealm();
-        });
-    }
-
     private void temporaryDelete(List<String> trackIdList) {
         Optional.ofNullable(findByTrackId(trackIdList)).ifPresent(realmResults -> {
             realmResults.deleteAllFromRealm();
         });
-    }
-
-    private RealmResults findByPlaylistId(List<String> playlistIdList) {
-        return realm.where(PlaylistTrackRealm.class)
-                .in(PlaylistTrackRealm.PLAYLIST_ID, playlistIdList.toArray(new String[0]))
-                .findAll();
     }
 
     private RealmResults findByTrackId(List<String> trackIdList) {

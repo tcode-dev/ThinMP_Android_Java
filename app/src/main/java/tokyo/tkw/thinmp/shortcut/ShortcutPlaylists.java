@@ -13,13 +13,9 @@ import io.realm.RealmResults;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.playlist.Playlists;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
-import tokyo.tkw.thinmp.register.delete.PlaylistTrackDeleter;
-import tokyo.tkw.thinmp.register.delete.ShortcutDeleter;
 
 class ShortcutPlaylists {
     private Context context;
-    private List<String> playlistIdList;
-    private List<Playlist> playLists;
 
     private ShortcutPlaylists(Context context) {
         this.context = context;
@@ -32,14 +28,11 @@ class ShortcutPlaylists {
     Map<String, Shortcut> getPlaylistShortcutMap() {
         RealmResults<ShortcutRealm> realmResults = findAll();
         List<ShortcutRealm> shortcutRealmList = Stream.of(realmResults).toList();
-        playlistIdList = getItemIdList(shortcutRealmList);
-        playLists = getPlayList(playlistIdList);
+        List<String> playlistIdList = getItemIdList(shortcutRealmList);
+        List<Playlist> playLists = getPlayList(playlistIdList);
         Map<String, Playlist> playlistMap = getPlaylistMap(playLists);
-        Map<String, Shortcut> shortcutMap = toPlaylistShortcutMap(shortcutRealmList, playlistMap);
 
-        validation();
-
-        return shortcutMap;
+        return toPlaylistShortcutMap(shortcutRealmList, playlistMap);
     }
 
     private RealmResults<ShortcutRealm> findAll() {
@@ -77,28 +70,5 @@ class ShortcutPlaylists {
                                     playlist.getAlbumArtId()
                             );
                         }));
-    }
-
-    private void validation() {
-        if (isDeleted()) {
-            delete();
-        }
-    }
-
-    private boolean isDeleted() {
-        return playlistIdList.size() != playLists.size();
-    }
-
-    private void delete() {
-        List<String> actualList = Stream.of(playLists).map(Playlist::getId).toList();
-        List<String> removeList = Stream.of(playlistIdList)
-                .filter(id -> !actualList.contains(id))
-                .collect(Collectors.toList());
-
-        ShortcutDeleter shortcutDeleter = ShortcutDeleter.createInstance();
-        shortcutDeleter.delete(removeList, ShortcutRealm.TYPE_PLAYLIST);
-
-        PlaylistTrackDeleter playlistTrackDeleter = PlaylistTrackDeleter.createInstance();
-        playlistTrackDeleter.deleteByPlaylistId(removeList);
     }
 }
