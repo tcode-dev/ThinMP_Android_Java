@@ -10,13 +10,14 @@ import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainDto;
 import tokyo.tkw.thinmp.epoxy.model.AlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuModel_;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
+import tokyo.tkw.thinmp.epoxy.model.PageHeaderWithButtonModel_;
 import tokyo.tkw.thinmp.epoxy.model.SectionHeaderForGridModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutPlaylistModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
+import tokyo.tkw.thinmp.listener.MainEditClickListener;
 import tokyo.tkw.thinmp.listener.MainMenuClickListener;
 import tokyo.tkw.thinmp.listener.PlaylistClickListener;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
@@ -41,9 +42,10 @@ public class MainController extends TypedEpoxyController<MainDto> {
     }
 
     private void buildPageHeader(String title, int spanSize) {
-        new PageHeaderModel_()
+        new PageHeaderWithButtonModel_()
                 .id("page header")
                 .title(title)
+                .clickListener(new MainEditClickListener())
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                 .addTo(this);
     }

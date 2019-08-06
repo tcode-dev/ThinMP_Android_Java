@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".activity.MainEditActivity"></activity>
         <activity
             android:name=".activity.MainActivity"
             android:label="ThinMP"
@@ -74,7 +74,6 @@
             android:name=".player.MusicService"
             android:enabled="true"
             android:exported="false" />
-
     </application>
 
 </manifest>
