@@ -94,8 +94,9 @@ class ShortcutAlbums {
     }
 
     private void delete() {
+        List<String> actualList = Stream.of(albumList).map(Album::getId).toList();
         List<String> removeList = Stream.of(albumIdList)
-                .filter(id -> !albumList.contains(id))
+                .filter(id -> !actualList.contains(id))
                 .collect(Collectors.toList());
 
         ShortcutDeleter shortcutDeleter = ShortcutDeleter.createInstance();
