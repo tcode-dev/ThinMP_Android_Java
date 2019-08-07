@@ -23,8 +23,9 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
         buildPageHeader(dto.pageTitle);
         buildMenu(dto.menuList);
 
+        buildShortcutHeader(dto.shortcutTitle);
+
         if (!dto.shortcutList.isEmpty()) {
-            buildShortcutHeader(dto.shortcutTitle);
             buildShortcut(dto.shortcutList);
         }
 

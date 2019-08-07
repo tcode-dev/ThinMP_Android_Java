@@ -11,4 +11,5 @@ public class MainEditDto {
     public String recentlyAddedTitle;
     public MainMenuEnum[] menuList;
     public List<Shortcut> shortcutList;
+    public int shortcutStartIndex;
 }
