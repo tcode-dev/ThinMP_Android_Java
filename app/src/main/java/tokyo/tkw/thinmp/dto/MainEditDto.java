@@ -11,6 +11,6 @@ public class MainEditDto {
     public String recentlyAddedTitle;
     public List<MainMenuEnum> menuList;
     public List<Shortcut> shortcutList;
-    public int menuStartIndex;
-    public int shortcutStartIndex;
+    public int menuStartPosition;
+    public int shortcutStartPosition;
 }

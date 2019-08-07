@@ -57,8 +57,8 @@ public class MainEditActivity extends BaseActivity {
                     public void onModelMoved(int fromPosition, int toPosition, MainMenuModel modelBeingMoved,
                                              View itemView) {
 
-                        int actualFromPosition = fromPosition - dto.menuStartIndex;
-                        int actualToPosition = toPosition - dto.menuStartIndex;
+                        int actualFromPosition = fromPosition - dto.menuStartPosition;
+                        int actualToPosition = toPosition - dto.menuStartPosition;
 
                         dto.menuList.add(actualToPosition, dto.menuList.remove(actualFromPosition));
                     }
@@ -73,8 +73,8 @@ public class MainEditActivity extends BaseActivity {
                     @Override
                     public void onModelMoved(int fromPosition, int toPosition, ShortcutModel modelBeingMoved,
                                              View itemView) {
-                        int actualFromPosition = fromPosition - dto.shortcutStartIndex;
-                        int actualToPosition = toPosition - dto.shortcutStartIndex;
+                        int actualFromPosition = fromPosition - dto.shortcutStartPosition;
+                        int actualToPosition = toPosition - dto.shortcutStartPosition;
 
                         dto.shortcutList.add(actualToPosition, dto.shortcutList.remove(actualFromPosition));
                     }
