@@ -11,7 +11,7 @@ import com.airbnb.epoxy.EpoxyTouchHelper;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.MainEditDto;
 import tokyo.tkw.thinmp.epoxy.controller.MainEditController;
-import tokyo.tkw.thinmp.epoxy.model.MainMenuModel;
+import tokyo.tkw.thinmp.epoxy.model.MainMenuEditModel;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutModel;
 import tokyo.tkw.thinmp.logic.MainEditLogic;
 
@@ -50,11 +50,11 @@ public class MainEditActivity extends BaseActivity {
         EpoxyTouchHelper.initDragging(controller)
                 .withRecyclerView(listView)
                 .forVerticalList()
-                .withTarget(MainMenuModel.class)
-                .andCallbacks(new EpoxyTouchHelper.DragCallbacks<MainMenuModel>() {
+                .withTarget(MainMenuEditModel.class)
+                .andCallbacks(new EpoxyTouchHelper.DragCallbacks<MainMenuEditModel>() {
 
                     @Override
-                    public void onModelMoved(int fromPosition, int toPosition, MainMenuModel modelBeingMoved,
+                    public void onModelMoved(int fromPosition, int toPosition, MainMenuEditModel modelBeingMoved,
                                              View itemView) {
 
                         int actualFromPosition = fromPosition - dto.menuStartPosition;

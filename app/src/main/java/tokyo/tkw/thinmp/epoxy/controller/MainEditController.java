@@ -7,9 +7,9 @@ import java.util.List;
 
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainEditDto;
-import tokyo.tkw.thinmp.epoxy.model.MainMenuModel_;
+import tokyo.tkw.thinmp.epoxy.model.MainMenuEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
-import tokyo.tkw.thinmp.epoxy.model.SectionHeaderForGridModel_;
+import tokyo.tkw.thinmp.epoxy.model.SectionHeaderEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearPlaylistModel_;
@@ -41,7 +41,7 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
 
     private void buildMenu(List<MainMenuEnum> menuList) {
         Stream.of(menuList).forEachIndexed((i, menu) -> {
-            new MainMenuModel_()
+            new MainMenuEditModel_()
                     .id("menu", menu.label())
                     .primaryText(menu.label())
                     .addTo(this);
@@ -49,7 +49,7 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
     }
 
     private void buildShortcutHeader(String title) {
-        new SectionHeaderForGridModel_()
+        new SectionHeaderEditModel_()
                 .id("shortcut header")
                 .title(title)
                 .addTo(this);
@@ -88,7 +88,7 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
     }
 
     private void buildRecentlyAddedHeader(String title) {
-        new SectionHeaderForGridModel_()
+        new SectionHeaderEditModel_()
                 .id("recently added header")
                 .title(title)
                 .addTo(this);
