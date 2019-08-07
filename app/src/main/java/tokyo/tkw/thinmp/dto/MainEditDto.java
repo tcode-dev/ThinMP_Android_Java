@@ -9,7 +9,8 @@ public class MainEditDto {
     public String pageTitle;
     public String shortcutTitle;
     public String recentlyAddedTitle;
-    public MainMenuEnum[] menuList;
+    public List<MainMenuEnum> menuList;
     public List<Shortcut> shortcutList;
+    public int menuStartIndex;
     public int shortcutStartIndex;
 }

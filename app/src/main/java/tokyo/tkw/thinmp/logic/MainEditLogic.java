@@ -2,6 +2,8 @@ package tokyo.tkw.thinmp.logic;
 
 import android.content.Context;
 
+import com.annimon.stream.Stream;
+
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainEditDto;
@@ -26,9 +28,10 @@ public class MainEditLogic {
         dto.pageTitle = context.getString(R.string.library);
         dto.shortcutTitle = context.getString(R.string.shortcut);
         dto.recentlyAddedTitle = context.getString(R.string.recently_added);
-        dto.menuList = MainMenuEnum.values();
+        dto.menuList = Stream.of(MainMenuEnum.values()).toList();
         dto.shortcutList = shortcuts.getList();
-        dto.shortcutStartIndex = dto.menuList.length + 2;
+        dto.menuStartIndex = 1;
+        dto.shortcutStartIndex = dto.menuList.size() + 2;
 
         return dto;
     }

@@ -39,10 +39,10 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
                 .addTo(this);
     }
 
-    private void buildMenu(MainMenuEnum[] menuList) {
+    private void buildMenu(List<MainMenuEnum> menuList) {
         Stream.of(menuList).forEachIndexed((i, menu) -> {
             new MainMenuModel_()
-                    .id("menu", i)
+                    .id("menu", menu.label())
                     .primaryText(menu.label())
                     .addTo(this);
         });

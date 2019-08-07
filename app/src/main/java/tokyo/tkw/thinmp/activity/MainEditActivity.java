@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.epoxy.EpoxyTouchHelper;
 
-import java.util.List;
-
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.MainEditDto;
 import tokyo.tkw.thinmp.epoxy.controller.MainEditController;
+import tokyo.tkw.thinmp.epoxy.model.MainMenuModel;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutModel;
 import tokyo.tkw.thinmp.logic.MainEditLogic;
-import tokyo.tkw.thinmp.shortcut.Shortcut;
 
 public class MainEditActivity extends BaseActivity {
 
@@ -52,16 +50,33 @@ public class MainEditActivity extends BaseActivity {
         EpoxyTouchHelper.initDragging(controller)
                 .withRecyclerView(listView)
                 .forVerticalList()
+                .withTarget(MainMenuModel.class)
+                .andCallbacks(new EpoxyTouchHelper.DragCallbacks<MainMenuModel>() {
+
+                    @Override
+                    public void onModelMoved(int fromPosition, int toPosition, MainMenuModel modelBeingMoved,
+                                             View itemView) {
+
+                        int actualFromPosition = fromPosition - dto.menuStartIndex;
+                        int actualToPosition = toPosition - dto.menuStartIndex;
+
+                        dto.menuList.add(actualToPosition, dto.menuList.remove(actualFromPosition));
+                    }
+                });
+
+        EpoxyTouchHelper.initDragging(controller)
+                .withRecyclerView(listView)
+                .forVerticalList()
                 .withTarget(ShortcutModel.class)
                 .andCallbacks(new EpoxyTouchHelper.DragCallbacks<ShortcutModel>() {
 
                     @Override
                     public void onModelMoved(int fromPosition, int toPosition, ShortcutModel modelBeingMoved,
                                              View itemView) {
-                        int shortcutFromPosition = fromPosition - dto.shortcutStartIndex;
-                        int shortcutToPosition = toPosition - dto.shortcutStartIndex;
+                        int actualFromPosition = fromPosition - dto.shortcutStartIndex;
+                        int actualToPosition = toPosition - dto.shortcutStartIndex;
 
-                        dto.shortcutList.add(shortcutToPosition, dto.shortcutList.remove(shortcutFromPosition));
+                        dto.shortcutList.add(actualToPosition, dto.shortcutList.remove(actualFromPosition));
                     }
                 });
     }
