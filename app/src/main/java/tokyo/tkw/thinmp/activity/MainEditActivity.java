@@ -16,6 +16,9 @@ import tokyo.tkw.thinmp.epoxy.model.ShortcutModel;
 import tokyo.tkw.thinmp.logic.MainEditLogic;
 
 public class MainEditActivity extends BaseActivity {
+    private RecyclerView listView;
+    private MainEditController controller;
+    private MainEditDto dto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +33,16 @@ public class MainEditActivity extends BaseActivity {
     @Override
     protected void init() {
         // view
-        RecyclerView listView = findViewById(R.id.list);
+        listView = findViewById(R.id.list);
 
         // logic
         MainEditLogic logic = MainEditLogic.createInstance(this);
 
         // dto
-        MainEditDto dto = logic.createDto();
+        dto = logic.createDto();
 
         // controller
-        MainEditController controller = new MainEditController();
+        controller = new MainEditController();
         controller.setData(dto);
         listView.setAdapter(controller.getAdapter());
 
@@ -47,6 +50,16 @@ public class MainEditActivity extends BaseActivity {
         LinearLayoutManager layout = new LinearLayoutManager(this);
         listView.setLayoutManager(layout);
 
+        // event
+        setEvent();
+    }
+
+    private void setEvent() {
+        setMenuEvent();
+        setShortcutList();
+    }
+
+    private void setMenuEvent() {
         EpoxyTouchHelper.initDragging(controller)
                 .withRecyclerView(listView)
                 .forVerticalList()
@@ -63,7 +76,9 @@ public class MainEditActivity extends BaseActivity {
                         dto.menuList.add(actualToPosition, dto.menuList.remove(actualFromPosition));
                     }
                 });
+    }
 
+    private void setShortcutList() {
         EpoxyTouchHelper.initDragging(controller)
                 .withRecyclerView(listView)
                 .forVerticalList()
@@ -77,6 +92,20 @@ public class MainEditActivity extends BaseActivity {
                         int actualToPosition = toPosition - dto.shortcutStartPosition;
 
                         dto.shortcutList.add(actualToPosition, dto.shortcutList.remove(actualFromPosition));
+                    }
+                });
+
+        EpoxyTouchHelper.initSwiping(listView)
+                .leftAndRight()
+                .withTarget(ShortcutModel.class)
+                .andCallbacks(new EpoxyTouchHelper.SwipeCallbacks<ShortcutModel>() {
+
+                    @Override
+                    public void onSwipeCompleted(ShortcutModel model, View itemView, int position,
+                                                 int direction) {
+                        int actualPosition = position - dto.shortcutStartPosition;
+                        dto.shortcutList.remove(actualPosition);
+                        controller.setData(dto);
                     }
                 });
     }
