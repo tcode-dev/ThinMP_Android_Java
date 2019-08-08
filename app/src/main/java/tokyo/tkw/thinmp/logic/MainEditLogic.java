@@ -25,7 +25,7 @@ public class MainEditLogic {
     public MainEditDto createDto() {
         MainEditDto dto = new MainEditDto();
 
-        dto.pageTitle = context.getString(R.string.library);
+        dto.pageTitle = context.getString(R.string.edit);
         dto.shortcutTitle = context.getString(R.string.shortcut);
         dto.recentlyAddedTitle = context.getString(R.string.recently_added);
         dto.menuList = Stream.of(MainMenuEnum.values()).toList();

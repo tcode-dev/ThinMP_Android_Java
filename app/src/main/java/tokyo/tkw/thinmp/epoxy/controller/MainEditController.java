@@ -8,11 +8,13 @@ import java.util.List;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainEditDto;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuEditModel_;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
+import tokyo.tkw.thinmp.epoxy.model.PageHeaderEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.SectionHeaderEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearPlaylistModel_;
+import tokyo.tkw.thinmp.listener.ApplyClickListener;
+import tokyo.tkw.thinmp.listener.CancelClickListener;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.Shortcut;
 
@@ -20,7 +22,7 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
 
     @Override
     protected void buildModels(MainEditDto dto) {
-        buildPageHeader(dto.pageTitle);
+        buildPageHeader(dto.pageTitle, dto.shortcutList);
         buildMenu(dto.menuList);
 
         buildShortcutHeader(dto.shortcutTitle);
@@ -32,10 +34,12 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
         buildRecentlyAddedHeader(dto.recentlyAddedTitle);
     }
 
-    private void buildPageHeader(String title) {
-        new PageHeaderModel_()
+    private void buildPageHeader(String title, List<Shortcut> shortcutList) {
+        new PageHeaderEditModel_()
                 .id("page header")
                 .title(title)
+                .applyClickListener(new ApplyClickListener(shortcutList))
+                .cancelClickListener(new CancelClickListener())
                 .addTo(this);
     }
 
