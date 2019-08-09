@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingStart="20dp">
 
     <CheckBox
         android:id="@+id/primaryText"
