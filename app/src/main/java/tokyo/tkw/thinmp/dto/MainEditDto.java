@@ -10,6 +10,7 @@ public class MainEditDto {
     public String shortcutTitle;
     public String recentlyAddedTitle;
     public List<MainMenuEnum> menuList;
+    public List<Shortcut> fromShortcutList;
     public List<Shortcut> shortcutList;
     public int menuStartPosition;
     public int shortcutStartPosition;

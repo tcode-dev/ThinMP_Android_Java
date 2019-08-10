@@ -42,6 +42,10 @@ public class ShortcutRealm extends RealmObject {
         return type;
     }
 
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
     public static ShortcutRealm createInstance(String itemId, int type) {
         Realm realm = Realm.getDefaultInstance();
 

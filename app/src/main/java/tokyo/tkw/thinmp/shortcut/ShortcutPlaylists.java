@@ -64,6 +64,7 @@ class ShortcutPlaylists {
                         shortcutRealm -> {
                             Playlist playlist = playlistMap.get(shortcutRealm.getItemId());
                             return new Shortcut(
+                                    shortcutRealm.getId(),
                                     shortcutRealm.getItemId(),
                                     playlist.getName(),
                                     ShortcutRealm.PLAYLIST,

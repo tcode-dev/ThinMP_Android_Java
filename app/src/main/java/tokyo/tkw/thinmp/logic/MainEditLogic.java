@@ -29,6 +29,7 @@ public class MainEditLogic {
         dto.shortcutTitle = context.getString(R.string.shortcut);
         dto.recentlyAddedTitle = context.getString(R.string.recently_added);
         dto.menuList = Stream.of(MainMenuEnum.values()).toList();
+        dto.fromShortcutList = shortcuts.getList();
         dto.shortcutList = shortcuts.getList();
         dto.menuStartPosition = 1;
         dto.shortcutStartPosition = dto.menuList.size() + 2;

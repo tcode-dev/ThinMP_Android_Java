@@ -31,7 +31,7 @@ public class ShortcutDeleter extends RealmRegister {
         commitTransaction();
     }
 
-    void temporaryDelete(String itemId, int type) {
+    public void temporaryDelete(String itemId, int type) {
         ShortcutRealm shortcutRealm = findFirst(itemId, type);
         shortcutRealm.deleteFromRealm();
     }

@@ -80,6 +80,7 @@ class ShortcutArtists {
                         shortcutRealm -> {
                             Artist artist = artistMap.get(shortcutRealm.getItemId());
                             return new Shortcut(
+                                    shortcutRealm.getId(),
                                     shortcutRealm.getItemId(),
                                     artist.getName(),
                                     ShortcutRealm.ARTIST,

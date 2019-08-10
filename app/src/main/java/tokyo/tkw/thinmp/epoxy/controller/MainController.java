@@ -78,7 +78,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
                             .albumArtId(shortcut.getAlbumArtId())
                             .primaryText(shortcut.getName())
                             .secondaryText(shortcut.getType())
-                            .clickListener(new ArtistClickListener(shortcut.getId()))
+                            .clickListener(new ArtistClickListener(shortcut.getItemId()))
                             .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                             .addTo(this);
                     break;
@@ -88,7 +88,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
                             .albumArtId(shortcut.getAlbumArtId())
                             .primaryText(shortcut.getName())
                             .secondaryText(shortcut.getType())
-                            .clickListener(new AlbumClickListener(shortcut.getId()))
+                            .clickListener(new AlbumClickListener(shortcut.getItemId()))
                             .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                             .addTo(this);
                     break;
@@ -98,7 +98,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
                             .albumArtId(shortcut.getAlbumArtId())
                             .primaryText(shortcut.getName())
                             .secondaryText(shortcut.getType())
-                            .clickListener(new PlaylistClickListener(shortcut.getId()))
+                            .clickListener(new PlaylistClickListener(shortcut.getItemId()))
                             .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                             .addTo(this);
                     break;

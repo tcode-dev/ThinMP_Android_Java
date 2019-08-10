@@ -75,6 +75,7 @@ class ShortcutAlbums {
                         shortcutRealm -> {
                             Album album = albumMap.get(shortcutRealm.getItemId());
                             return new Shortcut(
+                                    shortcutRealm.getId(),
                                     shortcutRealm.getItemId(),
                                     album.getName(),
                                     ShortcutRealm.ALBUM,
