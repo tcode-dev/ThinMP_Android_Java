@@ -5,4 +5,6 @@
     <color name="colorAccent">#be88ef</color>
     <color name="colorIconMain">#be88ef</color>
     <color name="colorIconSub">#333333</color>
+    <color name="colorPrimaryText">#000000</color>
+    <color name="colorSecondaryText">#7c7c7c</color>
 </resources>

@@ -123,7 +123,7 @@
                     style="@style/MenuImageButtonTheme"
                     android:layout_gravity="end"
                     android:layout_marginTop="6dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="12dp"
                     app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>

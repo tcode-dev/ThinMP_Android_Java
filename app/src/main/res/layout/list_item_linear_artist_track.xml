@@ -1,30 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/LinearTheme"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    style="@style/LinearTheme">
 
     <ImageView
         android:id="@+id/albumArt"
-        android:layout_width="54dp"
-        android:layout_height="54dp" />
+        style="@style/LinearSquareImageTheme" />
 
-    <TextView
-        android:id="@+id/primaryText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textSize="16sp" />
+    <LinearLayout style="@style/LinearTextContainerTheme">
+
+        <TextView
+            android:id="@+id/primaryText"
+            style="@style/LinearPrimaryTextTheme" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/menu"
-        style="@style/MenuImageButtonTheme"
-        android:layout_marginEnd="4dp" />
+        style="@style/MenuImageButtonTheme" />
 
 </LinearLayout>
