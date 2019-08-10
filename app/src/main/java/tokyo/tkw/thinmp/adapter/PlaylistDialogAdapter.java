@@ -27,7 +27,7 @@ public class PlaylistDialogAdapter extends RecyclerView.Adapter<PlaylistViewHold
     @NonNull
     @Override
     public PlaylistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_playlist, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_edit_playlist, parent, false);
 
         return new PlaylistViewHolder(view);
     }

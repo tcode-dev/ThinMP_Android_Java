@@ -24,7 +24,8 @@ public class FavoriteSongsEditAdapter extends RecyclerView.Adapter<TrackViewHold
     @NonNull
     @Override
     public TrackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_track, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_linear_edit_track, parent,
+                false);
 
         return new TrackViewHolder(view);
     }

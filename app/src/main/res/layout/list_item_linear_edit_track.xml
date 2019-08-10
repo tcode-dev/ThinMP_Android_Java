@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LinearFillTheme">
+
+    <ImageView
+        android:id="@+id/albumArt"
+        style="@style/LinearSquareImageTheme" />
+
+    <LinearLayout style="@style/LinearTextForEditContainerTheme">
+
+        <TextView
+            android:id="@+id/primaryText"
+            style="@style/LinearPrimaryTextTheme" />
+
+        <TextView
+            android:id="@+id/secondaryText"
+            style="@style/LinearSecondaryTextTheme" />
+
+    </LinearLayout>
+
+</LinearLayout>

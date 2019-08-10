@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LinearFillTheme">
+
+    <tokyo.tkw.thinmp.view.CircleImageView
+        android:id="@+id/albumArt"
+        style="@style/LinearCircleImageTheme" />
+
+    <LinearLayout style="@style/LinearTextContainerTheme">
+
+        <TextView
+            android:id="@+id/primaryText"
+            style="@style/LinearPrimaryTextTheme" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -4,6 +4,6 @@ import com.airbnb.epoxy.EpoxyModelClass;
 
 import tokyo.tkw.thinmp.R;
 
-@EpoxyModelClass(layout = R.layout.list_item_linear_shortcut_artist)
+@EpoxyModelClass(layout = R.layout.list_item_linear_edit_shortcut_artist)
 public abstract class ShortcutLinearArtistModel extends ShortcutModel {
 }

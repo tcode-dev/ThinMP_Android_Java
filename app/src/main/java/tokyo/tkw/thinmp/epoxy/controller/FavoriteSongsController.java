@@ -8,8 +8,8 @@ import java.util.List;
 import tokyo.tkw.thinmp.dto.FavoriteSongsDto;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderWithButtonModel_;
 import tokyo.tkw.thinmp.epoxy.model.TrackModel_;
-import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.listener.FavoriteSongsEditClickListener;
+import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
 import tokyo.tkw.thinmp.track.Track;
 

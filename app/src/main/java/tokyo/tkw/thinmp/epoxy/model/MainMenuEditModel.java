@@ -2,7 +2,6 @@ package tokyo.tkw.thinmp.epoxy.model;
 
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -15,7 +14,7 @@ import tokyo.tkw.thinmp.R;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
-@EpoxyModelClass(layout = R.layout.list_item_linear_main_menu_edit)
+@EpoxyModelClass(layout = R.layout.list_item_linear_edit_main_menu)
 public abstract class MainMenuEditModel extends EpoxyModelWithHolder<MainMenuEditModel.Holder> {
     @EpoxyAttribute
     String primaryText;
