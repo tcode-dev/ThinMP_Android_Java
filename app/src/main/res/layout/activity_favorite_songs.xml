@@ -6,7 +6,7 @@
     android:background="#ffffff"
     tools:context=".activity.FavoriteSongsActivity">
 
-    <include layout="@layout/include_page_edit" />
+    <include layout="@layout/include_page_menu" />
 
     <include layout="@layout/include_mini_player" />
 
