@@ -2,7 +2,7 @@ package tokyo.tkw.thinmp.logic;
 
 import android.content.Context;
 
-import com.annimon.stream.Stream;
+import java.util.HashMap;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
@@ -28,11 +28,12 @@ public class MainEditLogic {
         dto.pageTitle = context.getString(R.string.edit);
         dto.shortcutTitle = context.getString(R.string.shortcut);
         dto.recentlyAddedTitle = context.getString(R.string.recently_added);
-        dto.menuList = Stream.of(MainMenuEnum.values()).toList();
+        dto.menuList = MainMenuEnum.getValues(context);
         dto.fromShortcutList = shortcuts.getList();
         dto.shortcutList = shortcuts.getList();
         dto.menuStartPosition = 1;
         dto.shortcutStartPosition = dto.menuList.size() + 2;
+        dto.stateMap = new HashMap<>();
 
         return dto;
     }

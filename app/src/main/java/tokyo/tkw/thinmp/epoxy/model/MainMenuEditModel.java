@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.epoxy.model;
 
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 
@@ -18,23 +19,24 @@ import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 public abstract class MainMenuEditModel extends EpoxyModelWithHolder<MainMenuEditModel.Holder> {
     @EpoxyAttribute
     String primaryText;
+    @EpoxyAttribute
+    boolean visibility;
     @EpoxyAttribute(DoNotHash)
-    View.OnClickListener clickListener;
+    CompoundButton.OnCheckedChangeListener changeListener;
 
     @Override
     public void bind(@NonNull MainMenuEditModel.Holder holder) {
-        holder.primaryText.setText(primaryText);
-        holder.parent.setOnClickListener(clickListener);
+        holder.checkBox.setText(primaryText);
+        holder.checkBox.setChecked(visibility);
+        holder.checkBox.setOnCheckedChangeListener(changeListener);
     }
 
     static class Holder extends EpoxyHolder {
-        View parent;
-        CheckBox primaryText;
+        CheckBox checkBox;
 
         @Override
         protected void bindView(@NonNull View itemView) {
-            parent = itemView;
-            primaryText = itemView.findViewById(R.id.primaryText);
+            checkBox = itemView.findViewById(R.id.checkBox);
         }
     }
 }

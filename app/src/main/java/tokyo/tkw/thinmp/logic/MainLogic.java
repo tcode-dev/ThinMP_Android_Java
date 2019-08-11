@@ -30,7 +30,7 @@ public class MainLogic {
         dto.pageTitle = context.getString(R.string.library);
         dto.shortcutTitle = context.getString(R.string.shortcut);
         dto.recentlyAddedTitle = context.getString(R.string.recently_added);
-        dto.menuList = MainMenuEnum.values();
+        dto.menuList = MainMenuEnum.getValues(context);
         dto.shortcutList = shortcuts.getList();
         dto.recentlyAddedList = recentlyAdded.getRecentlyAddedList();
         dto.layoutSpanSize = LayoutSpanSizeEnum.LAYOUT.spanSize();

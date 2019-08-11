@@ -50,15 +50,17 @@ public class MainController extends TypedEpoxyController<MainDto> {
                 .addTo(this);
     }
 
-    private void buildMenu(MainMenuEnum[] menuList, int spanSize) {
-        Stream.of(menuList).forEachIndexed((i, menu) -> {
-            new MainMenuModel_()
-                    .id("menu", i)
-                    .primaryText(menu.label())
-                    .clickListener(new MainMenuClickListener(menu.link()))
-                    .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
-                    .addTo(this);
-        });
+    private void buildMenu(List<MainMenuEnum> menuList, int spanSize) {
+        Stream.of(menuList)
+                .filter(MainMenuEnum::visibility)
+                .forEach(menu -> {
+                    new MainMenuModel_()
+                            .id("menu", menu.key())
+                            .primaryText(menu.label())
+                            .clickListener(new MainMenuClickListener(menu.link()))
+                            .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
+                            .addTo(this);
+                });
     }
 
     private void buildShortcutHeader(String title, int spanSize) {

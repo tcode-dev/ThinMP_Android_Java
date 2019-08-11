@@ -3,6 +3,7 @@ package tokyo.tkw.thinmp.epoxy.controller;
 import com.airbnb.epoxy.TypedEpoxyController;
 import com.annimon.stream.Stream;
 
+import java.util.HashMap;
 import java.util.List;
 
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
@@ -15,6 +16,7 @@ import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearPlaylistModel_;
 import tokyo.tkw.thinmp.listener.CancelClickListener;
 import tokyo.tkw.thinmp.listener.MainEditApplyClickListener;
+import tokyo.tkw.thinmp.listener.MainEditCheckBoxChangeListener;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.Shortcut;
 
@@ -22,8 +24,8 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
 
     @Override
     protected void buildModels(MainEditDto dto) {
-        buildPageHeader(dto.pageTitle, dto.fromShortcutList, dto.shortcutList);
-        buildMenu(dto.menuList);
+        buildPageHeader(dto.pageTitle, dto.fromShortcutList, dto.shortcutList, dto.stateMap);
+        buildMenu(dto.menuList, dto.stateMap);
 
         buildShortcutHeader(dto.shortcutTitle);
 
@@ -34,20 +36,23 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
         buildRecentlyAddedHeader(dto.recentlyAddedTitle);
     }
 
-    private void buildPageHeader(String title, List<Shortcut> fromShortcutList, List<Shortcut> toShortcutList) {
+    private void buildPageHeader(String title, List<Shortcut> fromShortcutList, List<Shortcut> toShortcutList,
+                                 HashMap<String, Boolean> stateMap) {
         new PageHeaderEditModel_()
                 .id("page header")
                 .title(title)
-                .applyClickListener(new MainEditApplyClickListener(fromShortcutList, toShortcutList))
+                .applyClickListener(new MainEditApplyClickListener(fromShortcutList, toShortcutList, stateMap))
                 .cancelClickListener(new CancelClickListener())
                 .addTo(this);
     }
 
-    private void buildMenu(List<MainMenuEnum> menuList) {
-        Stream.of(menuList).forEachIndexed((i, menu) -> {
+    private void buildMenu(List<MainMenuEnum> menuList, HashMap<String, Boolean> stateMap) {
+        Stream.of(menuList).forEach(menu -> {
             new MainMenuEditModel_()
-                    .id("menu", menu.label())
+                    .id("menu", menu.key())
                     .primaryText(menu.label())
+                    .visibility(menu.visibility())
+                    .changeListener(new MainEditCheckBoxChangeListener(menu.key(), stateMap))
                     .addTo(this);
         });
     }

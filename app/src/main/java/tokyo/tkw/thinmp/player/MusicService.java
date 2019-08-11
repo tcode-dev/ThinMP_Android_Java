@@ -10,7 +10,7 @@ import com.annimon.stream.Optional;
 
 import java.util.List;
 
-import tokyo.tkw.thinmp.config.Config;
+import tokyo.tkw.thinmp.config.PlayerConfig;
 import tokyo.tkw.thinmp.register.exists.FavoriteArtistExists;
 import tokyo.tkw.thinmp.register.exists.FavoriteSongExists;
 import tokyo.tkw.thinmp.track.Track;
@@ -35,7 +35,7 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Config config = new Config(this);
+        PlayerConfig config = PlayerConfig.createInstance(this);
 
         repeat = config.getRepeat();
         shuffle = config.getShuffle();
@@ -183,7 +183,7 @@ public class MusicService extends Service {
         }
 
         // 設定を保存
-        Config config = new Config(getBaseContext());
+        PlayerConfig config = PlayerConfig.createInstance(getBaseContext());
         config.setRepeat(repeat);
 
         return repeat;
@@ -222,7 +222,7 @@ public class MusicService extends Service {
         }
 
         // 設定を保存
-        Config config = new Config(getBaseContext());
+        PlayerConfig config = PlayerConfig.createInstance(getBaseContext());
         config.setShuffle(shuffle);
 
         return shuffle;

@@ -1,5 +1,6 @@
 package tokyo.tkw.thinmp.dto;
 
+import java.util.HashMap;
 import java.util.List;
 
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
@@ -14,4 +15,5 @@ public class MainEditDto {
     public List<Shortcut> shortcutList;
     public int menuStartPosition;
     public int shortcutStartPosition;
+    public HashMap<String, Boolean> stateMap;
 }

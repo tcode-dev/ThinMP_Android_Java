@@ -10,7 +10,7 @@ public class MainDto {
     public String pageTitle;
     public String shortcutTitle;
     public String recentlyAddedTitle;
-    public MainMenuEnum[] menuList;
+    public List<MainMenuEnum> menuList;
     public List<Shortcut> shortcutList;
     public List<Album> recentlyAddedList;
     public int layoutSpanSize;
