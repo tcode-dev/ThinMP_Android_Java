@@ -19,12 +19,14 @@ import tokyo.tkw.thinmp.shortcut.Shortcut;
 public class MainEditApplyClickListener implements View.OnClickListener {
     private List<Shortcut> fromList;
     private List<Shortcut> toList;
+    private List<MainMenuEnum> menuList;
     private HashMap<String, Boolean> stateMap;
 
-    public MainEditApplyClickListener(List<Shortcut> fromList, List<Shortcut> toList,
+    public MainEditApplyClickListener(List<Shortcut> fromList, List<Shortcut> toList, List<MainMenuEnum> menuList,
                                       HashMap<String, Boolean> stateMap) {
         this.fromList = fromList;
         this.toList = toList;
+        this.menuList = menuList;
         this.stateMap = stateMap;
     }
 
@@ -55,6 +57,8 @@ public class MainEditApplyClickListener implements View.OnClickListener {
                         config.setVisibility(menu.key(), visibility);
                     });
                 });
+
+        config.setOrder(Stream.ofNullable(menuList).map(MainMenuEnum::key).toList());
     }
 
     private void saveSectionConfig(Context context) {

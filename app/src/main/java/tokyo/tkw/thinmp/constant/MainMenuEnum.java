@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.constant;
 
 import android.content.Context;
 
+import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 
 import java.util.List;
@@ -55,9 +56,20 @@ public enum MainMenuEnum {
 
     public static List<MainMenuEnum> getValues(Context context) {
         MainMenuConfig config = MainMenuConfig.createInstance(context);
-        return Stream.of(MainMenuEnum.values()).map(menu -> {
+
+        List<MainMenuEnum> list = Stream.ofNullable(MainMenuEnum.values()).map(menu -> {
             menu.setVisibility(config.getVisibility(menu.key()));
             return menu;
         }).toList();
+
+        Optional<List<String>> sortOptional = config.getOrder();
+
+        if (sortOptional.isEmpty()) return list;
+
+        return Stream.ofNullable(sortOptional.get())
+                .map(key -> Stream.ofNullable(list)
+                        .filter(menu -> menu.key().equals(key))
+                        .findFirst().get()
+                ).toList();
     }
 }

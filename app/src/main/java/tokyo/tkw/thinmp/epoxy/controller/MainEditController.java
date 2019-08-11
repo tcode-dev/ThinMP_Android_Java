@@ -25,7 +25,7 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
 
     @Override
     protected void buildModels(MainEditDto dto) {
-        buildPageHeader(dto.pageTitle, dto.fromShortcutList, dto.shortcutList, dto.stateMap);
+        buildPageHeader(dto.pageTitle, dto.fromShortcutList, dto.shortcutList, dto.menuList, dto.stateMap);
         buildMenu(dto.menuList, dto.stateMap);
 
         buildShortcutHeader(dto.shortcutTitle, dto.shortcutVisibility, dto.stateMap);
@@ -39,11 +39,12 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
     }
 
     private void buildPageHeader(String title, List<Shortcut> fromShortcutList, List<Shortcut> toShortcutList,
-                                 HashMap<String, Boolean> stateMap) {
+                                 List<MainMenuEnum> menuList, HashMap<String, Boolean> stateMap) {
         new PageHeaderEditModel_()
                 .id("page header")
                 .title(title)
-                .applyClickListener(new MainEditApplyClickListener(fromShortcutList, toShortcutList, stateMap))
+                .applyClickListener(new MainEditApplyClickListener(fromShortcutList, toShortcutList, menuList,
+                        stateMap))
                 .cancelClickListener(new CancelClickListener())
                 .addTo(this);
     }
