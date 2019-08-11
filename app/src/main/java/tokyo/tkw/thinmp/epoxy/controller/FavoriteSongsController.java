@@ -6,9 +6,7 @@ import com.annimon.stream.Stream;
 import java.util.List;
 
 import tokyo.tkw.thinmp.dto.FavoriteSongsDto;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderWithButtonModel_;
 import tokyo.tkw.thinmp.epoxy.model.TrackModel_;
-import tokyo.tkw.thinmp.listener.FavoriteSongsEditClickListener;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
 import tokyo.tkw.thinmp.track.Track;
@@ -17,16 +15,7 @@ public class FavoriteSongsController extends TypedEpoxyController<FavoriteSongsD
 
     @Override
     protected void buildModels(FavoriteSongsDto dto) {
-        buildHeader(dto.title);
         buildTrackList(dto.trackList);
-    }
-
-    private void buildHeader(String title) {
-        new PageHeaderWithButtonModel_()
-                .id("header")
-                .title(title)
-                .clickListener(new FavoriteSongsEditClickListener())
-                .addTo(this);
     }
 
     private void buildTrackList(List<Track> trackList) {
