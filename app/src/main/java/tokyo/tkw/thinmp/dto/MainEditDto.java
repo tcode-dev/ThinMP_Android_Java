@@ -16,4 +16,6 @@ public class MainEditDto {
     public int menuStartPosition;
     public int shortcutStartPosition;
     public HashMap<String, Boolean> stateMap;
+    public boolean shortcutVisibility;
+    public boolean recentlyAddedVisibility;
 }

@@ -6,6 +6,7 @@ import com.annimon.stream.Stream;
 import java.util.HashMap;
 import java.util.List;
 
+import tokyo.tkw.thinmp.config.MainSectionConfig;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainEditDto;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuEditModel_;
@@ -27,13 +28,14 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
         buildPageHeader(dto.pageTitle, dto.fromShortcutList, dto.shortcutList, dto.stateMap);
         buildMenu(dto.menuList, dto.stateMap);
 
-        buildShortcutHeader(dto.shortcutTitle);
+        buildShortcutHeader(dto.shortcutTitle, dto.shortcutVisibility, dto.stateMap);
 
         if (!dto.shortcutList.isEmpty()) {
             buildShortcut(dto.shortcutList);
         }
 
-        buildRecentlyAddedHeader(dto.recentlyAddedTitle);
+        buildRecentlyAddedHeader(dto.recentlyAddedTitle, MainSectionConfig.KEY_RECENTLY_ADDED,
+                dto.recentlyAddedVisibility, dto.stateMap);
     }
 
     private void buildPageHeader(String title, List<Shortcut> fromShortcutList, List<Shortcut> toShortcutList,
@@ -57,10 +59,12 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
         });
     }
 
-    private void buildShortcutHeader(String title) {
+    private void buildShortcutHeader(String title, boolean visibility, HashMap<String, Boolean> stateMap) {
         new SectionHeaderEditModel_()
                 .id("shortcut header")
                 .title(title)
+                .visibility(visibility)
+                .changeListener(new MainEditCheckBoxChangeListener(MainSectionConfig.KEY_SHORTCUT, stateMap))
                 .addTo(this);
     }
 
@@ -96,10 +100,13 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
         });
     }
 
-    private void buildRecentlyAddedHeader(String title) {
+    private void buildRecentlyAddedHeader(String title, String key, boolean visibility,
+                                          HashMap<String, Boolean> stateMap) {
         new SectionHeaderEditModel_()
                 .id("recently added header")
                 .title(title)
+                .visibility(visibility)
+                .changeListener(new MainEditCheckBoxChangeListener(key, stateMap))
                 .addTo(this);
     }
 }

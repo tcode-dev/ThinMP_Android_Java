@@ -2,7 +2,10 @@ package tokyo.tkw.thinmp.logic;
 
 import android.content.Context;
 
+import com.annimon.stream.Optional;
+
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.config.MainSectionConfig;
 import tokyo.tkw.thinmp.constant.LayoutSpanSizeEnum;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainDto;
@@ -11,13 +14,22 @@ import tokyo.tkw.thinmp.shortcut.Shortcuts;
 
 public class MainLogic {
     private Context context;
-    private Shortcuts shortcuts;
-    private RecentlyAdded recentlyAdded;
+    private MainSectionConfig mainSectionConfig;
+    private Optional<Shortcuts> shortcuts;
+    private Optional<RecentlyAdded> recentlyAdded;
 
     private MainLogic(Context context) {
         this.context = context;
-        this.shortcuts = Shortcuts.createInstance(context);
-        this.recentlyAdded = RecentlyAdded.createInstance(context);
+
+        MainSectionConfig mainSectionConfig = MainSectionConfig.createInstance(context);
+
+        this.shortcuts = mainSectionConfig.getShortcutVisibility()
+                ? Optional.of(Shortcuts.createInstance(context))
+                : Optional.empty();
+
+        this.recentlyAdded = mainSectionConfig.getRecentlyAddedVisibility()
+                ? Optional.of(RecentlyAdded.createInstance(context))
+                : Optional.empty();
     }
 
     public static MainLogic createInstance(Context context) {
@@ -31,8 +43,8 @@ public class MainLogic {
         dto.shortcutTitle = context.getString(R.string.shortcut);
         dto.recentlyAddedTitle = context.getString(R.string.recently_added);
         dto.menuList = MainMenuEnum.getValues(context);
-        dto.shortcutList = shortcuts.getList();
-        dto.recentlyAddedList = recentlyAdded.getRecentlyAddedList();
+        dto.shortcutList = shortcuts.map(Shortcuts::getList);
+        dto.recentlyAddedList = recentlyAdded.map(RecentlyAdded::getRecentlyAddedList);
         dto.layoutSpanSize = LayoutSpanSizeEnum.LAYOUT.spanSize();
         dto.headerSpanSize = LayoutSpanSizeEnum.HEADER.spanSize();
         dto.mainMenuSpanSize = LayoutSpanSizeEnum.LIST_ITEM_LINEAR.spanSize();

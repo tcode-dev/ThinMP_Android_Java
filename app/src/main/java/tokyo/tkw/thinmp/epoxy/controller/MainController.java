@@ -30,15 +30,19 @@ public class MainController extends TypedEpoxyController<MainDto> {
         buildPageHeader(dto.pageTitle, dto.headerSpanSize);
         buildMenu(dto.menuList, dto.mainMenuSpanSize);
 
-        if (!dto.shortcutList.isEmpty()) {
-            buildShortcutHeader(dto.shortcutTitle, dto.headerSpanSize);
-            buildShortcut(dto.shortcutList, dto.shortcutListSpanSize);
-        }
+        dto.shortcutList.ifPresent(shortcutList -> {
+            if (!shortcutList.isEmpty()) {
+                buildShortcutHeader(dto.shortcutTitle, dto.headerSpanSize);
+                buildShortcut(shortcutList, dto.shortcutListSpanSize);
+            }
+        });
 
-        if (!dto.recentlyAddedList.isEmpty()) {
-            buildRecentlyAddedHeader(dto.recentlyAddedTitle, dto.headerSpanSize);
-            buildRecentlyAdded(dto.recentlyAddedList, dto.recentlyAddedListSpanSize);
-        }
+        dto.recentlyAddedList.ifPresent(recentlyAddedList -> {
+            if (!recentlyAddedList.isEmpty()) {
+                buildRecentlyAddedHeader(dto.recentlyAddedTitle, dto.headerSpanSize);
+                buildRecentlyAdded(recentlyAddedList, dto.recentlyAddedListSpanSize);
+            }
+        });
     }
 
     private void buildPageHeader(String title, int spanSize) {
