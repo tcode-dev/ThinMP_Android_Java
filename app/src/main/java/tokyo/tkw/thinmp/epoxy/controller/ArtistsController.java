@@ -8,7 +8,6 @@ import java.util.List;
 import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.dto.ArtistsDto;
 import tokyo.tkw.thinmp.epoxy.model.ArtistModel_;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.listener.ArtistMenuClickListener;
 
@@ -16,15 +15,7 @@ public class ArtistsController extends TypedEpoxyController<ArtistsDto> {
 
     @Override
     protected void buildModels(ArtistsDto dto) {
-        buildHeader(dto.title);
         buildArtistList(dto.artistList);
-    }
-
-    private void buildHeader(String title) {
-        new PageHeaderModel_()
-                .id("header")
-                .title(title)
-                .addTo(this);
     }
 
     private void buildArtistList(List<Artist> artistList) {
