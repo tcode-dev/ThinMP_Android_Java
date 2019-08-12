@@ -25,6 +25,7 @@ public class PlaylistDetailEditLogic {
             dto.playlistName = playlist.getName();
             dto.trackList = playlist.getSortedTrackList();
             dto.trackIdList = playlist.getTrackIdList();
+            dto.startPosition = 1;
 
             return dto;
         });

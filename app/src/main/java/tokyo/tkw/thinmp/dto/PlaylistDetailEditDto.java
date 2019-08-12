@@ -8,4 +8,5 @@ public class PlaylistDetailEditDto {
     public String playlistName;
     public List<Track> trackList;
     public List<String> trackIdList;
+    public int startPosition;
 }
