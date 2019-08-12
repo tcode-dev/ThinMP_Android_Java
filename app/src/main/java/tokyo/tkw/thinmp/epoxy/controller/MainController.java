@@ -12,10 +12,10 @@ import tokyo.tkw.thinmp.epoxy.model.AlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuModel_;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderWithButtonModel_;
 import tokyo.tkw.thinmp.epoxy.model.SectionHeaderModel_;
-import tokyo.tkw.thinmp.epoxy.model.SectionHeaderShortcutModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutPlaylistModel_;
+import tokyo.tkw.thinmp.epoxy.model.SpaceModel_;
 import tokyo.tkw.thinmp.listener.AlbumClickListener;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.listener.MainEditClickListener;
@@ -30,6 +30,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
     protected void buildModels(MainDto dto) {
         buildPageHeader(dto.pageTitle, dto.headerSpanSize);
         buildMenu(dto.menuList, dto.mainMenuSpanSize);
+        buildSpace();
 
         dto.shortcutList.ifPresent(shortcutList -> {
             if (!shortcutList.isEmpty()) {
@@ -69,7 +70,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
     }
 
     private void buildShortcutHeader(String title, int spanSize) {
-        new SectionHeaderShortcutModel_()
+        new SectionHeaderModel_()
                 .id("shortcut header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
@@ -133,5 +134,11 @@ public class MainController extends TypedEpoxyController<MainDto> {
                     .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
                     .addTo(this);
         });
+    }
+
+    private void buildSpace() {
+        new SpaceModel_()
+                .id("Space", 1)
+                .addTo(this);
     }
 }
