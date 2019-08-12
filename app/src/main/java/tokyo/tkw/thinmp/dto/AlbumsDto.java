@@ -8,6 +8,5 @@ public class AlbumsDto {
     public String title;
     public List<Album> albumList;
     public int layoutSpanSize;
-    public int headerSpanSize;
     public int listSpanSize;
 }
