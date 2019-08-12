@@ -8,25 +8,14 @@ import java.util.List;
 import tokyo.tkw.thinmp.artist.Artist;
 import tokyo.tkw.thinmp.dto.FavoriteArtistsDto;
 import tokyo.tkw.thinmp.epoxy.model.ArtistModel_;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderWithButtonModel_;
 import tokyo.tkw.thinmp.listener.ArtistClickListener;
 import tokyo.tkw.thinmp.listener.ArtistMenuClickListener;
-import tokyo.tkw.thinmp.listener.FavoriteArtistsEditClickListener;
 
 public class FavoriteArtistsController extends TypedEpoxyController<FavoriteArtistsDto> {
 
     @Override
     protected void buildModels(FavoriteArtistsDto dto) {
-        buildHeader(dto.title);
         buildArtistList(dto.artistList);
-    }
-
-    private void buildHeader(String title) {
-        new PageHeaderWithButtonModel_()
-                .id("header")
-                .title(title)
-                .clickListener(new FavoriteArtistsEditClickListener())
-                .addTo(this);
     }
 
     private void buildArtistList(List<Artist> artistList) {
