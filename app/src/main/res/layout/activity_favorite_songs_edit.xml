@@ -6,6 +6,6 @@
     android:background="#ffffff"
     tools:context=".activity.FavoriteSongsEditActivity">
 
-    <include layout="@layout/include_page_edit" />
+    <include layout="@layout/include_page_with_header_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@
     android:background="#ffffff"
     tools:context=".activity.ArtistsActivity">
 
-    <include layout="@layout/include_page_list" />
+    <include layout="@layout/include_page" />
 
     <include layout="@layout/include_mini_player" />
 
