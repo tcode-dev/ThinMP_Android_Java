@@ -11,7 +11,8 @@ import tokyo.tkw.thinmp.dto.MainDto;
 import tokyo.tkw.thinmp.epoxy.model.AlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuModel_;
 import tokyo.tkw.thinmp.epoxy.model.PageHeaderWithButtonModel_;
-import tokyo.tkw.thinmp.epoxy.model.SectionHeaderForGridModel_;
+import tokyo.tkw.thinmp.epoxy.model.SectionHeaderRecentlyAddedModel_;
+import tokyo.tkw.thinmp.epoxy.model.SectionHeaderShortcutModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutPlaylistModel_;
@@ -68,7 +69,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
     }
 
     private void buildShortcutHeader(String title, int spanSize) {
-        new SectionHeaderForGridModel_()
+        new SectionHeaderShortcutModel_()
                 .id("shortcut header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
@@ -114,7 +115,7 @@ public class MainController extends TypedEpoxyController<MainDto> {
     }
 
     private void buildRecentlyAddedHeader(String title, int spanSize) {
-        new SectionHeaderForGridModel_()
+        new SectionHeaderRecentlyAddedModel_()
                 .id("recently added header")
                 .title(title)
                 .spanSizeOverride((totalSpanCount, position, itemCount) -> spanSize)
