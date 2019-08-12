@@ -29,20 +29,27 @@
                 android:fitsSystemWindows="true"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <tokyo.tkw.thinmp.view.BackImageButtonView
-                style="@style/BackImageButtonTheme"
-                android:layout_marginTop="6dp"
-                app:layout_collapseMode="pin" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                style="@style/PageHeaderTheme"
+                app:layout_collapseMode="pin">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="6dp"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_collapseMode="pin" />
+                <tokyo.tkw.thinmp.view.BackImageButtonView
+                    android:id="@+id/backImageButtonView"
+                    style="@style/BackImageButtonTheme"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/PageHeaderTextTheme"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

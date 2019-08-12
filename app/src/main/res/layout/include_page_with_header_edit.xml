@@ -30,19 +30,15 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
+                style="@style/PageHeaderTheme"
                 app:layout_collapseMode="pin">
 
                 <TextView
                     android:id="@+id/title"
+                    style="@style/PageHeaderTextTheme"
                     android:layout_width="wrap_content"
-                    android:layout_height="52dp"
                     android:layout_marginStart="20dp"
-                    android:gravity="center"
                     android:text="@string/edit"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 

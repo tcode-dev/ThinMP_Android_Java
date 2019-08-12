@@ -14,4 +14,21 @@
     <dimen name="inner_frame_layout_padding">5dp</dimen>
 
     <dimen name="app_bar_layout_height_in_list">85dp</dimen>
+
+    <!-- margin -->
+    <dimen name="outer_margin_20dp">20dp</dimen>
+
+    <!-- text size -->
+    <dimen name="page_header_text_size_20sp">20sp</dimen>
+    <dimen name="section_header_text_size_24sp">24sp</dimen>
+    <dimen name="main_menu_text_size_18sp">18sp</dimen>
+    <dimen name="primary_text_size_14sp">14sp</dimen>
+    <dimen name="secondary_text_size_12sp">12sp</dimen>
+
+    <!-- text space -->
+    <dimen name="text_space_16sp">16sp</dimen>
+
+    <!-- clickable min size -->
+    <dimen name="clickable_min_size_44dp">44dp</dimen>
+
 </resources>

@@ -27,33 +27,51 @@
     </style>
 
 
+    <!-- page header -->
+    <style name="PageHeaderTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+    </style>
+
+    <style name="PageHeaderTextTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/page_header_text_size_20sp</item>
+    </style>
+
+
     <!-- section header -->
     <style name="SectionHeaderTheme">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginBottom">@dimen/outer_margin_20dp</item>
+        <item name="android:layout_marginEnd">@dimen/outer_margin_20dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
     <style name="SectionHeaderShortcutTheme" parent="@style/SectionHeaderTheme">
-        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginTop">@dimen/outer_margin_20dp</item>
     </style>
+
 
     <!-- section header text -->
     <style name="SectionHeaderTextTheme">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/section_header_text_size_24sp</item>
     </style>
+
 
     <!-- grid -->
     <style name="GridTheme">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginBottom">@dimen/outer_margin_20dp</item>
+        <item name="android:layout_marginEnd">@dimen/outer_margin_20dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -68,12 +86,12 @@
     <style name="GridPrimaryTextTheme" parent="@style/GridBaseTextTheme">
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/primary_text_size_14sp</item>
     </style>
 
     <style name="GridSecondaryTextTheme" parent="@style/GridBaseTextTheme">
         <item name="android:textColor">@color/colorSecondaryText</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/secondary_text_size_12sp</item>
     </style>
 
     <style name="GridBaseImageTheme">
@@ -103,9 +121,9 @@
     </style>
 
     <style name="LinearBaseImageTheme">
-        <item name="android:layout_width">44dp</item>
-        <item name="android:layout_height">44dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_width">@dimen/clickable_min_size_44dp</item>
+        <item name="android:layout_height">@dimen/clickable_min_size_44dp</item>
+        <item name="android:layout_marginEnd">@dimen/text_space_16sp</item>
     </style>
 
     <style name="LinearCircleImageTheme" parent="@style/LinearBaseImageTheme">
@@ -122,7 +140,7 @@
     </style>
 
     <style name="LinearTextForEditContainerTheme" parent="@style/LinearTextContainerTheme">
-        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginEnd">@dimen/outer_margin_20dp</item>
     </style>
 
     <style name="LinearBaseTextTheme">
@@ -134,12 +152,12 @@
 
     <style name="LinearPrimaryTextTheme" parent="@style/LinearBaseTextTheme">
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/primary_text_size_14sp</item>
     </style>
 
     <style name="LinearSecondaryTextTheme" parent="@style/LinearBaseTextTheme">
         <item name="android:textColor">@color/colorSecondaryText</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/secondary_text_size_12sp</item>
     </style>
 
 
@@ -150,14 +168,14 @@
         <item name="android:layout_height">46dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/main_menu_text_size_18sp</item>
     </style>
 
 
     <!-- button -->
     <style name="BackImageButtonTheme">
-        <item name="android:layout_width">44dp</item>
-        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_width">@dimen/clickable_min_size_44dp</item>
+        <item name="android:layout_height">@dimen/clickable_min_size_44dp</item>
         <item name="android:padding">12dp</item>
         <item name="android:background">@null</item>
         <item name="android:scaleType">centerInside</item>
@@ -165,8 +183,8 @@
     </style>
 
     <style name="MenuImageButtonTheme">
-        <item name="android:layout_width">44dp</item>
-        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_width">@dimen/clickable_min_size_44dp</item>
+        <item name="android:layout_height">@dimen/clickable_min_size_44dp</item>
         <item name="android:src">@drawable/ic_open</item>
         <item name="android:layout_marginEnd">8dp</item>
     </style>
