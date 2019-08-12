@@ -28,14 +28,6 @@
 
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/includeMiniPlayer"
-        android:name="tokyo.tkw.thinmp.fragment.MiniPlayerFragment"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+    <include layout="@layout/include_mini_player" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
