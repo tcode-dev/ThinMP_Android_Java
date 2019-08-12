@@ -6,7 +6,6 @@ import com.annimon.stream.Stream;
 import java.util.List;
 
 import tokyo.tkw.thinmp.dto.TracksDto;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderModel_;
 import tokyo.tkw.thinmp.epoxy.model.TrackModel_;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
@@ -16,15 +15,7 @@ public class TracksController extends TypedEpoxyController<TracksDto> {
 
     @Override
     protected void buildModels(TracksDto dto) {
-        buildHeader(dto.title);
         buildTrackList(dto.trackList);
-    }
-
-    private void buildHeader(String title) {
-        new PageHeaderModel_()
-                .id("header")
-                .title(title)
-                .addTo(this);
     }
 
     private void buildTrackList(List<Track> trackList) {
