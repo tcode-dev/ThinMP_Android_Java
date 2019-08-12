@@ -1,6 +1,8 @@
 package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.PlaylistsDto;
 import tokyo.tkw.thinmp.epoxy.controller.PlaylistsController;
+import tokyo.tkw.thinmp.listener.CommonHeaderMenuClickListener;
 import tokyo.tkw.thinmp.logic.PlaylistsLogic;
 
 public class PlaylistsActivity extends BaseActivity {
@@ -25,13 +28,18 @@ public class PlaylistsActivity extends BaseActivity {
     @Override
     protected void init() {
         // view
+        TextView titleView = findViewById(R.id.title);
         RecyclerView listView = findViewById(R.id.list);
+        ImageView menuView = findViewById(R.id.menu);
 
         // logic
         PlaylistsLogic logic = PlaylistsLogic.createInstance(this);
 
         // dto
         PlaylistsDto dto = logic.createDto();
+
+        // ページ名
+        titleView.setText(dto.title);
 
         // controller
         controller = new PlaylistsController();
@@ -43,6 +51,9 @@ public class PlaylistsActivity extends BaseActivity {
         controller.setSpanCount(dto.layoutSpanSize);
         layout.setSpanSizeLookup(controller.getSpanSizeLookup());
         listView.setLayoutManager(layout);
+
+        // event
+        menuView.setOnClickListener(new CommonHeaderMenuClickListener(PlaylistsEditActivity.class));
     }
 
     @Override

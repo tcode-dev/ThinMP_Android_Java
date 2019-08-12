@@ -26,7 +26,6 @@ public class PlaylistsLogic {
         dto.title = context.getResources().getString(R.string.playlists);
         dto.playlists = playlists.getPlaylists();
         dto.layoutSpanSize = LayoutSpanSizeEnum.LAYOUT.spanSize();
-        dto.headerSpanSize = LayoutSpanSizeEnum.HEADER.spanSize();
         dto.listSpanSize = LayoutSpanSizeEnum.LIST_ITEM_GRID.spanSize();
 
         return dto;
