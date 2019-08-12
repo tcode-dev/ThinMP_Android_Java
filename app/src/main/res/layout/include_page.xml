@@ -36,8 +36,7 @@
                 <tokyo.tkw.thinmp.view.BackImageButtonView
                     android:id="@+id/backImageButtonView"
                     style="@style/BackImageButtonTheme"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginStart="3dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +46,8 @@
                     style="@style/PageHeaderTextTheme"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

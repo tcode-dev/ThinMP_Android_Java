@@ -65,6 +65,7 @@
 
                 <tokyo.tkw.thinmp.view.BackImageButtonView
                     style="@style/BackImageButtonTheme"
+                    android:layout_marginStart="3dp"
                     android:layout_marginTop="30dp"
                     android:src="@drawable/ic_back"
                     app:layout_constraintStart_toStartOf="@+id/view"

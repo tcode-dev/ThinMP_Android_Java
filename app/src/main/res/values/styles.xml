@@ -30,13 +30,12 @@
     <!-- page header -->
     <style name="PageHeaderTheme">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
     </style>
 
     <style name="PageHeaderTextTheme">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">52dp</item>
-        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textSize">@dimen/page_header_text_size_20sp</item>
