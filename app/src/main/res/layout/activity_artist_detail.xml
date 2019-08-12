@@ -115,6 +115,7 @@
 
                 <tokyo.tkw.thinmp.view.BackImageButtonView
                     style="@style/BackImageButtonTheme"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="6dp"
                     app:layout_collapseMode="pin" />
 
