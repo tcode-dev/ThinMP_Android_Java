@@ -188,6 +188,14 @@
         <item name="android:layout_marginEnd">8dp</item>
     </style>
 
+    <style name="AddImageButtonTheme">
+        <item name="android:layout_width">@dimen/clickable_min_size_44dp</item>
+        <item name="android:layout_height">@dimen/clickable_min_size_44dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@drawable/ic_add</item>
+    </style>
+
     <style name="ButtonTheme" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
