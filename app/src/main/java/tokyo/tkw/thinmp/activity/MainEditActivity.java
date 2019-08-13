@@ -2,6 +2,7 @@ package tokyo.tkw.thinmp.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,8 @@ import tokyo.tkw.thinmp.dto.MainEditDto;
 import tokyo.tkw.thinmp.epoxy.controller.MainEditController;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuEditModel;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutModel;
+import tokyo.tkw.thinmp.listener.CancelClickListener;
+import tokyo.tkw.thinmp.listener.MainEditApplyClickListener;
 import tokyo.tkw.thinmp.logic.MainEditLogic;
 
 public class MainEditActivity extends BaseActivity {
@@ -34,6 +37,8 @@ public class MainEditActivity extends BaseActivity {
     protected void init() {
         // view
         listView = findViewById(R.id.list);
+        Button applyView = findViewById(R.id.apply);
+        Button cancelView = findViewById(R.id.cancel);
 
         // logic
         MainEditLogic logic = MainEditLogic.createInstance(this);
@@ -52,6 +57,9 @@ public class MainEditActivity extends BaseActivity {
 
         // event
         setEvent();
+        applyView.setOnClickListener(new MainEditApplyClickListener(dto.fromShortcutList, dto.shortcutList,
+                dto.menuList, dto.stateMap));
+        cancelView.setOnClickListener(new CancelClickListener());
     }
 
     private void setEvent() {

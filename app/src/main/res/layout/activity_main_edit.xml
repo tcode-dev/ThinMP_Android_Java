@@ -6,20 +6,6 @@
     android:background="#ffffff"
     tools:context=".activity.MainEditActivity">
 
-    <LinearLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:fitsSystemWindows="true"
-            android:scrollbars="vertical" />
-
-    </LinearLayout>
+    <include layout="@layout/include_page_with_header_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

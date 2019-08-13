@@ -28,14 +28,13 @@ public class MainEditLogic {
     public MainEditDto createDto() {
         MainEditDto dto = new MainEditDto();
 
-        dto.pageTitle = context.getString(R.string.edit);
         dto.shortcutTitle = context.getString(R.string.shortcut);
         dto.recentlyAddedTitle = context.getString(R.string.recently_added);
         dto.menuList = MainMenuEnum.getValues(context);
         dto.fromShortcutList = shortcuts.getList();
         dto.shortcutList = shortcuts.getList();
-        dto.menuStartPosition = 1;
-        dto.shortcutStartPosition = dto.menuList.size() + 2;
+        dto.menuStartPosition = 0;
+        dto.shortcutStartPosition = dto.menuList.size() + 1;
         dto.stateMap = new HashMap<>();
         dto.shortcutVisibility = mainSectionConfig.getShortcutVisibility();
         dto.recentlyAddedVisibility = mainSectionConfig.getRecentlyAddedVisibility();

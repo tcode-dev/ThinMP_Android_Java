@@ -10,13 +10,11 @@ import tokyo.tkw.thinmp.config.MainSectionConfig;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainEditDto;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuEditModel_;
-import tokyo.tkw.thinmp.epoxy.model.PageHeaderEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.SectionHeaderEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearPlaylistModel_;
-import tokyo.tkw.thinmp.listener.CancelClickListener;
-import tokyo.tkw.thinmp.listener.MainEditApplyClickListener;
+import tokyo.tkw.thinmp.epoxy.model.SpaceModel_;
 import tokyo.tkw.thinmp.listener.MainEditCheckBoxChangeListener;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.Shortcut;
@@ -25,7 +23,6 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
 
     @Override
     protected void buildModels(MainEditDto dto) {
-        buildPageHeader(dto.pageTitle, dto.fromShortcutList, dto.shortcutList, dto.menuList, dto.stateMap);
         buildMenu(dto.menuList, dto.stateMap);
 
         buildShortcutHeader(dto.shortcutTitle, dto.shortcutVisibility, dto.stateMap);
@@ -36,17 +33,8 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
 
         buildRecentlyAddedHeader(dto.recentlyAddedTitle, MainSectionConfig.KEY_RECENTLY_ADDED,
                 dto.recentlyAddedVisibility, dto.stateMap);
-    }
 
-    private void buildPageHeader(String title, List<Shortcut> fromShortcutList, List<Shortcut> toShortcutList,
-                                 List<MainMenuEnum> menuList, HashMap<String, Boolean> stateMap) {
-        new PageHeaderEditModel_()
-                .id("page header")
-                .title(title)
-                .applyClickListener(new MainEditApplyClickListener(fromShortcutList, toShortcutList, menuList,
-                        stateMap))
-                .cancelClickListener(new CancelClickListener())
-                .addTo(this);
+        buildSpace();
     }
 
     private void buildMenu(List<MainMenuEnum> menuList, HashMap<String, Boolean> stateMap) {
@@ -108,6 +96,12 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
                 .title(title)
                 .visibility(visibility)
                 .changeListener(new MainEditCheckBoxChangeListener(key, stateMap))
+                .addTo(this);
+    }
+
+    private void buildSpace() {
+        new SpaceModel_()
+                .id("Space", 1)
                 .addTo(this);
     }
 }

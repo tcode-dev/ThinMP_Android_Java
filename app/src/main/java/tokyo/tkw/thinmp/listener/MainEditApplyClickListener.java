@@ -1,6 +1,5 @@
 package tokyo.tkw.thinmp.listener;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
@@ -16,7 +15,7 @@ import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.register.edit.ShortcutEditor;
 import tokyo.tkw.thinmp.shortcut.Shortcut;
 
-public class MainEditApplyClickListener implements View.OnClickListener {
+public class MainEditApplyClickListener extends BaseClickListener {
     private List<Shortcut> fromList;
     private List<Shortcut> toList;
     private List<MainMenuEnum> menuList;
@@ -38,8 +37,7 @@ public class MainEditApplyClickListener implements View.OnClickListener {
         shortcutEditor.update(fromList, toList);
 
         saveConfig(context);
-
-        ((Activity) context).finish();
+        getActivity(context).finish();
     }
 
     private void saveConfig(Context context) {
