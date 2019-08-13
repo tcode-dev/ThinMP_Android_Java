@@ -24,8 +24,8 @@ import tokyo.tkw.thinmp.track.Track;
 
 public class FavoriteSongsEditActivity extends BaseActivity {
     private RecyclerView listView;
-    private FavoriteSongsEditController controller;
     private FavoriteSongsEditDto dto;
+    private FavoriteSongsEditController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

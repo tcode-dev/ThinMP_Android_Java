@@ -12,7 +12,7 @@ import tokyo.tkw.thinmp.epoxy.controller.AlbumsController;
 import tokyo.tkw.thinmp.logic.AlbumsLogic;
 
 public class AlbumsActivity extends BaseActivity {
-    AlbumsController controller;
+    private AlbumsController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

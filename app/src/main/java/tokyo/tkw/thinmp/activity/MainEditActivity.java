@@ -20,8 +20,8 @@ import tokyo.tkw.thinmp.logic.MainEditLogic;
 
 public class MainEditActivity extends BaseActivity {
     private RecyclerView listView;
-    private MainEditController controller;
     private MainEditDto dto;
+    private MainEditController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

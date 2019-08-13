@@ -12,7 +12,7 @@ import tokyo.tkw.thinmp.epoxy.controller.ArtistsController;
 import tokyo.tkw.thinmp.logic.ArtistsLogic;
 
 public class ArtistsActivity extends BaseActivity {
-    ArtistsController controller;
+    private ArtistsController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

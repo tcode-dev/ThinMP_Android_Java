@@ -23,9 +23,9 @@ import tokyo.tkw.thinmp.logic.FavoriteArtistsEditLogic;
 import tokyo.tkw.thinmp.register.edit.FavoriteArtistEditor;
 
 public class FavoriteArtistsEditActivity extends BaseActivity {
-    private FavoriteArtistsEditController controller;
     private RecyclerView listView;
     private FavoriteArtistsEditDto dto;
+    private FavoriteArtistsEditController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

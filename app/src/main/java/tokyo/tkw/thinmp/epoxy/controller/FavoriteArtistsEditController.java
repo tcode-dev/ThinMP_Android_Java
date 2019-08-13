@@ -13,10 +13,10 @@ public class FavoriteArtistsEditController extends TypedEpoxyController<Favorite
 
     @Override
     protected void buildModels(FavoriteArtistsEditDto dto) {
-        buildTrackList(dto.artistList);
+        buildArtistList(dto.artistList);
     }
 
-    private void buildTrackList(List<Artist> artistList) {
+    private void buildArtistList(List<Artist> artistList) {
         Stream.of(artistList).forEachIndexed((i, artist) -> {
             new ArtistEditModel_()
                     .id(artist.getId())

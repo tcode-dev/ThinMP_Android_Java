@@ -26,10 +26,10 @@ import tokyo.tkw.thinmp.register.edit.PlaylistEditor;
 import tokyo.tkw.thinmp.track.Track;
 
 public class PlaylistDetailEditActivity extends BaseActivity {
-    private PlaylistDetailEditController controller;
-    private PlaylistDetailEditDto dto;
-    private RecyclerView listView;
     private String playlistId;
+    private RecyclerView listView;
+    private PlaylistDetailEditDto dto;
+    private PlaylistDetailEditController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class PlaylistDetailEditActivity extends BaseActivity {
         // dto
         dto = playlistDetailEditDto;
 
-        //
+        // controller
         controller = new PlaylistDetailEditController();
         controller.setData(dto);
         listView.setAdapter(controller.getAdapter());
@@ -81,6 +81,22 @@ public class PlaylistDetailEditActivity extends BaseActivity {
 
         TextView textView = findViewById(R.id.text);
         textView.setText(getString(R.string.playlist_not_found));
+    }
+
+    private View.OnClickListener createApplyClickListener() {
+        return view -> {
+            apply();
+            finish();
+        };
+    }
+
+    private void apply() {
+        PlaylistEditor playlistEditor = PlaylistEditor.createInstance();
+        EditText playlistNameView = findViewById(R.id.playlistName);
+        String name = playlistNameView.getText().toString();
+        List<String> toTrackIdList = Stream.of(dto.trackList).map(Track::getId).collect(Collectors.toList());
+
+        playlistEditor.update(playlistId, name, dto.trackIdList, toTrackIdList);
     }
 
     private void setListEvent() {
@@ -113,21 +129,5 @@ public class PlaylistDetailEditActivity extends BaseActivity {
                         controller.setData(dto);
                     }
                 });
-    }
-
-    private View.OnClickListener createApplyClickListener() {
-        return view -> {
-            apply();
-            finish();
-        };
-    }
-
-    private void apply() {
-        PlaylistEditor playlistEditor = PlaylistEditor.createInstance();
-        EditText playlistNameView = findViewById(R.id.playlistName);
-        String name = playlistNameView.getText().toString();
-        List<String> toTrackIdList = Stream.of(dto.trackList).map(Track::getId).collect(Collectors.toList());
-
-        playlistEditor.update(playlistId, name, dto.trackIdList, toTrackIdList);
     }
 }

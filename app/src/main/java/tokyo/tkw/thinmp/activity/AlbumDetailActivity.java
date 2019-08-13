@@ -19,8 +19,8 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 import tokyo.tkw.thinmp.view.ResponsiveTextView;
 
 public class AlbumDetailActivity extends BaseActivity implements ScreenUpdateListener {
-    String albumId;
-    AlbumDetailController controller;
+    private String albumId;
+    private AlbumDetailController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
