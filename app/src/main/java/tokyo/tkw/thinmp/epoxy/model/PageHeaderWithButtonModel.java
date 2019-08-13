@@ -1,7 +1,7 @@
 package tokyo.tkw.thinmp.epoxy.model;
 
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,17 +25,17 @@ public abstract class PageHeaderWithButtonModel extends EpoxyModelWithHolder<Pag
     @Override
     public void bind(@NonNull Holder holder) {
         holder.title.setText(title);
-        holder.edit.setOnClickListener(clickListener);
+        holder.menu.setOnClickListener(clickListener);
     }
 
     static class Holder extends EpoxyHolder {
         TextView title;
-        Button edit;
+        ImageView menu;
 
         @Override
         protected void bindView(@NonNull View itemView) {
             title = itemView.findViewById(R.id.title);
-            edit = itemView.findViewById(R.id.edit);
+            menu = itemView.findViewById(R.id.menu);
         }
     }
 }

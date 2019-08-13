@@ -15,6 +15,7 @@ public class MainDto {
     public List<MainMenuEnum> menuList;
     public Optional<List<Shortcut>> shortcutList;
     public Optional<List<Album>> recentlyAddedList;
+    public Class<?> editLink;
     public int layoutSpanSize;
     public int headerSpanSize;
     public int mainMenuSpanSize;

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.activity.MainEditActivity;
 import tokyo.tkw.thinmp.config.MainSectionConfig;
 import tokyo.tkw.thinmp.constant.LayoutSpanSizeEnum;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
@@ -45,6 +46,7 @@ public class MainLogic {
         dto.menuList = MainMenuEnum.getValues(context);
         dto.shortcutList = shortcuts.map(Shortcuts::getList);
         dto.recentlyAddedList = recentlyAdded.map(RecentlyAdded::getRecentlyAddedList);
+        dto.editLink = MainEditActivity.class;
         dto.layoutSpanSize = LayoutSpanSizeEnum.LAYOUT.spanSize();
         dto.headerSpanSize = LayoutSpanSizeEnum.HEADER.spanSize();
         dto.mainMenuSpanSize = LayoutSpanSizeEnum.LIST_ITEM_LINEAR.spanSize();
