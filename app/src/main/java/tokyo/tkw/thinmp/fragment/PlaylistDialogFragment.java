@@ -18,10 +18,9 @@ import com.annimon.stream.Optional;
 import java.util.Objects;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.PlaylistDialogAdapter;
-import tokyo.tkw.thinmp.dto.PlaylistsDto;
-import tokyo.tkw.thinmp.listener.ScreenUpdateListener;
-import tokyo.tkw.thinmp.logic.PlaylistsLogic;
+import tokyo.tkw.thinmp.dto.PlaylistDialogDto;
+import tokyo.tkw.thinmp.epoxy.controller.PlaylistDialogController;
+import tokyo.tkw.thinmp.logic.PlaylistDialogLogic;
 import tokyo.tkw.thinmp.music.Music;
 import tokyo.tkw.thinmp.music.MusicFactory;
 import tokyo.tkw.thinmp.register.add.PlaylistAdder;
@@ -92,17 +91,15 @@ public class PlaylistDialogFragment extends DialogFragment {
         RecyclerView playlistView = view.findViewById(R.id.playlist);
 
         // logic
-        PlaylistsLogic logic = PlaylistsLogic.createInstance(getContext());
+        PlaylistDialogLogic logic = PlaylistDialogLogic.createInstance(getContext(), music, dialog);
 
         // dto
-        PlaylistsDto dto = logic.createDto();
+        PlaylistDialogDto dto = logic.createDto();
 
-        // adapter
-        RecyclerView.Adapter adapter = new PlaylistDialogAdapter(
-                dto.playlists,
-                createPlaylistClickListener()
-        );
-        playlistView.setAdapter(adapter);
+        // controller
+        PlaylistDialogController controller = new PlaylistDialogController();
+        controller.setData(dto);
+        playlistView.setAdapter(controller.getAdapter());
 
         // layout
         LinearLayoutManager layout = new LinearLayoutManager(activity);
@@ -112,15 +109,6 @@ public class PlaylistDialogFragment extends DialogFragment {
     private void addPlaylist() {
         PlaylistAdder playlistAdder = PlaylistAdder.createInstance();
         playlistAdder.create(editText.getText().toString(), music);
-    }
-
-    private PlaylistDialogAdapter.PlaylistClickListener createPlaylistClickListener() {
-        return (View view, String playlistId) -> {
-            PlaylistAdder playlistAdder = PlaylistAdder.createInstance();
-            playlistAdder.add(playlistId, music);
-            screenUpdate();
-            dialog.dismiss();
-        };
     }
 
     private View.OnClickListener createAddPlaylistListener() {
@@ -140,13 +128,5 @@ public class PlaylistDialogFragment extends DialogFragment {
 
     private View.OnClickListener createCancel2Listener() {
         return view -> showAddPlaylist();
-    }
-
-    private void screenUpdate() {
-        Activity activity = ((Activity) getContext());
-
-        if (activity instanceof ScreenUpdateListener) {
-            ((ScreenUpdateListener) activity).screenUpdate();
-        }
     }
 }
