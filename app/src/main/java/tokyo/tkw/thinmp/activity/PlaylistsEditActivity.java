@@ -4,27 +4,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.epoxy.EpoxyTouchHelper;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import java.util.List;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.adapter.PlaylistsEditAdapter;
 import tokyo.tkw.thinmp.dto.PlaylistsEditDto;
+import tokyo.tkw.thinmp.epoxy.controller.PlaylistEditController;
+import tokyo.tkw.thinmp.epoxy.model.PlaylistEditModel;
 import tokyo.tkw.thinmp.listener.CancelClickListener;
 import tokyo.tkw.thinmp.logic.PlaylistsEditLogic;
 import tokyo.tkw.thinmp.playlist.Playlist;
 import tokyo.tkw.thinmp.register.edit.PlaylistsEditor;
-import tokyo.tkw.thinmp.touch.EditItemTouchHelper;
 
 public class PlaylistsEditActivity extends BaseActivity {
-    private List<String> playlistIdList;
-    private List<Playlist> playlists;
+    private RecyclerView listView;
+    private PlaylistsEditDto dto;
+    private PlaylistEditController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class PlaylistsEditActivity extends BaseActivity {
     @Override
     protected void init() {
         // view
-        RecyclerView listView = findViewById(R.id.list);
+        listView = findViewById(R.id.list);
         Button applyView = findViewById(R.id.apply);
         Button cancelView = findViewById(R.id.cancel);
 
@@ -46,28 +47,21 @@ public class PlaylistsEditActivity extends BaseActivity {
         PlaylistsEditLogic logic = PlaylistsEditLogic.createInstance(this);
 
         // dto
-        PlaylistsEditDto dto = logic.createDto();
+        dto = logic.createDto();
 
-        // プレイリストID一覧
-        playlistIdList = dto.playlistIdList;
-        playlists = dto.playlists;
-
-        // adapter
-        RecyclerView.Adapter adapter = new PlaylistsEditAdapter(playlists);
-        listView.setAdapter(adapter);
+        // controller
+        controller = new PlaylistEditController();
+        controller.setData(dto);
+        listView.setAdapter(controller.getAdapter());
 
         // layout
         LinearLayoutManager layout = new LinearLayoutManager(this);
         listView.setLayoutManager(layout);
 
-        // ドラッグとスワイプ
-        EditItemTouchHelper editItemTouchHelper = new EditItemTouchHelper(adapter, playlists);
-        ItemTouchHelper itemTouchHelper = editItemTouchHelper.createItemTouchHelper();
-        itemTouchHelper.attachToRecyclerView(listView);
-
         // event
         applyView.setOnClickListener(createApplyClickListener());
         cancelView.setOnClickListener(new CancelClickListener());
+        setListEvent();
     }
 
     private View.OnClickListener createApplyClickListener() {
@@ -80,8 +74,35 @@ public class PlaylistsEditActivity extends BaseActivity {
     private void apply() {
         PlaylistsEditor playlistsEditor = PlaylistsEditor.createInstance();
 
-        List<String> toPlaylistIdList = Stream.of(playlists).map(Playlist::getId).collect(Collectors.toList());
+        List<String> toPlaylistIdList = Stream.of(dto.playlists).map(Playlist::getId).collect(Collectors.toList());
 
-        playlistsEditor.update(playlistIdList, toPlaylistIdList);
+        playlistsEditor.update(dto.playlistIdList, toPlaylistIdList);
+    }
+
+    private void setListEvent() {
+        EpoxyTouchHelper.initDragging(controller)
+                .withRecyclerView(listView)
+                .forVerticalList()
+                .withTarget(PlaylistEditModel.class)
+                .andCallbacks(new EpoxyTouchHelper.DragCallbacks<PlaylistEditModel>() {
+
+                    @Override
+                    public void onModelMoved(int fromPosition, int toPosition, PlaylistEditModel modelBeingMoved,
+                                             View itemView) {
+                        dto.playlists.add(toPosition, dto.playlists.remove(fromPosition));
+                    }
+                });
+
+        EpoxyTouchHelper.initSwiping(listView)
+                .leftAndRight()
+                .withTarget(PlaylistEditModel.class)
+                .andCallbacks(new EpoxyTouchHelper.SwipeCallbacks<PlaylistEditModel>() {
+
+                    @Override
+                    public void onSwipeCompleted(PlaylistEditModel model, View itemView, int position, int direction) {
+                        dto.playlists.remove(position);
+                        controller.setData(dto);
+                    }
+                });
     }
 }
