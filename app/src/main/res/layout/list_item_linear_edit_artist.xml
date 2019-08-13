@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/LinearFillTheme">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="20dp">
 
-    <tokyo.tkw.thinmp.view.CircleImageView
-        android:id="@+id/albumArt"
-        style="@style/LinearCircleImageTheme" />
+    <LinearLayout style="@style/LinearFillTheme">
 
-    <LinearLayout style="@style/LinearTextContainerTheme">
+        <tokyo.tkw.thinmp.view.CircleImageView
+            android:id="@+id/albumArt"
+            style="@style/LinearCircleImageTheme" />
 
-        <TextView
-            android:id="@+id/primaryText"
-            style="@style/LinearPrimaryTextTheme" />
+        <LinearLayout style="@style/LinearTextContainerTheme">
+
+            <TextView
+                android:id="@+id/primaryText"
+                style="@style/LinearPrimaryTextTheme" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
 </LinearLayout>
