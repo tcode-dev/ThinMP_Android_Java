@@ -8,19 +8,15 @@
     android:fitsSystemWindows="true">
 
     <tokyo.tkw.thinmp.view.BackImageButtonView
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:background="@null"
-        android:padding="12dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_back"
+        style="@style/BackImageButtonTheme"
+        android:layout_marginStart="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text"
+        style="@style/LinearPrimaryTextTheme"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
