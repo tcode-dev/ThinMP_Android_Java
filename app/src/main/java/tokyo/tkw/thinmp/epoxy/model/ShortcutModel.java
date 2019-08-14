@@ -9,10 +9,8 @@ import androidx.annotation.NonNull;
 import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyHolder;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
-import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.util.GlideUtil;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
@@ -25,14 +23,6 @@ public abstract class ShortcutModel extends EpoxyModelWithHolder<ShortcutModel.H
     String secondaryText;
     @EpoxyAttribute(DoNotHash)
     View.OnClickListener clickListener;
-
-    @Override
-    public void bind(@NonNull ShortcutModel.Holder holder) {
-        GlideUtil.bitmap(albumArtId, holder.albumArt);
-        holder.primaryText.setText(primaryText);
-        holder.secondaryText.setText(secondaryText);
-        holder.parent.setOnClickListener(clickListener);
-    }
 
     static class Holder extends EpoxyHolder {
         View parent;
