@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.MainEditActivity"></activity>
+        <activity
+            android:name=".activity.MainEditActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MainActivity"
             android:label="ThinMP"
