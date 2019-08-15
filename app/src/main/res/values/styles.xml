@@ -202,4 +202,5 @@
         <item name="android:textColor">#A0A0A0</item>
     </style>
 
+    <style name="BaseAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert"></style>
 </resources>
