@@ -8,6 +8,7 @@ import java.util.List;
 import tokyo.tkw.thinmp.dto.PlaylistDetailEditDto;
 import tokyo.tkw.thinmp.epoxy.model.PlaylistNameEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.TrackEditModel_;
+import tokyo.tkw.thinmp.listener.PlaylistNameTextWatcher;
 import tokyo.tkw.thinmp.listener.TrackClickListener;
 import tokyo.tkw.thinmp.listener.TrackMenuClickListener;
 import tokyo.tkw.thinmp.track.Track;
@@ -20,10 +21,11 @@ public class PlaylistDetailEditController extends TypedEpoxyController<PlaylistD
         buildTrackList(dto.trackList);
     }
 
-    private void buildEdit(String playlistName) {
+    private void buildEdit(StringBuffer playlistName) {
         new PlaylistNameEditModel_()
                 .id("edit")
-                .playlistName(playlistName)
+                .playlistName(playlistName.toString())
+                .textWatcher(new PlaylistNameTextWatcher(playlistName))
                 .addTo(this);
     }
 

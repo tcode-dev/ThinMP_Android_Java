@@ -92,11 +92,9 @@ public class PlaylistDetailEditActivity extends BaseActivity {
 
     private void apply() {
         PlaylistEditor playlistEditor = PlaylistEditor.createInstance();
-        EditText playlistNameView = findViewById(R.id.playlistName);
-        String name = playlistNameView.getText().toString();
         List<String> toTrackIdList = Stream.of(dto.trackList).map(Track::getId).collect(Collectors.toList());
 
-        playlistEditor.update(playlistId, name, dto.trackIdList, toTrackIdList);
+        playlistEditor.update(playlistId, dto.playlistName.toString(), dto.trackIdList, toTrackIdList);
     }
 
     private void setListEvent() {

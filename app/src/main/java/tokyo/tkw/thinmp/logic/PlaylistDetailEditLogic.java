@@ -22,7 +22,7 @@ public class PlaylistDetailEditLogic {
         return playlist.map(playlist -> {
             PlaylistDetailEditDto dto = new PlaylistDetailEditDto();
 
-            dto.playlistName = playlist.getName();
+            dto.playlistName = new StringBuffer(playlist.getName());
             dto.trackList = playlist.getSortedTrackList();
             dto.trackIdList = playlist.getTrackIdList();
             dto.startPosition = 1;

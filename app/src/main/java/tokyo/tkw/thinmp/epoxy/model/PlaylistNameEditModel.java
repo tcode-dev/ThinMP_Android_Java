@@ -1,5 +1,6 @@
 package tokyo.tkw.thinmp.epoxy.model;
 
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
@@ -16,13 +17,18 @@ import tokyo.tkw.thinmp.R;
 public abstract class PlaylistNameEditModel extends EpoxyModelWithHolder<PlaylistNameEditModel.Holder> {
     @EpoxyAttribute
     String playlistName;
+    @EpoxyAttribute
+    TextWatcher textWatcher;
+
     @Override
     public void bind(@NonNull Holder holder) {
         holder.playlistName.setText(playlistName);
+        holder.playlistName.addTextChangedListener(textWatcher);
     }
 
     static class Holder extends EpoxyHolder {
         EditText playlistName;
+
         @Override
         protected void bindView(@NonNull View itemView) {
             playlistName = itemView.findViewById(R.id.playlistName);
