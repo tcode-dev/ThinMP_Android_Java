@@ -50,9 +50,8 @@
         android:id="@+id/createPlaylist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/outer_margin_20dp"
+        android:layout_marginBottom="@dimen/inner_margin_10dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -60,20 +59,26 @@
             android:id="@+id/textView"
             style="@style/PageHeaderTextTheme"
             android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/outer_margin_20dp"
+            android:layout_marginEnd="@dimen/outer_margin_20dp"
+            android:layout_marginBottom="@dimen/inner_margin_10dp"
             android:text="@string/create_playlist_label" />
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/outer_margin_20dp"
+            android:layout_marginEnd="@dimen/outer_margin_20dp"
             android:ems="10"
             android:gravity="center_vertical"
             android:inputType="textPersonName" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/outer_margin_20dp"
+            android:layout_marginEnd="@dimen/outer_margin_20dp">
 
             <Button
                 android:id="@+id/okButton"

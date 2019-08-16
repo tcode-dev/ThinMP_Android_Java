@@ -17,6 +17,7 @@
 
     <!-- margin -->
     <dimen name="outer_margin_20dp">20dp</dimen>
+    <dimen name="inner_margin_10dp">10dp</dimen>
 
     <!-- text size -->
     <dimen name="page_header_text_size_20sp">20sp</dimen>

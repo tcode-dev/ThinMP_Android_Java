@@ -196,7 +196,7 @@
     <style name="ButtonTheme" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#A0A0A0</item>
+        <item name="android:textColor">#666666</item>
     </style>
 
     <style name="BaseAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert"></style>
