@@ -15,7 +15,6 @@ import tokyo.tkw.thinmp.shortcut.Shortcuts;
 
 public class MainLogic {
     private Context context;
-    private MainSectionConfig mainSectionConfig;
     private Optional<Shortcuts> shortcuts;
     private Optional<RecentlyAdded> recentlyAdded;
 
@@ -29,7 +28,7 @@ public class MainLogic {
                 : Optional.empty();
 
         this.recentlyAdded = mainSectionConfig.getRecentlyAddedVisibility()
-                ? Optional.of(RecentlyAdded.createInstance(context))
+                ? Optional.of(RecentlyAdded.createInstance(context, mainSectionConfig.getRecentlyAddedCount()))
                 : Optional.empty();
     }
 
