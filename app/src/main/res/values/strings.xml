@@ -12,15 +12,15 @@
     <string name="recently_added">Recently Added</string>
     <string name="shortcut">Shortcut</string>
 
-    <string name="edit">Edit</string>
+    <string name="edit">編集</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="add_favorite_artist">お気に入りに登録</string>
-    <string name="del_favorite_artist">お気に入りを解除</string>
-    <string name="add_favorite_song">お気に入りに登録</string>
-    <string name="del_favorite_song">お気に入りを解除</string>
-    <string name="add_playlist">Add Playlist</string>
-    <string name="create_playlist">playlistを作成</string>
+    <string name="add_favorite_artist">お気に入りに追加</string>
+    <string name="del_favorite_artist">お気に入りから削除</string>
+    <string name="add_favorite_song">お気に入りに追加</string>
+    <string name="del_favorite_song">お気に入りから削除</string>
+    <string name="add_playlist">プレイリストに追加</string>
+    <string name="create_playlist">プレイリストを作成</string>
     <string name="create_playlist_label">プレイリスト名を入力</string>
     <string name="add_shortcut">Shortcutに追加</string>
     <string name="remove_shortcut">Shortcutから削除</string>

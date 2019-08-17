@@ -16,7 +16,7 @@ import tokyo.tkw.thinmp.util.GlideUtil;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
-@EpoxyModelClass(layout = R.layout.list_item_linear_edit_playlist)
+@EpoxyModelClass(layout = R.layout.list_item_linear_playlist_dialog)
 public abstract class PlaylistDialogModel extends EpoxyModelWithHolder<PlaylistDialogModel.Holder> {
     @EpoxyAttribute
     String albumArtId;

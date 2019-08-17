@@ -16,7 +16,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/inner_margin_10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingTop="10dp"
@@ -27,7 +27,7 @@
                 style="@style/AddImageButtonTheme" />
 
             <TextView
-                style="@style/PageHeaderTextTheme"
+                style="@style/PlaylistDialogTextTheme"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/create_playlist" />
@@ -57,7 +57,7 @@
 
         <TextView
             android:id="@+id/textView"
-            style="@style/PageHeaderTextTheme"
+            style="@style/PlaylistDialogTextTheme"
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/outer_margin_20dp"
             android:layout_marginEnd="@dimen/outer_margin_20dp"

@@ -61,6 +61,13 @@
         <item name="android:textSize">@dimen/section_header_text_size_24sp</item>
     </style>
 
+    <style name="PlaylistDialogTextTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/playlist_dialog_header_text_size_18sp</item>
+    </style>
 
     <!-- grid -->
     <style name="GridTheme">
