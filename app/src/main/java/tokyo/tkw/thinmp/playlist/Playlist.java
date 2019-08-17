@@ -16,15 +16,15 @@ public class Playlist {
     private PlaylistRealm playlistRealm;
     private PlaylistTrack playlistTrack;
 
-    private Playlist(Context context, PlaylistRealm playlistRealm) {
+    private Playlist(Context context, PlaylistRealm playlistRealm, List<String> albumArtList) {
         this.playlistRealm = playlistRealm;
         RealmList<PlaylistTrackRealm> trackRealmList = playlistRealm.getTrackRealmList();
-        this.playlistTrack = PlaylistTrack.createInstance(context, trackRealmList);
+        this.playlistTrack = PlaylistTrack.createInstance(context, trackRealmList, albumArtList);
     }
 
-    public static Optional<Playlist> createInstance(Context context, String playlistId) {
+    public static Optional<Playlist> createInstance(Context context, String playlistId, List<String> albumArtList) {
         return Optional.ofNullable(PlaylistRealm.createInstance(playlistId))
-                .map(playlistRealm -> new Playlist(context, playlistRealm));
+                .map(playlistRealm -> new Playlist(context, playlistRealm, albumArtList));
     }
 
     public String getId() {

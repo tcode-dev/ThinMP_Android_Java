@@ -24,20 +24,20 @@ class PlaylistTrack {
     private List<Track> sortedTrackList;
     private String albumArtId;
 
-    private PlaylistTrack(Context context, RealmList<PlaylistTrackRealm> trackRealmList) {
+    private PlaylistTrack(Context context, RealmList<PlaylistTrackRealm> trackRealmList, List<String> albumArtList) {
         this.trackContentProvider = new TrackContentProvider(context);
         this.trackRealmList = trackRealmList;
         this.trackIdList = getTrackIdList();
         this.trackList = getTrackList();
         this.trackMap = toTrackMap();
         this.sortedTrackList = sortTrackList();
-        this.albumArtId = getFirstTrackAlbumArtId();
+        this.albumArtId = getFirstTrackAlbumArtId(albumArtList);
 
         validation();
     }
 
-    static PlaylistTrack createInstance(Context context, RealmList<PlaylistTrackRealm> trackRealmList) {
-        return new PlaylistTrack(context, trackRealmList);
+    static PlaylistTrack createInstance(Context context, RealmList<PlaylistTrackRealm> trackRealmList, List<String> albumArtList) {
+        return new PlaylistTrack(context, trackRealmList, albumArtList);
     }
 
     String getAlbumArtId() {
@@ -58,12 +58,14 @@ class PlaylistTrack {
         return Stream.of(trackIdList).filter(trackMap::containsKey).map(trackMap::get).collect(Collectors.toList());
     }
 
-    private String getFirstTrackAlbumArtId() {
-        Optional<Track> track = Stream.of(sortedTrackList).findFirst();
+    private String getFirstTrackAlbumArtId(List<String> albumArtList) {
+        Optional<Track> trackOptional = Stream.of(sortedTrackList)
+                .filter(track -> albumArtList.contains(track.getAlbumArtId()))
+                .findFirst();
 
-        if (track.isEmpty()) return null;
+        if (trackOptional.isEmpty()) return null;
 
-        return track.get().getAlbumArtId();
+        return trackOptional.get().getAlbumArtId();
     }
 
     private List<String> getUniqueTrackIdList() {

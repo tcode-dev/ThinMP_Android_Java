@@ -7,6 +7,7 @@ import com.annimon.stream.Optional;
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.dto.PlaylistDetailDto;
 import tokyo.tkw.thinmp.playlist.Playlist;
+import tokyo.tkw.thinmp.playlist.PlaylistAlbumArt;
 
 public class PlaylistDetailLogic {
     private Context context;
@@ -14,7 +15,8 @@ public class PlaylistDetailLogic {
 
     private PlaylistDetailLogic(Context context, String playlistId) {
         this.context = context;
-        this.playlist = Playlist.createInstance(context, playlistId);
+        PlaylistAlbumArt playlistAlbumArt = PlaylistAlbumArt.createInstance(context);
+        this.playlist = Playlist.createInstance(context, playlistId, playlistAlbumArt.getAlbumArtList());
     }
 
     public static PlaylistDetailLogic createInstance(Context context, String playlistId) {

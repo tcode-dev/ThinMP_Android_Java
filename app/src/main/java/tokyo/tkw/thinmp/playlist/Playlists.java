@@ -16,12 +16,14 @@ public class Playlists {
     private Realm realm;
     private List<String> playlistIds;
     private RealmResults<PlaylistRealm> realmResults;
+    private List<String> albumArtList;
 
     private Playlists(Context context) {
         this.context = context;
         this.realm = Realm.getDefaultInstance();
         this.realmResults = findAll();
         this.playlistIds = getPlaylistIds();
+        this.albumArtList = getAlbumArtList();
     }
 
     private Playlists(Context context, List<String> playlistIds) {
@@ -29,6 +31,7 @@ public class Playlists {
         this.realm = Realm.getDefaultInstance();
         this.realmResults = findById(playlistIds);
         this.playlistIds = playlistIds;
+        this.albumArtList = getAlbumArtList();
     }
 
     public static Playlists createInstance(Context context) {
@@ -48,17 +51,19 @@ public class Playlists {
         return realm.where(PlaylistRealm.class).findAll().sort(PlaylistRealm.ORDER);
     }
 
+    private List<String> getAlbumArtList() {
+        PlaylistAlbumArt playlistAlbumArt = PlaylistAlbumArt.createInstance(context);
+
+        return playlistAlbumArt.getAlbumArtList();
+    }
+
     public List<String> getPlaylistIds() {
         return Stream.of(realmResults).map(PlaylistRealm::getId).toList();
     }
 
-    public List<PlaylistRealm> getPlaylistRealmList() {
-        return Stream.of(realmResults).toList();
-    }
-
     public List<Playlist> getPlaylists() {
         return Stream.of(playlistIds)
-                .map(playlistId -> Playlist.createInstance(context, playlistId))
+                .map(playlistId -> Playlist.createInstance(context, playlistId, albumArtList))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .toList();
