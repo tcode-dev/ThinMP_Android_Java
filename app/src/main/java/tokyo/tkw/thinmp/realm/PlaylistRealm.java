@@ -1,7 +1,6 @@
 package tokyo.tkw.thinmp.realm;
 
 import java.util.List;
-import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmList;

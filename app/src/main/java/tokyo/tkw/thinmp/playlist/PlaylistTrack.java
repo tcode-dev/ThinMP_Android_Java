@@ -36,7 +36,8 @@ class PlaylistTrack {
         validation();
     }
 
-    static PlaylistTrack createInstance(Context context, RealmList<PlaylistTrackRealm> trackRealmList, List<String> albumArtList) {
+    static PlaylistTrack createInstance(Context context, RealmList<PlaylistTrackRealm> trackRealmList,
+                                        List<String> albumArtList) {
         return new PlaylistTrack(context, trackRealmList, albumArtList);
     }
 

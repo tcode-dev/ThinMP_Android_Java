@@ -7,6 +7,7 @@ import android.util.TypedValue;
 public class ViewUtil {
     /**
      * spをpxに変換する
+     *
      * @param context
      * @param size
      * @return float
@@ -17,6 +18,7 @@ public class ViewUtil {
 
     /**
      * dpをpxに変換する
+     *
      * @param context
      * @param size
      * @return float
@@ -27,11 +29,12 @@ public class ViewUtil {
 
     /**
      * pxに変換する
-     * @see android.widget.TextView#setTextSize
+     *
      * @param context
      * @param size
      * @param unit
      * @return float
+     * @see android.widget.TextView#setTextSize
      */
     private static float toDimensionUnit(Context context, int size, int unit) {
         Resources r;

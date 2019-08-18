@@ -1,7 +1,5 @@
 package tokyo.tkw.thinmp.dto;
 
-import com.annimon.stream.Optional;
-
 import java.util.List;
 
 import tokyo.tkw.thinmp.album.Album;

@@ -38,7 +38,8 @@ public class MiniPlayer {
         mListener = listener;
     }
 
-    public static MiniPlayer createInstance(FragmentMiniPlayerBinding binding, MiniPlayer.OnMiniPlayerListener listener) {
+    public static MiniPlayer createInstance(FragmentMiniPlayerBinding binding,
+                                            MiniPlayer.OnMiniPlayerListener listener) {
         return new MiniPlayer(binding, listener);
     }
 

@@ -3,8 +3,6 @@ package tokyo.tkw.thinmp.provider;
 import android.content.Context;
 import android.provider.MediaStore;
 
-import com.annimon.stream.Optional;
-
 import tokyo.tkw.thinmp.track.Track;
 
 abstract class MediaStoreAudioMediaProvider extends MediaStoreAudioProvider<Track> {

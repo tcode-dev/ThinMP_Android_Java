@@ -30,9 +30,6 @@ import tokyo.tkw.thinmp.player.MiniPlayer;
 import tokyo.tkw.thinmp.player.MusicService;
 import tokyo.tkw.thinmp.track.Track;
 
-/**
- * MiniPlayerFragment
- */
 public class MiniPlayerFragment extends Fragment {
     private MusicService musicService;
     private MiniPlayer miniPlayer;

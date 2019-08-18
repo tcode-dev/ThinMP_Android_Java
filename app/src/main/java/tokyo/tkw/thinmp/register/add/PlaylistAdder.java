@@ -14,6 +14,7 @@ public class PlaylistAdder extends RealmRegister {
 
     /**
      * プレイリストの新規作成
+     *
      * @param name
      * @param music
      */
@@ -29,6 +30,7 @@ public class PlaylistAdder extends RealmRegister {
 
     /**
      * 既存のプレイリストに曲を追加
+     *
      * @param playlistId
      * @param music
      */

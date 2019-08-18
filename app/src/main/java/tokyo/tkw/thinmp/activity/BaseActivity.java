@@ -18,19 +18,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             permission.requestPermissions();
         }
-    };
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case Permission.PERMISSION_EXTERNAL_STORAGE_CODE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    recreate();
-                }
-
-                return;
+        // If request is cancelled, the result arrays are empty.
+        if (requestCode == Permission.PERMISSION_EXTERNAL_STORAGE_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                recreate();
             }
         }
     }

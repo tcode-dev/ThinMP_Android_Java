@@ -3,8 +3,8 @@ package tokyo.tkw.thinmp.logic;
 import android.content.Context;
 
 import tokyo.tkw.thinmp.R;
-import tokyo.tkw.thinmp.dto.ArtistsDto;
 import tokyo.tkw.thinmp.artist.Artists;
+import tokyo.tkw.thinmp.dto.ArtistsDto;
 
 public class ArtistsLogic {
     private Context context;

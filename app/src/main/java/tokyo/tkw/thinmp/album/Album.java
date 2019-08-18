@@ -7,13 +7,10 @@ import com.annimon.stream.Optional;
 import java.util.List;
 
 import tokyo.tkw.thinmp.music.Music;
-import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.provider.AlbumContentProvider;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
+import tokyo.tkw.thinmp.track.Track;
 
-/**
- * アルバム情報
- */
 public class Album extends Music {
     public static final String ALBUM_ID = "albumId";
 
@@ -37,7 +34,8 @@ public class Album extends Music {
         return provider.findById(id);
     }
 
-    public static Album createInstance(Context context, String id, String name, String artistId, String artistName, String albumArtId) {
+    public static Album createInstance(Context context, String id, String name, String artistId, String artistName,
+                                       String albumArtId) {
         return new Album(context, id, name, artistId, artistName, albumArtId);
     }
 

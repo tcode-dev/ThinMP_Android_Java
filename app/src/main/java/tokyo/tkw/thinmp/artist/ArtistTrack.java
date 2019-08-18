@@ -4,8 +4,8 @@ import android.content.Context;
 
 import java.util.List;
 
-import tokyo.tkw.thinmp.track.Track;
 import tokyo.tkw.thinmp.provider.TrackContentProvider;
+import tokyo.tkw.thinmp.track.Track;
 
 class ArtistTrack {
     private String artistId;

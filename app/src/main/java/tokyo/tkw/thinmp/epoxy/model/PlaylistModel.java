@@ -11,7 +11,6 @@ import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyHolder;
 import com.airbnb.epoxy.EpoxyModelClass;
 import com.airbnb.epoxy.EpoxyModelWithHolder;
-import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.util.GlideUtil;
