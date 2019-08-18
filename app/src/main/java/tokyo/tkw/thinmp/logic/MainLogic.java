@@ -6,6 +6,7 @@ import com.annimon.stream.Optional;
 
 import tokyo.tkw.thinmp.R;
 import tokyo.tkw.thinmp.activity.MainEditActivity;
+import tokyo.tkw.thinmp.config.MainRecentlyAddedCountConfig;
 import tokyo.tkw.thinmp.config.MainSectionConfig;
 import tokyo.tkw.thinmp.constant.LayoutSpanSizeEnum;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
@@ -22,13 +23,16 @@ public class MainLogic {
         this.context = context;
 
         MainSectionConfig mainSectionConfig = MainSectionConfig.createInstance(context);
+        MainRecentlyAddedCountConfig mainRecentlyAddedCountConfig =
+                MainRecentlyAddedCountConfig.createInstance(context);
 
         this.shortcuts = mainSectionConfig.getShortcutVisibility()
                 ? Optional.of(Shortcuts.createInstance(context))
                 : Optional.empty();
 
         this.recentlyAdded = mainSectionConfig.getRecentlyAddedVisibility()
-                ? Optional.of(RecentlyAdded.createInstance(context, mainSectionConfig.getRecentlyAddedCount()))
+                ? Optional.of(RecentlyAdded.createInstance(context,
+                mainRecentlyAddedCountConfig.getRecentlyAddedCount()))
                 : Optional.empty();
     }
 

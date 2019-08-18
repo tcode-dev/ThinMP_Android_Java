@@ -5,9 +5,7 @@ import android.content.Context;
 public class MainSectionConfig extends Config {
     public static final String KEY_SHORTCUT = "shortcut";
     public static final String KEY_RECENTLY_ADDED = "recentlyAdded";
-    private static final String KEY_RECENTLY_ADDED_COUNT = "recentlyAddedCount";
     private static final boolean DEFAULT_VISIBILITY = true;
-    private static final int DEFAULT_RECENTLY_ADDED_COUNT = 10;
 
     private MainSectionConfig(Context context) {
         super(context);
@@ -31,13 +29,5 @@ public class MainSectionConfig extends Config {
 
     public void setRecentlyAddedVisibility(boolean visibility) {
         sharedPreferences.edit().putBoolean(KEY_RECENTLY_ADDED, visibility).apply();
-    }
-
-    public int getRecentlyAddedCount() {
-        return sharedPreferences.getInt(KEY_RECENTLY_ADDED_COUNT, DEFAULT_RECENTLY_ADDED_COUNT);
-    }
-
-    public void setRecentlyAddedCount(int count) {
-        sharedPreferences.edit().putInt(KEY_RECENTLY_ADDED_COUNT, count).apply();
     }
 }

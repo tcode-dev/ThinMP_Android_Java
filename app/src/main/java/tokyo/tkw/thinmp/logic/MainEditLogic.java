@@ -1,12 +1,11 @@
 package tokyo.tkw.thinmp.logic;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 import tokyo.tkw.thinmp.R;
+import tokyo.tkw.thinmp.config.MainRecentlyAddedCountConfig;
 import tokyo.tkw.thinmp.config.MainSectionConfig;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainEditDto;
@@ -16,11 +15,13 @@ public class MainEditLogic {
     private Context context;
     private Shortcuts shortcuts;
     private MainSectionConfig mainSectionConfig;
+    private MainRecentlyAddedCountConfig mainRecentlyAddedCountConfig;
 
     private MainEditLogic(Context context) {
         this.context = context;
         this.shortcuts = Shortcuts.createInstance(context);
         this.mainSectionConfig = MainSectionConfig.createInstance(context);
+        this.mainRecentlyAddedCountConfig = MainRecentlyAddedCountConfig.createInstance(context);
     }
 
     public static MainEditLogic createInstance(Context context) {
@@ -40,16 +41,9 @@ public class MainEditLogic {
         dto.stateMap = new HashMap<>();
         dto.shortcutVisibility = mainSectionConfig.getShortcutVisibility();
         dto.recentlyAddedVisibility = mainSectionConfig.getRecentlyAddedVisibility();
-        dto.recentlyAddedCount = mainSectionConfig.getRecentlyAddedCount();
-        dto.recentlyAddedPosition = getRecentlyAddedPosition(dto.recentlyAddedCount);
+        dto.recentlyAddedCount = mainRecentlyAddedCountConfig.getRecentlyAddedCount();
+        dto.recentlyAddedPosition = mainRecentlyAddedCountConfig.getRecentlyAddedPosition();
 
         return dto;
-    }
-
-    private int getRecentlyAddedPosition(int count) {
-        @SuppressLint("ResourceType") String[] recentlyAddedCountArray =
-                context.getResources().getStringArray(R.array.recently_added_count_array);
-
-        return Arrays.asList(recentlyAddedCountArray).indexOf(String.valueOf(count));
     }
 }

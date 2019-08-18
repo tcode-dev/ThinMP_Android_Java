@@ -6,15 +6,12 @@ import android.view.View;
 import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 
-import java.util.HashMap;
-import java.util.List;
-
 import tokyo.tkw.thinmp.config.MainMenuConfig;
+import tokyo.tkw.thinmp.config.MainRecentlyAddedCountConfig;
 import tokyo.tkw.thinmp.config.MainSectionConfig;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainEditDto;
 import tokyo.tkw.thinmp.register.edit.ShortcutEditor;
-import tokyo.tkw.thinmp.shortcut.Shortcut;
 
 public class MainEditApplyClickListener extends BaseClickListener {
     private MainEditDto dto;
@@ -37,6 +34,7 @@ public class MainEditApplyClickListener extends BaseClickListener {
     private void saveConfig(Context context) {
         saveMenuConfig(context);
         saveSectionConfig(context);
+        saveMainRecentlyAddedCountConfig(context);
     }
 
     private void saveMenuConfig(Context context) {
@@ -58,6 +56,11 @@ public class MainEditApplyClickListener extends BaseClickListener {
 
         Optional.ofNullable(dto.stateMap.get(MainSectionConfig.KEY_SHORTCUT)).ifPresent(config::setShortcutVisibility);
         Optional.ofNullable(dto.stateMap.get(MainSectionConfig.KEY_RECENTLY_ADDED)).ifPresent(config::setRecentlyAddedVisibility);
+    }
+
+    private void saveMainRecentlyAddedCountConfig(Context context) {
+        MainRecentlyAddedCountConfig config = MainRecentlyAddedCountConfig.createInstance(context);
+
         config.setRecentlyAddedCount(dto.recentlyAddedCount);
     }
 }
