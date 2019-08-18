@@ -1,6 +1,7 @@
 package tokyo.tkw.thinmp.epoxy.model;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -27,8 +28,24 @@ public abstract class MainMenuEditModel extends EpoxyModelWithHolder<MainMenuEdi
     @Override
     public void bind(@NonNull MainMenuEditModel.Holder holder) {
         holder.checkBox.setText(primaryText);
-        holder.checkBox.setChecked(visibility);
         holder.checkBox.setOnCheckedChangeListener(changeListener);
+    }
+
+    /**
+     * bindではチェック状態が復元されなかったのでbuildViewで復元
+     * @param parent
+     * @return
+     */
+    @Override
+    protected View buildView(@NonNull ViewGroup parent) {
+        View view = super.buildView(parent);
+        ((CheckBox) view.findViewById(R.id.checkBox)).setChecked(visibility);
+        return view;
+    }
+
+    @Override
+    public boolean shouldSaveViewState() {
+        return true;
     }
 
     static class Holder extends EpoxyHolder {
