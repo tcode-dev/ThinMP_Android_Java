@@ -16,18 +16,18 @@ import tokyo.tkw.thinmp.R;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
-@EpoxyModelClass(layout = R.layout.list_item_linear_edit_main_menu)
-public abstract class MainMenuEditModel extends EpoxyModelWithHolder<MainMenuEditModel.Holder> {
+@EpoxyModelClass(layout = R.layout.header_section_edit_recently_added)
+public abstract class SectionHeaderRecentlyAddedEditModel extends EpoxyModelWithHolder<SectionHeaderRecentlyAddedEditModel.Holder> {
     @EpoxyAttribute
-    String primaryText;
+    String title;
     @EpoxyAttribute
     boolean visibility;
     @EpoxyAttribute(DoNotHash)
     CompoundButton.OnCheckedChangeListener changeListener;
 
     @Override
-    public void bind(@NonNull MainMenuEditModel.Holder holder) {
-        holder.checkBox.setText(primaryText);
+    public void bind(@NonNull Holder holder) {
+        holder.checkBox.setText(title);
         holder.checkBox.setOnCheckedChangeListener(changeListener);
     }
 
@@ -40,7 +40,7 @@ public abstract class MainMenuEditModel extends EpoxyModelWithHolder<MainMenuEdi
     @Override
     protected View buildView(@NonNull ViewGroup parent) {
         View view = super.buildView(parent);
-        ((CheckBox) view.findViewById(R.id.checkBox)).setChecked(visibility);
+        ((CheckBox) view.findViewById(R.id.recentlyAddedCheckBox)).setChecked(visibility);
         return view;
     }
 
@@ -54,7 +54,7 @@ public abstract class MainMenuEditModel extends EpoxyModelWithHolder<MainMenuEdi
 
         @Override
         protected void bindView(@NonNull View itemView) {
-            checkBox = itemView.findViewById(R.id.checkBox);
+            checkBox = itemView.findViewById(R.id.recentlyAddedCheckBox);
         }
     }
 }

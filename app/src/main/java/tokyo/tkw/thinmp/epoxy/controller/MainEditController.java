@@ -11,7 +11,8 @@ import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainEditDto;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.RecentlyAddedCountModel_;
-import tokyo.tkw.thinmp.epoxy.model.SectionHeaderEditModel_;
+import tokyo.tkw.thinmp.epoxy.model.SectionHeaderRecentlyAddedEditModel_;
+import tokyo.tkw.thinmp.epoxy.model.SectionHeaderShortcutEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearPlaylistModel_;
@@ -50,7 +51,7 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
     }
 
     private void buildShortcutHeader(String title, boolean visibility, HashMap<String, Boolean> stateMap) {
-        new SectionHeaderEditModel_()
+        new SectionHeaderShortcutEditModel_()
                 .id("shortcut header")
                 .title(title)
                 .visibility(visibility)
@@ -92,7 +93,7 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
 
     private void buildRecentlyAddedHeader(String title, String key, boolean visibility,
                                           HashMap<String, Boolean> stateMap) {
-        new SectionHeaderEditModel_()
+        new SectionHeaderRecentlyAddedEditModel_()
                 .id("recently added header")
                 .title(title)
                 .visibility(visibility)

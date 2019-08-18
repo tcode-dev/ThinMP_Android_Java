@@ -8,7 +8,7 @@
     android:paddingBottom="10dp">
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/recentlyAddedCheckBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"

@@ -1,6 +1,7 @@
 package tokyo.tkw.thinmp.epoxy.model;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -15,8 +16,8 @@ import tokyo.tkw.thinmp.R;
 
 import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 
-@EpoxyModelClass(layout = R.layout.header_section_edit)
-public abstract class SectionHeaderEditModel extends EpoxyModelWithHolder<SectionHeaderEditModel.Holder> {
+@EpoxyModelClass(layout = R.layout.header_section_edit_shortcut)
+public abstract class SectionHeaderShortcutEditModel extends EpoxyModelWithHolder<SectionHeaderShortcutEditModel.Holder> {
     @EpoxyAttribute
     String title;
     @EpoxyAttribute
@@ -27,8 +28,25 @@ public abstract class SectionHeaderEditModel extends EpoxyModelWithHolder<Sectio
     @Override
     public void bind(@NonNull Holder holder) {
         holder.checkBox.setText(title);
-        holder.checkBox.setChecked(visibility);
         holder.checkBox.setOnCheckedChangeListener(changeListener);
+    }
+
+    /**
+     * bindではチェック状態が復元されなかったのでbuildViewで復元
+     *
+     * @param parent
+     * @return
+     */
+    @Override
+    protected View buildView(@NonNull ViewGroup parent) {
+        View view = super.buildView(parent);
+        ((CheckBox) view.findViewById(R.id.shortcutCheckBox)).setChecked(visibility);
+        return view;
+    }
+
+    @Override
+    public boolean shouldSaveViewState() {
+        return true;
     }
 
     static class Holder extends EpoxyHolder {
@@ -36,7 +54,7 @@ public abstract class SectionHeaderEditModel extends EpoxyModelWithHolder<Sectio
 
         @Override
         protected void bindView(@NonNull View itemView) {
-            checkBox = itemView.findViewById(R.id.checkBox);
+            checkBox = itemView.findViewById(R.id.shortcutCheckBox);
         }
     }
 }
