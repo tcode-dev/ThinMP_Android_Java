@@ -1,7 +1,9 @@
 package tokyo.tkw.thinmp.logic;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import tokyo.tkw.thinmp.R;
@@ -38,7 +40,16 @@ public class MainEditLogic {
         dto.stateMap = new HashMap<>();
         dto.shortcutVisibility = mainSectionConfig.getShortcutVisibility();
         dto.recentlyAddedVisibility = mainSectionConfig.getRecentlyAddedVisibility();
+        dto.recentlyAddedCount = mainSectionConfig.getRecentlyAddedCount();
+        dto.recentlyAddedPosition = getRecentlyAddedPosition(dto.recentlyAddedCount);
 
         return dto;
+    }
+
+    private int getRecentlyAddedPosition(int count) {
+        @SuppressLint("ResourceType") String[] recentlyAddedCountArray =
+                context.getResources().getStringArray(R.array.recently_added_count_array);
+
+        return Arrays.asList(recentlyAddedCountArray).indexOf(String.valueOf(count));
     }
 }

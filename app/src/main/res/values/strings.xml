@@ -25,7 +25,23 @@
     <string name="add_shortcut">Shortcutに追加</string>
     <string name="remove_shortcut">Shortcutから削除</string>
 
+    <string name="recently_added_count">表示件数</string>
+
     <string name="album_not_found">アルバムが見つかりませんでした</string>
     <string name="artist_not_found">アーティストが見つかりませんでした</string>
     <string name="playlist_not_found">プレイリストが見つかりませんでした</string>
+
+    <string-array name="recently_added_count_array">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+    </string-array>
+
 </resources>

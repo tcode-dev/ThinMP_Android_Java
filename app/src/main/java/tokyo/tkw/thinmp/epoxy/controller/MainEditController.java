@@ -10,12 +10,13 @@ import tokyo.tkw.thinmp.config.MainSectionConfig;
 import tokyo.tkw.thinmp.constant.MainMenuEnum;
 import tokyo.tkw.thinmp.dto.MainEditDto;
 import tokyo.tkw.thinmp.epoxy.model.MainMenuEditModel_;
+import tokyo.tkw.thinmp.epoxy.model.RecentlyAddedCountModel_;
 import tokyo.tkw.thinmp.epoxy.model.SectionHeaderEditModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearAlbumModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearArtistModel_;
 import tokyo.tkw.thinmp.epoxy.model.ShortcutLinearPlaylistModel_;
-import tokyo.tkw.thinmp.epoxy.model.SpaceModel_;
 import tokyo.tkw.thinmp.listener.MainEditCheckBoxChangeListener;
+import tokyo.tkw.thinmp.listener.RecentlyAddedCountSelectedListener;
 import tokyo.tkw.thinmp.realm.ShortcutRealm;
 import tokyo.tkw.thinmp.shortcut.Shortcut;
 
@@ -34,7 +35,7 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
         buildRecentlyAddedHeader(dto.recentlyAddedTitle, MainSectionConfig.KEY_RECENTLY_ADDED,
                 dto.recentlyAddedVisibility, dto.stateMap);
 
-        buildSpace();
+        buildRecentlyAddedCount(dto);
     }
 
     private void buildMenu(List<MainMenuEnum> menuList, HashMap<String, Boolean> stateMap) {
@@ -99,9 +100,11 @@ public class MainEditController extends TypedEpoxyController<MainEditDto> {
                 .addTo(this);
     }
 
-    private void buildSpace() {
-        new SpaceModel_()
-                .id("Space", 1)
+    private void buildRecentlyAddedCount(MainEditDto dto) {
+        new RecentlyAddedCountModel_()
+                .id("recently added count")
+                .position(dto.recentlyAddedPosition)
+                .spinnerListener(new RecentlyAddedCountSelectedListener(dto))
                 .addTo(this);
     }
 }

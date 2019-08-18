@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/outer_margin_20dp"
+    android:layout_marginBottom="@dimen/outer_margin_20dp">
+
+    <TextView
+        style="@style/LinearPrimaryTextTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recently_added_count" />
+
+    <Spinner
+        android:id="@+id/recently_added_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/recently_added_count_array"
+        android:paddingStart="@dimen/text_space_16sp"
+        android:paddingEnd="@dimen/text_space_16sp" />
+
+</LinearLayout>

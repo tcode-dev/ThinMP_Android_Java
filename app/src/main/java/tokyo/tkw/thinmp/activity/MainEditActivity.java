@@ -57,8 +57,7 @@ public class MainEditActivity extends BaseActivity {
 
         // event
         setEvent();
-        applyView.setOnClickListener(new MainEditApplyClickListener(dto.fromShortcutList, dto.shortcutList,
-                dto.menuList, dto.stateMap));
+        applyView.setOnClickListener(new MainEditApplyClickListener(dto));
         cancelView.setOnClickListener(new CancelClickListener());
     }
 
