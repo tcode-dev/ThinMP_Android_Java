@@ -382,7 +382,7 @@
                             android:layout_height="0dp"
                             android:background="@null"
                             android:onClick="@{player::onClickDeleteFavoriteSong}"
-                            android:padding="10dp"
+                            android:padding="8dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isFavorite ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -397,7 +397,7 @@
                             android:layout_height="0dp"
                             android:background="@null"
                             android:onClick="@{player::onClickAddFavoriteSong}"
-                            android:padding="10dp"
+                            android:padding="8dp"
                             android:scaleType="centerCrop"
                             android:visibility="@{player.isFavorite ? View.GONE : View.VISIBLE}"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -468,7 +468,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_playlist" />
+                            app:srcCompat="@drawable/ic_add_playlist" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
