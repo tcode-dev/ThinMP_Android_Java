@@ -21,7 +21,7 @@ AndroidアプリのMusic Playerです。
 * minSdkVersion 23
 * targetSdkVersion 28
 
-Android6のNexus5で動作確認しています。
+Android 6（Nexus 5）で動作確認しています。
 
 ## 開発環境
 
