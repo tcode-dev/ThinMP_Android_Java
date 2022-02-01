@@ -5,7 +5,7 @@
 AndroidアプリのMusic Playerです。
 
 ## Sample
-<img src="https://lh3.googleusercontent.com/41Dk3t83uyh7ICd9cCoU1qOZWHo3kYJS7YxdOfy4g05FMLgiTiNYX4oZocnGEbW_Vuc=w574-h766-rw" width="142"> <img src="https://lh3.googleusercontent.com/ZQZleaC35phfMTZXTY9_R4hy9Qg49rc_Ot0Y7SMmD_dWZNbwIfO769H6tJDUsMupSMCS=w574-h766-rw" width="142"> <img src="https://lh3.googleusercontent.com/85MkKH2hPAKu8PaZdrf0swKksGTiVHHfvmBSkrIAyfHCMuw7Wb9MBg12vtnLsW1oC7E=w574-h766-rw" width="142"> <img src="https://lh3.googleusercontent.com/b7DUwjbI-OODGaTssT_QNFMjzHcTApHrT90nfUmN5KGvzhO0_F5vup3PLqk1v6ebQwI=w574-h766-rw" width="142"> <img src="https://lh3.googleusercontent.com/zje5VYzyEq79muAygW_TUKVT5K_8RBYhM-TVaXTog5zn6VVmqUoSJL1IyO7MyUlkWuI=w574-h766-rw" width="142"> <img src="https://lh3.googleusercontent.com/ZaRz_Q7s72FO5eL1mNIJ9gJtm3B1tU1BihtEtebMnL22ZEAOKKmUx8ZgUMo0AvDk=w574-h766-rw" width="142">
+<img src="https://lh3.googleusercontent.com/41Dk3t83uyh7ICd9cCoU1qOZWHo3kYJS7YxdOfy4g05FMLgiTiNYX4oZocnGEbW_Vuc=w574-h766-rw" width="140"> <img src="https://lh3.googleusercontent.com/ZQZleaC35phfMTZXTY9_R4hy9Qg49rc_Ot0Y7SMmD_dWZNbwIfO769H6tJDUsMupSMCS=w574-h766-rw" width="140"> <img src="https://lh3.googleusercontent.com/85MkKH2hPAKu8PaZdrf0swKksGTiVHHfvmBSkrIAyfHCMuw7Wb9MBg12vtnLsW1oC7E=w574-h766-rw" width="140"> <img src="https://lh3.googleusercontent.com/b7DUwjbI-OODGaTssT_QNFMjzHcTApHrT90nfUmN5KGvzhO0_F5vup3PLqk1v6ebQwI=w574-h766-rw" width="140"> <img src="https://lh3.googleusercontent.com/zje5VYzyEq79muAygW_TUKVT5K_8RBYhM-TVaXTog5zn6VVmqUoSJL1IyO7MyUlkWuI=w574-h766-rw" width="140"> <img src="https://lh3.googleusercontent.com/ZaRz_Q7s72FO5eL1mNIJ9gJtm3B1tU1BihtEtebMnL22ZEAOKKmUx8ZgUMo0AvDk=w574-h766-rw" width="140">
 
 ## 機能
 * 端末内の楽曲を再生
